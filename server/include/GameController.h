@@ -1,7 +1,7 @@
 #ifndef GAME_CONTROLLER_H
 #define GAME_CONTROLLER_H
 
-#include "StateManager.h"
+#include "GameState/StateManager.h"
 #include <memory>
 
 class GameController {

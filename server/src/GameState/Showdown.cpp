@@ -1,5 +1,5 @@
-#include "../include/State.h"
-#include "../include/StateManager.h"
+#include "../include/GameState/State.h"
+#include "../include/GameState/StateManager.h"
 
 void Showdown::enter() {
     cout << "State: Showdown" << endl;

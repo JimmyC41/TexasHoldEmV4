@@ -1,5 +1,5 @@
-#include "../include/State.h"
-#include "../include/StateManager.h"
+#include "../include/GameState/State.h"
+#include "../include/GameState/StateManager.h"
 
 void AnnounceWinner::enter() {
     cout << "State: Announce Winner" << endl;

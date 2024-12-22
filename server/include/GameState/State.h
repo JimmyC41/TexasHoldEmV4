@@ -43,7 +43,6 @@ public:
     void transition(StateManager& manager) override;
 };
 
-
 class Showdown : public State {
 public:
     void enter() override;

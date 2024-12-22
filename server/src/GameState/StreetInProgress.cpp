@@ -1,5 +1,5 @@
-#include "../include/State.h"
-#include "../include/StateManager.h"
+#include "../include/GameState/State.h"
+#include "../include/GameState/StateManager.h"
 
 void StreetInProgress::enter() {
     cout << "State: Street In Process" << endl;
