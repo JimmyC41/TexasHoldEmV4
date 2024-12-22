@@ -8,6 +8,12 @@ void GameUtil::setPlayerPosition(GameData& gameData, string id, Position positio
     }
 }
 
+vector<string>& GameUtil::getPlayerIds(GameData& gameData) {
+    vector<string> playerIds;
+    for (const auto& player : gameData.getPlayers()) playerIds.push_back(player->getId());
+    return playerIds;
+}
+
 shared_ptr<Player> GameUtil::getPlayer(GameData& gameData, string idOrName) {
     auto it = std::find_if(gameData.getPlayers().begin(), gameData.getPlayers().end(),
                             [&idOrName] (const shared_ptr<Player>& player) {

@@ -11,6 +11,7 @@ using namespace std;
 class PlayerUtil {
 public:
     static string generateUUID();
+    static vector<string>& playerPointersToIds(vector<shared_ptr<Player>>& players);
 };
 
 #endif

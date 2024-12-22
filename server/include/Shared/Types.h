@@ -34,11 +34,11 @@ typedef struct Pot {
 typedef struct HandInfo {
     HandInfo() : bitwise(), category(HandCategory::NONE), hand(), bestFiveCards(), handSize(0) {}
 
+    vector<Card> hand;          // Sorted vector of hand (hole and community cards)
+    int handSize;               // Size of the hand
     uint64_t bitwise;           // 64 bit representation of hand
     HandCategory category;      // Category of hand (e.g. flush)
-    vector<Card> hand;          // Sorted vector of hand (hole and community cards)
     vector<Card> bestFiveCards; // Best 5 card combination
-    int handSize;               // Sum of hole and community card count
 } HandInfo;
 }
 

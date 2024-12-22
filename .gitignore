@@ -12,3 +12,4 @@ _deps
 CMakeUserPresets.json
 .vscode/settings.json
 build/
+.vscode/c_cpp_properties.json

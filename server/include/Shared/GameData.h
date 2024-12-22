@@ -23,7 +23,7 @@ private:
     string bigBlindId;
     string buttonId;                            // ID of the player with the button
     vector<shared_ptr<Player>> gamePlayers;     // Ordered list of players by position
-    vector<string> sortedPlayerIds;             // Vector of IDs ranked on hand strengths
+    vector<string> rankedPlayerIds;             // Vector of IDs ranked on hand strengths
     vector<shared_ptr<Card>> communityCards;
     vector<shared_ptr<Pot>> pots;
     size_t deadChips;
@@ -39,7 +39,7 @@ public:
         curPlayerId(),
         buttonId(),
         gamePlayers(),
-        sortedPlayerIds(),
+        rankedPlayerIds(),
         communityCards(),
         pots(),
         deadChips(),
@@ -51,11 +51,12 @@ public:
     {}
 
     // SET Methods
-    void addPlayer(shared_ptr<Player> player);
-    void setBigBlindId(string id);
+    void addPlayer(const shared_ptr<Player>& player);
+    void setRankedPlayerIds(const vector<string>& ids);
+    void setBigBlindId(const string& id);
 
     // GET Methods
-    const string& getBigBlindId() const { return bigBlindId;}
+    const string& getBigBlindId() const { return bigBlindId; }
     const vector<shared_ptr<Player>>& getPlayers() { return gamePlayers; }
 };
 
