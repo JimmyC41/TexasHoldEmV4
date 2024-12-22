@@ -9,7 +9,7 @@ DealerManager DealerManager::createDealerManager(GameData& gameData, Deck& deck,
 void DealerManager::dealGamePlayers() {
     // Start dealing from the first player AFTER the Big Blind
     for (int i = 0; i < 2; i++) {
-        for (auto& player : gameData.getPreFlopOrderPlayers()) {
+        for (auto& player : GameUtil::getPreFlopOrderPlayers(gameData)) {
             Card& card = deck.dealCard();
             player->addHoleCard(card);
             cout << "   " << player->getName() << " has been dealt " << card.toString() << endl;

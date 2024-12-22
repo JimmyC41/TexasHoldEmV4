@@ -6,6 +6,7 @@
 #include "../Entities/Player.h"
 #include "../Entities/Board.h"
 #include "../Utils/PlayerUtil.h"
+#include "../Utils/GameUtil.h"
 #include <vector>
 
 using namespace std;

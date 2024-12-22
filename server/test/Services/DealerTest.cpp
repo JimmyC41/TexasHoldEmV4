@@ -4,6 +4,7 @@
 #include "../../include/Entities/Board.h"
 #include "../../include/Services/DealerManager.h"
 #include "../../include/Utils/TestUtil.h"
+#include "../../include/Utils/GameUtil.h"
 
 #include <set>
 #include <iostream>
@@ -31,8 +32,8 @@ protected:
 
     DealTest() : dealer(DealerManager::createDealerManager(gameData, deck, board)) {
         createPlayersInGameData(gameData, playersInfo);
-        gameData.setPlayerPosition("P2", Position::BIG_BLIND);
-        EXPECT_EQ(gameData.getNumPlayers(), 4);
+        GameUtil::setPlayerPosition(gameData, "P2", Position::BIG_BLIND);
+        EXPECT_EQ(GameUtil::getNumPlayers(gameData), 4);
     }
     
     void TearDown() override {
@@ -44,7 +45,7 @@ protected:
 
 TEST_F(DealTest, DealToPlayers) {
     dealer.dealGamePlayers();
-    EXPECT_TRUE(gameData.isPlayersDealt());
+    EXPECT_TRUE(GameUtil::isPlayersDealt(gameData));
 
     EXPECT_EQ(dealer.getDeckSize(), DECK_SIZE - 8);
 }
@@ -65,7 +66,7 @@ TEST_F(DealTest, DealToBoard) {
 
 TEST_F(DealTest, UniqueCardsDealt) {
     dealer.dealGamePlayers();
-    EXPECT_TRUE(gameData.isPlayersDealt());
+    EXPECT_TRUE(GameUtil::isPlayersDealt(gameData));
 
     dealer.dealBoard(3);
     dealer.dealBoard(1);
@@ -77,7 +78,7 @@ TEST_F(DealTest, UniqueCardsDealt) {
 
 TEST_F(DealTest, ResetDeck) {
     dealer.dealGamePlayers();
-    EXPECT_TRUE(gameData.isPlayersDealt());
+    EXPECT_TRUE(GameUtil::isPlayersDealt(gameData));
 
     dealer.dealBoard(5);
     int prevNumCards = dealer.getDeckSize();

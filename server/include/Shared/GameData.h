@@ -50,21 +50,13 @@ public:
         bigBlind()
     {}
 
-    // Setter Methods
+    // SET Methods
     void addPlayer(shared_ptr<Player> player);
-    void setPlayerPosition(string id, Position position);
+    void setBigBlindId(string id);
 
-    // Getter Methods that DO NOT modify the game state
-    shared_ptr<Player> getPlayer(string idOrName) const;
+    // GET Methods
     const string& getBigBlindId() const { return bigBlindId;}
-    vector<shared_ptr<Player>> getPreFlopOrderPlayers();
-
-    // Getter Methods that DO modify the game state
     const vector<shared_ptr<Player>>& getPlayers() { return gamePlayers; }
-
-    // Test Helper Methods
-    int getNumPlayers() const;
-    bool isPlayersDealt() const;
 };
 
 #endif
