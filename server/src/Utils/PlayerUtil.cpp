@@ -1,6 +1,6 @@
 #include "../include/Utils/PlayerUtil.h"
 
-string generateUUID() {
+string PlayerUtil::generateUUID() {
     uuid_t uuid;
     char uuidStr[37];
 

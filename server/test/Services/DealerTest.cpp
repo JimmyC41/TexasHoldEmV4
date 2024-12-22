@@ -31,7 +31,7 @@ protected:
     };
 
     DealTest() : dealer(DealerManager::createDealerManager(gameData, deck, board)) {
-        createPlayersInGameData(gameData, playersInfo);
+        TestUtil::createPlayersInGameData(gameData, playersInfo);
         GameUtil::setPlayerPosition(gameData, "P2", Position::BIG_BLIND);
         EXPECT_EQ(GameUtil::getNumPlayers(gameData), 4);
     }
@@ -39,7 +39,7 @@ protected:
     void TearDown() override {
         dealer.resetDeck();
         dealer.resetBoard();
-        clearPlayerHands(gameData);
+        TestUtil::clearPlayerHands(gameData);
     }
 };
 
@@ -72,8 +72,8 @@ TEST_F(DealTest, UniqueCardsDealt) {
     dealer.dealBoard(1);
     dealer.dealBoard(1);
 
-    vector<Card> allCards = aggregateDealtCards(gameData, dealer);
-    EXPECT_TRUE(isCardsUnique(allCards));
+    vector<Card> allCards = TestUtil::aggregateDealtCards(gameData, dealer);
+    EXPECT_TRUE(TestUtil::isCardsUnique(allCards));
 }
 
 TEST_F(DealTest, ResetDeck) {

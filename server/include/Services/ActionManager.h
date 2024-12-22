@@ -15,8 +15,7 @@ public:
 
     // Event: Triggered when the GameController receives a valid client action in the Street in Progress state.
     // To GameData: Updates vector<shared_ptr<Action>> actionTimeline.
-    // * need to implement the ClientAction class
-   void processClientAction(ClientAction action);
+   void processPlayerAction();
 
    // Event: Triggered when the GameController processes the client action in the Street in Progress state.
    // From GameData: Fetches vector<shared_ptr<Action>> actionTimeline.

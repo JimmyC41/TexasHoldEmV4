@@ -8,6 +8,9 @@
 #include <memory>
 using namespace std;
 
-string generateUUID();
+class PlayerUtil {
+public:
+    static string generateUUID();
+};
 
 #endif

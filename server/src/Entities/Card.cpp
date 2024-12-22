@@ -1,8 +1,14 @@
 #include "../../include/Entities/Card.h"
 
-Card::Card() : suit(Suit::HEARTS), value(Value::TWO), bitwise(computeBitwise(Suit::HEARTS, Value::TWO)) {}
+Card::Card() : 
+    suit(Suit::HEARTS),
+    value(Value::TWO),
+    bitwise(BitwiseUtil::computeBitwise(Suit::HEARTS, Value::TWO)) {}
 
-Card::Card(Suit suit, Value value) : suit(suit), value(value), bitwise(computeBitwise(suit, value)) {}
+Card::Card(Suit suit, Value value) : 
+    suit(suit), 
+    value(value),
+    bitwise(BitwiseUtil::computeBitwise(suit, value)) {}
 
 Suit Card::getSuit() const { return suit; }
 

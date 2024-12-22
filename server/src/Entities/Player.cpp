@@ -3,7 +3,7 @@
 
 Player::Player(string name, size_t chips) :
     name(name),
-    id(generateUUID()),
+    id(PlayerUtil::generateUUID()),
     position(Position::LOBBY),
     curChips(chips),
     hand(),

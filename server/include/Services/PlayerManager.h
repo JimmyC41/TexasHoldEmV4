@@ -9,12 +9,12 @@ public:
     // Event: Triggered when a new client requests to enter the game during the Game Setup state
     // ToGameData: Adds a new Player object to the vector<shared_ptr<Player>> gamePlayers
     // * to implement the ClientAction object
-    void addNewPlayer(ClientAction action);
+    void addNewPlayer();
 
     // Event: Triggered when a new client requests to leave the game during the Game Setup state
     // ToGameData: Removes the player from vector<shared_ptr<Player>> gamePlayers
     // * to implement the ClientAction object
-    void removeExistingPlayer(ClientAction action);
+    void removeExistingPlayer();
 
     int getNumPlayers() const;
 };

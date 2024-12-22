@@ -68,6 +68,20 @@ enum class ActionType {
     INVALID_ACTION
 };
 
+enum HandCategory {
+    NONE, // In Preflop, hand size is less than 5
+    HIGH_CARD,
+    ONE_PAIR,
+    TWO_PAIR,
+    THREE_OF_A_KIND,
+    STRAIGHT,
+    FLUSH,
+    FULL_HOUSE,
+    FOUR_OF_A_KIND,
+    STRAIGHT_FLUSH,
+    ROYAL_FLUSH
+};
+
 }
 
 #endif
