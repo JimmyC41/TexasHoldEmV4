@@ -12,8 +12,7 @@ using namespace std;
 
 class TestUtil {
 public:
-    static void createPlayersInGameData(GameData& gameData, vector<tuple<string, size_t, Position>> playersInfo);
-
+    static vector<pair<string, size_t>> getSubset(vector<pair<string, size_t>>& vec, int start, int end);
     static bool isCardsUnique(const vector<Card>& cards);
     static vector<Card> aggregateDealtCards(GameData& gameData, DealerManager& dealer);
 };

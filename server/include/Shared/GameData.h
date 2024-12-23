@@ -53,6 +53,8 @@ public:
 
     // SET Methods
     void addPlayer(const shared_ptr<Player>& player);
+    bool removePlayer(const shared_ptr<Player>& player);
+    void removeAllPlayers();
     void setRankedPlayerIds(const vector<string>& ids);
     void setBigBlindId(const string& id);
 

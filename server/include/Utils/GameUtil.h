@@ -5,9 +5,13 @@
 
 class GameUtil {
 public:
+    // Returns an iterator if a player with the given id or name exists
+    static vector<shared_ptr<Player>>::const_iterator findPlayerIt(GameData& gameData, string idOrName);
+
     // SET Methods
     static void setPlayerPosition(GameData& gameData, string id, Position position);
     static void clearPlayerHands(GameData& gameData);
+    static void removePlayer(GameData& gameData, string idOrName);
 
     // GET Methods
     static vector<string> getPlayerIds(GameData& gameData);

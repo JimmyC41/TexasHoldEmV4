@@ -1,11 +1,10 @@
 #include "../../include/Utils/TestUtil.h"
 #include "../../include/Entities/Board.h"
 
-void TestUtil::createPlayersInGameData(GameData& gameData, vector<tuple<string, size_t, Position>> playersInfo) {
-    for (const auto& info : playersInfo) {
-        shared_ptr<Player> player = make_shared<Player>(get<0>(info), get<1>(info));
-        gameData.addPlayer(player);
-    }
+vector<pair<string, size_t>> TestUtil::getSubset(
+    vector<pair<string, size_t>>& vec, int start, int end
+) {
+    return vector<pair<string, size_t>>(vec.begin() + start, vec.begin() + end);
 }
 
 bool TestUtil::isCardsUnique(const vector<Card>& cards) {

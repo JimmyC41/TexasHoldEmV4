@@ -1,5 +1,16 @@
 #include "../../include/Utils/GameUtil.h"
 
+vector<shared_ptr<Player>>::const_iterator GameUtil::findPlayerIt
+(
+    GameData& gameData, string idOrName
+) {
+    auto& players = gameData.getPlayers();
+    return find_if(players.begin(), players.end(),
+                    [&idOrName](const shared_ptr<Player>& player) {
+                        return (player->getId() == idOrName || player->getName() == idOrName);
+                    });
+}
+
 void GameUtil::setPlayerPosition(GameData& gameData, string id, Position position) {
     auto player = getPlayer(gameData, id);
     if (player != nullptr) {
@@ -23,10 +34,7 @@ vector<string> GameUtil::getPlayerIds(GameData& gameData) {
 }
 
 shared_ptr<Player> GameUtil::getPlayer(GameData& gameData, string idOrName) {
-    auto it = std::find_if(gameData.getPlayers().begin(), gameData.getPlayers().end(),
-                            [&idOrName] (const shared_ptr<Player>& player) {
-                                return ((player->getId() == idOrName) || (player->getName() == idOrName));
-                            });
+    auto it = findPlayerIt(gameData, idOrName);
     return (it != gameData.getPlayers().end())? (*it) : nullptr;
 }
 
