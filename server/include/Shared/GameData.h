@@ -4,6 +4,7 @@
 #include "Enums.h"
 #include "Types.h"
 #include "../Entities/Player.h"
+#include "../Entities/Board.h"
 #include <string>
 #include <memory>
 #include <vector>
@@ -27,7 +28,7 @@ private:
     string buttonId;                            // ID of the player with the button
     vector<shared_ptr<Player>> gamePlayers;     // Ordered list of players by position
     vector<string> rankedPlayerIds;             // Vector of IDs ranked on hand strengths
-    vector<shared_ptr<Card>> communityCards;
+    Board board;
     vector<shared_ptr<Pot>> pots;
     size_t deadChips;
     vector<shared_ptr<Action>> actionTimeline;  // An ordered list of actions in the current betting street
@@ -44,7 +45,7 @@ public:
         buttonId(),
         gamePlayers(),
         rankedPlayerIds(),
-        communityCards(),
+        board(),
         pots(),
         deadChips(),
         actionTimeline(),
@@ -66,6 +67,8 @@ public:
     void setBigBlindId(const string& id) { bigBlindId = id; }
     void setCurPlayerId(const string&id) { curPlayerId = id; }
     void setCurStreet(const Street& street) { curStreet = street; }
+    void dealCommunityCard(const Card& card) { board.addCommunityCard(card); }
+    void clearBoard() { board.resetBoard(); }
 
     // GET Methods
     const string& getSmallBlindId() const { return smallBlindId; }
@@ -74,6 +77,8 @@ public:
     const string& getCurPlayerId() const { return curPlayerId; }
     const vector<shared_ptr<Player>>& getPlayers() { return gamePlayers; }
     const Street getStreet() const { return curStreet; }
+    const Board& getBoard() const { return board; }
+    const vector<Card>& getBoardCards() const { return board.getCommunityCards(); }
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "../../include/Services/DealerManager.h"
 
-DealerManager::DealerManager(GameData& gameData) : gameData(gameData), deck(), board() {}
+DealerManager::DealerManager(GameData& gameData) : gameData(gameData), deck() {}
 
 void DealerManager::dealGamePlayers() {
     // Start dealing from the first player AFTER the Big Blind
@@ -16,27 +16,41 @@ void DealerManager::dealGamePlayers() {
     }
 }
 
-void DealerManager::resetDeck() {
-    deck.resetDeck();
-}
-
-void DealerManager::resetBoard() {
-    board.resetBoard();
-}
-
 void DealerManager::dealBoard(int num) {
     deck.burnCard();
     cout << "   Card burned..." << endl;
 
     for (int i = 0; i < num; ++i) {
         Card& communityCard = deck.dealCard();
-        board.addCommunityCard(communityCard);
+        gameData.dealCommunityCard(communityCard);
         cout << "   " << communityCard.toString() << " has been dealt to the board!" << endl;
     }
 }
 
-const Board& DealerManager::getBoard() const { return board; }
+void DealerManager::resetDeck() {
+    deck.resetDeck();
+}
 
-int DealerManager::getBoardSize() const { return board.getBoardSize(); }
+void DealerManager::clearBoard() {
+    gameData.clearBoard();
+}
 
-int DealerManager::getDeckSize() const { return deck.getDeckSize(); }
+void DealerManager::clearPlayerHands() {
+    GameUtil::clearPlayerHands(gameData);
+}
+
+const vector<Card>& DealerManager::getBoardCards() const { 
+    return gameData.getBoardCards();
+}
+
+const Board& DealerManager::getBoard() const {
+    return gameData.getBoard();
+}
+
+int DealerManager::getBoardSize() const {
+    return GameUtil::getBoardSize(gameData);
+}
+
+int DealerManager::getDeckSize() const {
+    return deck.getDeckSize();
+}

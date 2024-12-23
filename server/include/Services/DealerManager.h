@@ -15,7 +15,6 @@ class DealerManager {
 private:
     GameData& gameData;
     Deck deck;
-    Board board;
 public:
     DealerManager(GameData& gameData);
 
@@ -23,10 +22,11 @@ public:
     void dealBoard(int num);    // Burns 1 card, then deals 'num' number of community cards to the board
 
     void resetDeck();
-    void resetHoleHands();
-    void resetBoard();
+    void clearPlayerHands();
+    void clearBoard();
 
     // Getter Methods
+    const vector<Card>& getBoardCards() const;
     const Board& getBoard() const;
     int getBoardSize() const;
     int getDeckSize() const;

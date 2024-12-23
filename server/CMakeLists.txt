@@ -31,9 +31,9 @@ function(addTest TEST_NAME, TEST_FILE)
 endfunction()
 
 set(TEST_FILES
-    #DealerTest
     PlayerTest
     PositionTest
+    DealerTest
 )
 
 foreach(TEST_NAME IN LISTS TEST_FILES)

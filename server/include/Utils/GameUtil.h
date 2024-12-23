@@ -27,6 +27,7 @@ public:
     static vector<shared_ptr<Player>> getOccupiedPlayers(GameData& gameData);
     static int getNumPlayers(GameData& gameData);
     static bool isPlayersDealt(GameData& gameData);
+    static int getBoardSize(GameData& gameData);
 };
 
 #endif

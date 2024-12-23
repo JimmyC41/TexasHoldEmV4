@@ -1,9 +1,6 @@
 #include "../../include/Utils/GameUtil.h"
 
-vector<shared_ptr<Player>>::const_iterator GameUtil::findPlayerIt
-(
-    GameData& gameData, string idOrName
-) {
+vector<shared_ptr<Player>>::const_iterator GameUtil::findPlayerIt(GameData& gameData, string idOrName) {
     auto& players = gameData.getPlayers();
     return find_if(players.begin(), players.end(),
                     [&idOrName](const shared_ptr<Player>& player) {
@@ -80,17 +77,13 @@ vector<shared_ptr<Player>> GameUtil::getPreFlopOrderPlayers(GameData& gameData) 
     auto bigBlindId = gameData.getBigBlindId();
     auto preFlopOrder = gameData.getPlayers();
 
-    if (preFlopOrder.empty()) {
-        cout << "Error: No players in game data!" << endl;
-    }
-
     auto bigBlindIt = std::find_if(preFlopOrder.begin(), preFlopOrder.end(),
                                     [&bigBlindId] (const shared_ptr<Player>& player) {
                                         return player->getId() == bigBlindId;
                                     });
     
     if (bigBlindIt != preFlopOrder.end()) {
-        std::rotate(preFlopOrder.begin(), std::next(bigBlindIt), preFlopOrder.end());
+        rotate(preFlopOrder.begin(), std::next(bigBlindIt), preFlopOrder.end());
     }
 
     return preFlopOrder;
@@ -117,4 +110,8 @@ bool GameUtil::isPlayersDealt(GameData& gameData) {
         if (player->getHand().size() != 2) return false;
     }
     return true;
+}
+
+int GameUtil::getBoardSize(GameData& gameData) {
+    return gameData.getBoard().getBoardSize();
 }
