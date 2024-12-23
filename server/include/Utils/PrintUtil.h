@@ -6,6 +6,7 @@
 class PrintUtil {
 public:
     static void printPlayers(GameData& gameData);
+    static string positionToString(Position position);
 };
 
 #endif

@@ -2,6 +2,8 @@
 #define GAME_UTIL
 
 #include "../Shared/GameData.h"
+#include "PrintUtil.h"
+#include <algorithm>
 
 class GameUtil {
 public:
@@ -15,8 +17,14 @@ public:
 
     // GET Methods
     static vector<string> getPlayerIds(GameData& gameData);
+    static vector<string> getListofNames(GameData& gameData);
+    static vector<Position> getListOfPositions(GameData& gameData);
+    static string getPlayerNameFromId(GameData& gameData, string id);
     static shared_ptr<Player> getPlayer(GameData& gameData, string idOrName);
+    static shared_ptr<Player> getEarlyPosition(GameData& gameData);
+    static shared_ptr<Player> getNextPlayer(GameData& gameData, string idOrName);
     static vector<shared_ptr<Player>> getPreFlopOrderPlayers(GameData& gameData);
+    static vector<shared_ptr<Player>> getOccupiedPlayers(GameData& gameData);
     static int getNumPlayers(GameData& gameData);
     static bool isPlayersDealt(GameData& gameData);
 };

@@ -7,6 +7,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <algorithm>
 
 class Player;
 class Card;
@@ -21,6 +22,7 @@ class GameData {
 private:
     Street curStreet;
     string curPlayerId;                         // ID of the player to act
+    string smallBlindId;
     string bigBlindId;
     string buttonId;                            // ID of the player with the button
     vector<shared_ptr<Player>> gamePlayers;     // Ordered list of players by position
@@ -36,6 +38,7 @@ private:
 public:
     GameData() : 
         curStreet(Street::NONE),
+        smallBlindId(),
         bigBlindId(),
         curPlayerId(),
         buttonId(),
@@ -54,13 +57,23 @@ public:
     // SET Methods
     void addPlayer(const shared_ptr<Player>& player);
     bool removePlayer(const shared_ptr<Player>& player);
-    void removeAllPlayers();
-    void setRankedPlayerIds(const vector<string>& ids);
-    void setBigBlindId(const string& id);
+    void sortPlayersByPosition();
+    void setLastPlayerAsButton();
+
+    void removeAllPlayers() { gamePlayers.clear(); }
+    void setRankedPlayerIds(const vector<string>& ids) { rankedPlayerIds = ids; }
+    void setSmallBlindId(const string& id) { smallBlindId = id; }
+    void setBigBlindId(const string& id) { bigBlindId = id; }
+    void setCurPlayerId(const string&id) { curPlayerId = id; }
+    void setCurStreet(const Street& street) { curStreet = street; }
 
     // GET Methods
+    const string& getSmallBlindId() const { return smallBlindId; }
     const string& getBigBlindId() const { return bigBlindId; }
-    const vector<shared_ptr<Player>>& getPlayers();
+    const string& getButtonId() const { return buttonId; }
+    const string& getCurPlayerId() const { return curPlayerId; }
+    const vector<shared_ptr<Player>>& getPlayers() { return gamePlayers; }
+    const Street getStreet() const { return curStreet; }
 };
 
 #endif

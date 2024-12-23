@@ -27,7 +27,7 @@ enum class Value {
 };
 
 enum class Position {
-    LOBBY,
+    LOBBY = 0,
     SMALL_BLIND,
     BIG_BLIND,
     UTG,

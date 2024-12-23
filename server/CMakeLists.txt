@@ -33,6 +33,7 @@ endfunction()
 set(TEST_FILES
     #DealerTest
     PlayerTest
+    PositionTest
 )
 
 foreach(TEST_NAME IN LISTS TEST_FILES)

@@ -1,6 +1,10 @@
 #include "../../include/Utils/TestUtil.h"
 #include "../../include/Entities/Board.h"
 
+void TestUtil::manualSetStreet(GameData& GameData, Street newStreet) {
+    GameData.setCurStreet(newStreet);
+}
+
 vector<pair<string, size_t>> TestUtil::getSubset(
     vector<pair<string, size_t>>& vec, int start, int end
 ) {

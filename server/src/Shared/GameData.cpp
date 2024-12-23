@@ -8,7 +8,6 @@ bool GameData::removePlayer(const shared_ptr<Player>& player) {
     auto it = find(gamePlayers.begin(), gamePlayers.end(), player);
     if (it != gamePlayers.end()) {
         gamePlayers.erase(it);
-        cout << "Player removed from Game Data: " << player->getName() << '\n' << endl;
         return true;
     } else {
         cout << "Player cannot be found for removal!" << '\n' << endl;
@@ -16,18 +15,16 @@ bool GameData::removePlayer(const shared_ptr<Player>& player) {
     }
 }
 
-void GameData::removeAllPlayers() {
-    gamePlayers.clear();
+void GameData::setLastPlayerAsButton() {
+    if (!gamePlayers.empty()) {
+        auto& buttonPlayer = gamePlayers.back();
+        buttonId = buttonPlayer->getId();
+    }
 }
 
-void GameData::setRankedPlayerIds(const vector<string>& ids) {
-    rankedPlayerIds = ids;
-}
-
-void GameData::setBigBlindId(const string& id) {
-    bigBlindId = id;
-}
-
-const vector<shared_ptr<Player>>& GameData::getPlayers() {
-    return gamePlayers;
+void GameData::sortPlayersByPosition() {
+    sort(gamePlayers.begin(), gamePlayers.end(),
+        [](const shared_ptr<Player>& a, const shared_ptr<Player>& b) {
+            return static_cast<int>(a->getPosition()) < static_cast<int>(b->getPosition());
+        });
 }

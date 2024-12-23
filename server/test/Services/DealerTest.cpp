@@ -14,6 +14,8 @@
 using namespace std;
 using Position = Enums::Position;
 
+// DO THIS AFTER POSITION MANAGER..
+
 class DealTest : public ::testing::Test {
 protected:
     DealerManager dealer;
@@ -30,6 +32,7 @@ protected:
 
     DealTest() 
         : dealer(gameData) {
+        playerManager.addNewPlayers()
         TestUtil::createPlayersInGameData(gameData, playersInfo);
         GameUtil::setPlayerPosition(gameData, "P2", Position::BIG_BLIND);
         EXPECT_EQ(GameUtil::getNumPlayers(gameData), 4);

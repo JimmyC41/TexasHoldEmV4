@@ -33,15 +33,52 @@ vector<string> GameUtil::getPlayerIds(GameData& gameData) {
     return playerIds;
 }
 
+vector<string> GameUtil::getListofNames(GameData& gameData) {
+    vector<string> playerNames;
+    for (const auto& player : gameData.getPlayers()) playerNames.push_back(player->getName());
+    return playerNames;
+}
+
+vector<Position> GameUtil::getListOfPositions(GameData& gameData) {
+    vector<Position> positions;
+    auto players = gameData.getPlayers();
+    for (const auto& player : players) {
+        positions.emplace_back(player->getPosition());
+    }
+    return positions;
+}
+
+string GameUtil::getPlayerNameFromId(GameData& gameData, string id) {
+    auto player = getPlayer(gameData, id);
+    return player->getName();
+}
+
 shared_ptr<Player> GameUtil::getPlayer(GameData& gameData, string idOrName) {
     auto it = findPlayerIt(gameData, idOrName);
     return (it != gameData.getPlayers().end())? (*it) : nullptr;
 }
 
+shared_ptr<Player> GameUtil::getEarlyPosition(GameData& gameData) {
+    auto players = gameData.getPlayers();
+    return players.front();
+}
+
+shared_ptr<Player> GameUtil::getNextPlayer(GameData& gameData, string idOrName) {
+    shared_ptr<Player> prev = getPlayer(gameData, idOrName);
+    vector<shared_ptr<Player>> players = gameData.getPlayers();
+
+    auto it = find(players.begin(), players.end(), prev);
+    if (it != players.end()) {
+        ++it;
+        if (it == players.end()) it = players.begin();
+    }
+
+    return *it;
+}
+
 vector<shared_ptr<Player>> GameUtil::getPreFlopOrderPlayers(GameData& gameData) {
     auto bigBlindId = gameData.getBigBlindId();
     auto preFlopOrder = gameData.getPlayers();
-    cout << "getPreFlopOrderPlayers called. Total players: " << preFlopOrder.size() << endl;
 
     if (preFlopOrder.empty()) {
         cout << "Error: No players in game data!" << endl;
@@ -57,6 +94,18 @@ vector<shared_ptr<Player>> GameUtil::getPreFlopOrderPlayers(GameData& gameData) 
     }
 
     return preFlopOrder;
+}
+
+vector<shared_ptr<Player>> GameUtil::getOccupiedPlayers(GameData& gameData) {
+    auto gamePlayers = gameData.getPlayers();
+    vector<shared_ptr<Player>> occupiedPlayers;
+
+    copy_if(gamePlayers.begin(), gamePlayers.end(), back_inserter(occupiedPlayers),
+            [](const shared_ptr<Player>& player) {
+                return player->getPosition() != Position::LOBBY;
+            });
+
+    return occupiedPlayers;
 }
 
 int GameUtil::getNumPlayers(GameData& gameData) {
