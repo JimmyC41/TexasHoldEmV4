@@ -14,8 +14,6 @@ class TestUtil {
 public:
     static void createPlayersInGameData(GameData& gameData, vector<tuple<string, size_t, Position>> playersInfo);
 
-    static void clearPlayerHands(GameData& gameData);
-
     static bool isCardsUnique(const vector<Card>& cards);
     static vector<Card> aggregateDealtCards(GameData& gameData, DealerManager& dealer);
 };

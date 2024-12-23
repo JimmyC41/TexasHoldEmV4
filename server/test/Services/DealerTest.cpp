@@ -16,8 +16,6 @@ using Position = Enums::Position;
 
 class DealTest : public ::testing::Test {
 protected:
-    Deck deck;
-    Board board;
     DealerManager dealer;
     GameData gameData;
     vector<shared_ptr<Player>> gamePlayers;
@@ -30,7 +28,8 @@ protected:
         {"P4", 500, Position::CUT_OFF}
     };
 
-    DealTest() : dealer(DealerManager::createDealerManager(gameData, deck, board)) {
+    DealTest() 
+        : dealer(gameData) {
         TestUtil::createPlayersInGameData(gameData, playersInfo);
         GameUtil::setPlayerPosition(gameData, "P2", Position::BIG_BLIND);
         EXPECT_EQ(GameUtil::getNumPlayers(gameData), 4);
@@ -39,7 +38,7 @@ protected:
     void TearDown() override {
         dealer.resetDeck();
         dealer.resetBoard();
-        TestUtil::clearPlayerHands(gameData);
+        GameUtil::clearPlayerHands(gameData);
     }
 };
 
@@ -48,6 +47,7 @@ TEST_F(DealTest, DealToPlayers) {
     EXPECT_TRUE(GameUtil::isPlayersDealt(gameData));
 
     EXPECT_EQ(dealer.getDeckSize(), DECK_SIZE - 8);
+    EXPECT_EQ(GameUtil::getNumPlayers(gameData), 4);
 }
 
 TEST_F(DealTest, DealToBoard) {
@@ -62,10 +62,12 @@ TEST_F(DealTest, DealToBoard) {
     dealer.dealBoard(1);
     EXPECT_EQ(dealer.getBoardSize(), 5);
     EXPECT_EQ(dealer.getDeckSize(), DECK_SIZE - 8);
+    EXPECT_EQ(GameUtil::getNumPlayers(gameData), 4);
 }
 
 TEST_F(DealTest, UniqueCardsDealt) {
     dealer.dealGamePlayers();
+    EXPECT_EQ(GameUtil::getNumPlayers(gameData), 4);
     EXPECT_TRUE(GameUtil::isPlayersDealt(gameData));
 
     dealer.dealBoard(3);
@@ -86,6 +88,7 @@ TEST_F(DealTest, ResetDeck) {
     dealer.resetDeck();
     EXPECT_EQ(dealer.getDeckSize(), DECK_SIZE);
     EXPECT_NE(dealer.getDeckSize(), prevNumCards);
+    EXPECT_EQ(GameUtil::getNumPlayers(gameData), 4);
 }
 
 TEST_F(DealTest, ResetBoard) {
@@ -100,4 +103,5 @@ TEST_F(DealTest, ResetBoard) {
     dealer.dealBoard(1);
     dealer.resetBoard();
     EXPECT_EQ(dealer.getBoardSize(), 0);
+    EXPECT_EQ(GameUtil::getNumPlayers(gameData), 4);
 }

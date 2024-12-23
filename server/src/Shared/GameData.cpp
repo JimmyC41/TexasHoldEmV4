@@ -11,3 +11,7 @@ void GameData::setRankedPlayerIds(const vector<string>& ids) {
 void GameData::setBigBlindId(const string& id) {
     bigBlindId = id;
 }
+
+const vector<shared_ptr<Player>>& GameData::getPlayers() {
+    return gamePlayers;
+}

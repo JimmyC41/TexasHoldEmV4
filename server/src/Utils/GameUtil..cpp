@@ -8,7 +8,15 @@ void GameUtil::setPlayerPosition(GameData& gameData, string id, Position positio
     }
 }
 
-vector<string>& GameUtil::getPlayerIds(GameData& gameData) {
+void GameUtil::clearPlayerHands(GameData& gameData) {
+    auto& players = gameData.getPlayers();
+    for (auto& player: players) {
+        player->clearHand();
+    }
+    cout << "All player hands cleared." << endl;
+}
+
+vector<string> GameUtil::getPlayerIds(GameData& gameData) {
     vector<string> playerIds;
     for (const auto& player : gameData.getPlayers()) playerIds.push_back(player->getId());
     return playerIds;
@@ -23,8 +31,13 @@ shared_ptr<Player> GameUtil::getPlayer(GameData& gameData, string idOrName) {
 }
 
 vector<shared_ptr<Player>> GameUtil::getPreFlopOrderPlayers(GameData& gameData) {
-    auto preFlopOrder = gameData.getPlayers();
     auto bigBlindId = gameData.getBigBlindId();
+    auto preFlopOrder = gameData.getPlayers();
+    cout << "getPreFlopOrderPlayers called. Total players: " << preFlopOrder.size() << endl;
+
+    if (preFlopOrder.empty()) {
+        cout << "Error: No players in game data!" << endl;
+    }
 
     auto bigBlindIt = std::find_if(preFlopOrder.begin(), preFlopOrder.end(),
                                     [&bigBlindId] (const shared_ptr<Player>& player) {

@@ -10,7 +10,7 @@ string PlayerUtil::generateUUID() {
     return string(uuidStr);
 }
 
-vector<string>& PlayerUtil::playerPointersToIds(vector<shared_ptr<Player>>& players) {
+vector<string> PlayerUtil::playerPointersToIds(vector<shared_ptr<Player>>& players) {
     vector<string> ids;
     for (const auto& player : players) ids.push_back(player->getId());
     return ids;

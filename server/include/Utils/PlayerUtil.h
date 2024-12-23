@@ -8,10 +8,12 @@
 #include <memory>
 using namespace std;
 
+class Player;
+
 class PlayerUtil {
 public:
     static string generateUUID();
-    static vector<string>& playerPointersToIds(vector<shared_ptr<Player>>& players);
+    static vector<string> playerPointersToIds(vector<shared_ptr<Player>>& players);
 };
 
 #endif

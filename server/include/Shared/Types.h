@@ -2,8 +2,10 @@
 #define TYPES_H
 
 #include "Enums.h"
+#include "../Entities/Card.h"
 #include <cstddef>
 #include <string>
+#include <vector>
 
 class Card;
 

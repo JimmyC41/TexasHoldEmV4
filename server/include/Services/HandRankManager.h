@@ -22,6 +22,7 @@ private:
     // For players in the GameData, gather and record information about their hand.
     void populateHandsInfo(GameData& gameData);
 
+    // Returns true if handA is stronger than handB
     bool compareHands(const HandInfo& handA, const HandInfo& handB);
 public:
     HandRankManager(GameData& gameData) : gameData(gameData), handsInfo() {}

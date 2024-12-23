@@ -8,10 +8,6 @@ void TestUtil::createPlayersInGameData(GameData& gameData, vector<tuple<string, 
     }
 }
 
-void TestUtil::clearPlayerHands(GameData& gameData) {
-    for (auto& player : gameData.getPlayers()) player->clearHand();
-}
-
 bool TestUtil::isCardsUnique(const vector<Card>& cards) {
     set<Card> uniqueCards(cards.begin(), cards.end());
     return uniqueCards.size() == cards.size();

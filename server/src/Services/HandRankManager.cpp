@@ -38,6 +38,6 @@ void HandRankManager::evaluateRankedIds(GameData& gameData) {
             return compareHands(handsInfo.at(a->getId()), handsInfo.at(b->getId()));
         });
     
-    vector<string>& rankedIds = PlayerUtil::playerPointersToIds(rankedPlayers);
+    vector<string> rankedIds = PlayerUtil::playerPointersToIds(rankedPlayers);
     gameData.setRankedPlayerIds(rankedIds);
 }

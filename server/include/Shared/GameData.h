@@ -6,6 +6,7 @@
 #include "../Entities/Player.h"
 #include <string>
 #include <memory>
+#include <vector>
 
 class Player;
 class Card;
@@ -57,7 +58,7 @@ public:
 
     // GET Methods
     const string& getBigBlindId() const { return bigBlindId; }
-    const vector<shared_ptr<Player>>& getPlayers() { return gamePlayers; }
+    const vector<shared_ptr<Player>>& getPlayers();
 };
 
 #endif
