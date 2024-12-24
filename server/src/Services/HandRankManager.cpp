@@ -2,7 +2,8 @@
 
 void HandRankManager::populateHandsInfo(GameData& gameData) {
     // For each player in the game
-    for (const auto& player : gameData.getPlayers()) {
+    auto players = gameData.getPlayers();
+    for (auto& player : players) {
         // Fetch the hand and get the relevant handInfo object
         const auto& hand = player->getHand();
         HandInfo& handInfo = handsInfo[player->getId()];

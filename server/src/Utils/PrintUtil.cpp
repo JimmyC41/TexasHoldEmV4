@@ -51,7 +51,7 @@ string PrintUtil::categoryToString(HandCategory category) {
         case HandCategory::THREE_OF_A_KIND: return "Three of a Kind";
         case HandCategory::STRAIGHT: return "Straight";
         case HandCategory::FLUSH: return "Flush";
-        case HandCategory:: FULL_HOUSE: return "Full House";
+        case HandCategory::FULL_HOUSE: return "Full House";
         case HandCategory::FOUR_OF_A_KIND: return "Four of a Kind";
         case HandCategory::STRAIGHT_FLUSH: return "Straight Flush";
         case HandCategory::ROYAL_FLUSH: return "Royal Flush";

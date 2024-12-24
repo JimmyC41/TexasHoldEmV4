@@ -119,7 +119,6 @@ bool HandRankUtil::isNOfAKind(HandInfo& hand, int n) {
     return false;
 }
 
-
 bool HandRankUtil::isTwoPair(HandInfo& hand) {
     Value pairOne = static_cast<Value>(-1);
     Value pairTwo = static_cast<Value>(-1);
@@ -139,7 +138,6 @@ bool HandRankUtil::isTwoPair(HandInfo& hand) {
         return false;
     }
 }
-
 
 bool HandRankUtil::isHighCard(HandInfo& hand) {
     hand.category = HandCategory::HIGH_CARD;

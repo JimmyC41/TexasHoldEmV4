@@ -5,6 +5,9 @@
 #include "../Shared/Types.h"
 #include "../Shared/Enums.h"
 #include "../Entities/Card.h"
+#include "../Utils/PrintUtil.h"
+
+#include <iostream>
 #include <algorithm>
 
 using Value = Enums::Value;
@@ -13,7 +16,7 @@ using HandCategory = Enums::HandCategory;
 using HandInfo = Types::HandInfo;
 using namespace std;
 
-constexpr int MIN_HAND_SIZE = 7;
+constexpr int MIN_HAND_SIZE = 5;
 
 class HandRankUtil {
 public:

@@ -61,7 +61,7 @@ protected:
         );
     }
 
-    // Checks if the Hand Evaluator correctly ranked the players by hand strength
+    // Deals players, calls hand evaluator to rank players and checks if the hand ranking is as expected
     void verifyHandRanking(GameData& gameData, vector<pair<Suit, Value>> cards, vector<string> expectedRanking) {
         // Create a vector of player names e.g. {"P1", "P2", "P3"}
         vector<string> playerNames;
@@ -179,6 +179,29 @@ TEST_F(HandRankTest, FullHouse) {
         TestUtil::strToVectorOfCards("AsAhAd5d5s")
     );
 
+};
+
+TEST_F(HandRankTest, Flush) {
+    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, 1));
+
+    vector<pair<Suit, Value>> flush = {
+        {Suit::SPADES, Value::TWO},
+        {Suit::SPADES, Value::THREE},
+        {Suit::SPADES, Value::FOUR},
+        {Suit::SPADES, Value::FIVE},
+        {Suit::DIAMONDS, Value::ACE},
+        {Suit::HEARTS, Value::SIX},
+        {Suit::SPADES, Value::SEVEN}
+    };
+
+    TestUtil::dealCardsToPlayers(gameData, {"P1"}, flush);
+    handRankManager.evaluateRankedIds();
+
+    verifyHandEvaluation(gameData,
+        "P1",
+        HandCategory::FLUSH,
+        TestUtil::strToVectorOfCards("7s5s4s3s2s")
+    );
 };
 
 TEST_F(HandRankTest, Straight) {
@@ -332,9 +355,11 @@ TEST_F(HandRankTest, FullHouseTie) {
         {Suit::SPADES, Value::QUEEN},
         {Suit::DIAMONDS, Value::THREE},
         {Suit::HEARTS, Value::THREE},
+
         // Player 1
         {Suit::SPADES, Value::ACE},
         {Suit::CLUBS, Value::QUEEN},
+        
         // Player 2
         {Suit::DIAMONDS, Value::QUEEN},
         {Suit::HEARTS, Value::QUEEN}
@@ -353,15 +378,19 @@ TEST_F(HandRankTest, FlushTie) {
         {Suit::HEARTS, Value::FOUR},
         {Suit::HEARTS, Value::FIVE},
         {Suit::HEARTS, Value::SIX},
+
         // Player 1
         {Suit::HEARTS, Value::ACE},
         {Suit::HEARTS, Value::KING},
+
         // Player 2
         {Suit::HEARTS, Value::QUEEN},
         {Suit::HEARTS, Value::JACK},
+
         // Player 3
         {Suit::HEARTS, Value::SEVEN},
         {Suit::HEARTS, Value::EIGHT},
+
         //Player 4
         {Suit::HEARTS, Value::NINE},
         {Suit::HEARTS, Value::TEN}
@@ -380,12 +409,15 @@ TEST_F(HandRankTest, StraightTie) {
         {Suit::HEARTS, Value::FIVE},
         {Suit::HEARTS, Value::SIX},
         {Suit::HEARTS, Value::SEVEN},
+
         // Player 1
         {Suit::SPADES, Value::EIGHT},
         {Suit::SPADES, Value::NINE},
+
         // Player 2
         {Suit::CLUBS, Value::FOUR},
         {Suit::CLUBS, Value::EIGHT},
+
         // Player 3
         {Suit::HEARTS, Value::EIGHT},
         {Suit::HEARTS, Value::NINE}
@@ -404,9 +436,11 @@ TEST_F(HandRankTest, ThreeOfAKindTie) {
         {Suit::HEARTS, Value::SIX},
         {Suit::DIAMONDS, Value::SIX},
         {Suit::CLUBS, Value::TWO},
+
         // Player 1
         {Suit::SPADES, Value::SIX},
         {Suit::HEARTS, Value::QUEEN},
+
         // Player 2
         {Suit::CLUBS, Value::SIX},
         {Suit::HEARTS, Value::KING}
@@ -425,12 +459,15 @@ TEST_F(HandRankTest, TwoPairTie) {
         {Suit::CLUBS, Value::TWO},
         {Suit::CLUBS, Value::THREE},
         {Suit::CLUBS, Value::FOUR},
+
         // Player 1
         {Suit::DIAMONDS, Value::FOUR},
         {Suit::DIAMONDS, Value::KING},
+
         // Player 2
         {Suit::HEARTS, Value::FOUR},
         {Suit::DIAMONDS, Value::QUEEN},
+
         // Player 3
         {Suit::SPADES, Value::FOUR},
         {Suit::DIAMONDS, Value::JACK},
@@ -440,7 +477,7 @@ TEST_F(HandRankTest, TwoPairTie) {
 };
 
 TEST_F(HandRankTest, ComplexHandRanking) {
-    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, 3));
+    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, 9));
 
     vector<pair<Suit, Value>> cards = {
         // Boards
@@ -449,31 +486,40 @@ TEST_F(HandRankTest, ComplexHandRanking) {
         {Suit::CLUBS, Value::SIX},
         {Suit::SPADES, Value::SEVEN},
         {Suit::SPADES, Value::ACE},
-        // Player 1
+
+        // Player 1: 6 Straight Flush 
         {Suit::CLUBS, Value::TWO},
         {Suit::CLUBS, Value::THREE},
-        // Player 2
+
+        // Player 2: K Flush
         {Suit::CLUBS, Value::KING},
         {Suit::CLUBS, Value::QUEEN},
-        // Player 3
+
+        // Player 3: 4-5 2-Pair
         {Suit::HEARTS, Value::FOUR},
         {Suit::HEARTS, Value::FIVE},
-        // Player 4
+
+        // Player 4: 9 Straight
         {Suit::HEARTS, Value::EIGHT},
         {Suit::HEARTS, Value::NINE},
-        // Player 5
+
+        // Player 5: A Pair 2 Kicker
         {Suit::HEARTS, Value::ACE},
         {Suit::HEARTS, Value::TWO},
-        // Player 6
+
+        // Player 6: A Pair 10 Kicker
         {Suit::DIAMONDS, Value::ACE},
         {Suit::HEARTS, Value::TEN},
-        // Player 7
+
+        // Player 7: A-7 2-Pair
         {Suit::CLUBS, Value::ACE},
         {Suit::HEARTS, Value::SEVEN},
-        // Player 8
+
+        // Player 8: J Flush
         {Suit::CLUBS, Value::JACK},
         {Suit::CLUBS, Value::TEN},
-        // Player 9
+
+        // Player 9: 4 Three of a Kind
         {Suit::DIAMONDS, Value::FOUR},
         {Suit::SPADES, Value::FOUR}
     };
