@@ -79,6 +79,7 @@ public:
     const Street getStreet() const { return curStreet; }
     const Board& getBoard() const { return board; }
     const vector<Card>& getBoardCards() const { return board.getCommunityCards(); }
+    const vector<string>& getRankedIds() const { return rankedPlayerIds; }
 };
 
 #endif

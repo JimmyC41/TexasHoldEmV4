@@ -14,6 +14,7 @@ void HandRankUtil::sortHand(HandInfo& handInfo) {
 void HandRankUtil::evaluateHandInfo(HandInfo& hand) {
     if (hand.handSize < MIN_HAND_SIZE) {
         hand.category = HandCategory::NONE;
+        hand.bestFiveCards = hand.hand;
         return;
     }
     else if (isRoyalFlush(hand)) return;

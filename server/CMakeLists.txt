@@ -34,6 +34,7 @@ set(TEST_FILES
     PlayerTest
     PositionTest
     DealerTest
+    HandRankTest
 )
 
 foreach(TEST_NAME IN LISTS TEST_FILES)

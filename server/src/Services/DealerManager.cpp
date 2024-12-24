@@ -47,6 +47,10 @@ const Board& DealerManager::getBoard() const {
     return gameData.getBoard();
 }
 
+const Deck& DealerManager::getDeck() const {
+    return deck;
+}
+
 int DealerManager::getBoardSize() const {
     return GameUtil::getBoardSize(gameData);
 }

@@ -6,7 +6,9 @@
 class PrintUtil {
 public:
     static void printPlayers(GameData& gameData);
+    static string printVectorCards(const vector<Card>& cards);
     static string positionToString(Position position);
+    static string categoryToString(HandCategory category);
 };
 
 #endif

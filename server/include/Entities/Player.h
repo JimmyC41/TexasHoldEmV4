@@ -21,6 +21,8 @@ private:
     Position position;
     size_t curChips;
     vector<Card> hand;
+    HandCategory handCategory;
+    vector<Card> bestFiveCards;
     PlayerStatus playerStatus;
     bool isActing;
     size_t initialChips; // Chips the player started the street with
@@ -39,17 +41,21 @@ public:
     void setInitialChips(size_t chips);
     void setPossibleActions(const vector<shared_ptr<Action>>& actions);
     void setRecentBet(size_t newBet);
+    void setHandCategory(HandCategory category);
+    void setBestFiveCards(vector<Card>& cards);
 
     const string& getId() const;
     const string& getName() const;
     Position getPosition() const;
     size_t getCurChips() const;
     const vector<Card>& getHand() const;
+    const vector<Card>& getBestFiveCards() const;
     PlayerStatus getPlayerStatus() const;
     bool getIsActing() const;
     size_t getInitialChips() const;
     const vector<shared_ptr<Action>>& getPossibleActions() const;
     size_t getRecentBet() const;
+    HandCategory getHandCategory() const;
 };
 
 #endif

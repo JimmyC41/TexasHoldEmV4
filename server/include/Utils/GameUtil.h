@@ -21,6 +21,9 @@ public:
     static vector<Position> getListOfPositions(GameData& gameData);
     static string getPlayerNameFromId(GameData& gameData, string id);
     static shared_ptr<Player> getPlayer(GameData& gameData, string idOrName);
+    static HandCategory getPlayerHandCategory(GameData& gameData, string idOrName);
+    static vector<Card> getPlayerBestFiveCards(GameData& gameData, string idOrName);
+    static vector<string> getRankedNames(GameData& gameData);
     static shared_ptr<Player> getEarlyPosition(GameData& gameData);
     static shared_ptr<Player> getNextPlayer(GameData& gameData, string idOrName);
     static vector<shared_ptr<Player>> getPreFlopOrderPlayers(GameData& gameData);

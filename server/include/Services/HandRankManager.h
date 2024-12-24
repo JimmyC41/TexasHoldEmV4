@@ -28,9 +28,9 @@ public:
     HandRankManager(GameData& gameData) : gameData(gameData), handsInfo() {}
 
     // Event: Triggered at the start of the Showdown state
-    // To GameState: Updates the vector<string> rankedPlayerIds
+    // To GameState: Updates rankedPlayerIds and for players, their hand category and best 5 cards
     // From GameState: Fetches the gamePlayers and access the hand attribute
-    void evaluateRankedIds(GameData& gameData);
+    void evaluateRankedIds();
 };
 
 #endif

@@ -16,12 +16,14 @@ private:
     void shuffleDeck();
 public:
     Deck();
+
     Card& dealCard();
     void burnCard();
     void resetDeck();
     size_t getDealtCardCount() const;
 
     // Test Functions
+    array<Card, DECK_SIZE> getArrayOfDeckCards() const;
     size_t getDeckSize() const;
 };
 

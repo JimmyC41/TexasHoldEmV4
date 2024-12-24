@@ -8,10 +8,15 @@ void HandRankManager::populateHandsInfo(GameData& gameData) {
         HandInfo& handInfo = handsInfo[player->getId()];
         
         // Evaluate the hand in the handInfo reference
+        handInfo.hand = hand;
         handInfo.handSize = hand.size();
         HandRankUtil::sortHand(handInfo);
         HandRankUtil::computeBitwiseForHand(handInfo);
-        HandRankUtil::evaluateHandInfo(handInfo); // Find category and best 5 cards
+        HandRankUtil::evaluateHandInfo(handInfo);
+
+        // GameData updates
+        player->setBestFiveCards(handInfo.bestFiveCards);
+        player->setHandCategory(handInfo.category);
     }
 }
 
@@ -30,14 +35,18 @@ bool HandRankManager::compareHands(const HandInfo& handA, const HandInfo& handB)
     return false;
 }
 
-void HandRankManager::evaluateRankedIds(GameData& gameData) {
-    vector<shared_ptr<Player>> rankedPlayers = gameData.getPlayers();
+void HandRankManager::evaluateRankedIds() {
+    // Evaluate Hand Info for players:
+    populateHandsInfo(gameData);
 
+    // Rank players by the strength of their Hands Info
+    vector<shared_ptr<Player>> rankedPlayers = gameData.getPlayers();
     sort(rankedPlayers.begin(), rankedPlayers.end(),
         [this](const shared_ptr<Player>& a, const shared_ptr<Player>& b) {
             return compareHands(handsInfo.at(a->getId()), handsInfo.at(b->getId()));
         });
     
+    // Update rankedPlayerIds in GameData
     vector<string> rankedIds = PlayerUtil::playerPointersToIds(rankedPlayers);
     gameData.setRankedPlayerIds(rankedIds);
 }

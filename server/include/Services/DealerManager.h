@@ -28,6 +28,7 @@ public:
     // Getter Methods
     const vector<Card>& getBoardCards() const;
     const Board& getBoard() const;
+    const Deck& getDeck() const;
     int getBoardSize() const;
     int getDeckSize() const;
 };

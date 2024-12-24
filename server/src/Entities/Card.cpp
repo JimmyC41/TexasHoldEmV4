@@ -37,19 +37,19 @@ string Card::toString() const {
         case Value::EIGHT: valueStr = "8"; break;
         case Value::NINE: valueStr = "9"; break;
         case Value::TEN: valueStr = "10"; break;
-        case Value::JACK: valueStr = "Jack"; break;
-        case Value::QUEEN: valueStr = "Queen"; break;
-        case Value::KING: valueStr = "King"; break;
-        case Value::ACE: valueStr = "Ace"; break;
+        case Value::JACK: valueStr = "J"; break;
+        case Value::QUEEN: valueStr = "Q"; break;
+        case Value::KING: valueStr = "K"; break;
+        case Value::ACE: valueStr = "A"; break;
     }
 
     std::string suitStr;
     switch (suit) {
-        case Suit::HEARTS: suitStr = "Hearts"; break;
-        case Suit::DIAMONDS: suitStr = "Diamonds"; break;
-        case Suit::CLUBS: suitStr = "Clubs"; break;
-        case Suit::SPADES: suitStr = "Spades"; break;
+        case Suit::HEARTS: suitStr = "h"; break;
+        case Suit::DIAMONDS: suitStr = "d"; break;
+        case Suit::CLUBS: suitStr = "c"; break;
+        case Suit::SPADES: suitStr = "s"; break;
     }
 
-    return valueStr + " of " + suitStr;
+    return valueStr + suitStr;
 }

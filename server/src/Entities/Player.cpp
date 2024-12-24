@@ -11,7 +11,8 @@ Player::Player(string name, size_t chips) :
     isActing(false),
     initialChips(0),
     possibleActions(),
-    recentBet(0)
+    recentBet(0),
+    handCategory(HandCategory::NONE)
 {}
 
 // SETTER METHODS
@@ -36,6 +37,10 @@ void Player::setPossibleActions(const vector<shared_ptr<Action>>& actions) { pos
 
 void Player::setRecentBet(size_t newBet) { recentBet = newBet; }
 
+void Player::setHandCategory(HandCategory category) { handCategory = category; }
+
+void Player::setBestFiveCards(vector<Card>& cards) { bestFiveCards = cards; }
+
 // GETTER METHODS
 
 const string& Player::getName() const { return name; }
@@ -48,6 +53,8 @@ size_t Player::getCurChips() const { return curChips; }
 
 const vector<Card>& Player::getHand() const { return hand; }
 
+const vector<Card>& Player::getBestFiveCards() const { return bestFiveCards; }
+
 PlayerStatus Player::getPlayerStatus() const { return playerStatus; }
 
 bool Player::getIsActing() const { return isActing; }
@@ -57,3 +64,5 @@ size_t Player::getInitialChips() const { return initialChips; }
 const vector<shared_ptr<Action>>& Player::getPossibleActions() const { return possibleActions; }
 
 size_t Player::getRecentBet() const { return recentBet; }
+
+HandCategory Player::getHandCategory() const { return handCategory; }

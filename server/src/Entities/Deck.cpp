@@ -39,3 +39,7 @@ void Deck::shuffleDeck() {
 size_t Deck::getDeckSize() const {
     return (DECK_SIZE - deckIndex);
 }
+
+array<Card, DECK_SIZE> Deck::getArrayOfDeckCards() const {
+    return deck;
+}

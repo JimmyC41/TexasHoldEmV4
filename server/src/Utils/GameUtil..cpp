@@ -21,7 +21,6 @@ void GameUtil::clearPlayerHands(GameData& gameData) {
     for (auto& player: players) {
         player->clearHand();
     }
-    cout << "All player hands cleared." << endl;
 }
 
 vector<string> GameUtil::getPlayerIds(GameData& gameData) {
@@ -53,6 +52,26 @@ string GameUtil::getPlayerNameFromId(GameData& gameData, string id) {
 shared_ptr<Player> GameUtil::getPlayer(GameData& gameData, string idOrName) {
     auto it = findPlayerIt(gameData, idOrName);
     return (it != gameData.getPlayers().end())? (*it) : nullptr;
+}
+
+HandCategory GameUtil::getPlayerHandCategory(GameData& gameData, string idOrName) {
+    auto player = getPlayer(gameData, idOrName);
+    return player->getHandCategory();
+}
+
+vector<Card> GameUtil::getPlayerBestFiveCards(GameData& gameData, string idOrName) {
+    auto player = getPlayer(gameData, idOrName);
+    return player->getBestFiveCards();
+}
+
+vector<string> GameUtil::getRankedNames(GameData& gameData) {
+    vector<string> rankedNames;
+    vector<string> rankedIds = gameData.getRankedIds();
+    for (auto& id : rankedIds) {
+        auto player = getPlayer(gameData, id);
+        rankedNames.emplace_back(player->getName());
+    }
+    return rankedNames;
 }
 
 shared_ptr<Player> GameUtil::getEarlyPosition(GameData& gameData) {
