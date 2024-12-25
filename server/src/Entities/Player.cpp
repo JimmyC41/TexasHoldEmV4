@@ -8,9 +8,7 @@ Player::Player(string name, size_t chips) :
     curChips(chips),
     hand(),
     playerStatus(PlayerStatus::WAITING),
-    isActing(false),
-    initialChips(0),
-    possibleActions(),
+    initialChips(chips),
     recentBet(0),
     handCategory(HandCategory::NONE)
 {}
@@ -29,11 +27,7 @@ void Player::clearHand() { hand.clear(); }
 
 void Player::setPlayerStatus(PlayerStatus status) { playerStatus = status; }
 
-void Player::setIsActing(bool act) { isActing = act; }
-
 void Player:: setInitialChips(size_t chips) { initialChips = chips; }
-
-void Player::setPossibleActions(const vector<shared_ptr<Action>>& actions) { possibleActions = actions; }
 
 void Player::setRecentBet(size_t newBet) { recentBet = newBet; }
 
@@ -57,11 +51,7 @@ const vector<Card>& Player::getBestFiveCards() const { return bestFiveCards; }
 
 PlayerStatus Player::getPlayerStatus() const { return playerStatus; }
 
-bool Player::getIsActing() const { return isActing; }
-
 size_t Player::getInitialChips() const { return initialChips; }
-
-const vector<shared_ptr<Action>>& Player::getPossibleActions() const { return possibleActions; }
 
 size_t Player::getRecentBet() const { return recentBet; }
 

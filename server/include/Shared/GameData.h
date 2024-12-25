@@ -5,6 +5,7 @@
 #include "Types.h"
 #include "../Entities/Player.h"
 #include "../Entities/Board.h"
+
 #include <string>
 #include <memory>
 #include <vector>
@@ -13,6 +14,8 @@
 class Player;
 class Card;
 class Action;
+class PossibleAction;
+class NoneAction;
 
 using namespace std;
 using Street = Enums::Street;
@@ -21,6 +24,8 @@ using Position = Enums::Position;
 
 class GameData {
 private:
+    // Persists for the Entire Round
+    // Only Persists in Each Street:
     Street curStreet;
     string curPlayerId;                         // ID of the player to act
     string smallBlindId;
@@ -32,8 +37,8 @@ private:
     vector<shared_ptr<Pot>> pots;
     size_t deadChips;
     vector<shared_ptr<Action>> actionTimeline;  // An ordered list of actions in the current betting street
-    shared_ptr<Action> lastBetAction;           // Ptr to the last action that is not of type CALL or FOLD
-    size_t activeBet;                           // The current bet amount to match
+    shared_ptr<Action> activeAction;               // Ptr to the last action that is not of type CALL or FOLD
+    vector<shared_ptr<PossibleAction>> possibleActions; // List of possible actions for the current player to act
     size_t smallBlind;
     size_t bigBlind;
 public:
@@ -49,8 +54,7 @@ public:
         pots(),
         deadChips(),
         actionTimeline(),
-        lastBetAction(),
-        activeBet(),
+        activeAction(),
         smallBlind(),
         bigBlind()
     {}
@@ -69,6 +73,14 @@ public:
     void setCurStreet(const Street& street) { curStreet = street; }
     void dealCommunityCard(const Card& card) { board.addCommunityCard(card); }
     void clearBoard() { board.resetBoard(); }
+    void addActionToTimeline(const shared_ptr<Action>& action) { actionTimeline.push_back(action); }
+    void clearActionTimeline() { actionTimeline.clear(); }
+    void setActiveAction(const shared_ptr<Action>& action ) { activeAction = action; }
+
+    void setPossibleActions(const vector<shared_ptr<PossibleAction>>& actions) {
+        possibleActions.clear();
+        for (const auto& action : actions) possibleActions.push_back(action);
+    }
 
     // GET Methods
     const string& getSmallBlindId() const { return smallBlindId; }
@@ -80,6 +92,8 @@ public:
     const Board& getBoard() const { return board; }
     const vector<Card>& getBoardCards() const { return board.getCommunityCards(); }
     const vector<string>& getRankedIds() const { return rankedPlayerIds; }
+    const shared_ptr<Action>& getActiveAction() const { return activeAction; }
+    const vector<shared_ptr<Action>>& getActionTimeline() const { return actionTimeline; }
 };
 
 #endif

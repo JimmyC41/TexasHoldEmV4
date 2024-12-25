@@ -56,6 +56,7 @@ enum class Street {
 };
 
 enum class ActionType {
+    NONE,
     POST_SMALL,
     POST_BIG,
     CHECK,

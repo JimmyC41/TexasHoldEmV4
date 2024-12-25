@@ -8,7 +8,6 @@ bool PlayerManager::addNewPlayers(vector<pair<string, size_t>> newPlayersInfo) {
         gameData.addPlayer(player);
         player->setPosition(Position::LOBBY);
         player->setPlayerStatus(PlayerStatus::WAITING);
-        player->setIsActing(false);
     }
     return true;
 }

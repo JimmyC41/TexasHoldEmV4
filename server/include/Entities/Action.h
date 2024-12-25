@@ -10,15 +10,16 @@ using ActionType = Enums::ActionType;
 class Action {
 private:
     string playerId;
+    size_t betAmount;
 
 public:
-    Action(string id) : playerId(id) {}
+    Action(string id, size_t amount = 0) : playerId(id), betAmount(amount) {}
 
-    string getPlayerId() { return playerId; }
+    const string& getPlayerId() { return playerId; }
+    const size_t& getAmount() { return betAmount; }
     
     virtual ~Action() {}
     virtual ActionType getActionType() const = 0;
-    virtual size_t getAmount() const = 0;
 };
 
 #endif

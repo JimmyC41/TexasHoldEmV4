@@ -1,6 +1,19 @@
 #include "../include/Utils/PrintUtil.h"
 #include "../include/Utils/GameUtil.h"
 
+void PrintUtil::printActionTimeline(GameData& gameData) {
+    cout << "(*) Displaying the Action Timeline." << '\n';
+    for (auto& action : gameData.getActionTimeline()) {
+        cout    << "   "
+                << "player: " << GameUtil::getPlayerNameFromId(gameData, action->getPlayerId()) << " | "
+                << "type: " << actionTypeToString(action->getActionType()) << " | "
+                << "amount: " << action->getAmount() << endl;
+    }
+
+    cout    << "(*) Active Action Type is: " 
+            << actionTypeToString(GameUtil::getActiveActionType(gameData)) << endl;
+}
+
 void PrintUtil::printPlayers(GameData& gameData) {
     cout << "(*) Displaying Players in Game Data." << '\n';
     int num = 1;
@@ -9,9 +22,7 @@ void PrintUtil::printPlayers(GameData& gameData) {
                 << "name: " << player->getName() << " | "
                 << "id: " << player->getId() << " | "
                 << "chips: " << player->getCurChips() << " | "
-                << "position: " << positionToString(player->getPosition()) << " | "
-                << "hand: " << printVectorCards(player->getHand()) << " | "
-                << "hand category: " << categoryToString(player->getHandCategory()) << endl;
+                << "position: " << positionToString(player->getPosition()) << endl;
     }
     cout << "Small ID: " << gameData.getSmallBlindId() << '\n';
     cout << "Dealer ID: " << gameData.getButtonId() << endl;
@@ -56,5 +67,21 @@ string PrintUtil::categoryToString(HandCategory category) {
         case HandCategory::STRAIGHT_FLUSH: return "Straight Flush";
         case HandCategory::ROYAL_FLUSH: return "Royal Flush";
         default: return "Unknown Hand Category";
+    }
+}
+
+string PrintUtil::actionTypeToString(ActionType type) {
+    switch(type) {
+        case ActionType::NONE: return "None";
+        case ActionType::POST_BIG: return "Big";
+        case ActionType::POST_SMALL: return "Small";
+        case ActionType::CHECK: return "Check";
+        case ActionType::BET: return "Bet";
+        case ActionType::CALL: return "Call";
+        case ActionType::RAISE: return "Raise";
+        case ActionType::FOLD: return "Fold";
+        case ActionType::ALL_IN_BET: return "All In Bet";
+        case ActionType::ALL_IN_CALL: return "All In Call";
+        default: return "Unknown Action Type";
     }
 }

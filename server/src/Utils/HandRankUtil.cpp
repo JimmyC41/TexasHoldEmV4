@@ -84,6 +84,7 @@ bool HandRankUtil::isFlush(HandInfo& hand) {
     }
     return false;
 }
+
 bool HandRankUtil::isStraight(HandInfo& hand) {
     uint64_t handNoSuits = BitwiseUtil::getAllSuitsMask(hand.bitwise);
     for (const uint64_t mask : straightMasks) {

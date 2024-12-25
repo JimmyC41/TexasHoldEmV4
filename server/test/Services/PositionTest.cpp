@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "../../include/Services/PlayerManager.h"
 #include "../../include/Services/PositionManager.h"
+#include "../../include/Services/ActionManager.h"
 #include "../../include/Utils/TestUtil.h"
 #include "../../include/Utils/GameUtil.h"
 #include "../../include/Utils/PrintUtil.h"
@@ -12,6 +13,7 @@ class PositionTest : public ::testing::Test {
 protected:
     PlayerManager playerManager;
     PositionManager positionManager;
+    ActionManager actionManager;
     GameData gameData;
 
     vector<pair<string, size_t>> playersInfo = 
@@ -27,64 +29,7 @@ protected:
         {"P9", 900},
     };
 
-    PositionTest() : playerManager(gameData), positionManager(gameData) {}
-
-    void TearDown() override {
-        playerManager.removeAllPlayers();
-    }
-};
-
-
-TEST_F(PositionTest, AllocatePositions) {
-    // Add 2 players and allocate positions
-    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, 2));
-    positionManager.allocatePositions();
-
-    vector<Position> expected = {
-        Position::SMALL_BLIND,
-        Position::BIG_BLIND
-    };
-    EXPECT_EQ(GameUtil::getListOfPositions(gameData), expected);
-
-    // Remove 1 player, 2 players and allocate positions
-    playerManager.removeExistingPlayers({"P1"});
-    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 2, 4));
-    positionManager.allocatePositions();
-
-    expected = {
-        Position::SMALL_BLIND,
-        Position::BIG_BLIND,
-        Position::UTG
-    };
-    EXPECT_EQ(GameUtil::getListOfPositions(gameData), expected);
-
-    // Add 3 more players
-    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 4, 7));
-    positionManager.allocatePositions();
-
-    expected = {
-        Position::SMALL_BLIND,
-        Position::BIG_BLIND,
-        Position::UTG,
-        Position::UTG_1,
-        Position::MIDDLE,
-        Position::LOJACK
-    };
-    EXPECT_EQ(GameUtil::getListOfPositions(gameData), expected);
-};
-
-TEST_F(PositionTest, RotatePositionsFullTable) {
-    // Add 9 players
-    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, 9));
-    positionManager.allocatePositions();
-    PrintUtil::printPlayers(gameData);
-
-    // Rotate positions
-    // Order of players should change, but same positions should remain
-    positionManager.rotatePositions();
-    PrintUtil::printPlayers(gameData);
-
-    vector<Position> expectedPositions = {
+    vector<Position> allPositions = {
         Position::SMALL_BLIND,
         Position::BIG_BLIND,
         Position::UTG,
@@ -95,130 +40,206 @@ TEST_F(PositionTest, RotatePositionsFullTable) {
         Position::CUT_OFF,
         Position::DEALER
     };
-    EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
 
-    vector<string> expectedNames = {
-        "P9", "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8"
-    };
-    EXPECT_EQ(GameUtil::getListofNames(gameData), expectedNames);
+    PositionTest() : playerManager(gameData), positionManager(gameData), actionManager(gameData) {
+        TestUtil::manualSetStreet(gameData, Street::FLOP);
+    }
 
-    // Rotate positions again and check order
-    positionManager.rotatePositions();
-    PrintUtil::printPlayers(gameData);
-    EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
-    expectedNames = {
-        "P8", "P9", "P1", "P2", "P3", "P4", "P5", "P6", "P7"
-    };
-    EXPECT_EQ(GameUtil::getListofNames(gameData), expectedNames);
+    void TearDown() override {
+        playerManager.removeAllPlayers();
+        TestUtil::manualClearActionTimeline(gameData);
+    }
 
-    // Rotate even times and check order
-    for (int i = 0; i < 4; ++i) positionManager.rotatePositions();
-    PrintUtil::printPlayers(gameData);
+    // For some 'n' adds players 1 to n and allocates positions
+    void playerSetup(int n) {
+        playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, n));
+        positionManager.allocatePositions();
+        positionManager.setEarlyPositionToAct();
+    }
 
-    EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
-    expectedNames = {
-        "P4", "P5", "P6", "P7", "P8", "P9", "P1", "P2", "P3"
-    };
-    EXPECT_EQ(GameUtil::getListofNames(gameData), expectedNames);
+    void verifyPositionsAfterPlayerAddition(
+        vector<pair<string, size_t>> newPlayers,
+        vector<Position> expectedPositions) {
+        
+        playerManager.addNewPlayers(newPlayers);
+        positionManager.allocatePositions();
+        EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
+    }
 
-    // Rotate odd times and check order
-    for (int i = 0; i < 7; ++i) positionManager.rotatePositions();
-    PrintUtil::printPlayers(gameData);
+    void verifyPositionsAfterPlayerRemoval(
+        vector<string> playersToRemove,
+        vector<Position> expectedPositions) {
+        
+        playerManager.removeExistingPlayers(playersToRemove);
+        positionManager.allocatePositions();
+        EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
+    }
 
-    EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
-    expectedNames = {
-        "P6", "P7", "P8", "P9", "P1", "P2", "P3", "P4", "P5"
-    };
-    EXPECT_EQ(GameUtil::getListofNames(gameData), expectedNames);
+    void verifyPositionsAfterNRotations(
+        int numRotations,
+        vector<Position> expectedPositions, 
+        vector<string> expectedOrderOfNames) {
+        
+        for (int i = 0; i < numRotations; ++i) positionManager.rotatePositions();
+
+        EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
+        EXPECT_EQ(GameUtil::getListofNames(gameData), expectedOrderOfNames);
+    }
+
+
+    void addActionAndUpdateCurPlayer(ActionType type, size_t amount) {
+        actionManager.addNewAction(gameData.getCurPlayerId(), type, amount);
+        positionManager.updatePlayerToAct();
+    }
+
+    void verifyEarlyPositionToAct(Street street, string expectedEarlyPosition) {
+        TestUtil::manualSetStreet(gameData, street);
+        positionManager.setEarlyPositionToAct();
+        verifyCurPlayerAndUpdate(expectedEarlyPosition);
+    }
+
+    void verifyCurPlayerAndUpdate(string expectedName) {
+        string curPlayer = GameUtil::getPlayerNameFromId(gameData, gameData.getCurPlayerId());
+        EXPECT_EQ(curPlayer, expectedName);
+        positionManager.updatePlayerToAct();
+    }
+};
+
+TEST_F(PositionTest, AllocatePositions) {
+    playerSetup(2);
+    EXPECT_EQ(GameUtil::getListOfPositions(gameData), TestUtil::getSubset(allPositions, 0, 2));
+
+    verifyPositionsAfterPlayerRemoval(
+        {"P1"}, 
+        TestUtil::getSubset(allPositions, 1, 2)); // Remove SB - expect to only have BB
+
+    verifyPositionsAfterPlayerAddition(
+        TestUtil::getSubset(playersInfo, 2, 4),
+        TestUtil::getSubset(allPositions, 0, 3));
+    
+    verifyPositionsAfterPlayerAddition(
+        TestUtil::getSubset(playersInfo, 4, 7),
+        TestUtil::getSubset(allPositions, 0, 6));
+};
+
+TEST_F(PositionTest, RotatePositionsFullTable) {
+    // Add 9 players
+    playerSetup(9);
+
+    verifyPositionsAfterNRotations(1, TestUtil::getSubset(allPositions, 0, 9),
+        vector<string>({"P9", "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8"}));
+
+    verifyPositionsAfterNRotations(1, TestUtil::getSubset(allPositions, 0, 9),
+        vector<string>({"P8", "P9", "P1", "P2", "P3", "P4", "P5", "P6", "P7"}));
+
+    verifyPositionsAfterNRotations(4, TestUtil::getSubset(allPositions, 0, 9),
+        vector<string>({"P4", "P5", "P6", "P7", "P8", "P9", "P1", "P2", "P3"}));
+
+    verifyPositionsAfterNRotations(7, TestUtil::getSubset(allPositions, 0, 9),
+        vector<string>({"P6", "P7", "P8", "P9", "P1", "P2", "P3", "P4", "P5"}));
 }
 
 TEST_F(PositionTest, RotatePositionsHeadsUp) {
     // Add 2 players
     playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, 2));
     positionManager.allocatePositions();
-
-    PrintUtil::printPlayers(gameData);
-    vector<Position> expectedPositions = {
-        Position::SMALL_BLIND,
-        Position::BIG_BLIND,
-    };
-
-    // Rotate once
-    positionManager.rotatePositions();
     PrintUtil::printPlayers(gameData);
 
-    EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
-    vector<string> expectedNames = {
-        "P2", "P1"
-    };
-    EXPECT_EQ(GameUtil::getListofNames(gameData), expectedNames);
+    verifyPositionsAfterNRotations(1, TestUtil::getSubset(allPositions, 0, 2),
+        vector<string>({"P2", "P1"}));
+    
+    verifyPositionsAfterNRotations(1, TestUtil::getSubset(allPositions, 0, 2),
+        vector<string>({"P1", "P2"}));
 
     // Rotate odd times and expect order to swap
-    for (int i = 0; i < 7; ++i) positionManager.rotatePositions();
-    PrintUtil::printPlayers(gameData);
-
-    EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
-    expectedNames = {
-        "P1", "P2"
-    };
-    EXPECT_EQ(GameUtil::getListofNames(gameData), expectedNames);
-
-    // Rotate even times and expect order to remain the same
-    for (int i = 0; i < 12; ++i) positionManager.rotatePositions();
-    PrintUtil::printPlayers(gameData);
-
-    EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
-    expectedNames = {
-        "P1", "P2"
-    };
-    EXPECT_EQ(GameUtil::getListofNames(gameData), expectedNames);
+    verifyPositionsAfterNRotations(7, TestUtil::getSubset(allPositions, 0, 2),
+        vector<string>({"P2", "P1"}));
 };
 
 TEST_F(PositionTest, GetEarlyPosition) {
-    // Manually set the street to preflop
-    TestUtil::manualSetStreet(gameData, Street::PRE_FLOP);
+    playerSetup(6);
 
-    // Add 6 players
-    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, 6));
-    positionManager.allocatePositions();
-    PrintUtil::printPlayers(gameData);
-
-    // Early position should be UTG (P3)
-    positionManager.setEarlyPositionToAct();
-    string earlyPosition = GameUtil::getPlayerNameFromId(gameData, gameData.getCurPlayerId());
-    EXPECT_EQ(earlyPosition, "P3");
-
-    // Early position should be SB (P1) for flop, turn and river
-    for (int street = static_cast<int>(Street::FLOP); 
-        street <= static_cast<int>(Street::RIVER); ++street) {
-            TestUtil::manualSetStreet(gameData, static_cast<Street>(street));
-            positionManager.setEarlyPositionToAct();
-            earlyPosition = GameUtil::getPlayerNameFromId(gameData, gameData.getCurPlayerId());
-            EXPECT_EQ(earlyPosition, "P1");
-    }
+    verifyEarlyPositionToAct(Street::PRE_FLOP, "P3");
+    verifyEarlyPositionToAct(Street::FLOP, "P1");
+    verifyEarlyPositionToAct(Street::TURN, "P1");
+    verifyEarlyPositionToAct(Street::RIVER, "P1");
 };
 
 TEST_F(PositionTest, curPlayerUpdates) {
-    // Setup: FLOP, 6 players
+    playerSetup(6);
+
+    for (int i = 0; i < 1000; i++) {
+        int expectedNum = (i % 6) + 1;
+        string expectedPlayer = "P" + to_string(expectedNum);
+        verifyCurPlayerAndUpdate(expectedPlayer);
+    }
+}
+
+TEST_F(PositionTest, curPlayerUpdatesWithFolds) {
+    playerSetup(4);
+
+    // Add the following actions:
+    // P1 - Bet, 5
+    // P2 - Call, 5
+    // P3 - Fold
+    // P4 - Raise, 10
+    // P1 - Raise, 20
+    // P2 - Call, 20
+
+    addActionAndUpdateCurPlayer(ActionType::BET, 5);
+    addActionAndUpdateCurPlayer(ActionType::CALL, 5);
+    addActionAndUpdateCurPlayer(ActionType::FOLD, 0);
+    addActionAndUpdateCurPlayer(ActionType::RAISE, 10);
+    addActionAndUpdateCurPlayer(ActionType::RAISE, 20);
+    addActionAndUpdateCurPlayer(ActionType::CALL, 20);
+
+    // Now, expect current player to skip P3 since folded
+    // Current player should be P4
+    verifyCurPlayerAndUpdate("P4");
+}
+
+TEST_F(PositionTest, curPlayerUpdatesWithAllIns) {
+    // Setup: FLOP, 4 players
     TestUtil::manualSetStreet(gameData, Street::FLOP);
-    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, 6));
+    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, 4));
     positionManager.allocatePositions();
     positionManager.setEarlyPositionToAct();
 
-    // Expect P1 is the current player to act
-    string curPlayer = GameUtil::getPlayerNameFromId(gameData, gameData.getCurPlayerId());
-    EXPECT_EQ(curPlayer, "P1");
+    // Add the following actions:
+    // P1 - Bet, 5
+    // P2 - All In Bet, 200
+    // P3 - Call, 200
+    // P4 - Raise, 300
+    // P1 - Fold, 0
 
-    // Expect P2 is the next to act
-    positionManager.updatePlayerToAct();
-    curPlayer = GameUtil::getPlayerNameFromId(gameData, gameData.getCurPlayerId());
-    EXPECT_EQ(curPlayer, "P2");
+    addActionAndUpdateCurPlayer(ActionType::BET, 5);
+    addActionAndUpdateCurPlayer(ActionType::ALL_IN_BET, 200);
+    addActionAndUpdateCurPlayer(ActionType::CALL, 200);
+    addActionAndUpdateCurPlayer(ActionType::RAISE, 300);
+    addActionAndUpdateCurPlayer(ActionType::FOLD, 0);
 
-    // Expect P3, P4, P5, etc are the next to act
-    vector<string> expectedPlayers = {"P3", "P4", "P5", "P6", "P1", "P2", "P3", "P4"};
-    for (const auto& expectedPlayer : expectedPlayers) {
-        positionManager.updatePlayerToAct();
-        curPlayer = GameUtil::getPlayerNameFromId(gameData, gameData.getCurPlayerId());
-        EXPECT_EQ(curPlayer, expectedPlayer);
-    }
+    // Now, expect current player to skip P2 since all-in
+    // Current player should be P3
+    verifyCurPlayerAndUpdate("P3");
+}
+
+TEST_F(PositionTest, RotatePositionResetsPlayerStatus) {
+    // Setup: FLOP, 4 players
+    playerSetup(4);
+
+    // Fold Players 1, 2 and 4
+    addActionAndUpdateCurPlayer(ActionType::FOLD, 0);
+    addActionAndUpdateCurPlayer(ActionType::FOLD, 0);
+    addActionAndUpdateCurPlayer(ActionType::BET, 5);
+    addActionAndUpdateCurPlayer(ActionType::FOLD, 0);
+
+    // Rotate positions for a new round
+    positionManager.rotatePositions();
+    positionManager.setEarlyPositionToAct();
+
+    verifyCurPlayerAndUpdate("P4");
+    verifyCurPlayerAndUpdate("P1");
+    verifyCurPlayerAndUpdate("P2");
+    verifyCurPlayerAndUpdate("P3");
+    verifyCurPlayerAndUpdate("P4");
 }

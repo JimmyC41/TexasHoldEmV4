@@ -52,6 +52,9 @@ void PositionManager::allocatePositions() {
     // Sort the gamePlayers vector by position and set the button
     gameData.sortPlayersByPosition();
     gameData.setLastPlayerAsButton();
+
+    // Set players' status to IN_HAND
+    GameUtil::setInHandStatusForPlayers(gameData);
 }
 
 void PositionManager::rotatePositions() {
@@ -77,15 +80,17 @@ void PositionManager::rotatePositions() {
     // Sort the gamePlayes vector by position and set the button
     gameData.sortPlayersByPosition();
     gameData.setLastPlayerAsButton();
+
+    // Set players' status to IN_HAND for the next round
+    GameUtil::setInHandStatusForPlayers(gameData);
 }
 
 void PositionManager::updatePlayerToAct() {
     // Find the player the next player to act
     const string& curId = gameData.getCurPlayerId();
-    shared_ptr<Player> nextPlayer = GameUtil::getNextPlayer(gameData, curId);
+    shared_ptr<Player> nextPlayer = GameUtil::getNextPlayerInHand(gameData, curId);
 
     // Set the next player as the next to act
-    nextPlayer->setIsActing(true);
     gameData.setCurPlayerId(nextPlayer->getId());
 }
 
@@ -96,7 +101,7 @@ void PositionManager::setEarlyPositionToAct() {
     // Find the first player to act AFTER the big blind
     if (curStreet == Street::PRE_FLOP) {
         const string bigBlindId = gameData.getBigBlindId();
-        earlyPosition = GameUtil::getNextPlayer(gameData, bigBlindId);
+        earlyPosition = GameUtil::getNextPlayerInHand(gameData, bigBlindId);
     }
     // Find the first player in the players vector
     else {

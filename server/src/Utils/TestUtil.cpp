@@ -5,6 +5,10 @@ void TestUtil::manualSetStreet(GameData& GameData, Street newStreet) {
     GameData.setCurStreet(newStreet);
 }
 
+void TestUtil::manualClearActionTimeline(GameData& gameData) {
+    gameData.clearActionTimeline();
+}
+
 bool TestUtil::isCardsUnique(const vector<Card>& cards) {
     set<Card> uniqueCards(cards.begin(), cards.end());
     return uniqueCards.size() == cards.size();
@@ -40,4 +44,14 @@ vector<Card> TestUtil::strToVectorOfCards(const string& stringOfCards) {
         hand.emplace_back(Card(suit, value));
     }
     return hand;
+}
+
+vector<tuple<string, ActionType, size_t>> TestUtil::getActionTimelineVector(GameData& gameData) {
+    vector<tuple<string, ActionType, size_t>> actionVector;
+    auto actionTimeline = gameData.getActionTimeline();
+    for (const auto& action : actionTimeline) {
+        auto name = GameUtil::getPlayerNameFromId(gameData, action->getPlayerId());
+        actionVector.push_back({name, action->getActionType(), action->getAmount()});
+    }
+    return actionVector;
 }

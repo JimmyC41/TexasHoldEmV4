@@ -16,6 +16,27 @@ void GameUtil::setPlayerPosition(GameData& gameData, string id, Position positio
     }
 }
 
+void GameUtil::setPlayerInitialToCurChips(GameData& gameData) {
+    auto players = gameData.getPlayers();
+    for (auto& player : players) {
+        player->setInitialChips(player->getCurChips());
+    }
+}
+
+void GameUtil::resetPlayerRecentBets(GameData& gameData) {
+    auto players = gameData.getPlayers();
+    for (auto& player : players) { 
+        player->setRecentBet(0);
+    }
+}
+
+void GameUtil::setInHandStatusForPlayers(GameData& gameData) {
+    auto players = gameData.getPlayers();
+    for (auto& player : players) { 
+        player->setPlayerStatus(PlayerStatus::IN_HAND);
+    }
+}
+
 void GameUtil::clearPlayerHands(GameData& gameData) {
     auto& players = gameData.getPlayers();
     for (auto& player: players) {
@@ -64,6 +85,24 @@ vector<Card> GameUtil::getPlayerBestFiveCards(GameData& gameData, string idOrNam
     return player->getBestFiveCards();
 }
 
+size_t GameUtil::getPlayerInitialChips(GameData& gameData, string idOrName) {
+    auto player = getPlayer(gameData, idOrName);
+    return player->getInitialChips();
+}
+
+size_t GameUtil::getBigStackAmongOthers(GameData& gameData, string idOrName) {
+    auto skipPlayer = getPlayer(gameData, idOrName);
+    auto players = gameData.getPlayers();
+
+    size_t bigStack = 0;
+    for (const auto& player : players) {
+        if (player == skipPlayer) continue;
+        bigStack = max(bigStack, player->getInitialChips());
+    }
+
+    return bigStack;
+}
+
 vector<string> GameUtil::getRankedNames(GameData& gameData) {
     vector<string> rankedNames;
     vector<string> rankedIds = gameData.getRankedIds();
@@ -79,17 +118,24 @@ shared_ptr<Player> GameUtil::getEarlyPosition(GameData& gameData) {
     return players.front();
 }
 
-shared_ptr<Player> GameUtil::getNextPlayer(GameData& gameData, string idOrName) {
+shared_ptr<Player> GameUtil::getNextPlayerInHand(GameData& gameData, string idOrName) {
     shared_ptr<Player> prev = getPlayer(gameData, idOrName);
     vector<shared_ptr<Player>> players = gameData.getPlayers();
 
     auto it = find(players.begin(), players.end(), prev);
-    if (it != players.end()) {
-        ++it;
-        if (it == players.end()) it = players.begin();
-    }
 
-    return *it;
+    if (it != players.end()) {
+        do {
+            ++it;
+            // Wrap to the beginning if needed
+            if (it == players.end()) it = players.begin();
+
+            // Check if the player is IN_HAND
+            if ((*it)->getPlayerStatus() == PlayerStatus::IN_HAND) return (*it);
+        } while (it != find(players.begin(), players.end(), prev));
+    }
+    
+    return nullptr;
 }
 
 vector<shared_ptr<Player>> GameUtil::getPreFlopOrderPlayers(GameData& gameData) {
@@ -133,4 +179,16 @@ bool GameUtil::isPlayersDealt(GameData& gameData) {
 
 int GameUtil::getBoardSize(GameData& gameData) {
     return gameData.getBoard().getBoardSize();
+}
+
+int GameUtil::getNumActionsInTimeline(GameData& gameData) { 
+    return gameData.getActionTimeline().size();
+}
+
+ActionType GameUtil::getActiveActionType(GameData& gameData) { 
+    return gameData.getActiveAction()->getActionType();
+}
+
+size_t GameUtil::getActiveActionAmount(GameData& gameData) {
+    return gameData.getActiveAction()->getAmount();
 }
