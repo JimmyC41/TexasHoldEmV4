@@ -1,6 +1,12 @@
 #include "../../include/Utils/TestUtil.h"
 #include "../../include/Entities/Board.h"
 
+vector<string> TestUtil::getNamesFromIds(GameData& gameData, const vector<string>& ids) {
+    vector<string> names;
+    for (auto& id : ids) names.push_back(GameUtil::getPlayerNameFromId(gameData, id));
+    return names;
+}
+
 void TestUtil::manualSetStreet(GameData& GameData, Street newStreet) {
     GameData.setCurStreet(newStreet);
 }
@@ -83,4 +89,16 @@ vector<tuple<ActionType, PossibleAmounts>> TestUtil::getPossibleActionsVector(Ga
         }
     }
     return result;
+}
+
+vector<pair<size_t, vector<string>>> TestUtil::getPotsChipsAndNames(GameData& gameData) {
+    vector<pair<size_t, vector<string>>> chipsInPots;
+    auto pots = gameData.getPots();
+    for (auto& pot : pots) {
+        chipsInPots.push_back({
+            pot->getChips(), 
+            TestUtil::getNamesFromIds(gameData, pot->getEligibleIds())
+        });
+    }
+    return chipsInPots;
 }

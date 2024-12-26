@@ -1,5 +1,4 @@
 #include "../include/Utils/PrintUtil.h"
-#include "../include/Utils/GameUtil.h"
 
 void PrintUtil::printActionTimeline(GameData& gameData) {
     cout << "(*) Displaying the Action Timeline." << '\n';
@@ -22,6 +21,7 @@ void PrintUtil::printPlayers(GameData& gameData) {
                 << "name: " << player->getName() << " | "
                 << "id: " << player->getId() << " | "
                 << "chips: " << player->getCurChips() << " | "
+                << "recent bet: " << player->getRecentBet() << " | "
                 << "position: " << positionToString(player->getPosition()) << endl;
     }
     cout << "Small ID: " << gameData.getSmallBlindId() << '\n';
@@ -83,5 +83,25 @@ string PrintUtil::actionTypeToString(ActionType type) {
         case ActionType::ALL_IN_BET: return "All In Bet";
         case ActionType::ALL_IN_CALL: return "All In Call";
         default: return "Unknown Action Type";
+    }
+}
+
+string PrintUtil::playerStatusToString(PlayerStatus status) {
+    switch(status) {
+        case PlayerStatus::WAITING: return "Waiting"; 
+        case PlayerStatus::IN_HAND: return "In Hand";
+        case PlayerStatus::FOLDED: return "Folded";
+        case PlayerStatus::ALL_IN_BET: return "All In Bet";
+        case PlayerStatus::ALL_IN_CALL: return "All In Call";
+        default: return "Unknown Player Status";
+    }
+}
+
+void PrintUtil::printPlayerBetsInPotManager(PlayerBetInfo& playerBetInfo) {
+    cout << "Displaying playerBetInfo in PotManager" << endl;
+    for (auto& [id, bet, status] : playerBetInfo) {
+        cout    << "id: " << id << " | "
+                << "bet: " << bet << " | "
+                << "status: " << playerStatusToString(status) << endl;
     }
 }

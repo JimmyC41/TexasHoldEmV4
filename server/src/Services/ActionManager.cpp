@@ -91,7 +91,7 @@ void ActionManager::addNewAction(string idOrName, ActionType actionType, size_t 
    auto player = GameUtil::getPlayer(gameData, idOrName);
    player->reduceChips(newAction->getAmount() - player->getRecentBet());
    player->setPlayerStatus(ActionUtil::inferStatusFromActionType(actionType));
-   player->setRecentBet(amount);
+   if (actionType != ActionType::FOLD) player->setRecentBet(amount);
 
     // Shared information in the Game Data
     gameData.addActionToTimeline(newAction);
@@ -210,7 +210,7 @@ bool ActionManager::isActionsFinished() {
 
         // Player Attributes
         GameUtil::setPlayerInitialToCurChips(gameData);
-        GameUtil::resetPlayerRecentBets(gameData);
+        // GameUtil::resetPlayerRecentBets(gameData);
 
         // Game Data Attributes
         gameData.clearActionTimeline();

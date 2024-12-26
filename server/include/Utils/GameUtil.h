@@ -35,11 +35,14 @@ public:
     static vector<shared_ptr<Player>> getPreFlopOrderPlayers(GameData& gameData);
     static vector<shared_ptr<Player>> getOccupiedPlayers(GameData& gameData);
     static int getNumPlayers(GameData& gameData);
+    static int getNumFolded(GameData& gameData);
     static bool isPlayersDealt(GameData& gameData);
     static int getBoardSize(GameData& gameData);
     static int getNumActionsInTimeline(GameData& gameData);
     static ActionType getActiveActionType(GameData& gameData);
     static size_t getActiveActionAmount(GameData& gameData);
+    static bool isIdInCurPot(GameData& gameData, string id);
+    static size_t getNumPots(GameData& gameData);
 };
 
 #endif

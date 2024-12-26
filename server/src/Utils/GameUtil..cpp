@@ -196,3 +196,12 @@ ActionType GameUtil::getActiveActionType(GameData& gameData) {
 size_t GameUtil::getActiveActionAmount(GameData& gameData) {
     return gameData.getActiveAction()->getAmount();
 }
+
+bool GameUtil::isIdInCurPot(GameData& gameData, string id) {
+    auto curPot = gameData.getCurPot();
+    return (curPot->isIdEligible(id));
+}
+
+size_t GameUtil::getNumPots(GameData& gameData) {
+    return gameData.getPots().size();
+}

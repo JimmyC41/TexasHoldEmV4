@@ -1,35 +1,51 @@
 #ifndef POT_MANAGER_H
 #define POT_MANAGER_H
 
-#include "../Entities/Player.h"
-#include "../Shared/Types.h"
-
-#include <set>
-#include <map>
+#include "Entities/Player.h"
+#include "Entities/Pot.h"
+#include "Shared/Types.h"
+#include "Utils/PotUtil.h"
+#include "Utils/PrintUtil.h"
 
 using namespace std;
-using Pot = Types::Pot;
+using PlayerBetInfo = vector<tuple<string, size_t, PlayerStatus>>;
+
 
 class PotManager {
 private:
-    void newPot();
-    Pot& getCurPot();
+    GameData& gameData;
 
+    // Player Bets Info is 'cleared' after each Street
+    // when all bets have been moved to Pots
+    // BUT is repopulated at the start of each street as
+    // further bets need to be processed
+    PlayerBetInfo playerBets;
+
+    // Records each player's bet and status from Game Data
+    void populatePlayerBets(); 
+
+    // Fetches the minimum bet in player bets, the minimum
+    // contribution each player makes to the current pot
+    size_t getMinBetInPlayerBets();
+
+    // Checks if all player bets have been allocated to pots
+    // If there are remaining bets to be processed, then there
+    // are side-pots to handle!
+    bool allBetsAllocatedToPots();
 public:
-    PotManager();
+    PotManager(GameData& gameData);
     
     // Event: Triggered at the start of Street End state
-    // To GameData: Updates vector<Pot> pots
-    // From GameData: Fetches recent bets for each player in the hand
+    // To GameData: Calculates pots, dead chips and sets all recent bets to 0
     void calculatePots();
 
     // Event: Triggered at the start of the Announce Winner state
-    // To: Awards chips to winners
-    // GameData: Fetches the ranking of players' by hand strength
+    // To: Awards chips to players according to their hand ranking
+    // and pot eligibility
     void awardPots();
 
     // Event: Triggered at the start of Round End State
-    // To GameData: Clears the vector<Pot> pots
+    // To GameData: Clears the pots vector in the Game Data and playerBets internally
     void resetPots();
 };
 

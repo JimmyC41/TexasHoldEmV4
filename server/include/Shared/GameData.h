@@ -11,6 +11,7 @@
 #include <memory>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 class Player;
 class Card;
@@ -76,11 +77,16 @@ public:
     void addActionToTimeline(const shared_ptr<Action>& action) { actionTimeline.push_back(action); }
     void clearActionTimeline() { actionTimeline.clear(); }
     void setActiveAction(const shared_ptr<Action>& action ) { activeAction = action; }
-
     void setPossibleActions(const vector<shared_ptr<PossibleAction>>& actions) {
         possibleActions.clear();
         for (const auto& action : actions) possibleActions.push_back(action);
     }
+    void addNewPot(const shared_ptr<Pot>& newPot) { pots.emplace_back(newPot); }
+    void addChipsToCurPot(const size_t& chips) { pots.back()->addChips(chips); }
+    void addIdToCurPot(const string& id) { pots.back()->addPlayerId(id); }
+    void addDeadChips(const size_t& chips) { deadChips += chips; }
+    void lessDeadChips(const size_t& chips) { deadChips -= chips; }
+    void clearAllPots() { pots.clear(); }
 
     // GET Methods
     const string& getSmallBlindId() const { return smallBlindId; }
@@ -95,6 +101,9 @@ public:
     const shared_ptr<Action>& getActiveAction() const { return activeAction; }
     const vector<shared_ptr<Action>>& getActionTimeline() const { return actionTimeline; }
     const vector<shared_ptr<PossibleAction>>& getPossibleActions() const { return possibleActions; }
+    const vector<shared_ptr<Pot>>& getPots() const { return pots; }
+    const shared_ptr<Pot>& getCurPot() const { return pots.back(); }
+    const size_t& getDeadChips() const { return deadChips; }
 };
 
 #endif

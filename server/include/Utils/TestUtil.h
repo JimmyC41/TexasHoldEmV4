@@ -25,6 +25,7 @@ public:
         return vector<T>(vec.begin() + start, vec.begin() + end);
     };
 
+    static vector<string> getNamesFromIds(GameData& gameData, const vector<string>& ids);
     static void manualSetStreet(GameData& GameData, Street newStreet);
     static void manualClearActionTimeline(GameData& gameData);
     static bool isCardsUnique(const vector<Card>& cards);
@@ -33,6 +34,7 @@ public:
     static vector<Card> strToVectorOfCards(const string& stringOfCards);
     static vector<tuple<string, ActionType, size_t>> getActionTimelineVector(GameData& gameData);
     static vector<tuple<ActionType, PossibleAmounts>> getPossibleActionsVector(GameData& gameData);
+    static vector<pair<size_t, vector<string>>> getPotsChipsAndNames(GameData& gameData);
 };
 
 
