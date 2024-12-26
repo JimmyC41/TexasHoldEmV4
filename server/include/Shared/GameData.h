@@ -94,6 +94,7 @@ public:
     const vector<string>& getRankedIds() const { return rankedPlayerIds; }
     const shared_ptr<Action>& getActiveAction() const { return activeAction; }
     const vector<shared_ptr<Action>>& getActionTimeline() const { return actionTimeline; }
+    const vector<shared_ptr<PossibleAction>>& getPossibleActions() const { return possibleActions; }
 };
 
 #endif

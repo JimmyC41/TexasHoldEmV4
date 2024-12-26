@@ -4,9 +4,13 @@
 #include "../PossibleAction.h"
 
 class PossibleBet : public PossibleAction {
+private:
+    size_t secondaryAmount;
 public:
-    PossibleBet(size_t bet) : PossibleAction(0, bet) {}
-    ActionType getActionType() const override {return ActionType::BET; }
+    PossibleBet(size_t max) : PossibleAction(0), secondaryAmount(max) {}
+
+    ActionType getActionType() const override { return ActionType::BET; }
+    const size_t getSecondaryAmount() const override { return secondaryAmount; }
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include "Entities/Action.h"
 #include "Entities/Actions/AllInBetAction.h"
 #include "Entities/Actions/AllInCallAction.h"
+#include "Entities/Actions/AllInRaiseAction.h"
 #include "Entities/Actions/BetAction.h"
 #include "Entities/Actions/CallAction.h"
 #include "Entities/Actions/CheckAction.h"
@@ -14,6 +15,9 @@
 #include "Entities/Actions/NoneAction.h"
 
 #include "Entities/PossibleAction.h"
+#include "Entities/PossibleActions/PossibleAllInBet.h"
+#include "Entities/PossibleActions/PossibleAllInCall.h"
+#include "Entities/PossibleActions/PossibleAllInRaise.h"
 #include "Entities/PossibleActions/PossibleBet.h"
 #include "Entities/PossibleActions/PossibleCall.h"
 #include "Entities/PossibleActions/PossibleCheck.h"
@@ -63,7 +67,6 @@ public:
 
     // Event: Triggered when a player is instructed to act in the Street In Progress state.
     // To GameData: Updates possibleActions vector for the current player to act.
-    // From GameData: Fetches the active action
     // E.g. If last aggressive action was bet, the player can call, raise (if possible) or fold
     // If no aggressive action, then the player can check, bet or fold
     void generatePossibleActionsForCurPlayer();

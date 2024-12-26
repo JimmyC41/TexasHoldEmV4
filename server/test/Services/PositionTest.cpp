@@ -95,6 +95,10 @@ protected:
     void verifyEarlyPositionToAct(Street street, string expectedEarlyPosition) {
         TestUtil::manualSetStreet(gameData, street);
         positionManager.setEarlyPositionToAct();
+        if (street == Street::PRE_FLOP) {
+            positionManager.updatePlayerToAct(); // After posting SB
+            positionManager.updatePlayerToAct(); // After posting BB
+        }
         verifyCurPlayerAndUpdate(expectedEarlyPosition);
     }
 

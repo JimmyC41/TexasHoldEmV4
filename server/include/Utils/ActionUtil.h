@@ -6,8 +6,17 @@
 
 class ActionUtil { 
 public:
-    // Verifies if a player can raise (i.e. initial chips > active bet to match)
-    static size_t canPlayerRaise(GameData& gameData, string idOrName);
+    // Checks if a player can raise (i.e. initial chips > active bet)
+    static bool canPlayerRaise(GameData& gameData, string idOrName);
+
+    // Checks if a player can min raise (i.e. intial chips > 2 * active bet)
+    static bool canPlayerMinRaise(GameData& gameData, string idOrName);
+
+    // Checks if a player can bet all-in (i.e. initial chips < big stack among others)
+    static bool canPlayerAllInBet(GameData& gameData, string idOrName);
+
+    // Checks if a player can call the active bet without going all-in
+    static bool canPlayerCallActiveBet(GameData& gameData, string idOrName);
 
     // Finds the minimum valid raise for a player given stack sizes
     static size_t getMinRaiseAmount(GameData& gameData, string idOrName);

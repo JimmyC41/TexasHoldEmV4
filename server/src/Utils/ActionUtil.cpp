@@ -1,9 +1,27 @@
 #include "Utils/ActionUtil.h"
 
-size_t ActionUtil::canPlayerRaise(GameData& gameData, string idOrName) {
+bool ActionUtil::canPlayerRaise(GameData& gameData, string idOrName) {
     size_t playerStack = GameUtil::getPlayerInitialChips(gameData, idOrName);
     size_t activeBet = GameUtil::getActiveActionAmount(gameData);
     return (playerStack > activeBet);
+}
+
+bool ActionUtil::canPlayerMinRaise(GameData& gameData, string idOrName) {
+    size_t playerStack = GameUtil::getPlayerInitialChips(gameData, idOrName);
+    size_t activeBet = GameUtil::getActiveActionAmount(gameData);
+    return (playerStack > 2 * activeBet);
+}
+
+bool ActionUtil::canPlayerAllInBet(GameData& gameData, string idOrName) {
+    size_t playerStack = GameUtil::getPlayerInitialChips(gameData, idOrName);
+    size_t bigStackAmongOthers = GameUtil::getBigStackAmongOthers(gameData, idOrName);
+    return (bigStackAmongOthers >= playerStack);
+}
+
+bool ActionUtil::canPlayerCallActiveBet(GameData& gameData, string idOrName) {
+    size_t playerStack = GameUtil::getPlayerInitialChips(gameData, idOrName);
+    size_t activeBetAmount = GameUtil::getActiveActionAmount(gameData);
+    return (playerStack > activeBetAmount);
 }
 
 size_t ActionUtil::getMinRaiseAmount(GameData& gameData, string idOrName) {
@@ -28,6 +46,7 @@ bool ActionUtil::isActionAggressive(ActionType actionType) {
     switch(actionType) {
         case ActionType::BET:
         case ActionType::ALL_IN_BET:
+        case ActionType::ALL_IN_RAISE:
         case ActionType::RAISE:
         case ActionType::POST_SMALL:
         case ActionType::POST_BIG:
@@ -39,9 +58,14 @@ bool ActionUtil::isActionAggressive(ActionType actionType) {
 
 PlayerStatus ActionUtil::inferStatusFromActionType(ActionType actionType) {
     switch(actionType) {
-        case ActionType::FOLD: return PlayerStatus::FOLDED;
-        case ActionType::ALL_IN_BET: return PlayerStatus::ALL_IN_BET;
-        case ActionType::ALL_IN_CALL: return PlayerStatus::ALL_IN_CALL;
-        default: return PlayerStatus::IN_HAND;
+        case ActionType::FOLD: 
+            return PlayerStatus::FOLDED;
+        case ActionType::ALL_IN_BET:
+        case ActionType::ALL_IN_RAISE:
+            return PlayerStatus::ALL_IN_BET;
+        case ActionType::ALL_IN_CALL: 
+            return PlayerStatus::ALL_IN_CALL;
+        default:
+            return PlayerStatus::IN_HAND;
     }
 }

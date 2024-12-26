@@ -47,11 +47,40 @@ vector<Card> TestUtil::strToVectorOfCards(const string& stringOfCards) {
 }
 
 vector<tuple<string, ActionType, size_t>> TestUtil::getActionTimelineVector(GameData& gameData) {
-    vector<tuple<string, ActionType, size_t>> actionVector;
+    vector<tuple<string, ActionType, size_t>> result;
     auto actionTimeline = gameData.getActionTimeline();
     for (const auto& action : actionTimeline) {
         auto name = GameUtil::getPlayerNameFromId(gameData, action->getPlayerId());
-        actionVector.push_back({name, action->getActionType(), action->getAmount()});
+        result.push_back({name, action->getActionType(), action->getAmount()});
     }
-    return actionVector;
+    return result;
+}
+
+vector<tuple<ActionType, PossibleAmounts>> TestUtil::getPossibleActionsVector(GameData& gameData) {
+    vector<tuple<ActionType, PossibleAmounts>> result;
+
+    auto possibleActions = gameData.getPossibleActions();
+    for (const auto& action : possibleActions) {
+        auto type = action->getActionType();
+        switch(type) {
+            case ActionType::CHECK:
+            case ActionType::FOLD:
+                result.push_back({type, monostate{}}); break;
+            case ActionType::ALL_IN_BET:
+            case ActionType::ALL_IN_CALL:
+            case ActionType::ALL_IN_RAISE:
+            case ActionType::CALL:
+                result.push_back({type, action->getPrimaryAmount()});
+                break;
+            case ActionType::BET:
+            case ActionType::RAISE:
+                result.push_back({type, make_tuple
+                                            (action->getPrimaryAmount(),
+                                            action->getSecondaryAmount())});
+                break;
+            default:
+                break;
+        }
+    }
+    return result;
 }

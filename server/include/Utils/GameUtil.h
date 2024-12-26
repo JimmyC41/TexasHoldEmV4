@@ -24,6 +24,7 @@ public:
     static vector<Position> getListOfPositions(GameData& gameData);
     static string getPlayerNameFromId(GameData& gameData, string id);
     static shared_ptr<Player> getPlayer(GameData& gameData, string idOrName);
+    static bool isPlayerBigBlind(GameData& gameData, string idOrName);
     static HandCategory getPlayerHandCategory(GameData& gameData, string idOrName);
     static vector<Card> getPlayerBestFiveCards(GameData& gameData, string idOrName);
     static size_t getPlayerInitialChips(GameData& gameData, string idOrName);

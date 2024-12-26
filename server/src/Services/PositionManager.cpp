@@ -98,15 +98,8 @@ void PositionManager::setEarlyPositionToAct() {
     Street curStreet = gameData.getStreet();
     shared_ptr<Player> earlyPosition;
 
-    // Find the first player to act AFTER the big blind
-    if (curStreet == Street::PRE_FLOP) {
-        const string bigBlindId = gameData.getBigBlindId();
-        earlyPosition = GameUtil::getNextPlayerInHand(gameData, bigBlindId);
-    }
     // Find the first player in the players vector
-    else {
-        earlyPosition = GameUtil::getEarlyPosition(gameData);
-    }
+    earlyPosition = GameUtil::getEarlyPosition(gameData);
 
     // Set the current player to act
     gameData.setCurPlayerId(earlyPosition->getId());

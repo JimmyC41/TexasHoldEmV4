@@ -8,6 +8,9 @@ void ActionManager::clearStreetActionData() {
     streetActionData.numCalls = 0;
     streetActionData.numChecks = 0;
     streetActionData.numFolded = 0;
+
+    // numAllInBet records both all-in bets and raises 
+    // (functionally identical)
     streetActionData.numAllInBet = 0;
     streetActionData.numAllInCall = 0;
 }
@@ -33,6 +36,7 @@ void ActionManager::updateStreetActionData(ActionType actionType) {
             streetActionData.limpedPreflop = false;
             break;
         case ActionType::ALL_IN_BET:
+        case ActionType::ALL_IN_RAISE:
             streetActionData.numCalls = 0;
             streetActionData.numSittingOut = findNumSittingOut();
             streetActionData.numAllInBet += 1;
@@ -70,6 +74,7 @@ void ActionManager::addNewAction(string idOrName, ActionType actionType, size_t 
     switch(actionType) {
         case ActionType::ALL_IN_BET:newAction = make_shared<AllInBetAction>(idOrName, amount); break;
         case ActionType::ALL_IN_CALL: newAction = make_shared<AllInCallAction>(idOrName, amount); break;
+        case ActionType::ALL_IN_RAISE: newAction = make_shared<AllInRaiseAction>(idOrName, amount); break;
         case ActionType::BET: newAction = make_shared<BetAction>(idOrName, amount); break;
         case ActionType::CALL: newAction = make_shared<CallAction>(idOrName, amount); break;
         case ActionType::CHECK: newAction = make_shared<CheckAction>(idOrName); break;
@@ -86,7 +91,7 @@ void ActionManager::addNewAction(string idOrName, ActionType actionType, size_t 
    auto player = GameUtil::getPlayer(gameData, idOrName);
    player->reduceChips(newAction->getAmount() - player->getRecentBet());
    player->setPlayerStatus(ActionUtil::inferStatusFromActionType(actionType));
-   if (ActionUtil::isActionAggressive(actionType)) player->setRecentBet(amount);
+   player->setRecentBet(amount);
 
     // Shared information in the Game Data
     gameData.addActionToTimeline(newAction);
@@ -96,7 +101,15 @@ void ActionManager::addNewAction(string idOrName, ActionType actionType, size_t 
 
 void ActionManager::generatePossibleActionsForCurPlayer() {
     string curPlayerId = gameData.getCurPlayerId();
+
+    cout << "processing pos actions for: " << curPlayerId << endl;
+
+    bool isBigBlind = GameUtil::isPlayerBigBlind(gameData, curPlayerId);
     bool canRaise = ActionUtil::canPlayerRaise(gameData, curPlayerId);
+    bool canMinRaise = ActionUtil::canPlayerMinRaise(gameData, curPlayerId);
+    bool canBetAllIn = ActionUtil::canPlayerAllInBet(gameData, curPlayerId);
+    bool canCallActiveBet = ActionUtil::canPlayerCallActiveBet(gameData, curPlayerId);
+
     size_t curPlayerStack = GameUtil::getPlayerInitialChips(gameData, curPlayerId);
     size_t minRaiseAmount = ActionUtil::getMinRaiseAmount(gameData, curPlayerId);
     size_t maxBetAmount = ActionUtil::getMaxBetAmount(gameData, curPlayerId);
@@ -106,14 +119,23 @@ void ActionManager::generatePossibleActionsForCurPlayer() {
     // Min: 0 and Max: minimum of (player's stack, biggest stack among others)
     auto newBet = make_shared<PossibleBet>(maxBetAmount);
 
+    // If player's stack < biggest stack among others, option for all-in bet
+    auto newAllInBet = make_shared<PossibleAllInBet>(maxBetAmount);
+
     // POSSIBLE RAISE
     // Min: minimum of (player's stack, min raise)
     // Max: minimum of (player's stack, biggest stack among others)
     auto newRaise = make_shared<PossibleRaise>(minRaiseAmount, maxBetAmount);
 
+    // If active bet < player stack < min raise
+    auto newAllInRaise = make_shared<PossibleAllInRaise>(minRaiseAmount);
+
     // POSSIBLE CALL
     // Amount is the minimum of (active bet to match, player's stack)
     auto newCall = make_shared<PossibleCall>(callAmount);
+
+    // If player's stack < active bet to match, then all-in to call
+    auto newAllInCall = make_shared<PossibleAllInCall>(callAmount);
 
     // POSSIBLE CHECK OF FOLD (No amounts)
     auto newCheck = make_shared<PossibleCheck>();
@@ -122,7 +144,6 @@ void ActionManager::generatePossibleActionsForCurPlayer() {
     // ASSEMBLE THE VECTOR OF POSSIBLE ACTIONS
 
     vector<shared_ptr<PossibleAction>> possibleActions;
-    possibleActions.push_back(newFold);
 
     // Get the most active action that is not a CALL or FOLD
     ActionType activeActionType = GameUtil::getActiveActionType(gameData);
@@ -130,12 +151,27 @@ void ActionManager::generatePossibleActionsForCurPlayer() {
         case ActionType::BET:
         case ActionType::RAISE:
         case ActionType::ALL_IN_BET:
-            possibleActions.push_back(newCall);
-            if (canRaise) possibleActions.push_back(newRaise);
+        case ActionType::ALL_IN_RAISE:
+        case ActionType::POST_SMALL:
+        case ActionType::POST_BIG:
+            // Edge Case: Preflop, players have limped around to the BB.
+            // The BB option should be check (instead of call), raise or fold
+            if (isBigBlind) {
+                possibleActions.push_back(newCheck);
+            } else {
+                if (canCallActiveBet) possibleActions.push_back(newCall);
+                if (!canCallActiveBet) possibleActions.push_back(newAllInCall);
+            }
+
+            if (canRaise && canMinRaise) possibleActions.push_back(newRaise);
+            if (canRaise && !canMinRaise) possibleActions.push_back(newAllInRaise);
+            possibleActions.push_back(newFold);
             break;
         default: 
             possibleActions.push_back(newCheck);
             possibleActions.push_back(newBet);
+            if (canBetAllIn) possibleActions.push_back(newAllInBet);
+            possibleActions.push_back(newFold);
             break;
     }
 
@@ -156,7 +192,8 @@ bool ActionManager::isActionsFinished() {
     // Case 1: Preflop and players limp. BB checks (calls) to signify no further raises.
     // Note: The BB check functions as a 'call' to the active bet.
     if ((streetActionData.limpedPreflop == true) &&
-        (calls == (players - folded))) isActionsFinished = true;
+        (checks == 1) &&
+        (calls == (players - folded - 1))) isActionsFinished = true;
 
     // Case 2: All players have checked through.
     else if ((streetActionData.limpedPreflop == false) &&
@@ -167,8 +204,10 @@ bool ActionManager::isActionsFinished() {
     else if ((streetActionData.limpedPreflop == false) &&
             (calls == (players - folded - sittingOut - 1))) isActionsFinished = true;
 
-    // If actions are finished, update the Game Data
+    // If actions are finished, update the StreetActionData (internal) and GameData (shared)
     if (isActionsFinished) {
+        clearStreetActionData();
+
         // Player Attributes
         GameUtil::setPlayerInitialToCurChips(gameData);
         GameUtil::resetPlayerRecentBets(gameData);
@@ -176,7 +215,7 @@ bool ActionManager::isActionsFinished() {
         // Game Data Attributes
         gameData.clearActionTimeline();
         setActiveActionAsNone();
-        
+
         // Return true so the game controller knows to transition to the next street!
         return true;
     }

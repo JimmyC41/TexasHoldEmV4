@@ -75,6 +75,10 @@ shared_ptr<Player> GameUtil::getPlayer(GameData& gameData, string idOrName) {
     return (it != gameData.getPlayers().end())? (*it) : nullptr;
 }
 
+bool GameUtil::isPlayerBigBlind(GameData& gameData, string idOrName) {
+    return (idOrName == gameData.getBigBlindId());
+}
+
 HandCategory GameUtil::getPlayerHandCategory(GameData& gameData, string idOrName) {
     auto player = getPlayer(gameData, idOrName);
     return player->getHandCategory();

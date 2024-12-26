@@ -4,13 +4,19 @@
 #include "..//Entities/Player.h"
 #include "../Entities/Board.h"
 #include "../Entities/Card.h"
+#include "../Entities/PossibleAction.h"
 #include "../Services/DealerManager.h"
 #include "../Utils/CardUtil.h"
 #include "../Shared/GameData.h"
 #include <string>
 #include <memory>
 #include <set>
+#include <variant>
 using namespace std;
+
+class PossibleAction;
+
+using PossibleAmounts = variant<monostate, size_t, tuple<size_t, size_t>>;
 
 class TestUtil {
 public:
@@ -26,6 +32,7 @@ public:
     static void dealCardsToPlayers(GameData& gameData, vector<string> idOrNames, vector<pair<Suit, Value>>& cards);
     static vector<Card> strToVectorOfCards(const string& stringOfCards);
     static vector<tuple<string, ActionType, size_t>> getActionTimelineVector(GameData& gameData);
+    static vector<tuple<ActionType, PossibleAmounts>> getPossibleActionsVector(GameData& gameData);
 };
 
 

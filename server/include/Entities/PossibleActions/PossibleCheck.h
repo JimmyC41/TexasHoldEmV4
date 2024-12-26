@@ -5,8 +5,9 @@
 
 class PossibleCheck : public PossibleAction {
 public:
-    PossibleCheck() : PossibleAction(0, 0) {}
+    PossibleCheck() : PossibleAction(0) {}
     ActionType getActionType() const override { return ActionType::CHECK; }
+    const size_t getSecondaryAmount() const override { return 0; }
 };
 
 #endif
