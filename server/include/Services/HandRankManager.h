@@ -3,6 +3,7 @@
 
 #include <string>
 #include <unordered_map>
+#include "../Entities/HandInfo.h"
 #include "../Shared/GameData.h"
 #include "../Shared/Enums.h"
 #include "../Shared/Types.h"
@@ -12,7 +13,6 @@
 #include "../Utils/PlayerUtil.h"
 
 using namespace std;
-using HandInfo = Types::HandInfo;
 
 class HandRankManager {
 private:

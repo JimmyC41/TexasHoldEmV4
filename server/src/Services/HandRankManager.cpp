@@ -9,28 +9,33 @@ void HandRankManager::populateHandsInfo(GameData& gameData) {
         HandInfo& handInfo = handsInfo[player->getId()];
         
         // Evaluate the hand in the handInfo reference
-        handInfo.hand = hand;
-        handInfo.handSize = hand.size();
+        handInfo.setHand(hand);
+        handInfo.setHandSize(hand.size());
         HandRankUtil::sortHand(handInfo);
         HandRankUtil::computeBitwiseForHand(handInfo);
         HandRankUtil::evaluateHandInfo(handInfo);
 
         // GameData updates
-        player->setBestFiveCards(handInfo.bestFiveCards);
-        player->setHandCategory(handInfo.category);
+        player->setBestFiveCards(handInfo.getBestFiveCards());
+        player->setHandCategory(handInfo.getCategory());
     }
 }
 
 bool HandRankManager::compareHands(const HandInfo& handA, const HandInfo& handB) {
+    auto handACategory = handA.getCategory();
+    auto handBCategory = handB.getCategory();
+    auto handAFive = handA.getBestFiveCards();
+    auto handBFive = handB.getBestFiveCards();
+
     // Compare by hand category first (higher is stronger)
-    if (handA.category != handB.category) {
-        return handA.category > handB.category;
+    if (handACategory != handBCategory) {
+        return handACategory > handBCategory;
     }
 
     // Compare best five cards lexicographically
-    for (size_t i = 0; i < handA.bestFiveCards.size(); ++i) {
-        if (handA.bestFiveCards[i].getValue() != handB.bestFiveCards[i].getValue()) {
-            return handA.bestFiveCards[i].getValue() > handB.bestFiveCards[i].getValue();
+    for (size_t i = 0; i < handA.getBestFiveCards().size(); ++i) {
+        if (handAFive[i].getValue() != handBFive[i].getValue()) {
+            return handAFive[i].getValue() > handBFive[i].getValue();
         }
     }
     return false;

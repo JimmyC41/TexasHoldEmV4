@@ -5,6 +5,7 @@
 #include "Types.h"
 #include "../Entities/Player.h"
 #include "../Entities/Board.h"
+#include "../Entities/Pot.h"
 
 #include <string>
 #include <memory>
@@ -19,7 +20,6 @@ class NoneAction;
 
 using namespace std;
 using Street = Enums::Street;
-using Pot = Types::Pot;
 using Position = Enums::Position;
 
 class GameData {

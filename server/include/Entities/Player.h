@@ -38,7 +38,7 @@ public:
     void setInitialChips(size_t chips);
     void setRecentBet(size_t newBet);
     void setHandCategory(HandCategory category);
-    void setBestFiveCards(vector<Card>& cards);
+    void setBestFiveCards(const vector<Card>& cards);
 
     const string& getId() const;
     const string& getName() const;

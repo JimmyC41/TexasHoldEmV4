@@ -5,6 +5,7 @@
 #include "../Shared/Types.h"
 #include "../Shared/Enums.h"
 #include "../Entities/Card.h"
+#include "../Entities/HandInfo.h"
 #include "../Utils/PrintUtil.h"
 
 #include <iostream>
@@ -13,7 +14,6 @@
 using Value = Enums::Value;
 using Suit = Enums::Suit;
 using HandCategory = Enums::HandCategory;
-using HandInfo = Types::HandInfo;
 using namespace std;
 
 constexpr int MIN_HAND_SIZE = 5;

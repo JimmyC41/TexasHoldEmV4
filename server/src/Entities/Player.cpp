@@ -33,7 +33,7 @@ void Player::setRecentBet(size_t newBet) { recentBet = newBet; }
 
 void Player::setHandCategory(HandCategory category) { handCategory = category; }
 
-void Player::setBestFiveCards(vector<Card>& cards) { bestFiveCards = cards; }
+void Player::setBestFiveCards(const vector<Card>& cards) { bestFiveCards = cards; }
 
 // GETTER METHODS
 
