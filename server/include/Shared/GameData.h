@@ -88,6 +88,7 @@ public:
     void addDeadChips(const size_t& chips) { deadChips += chips; }
     void lessDeadChips(const size_t& chips) { deadChips -= chips; }
     void clearAllPots() { pots.clear(); }
+    void setBigBlind(const size_t& big) { bigBlind = big; }
 
     // GET Methods
     const string& getSmallBlindId() const { return smallBlindId; }

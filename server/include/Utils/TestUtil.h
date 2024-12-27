@@ -7,6 +7,8 @@
 #include "../Entities/PossibleAction.h"
 #include "../Services/DealerManager.h"
 #include "../Services/HandRankManager.h"
+#include "../Services/PlayerManager.h"
+#include "../Services/PositionManager.h"
 #include "../Utils/CardUtil.h"
 #include "../Shared/GameData.h"
 #include <string>
@@ -25,7 +27,11 @@ public:
     static void manualSetStreet(GameData& GameData, Street newStreet);
     static void manualClearActionTimeline(GameData& gameData);
     static void manualClearPots(GameData& gameData);
+    static void manualSetPossibleAction(GameData& gameData, vector<shared_ptr<PossibleAction>> possible);
     static void dealCardsToPlayers(GameData& gameData, vector<string> idOrNames, vector<pair<Suit, Value>>& cards);
+    
+    static void manualAddPlayers(GameData& gameData, PlayerManager& playerManager, PositionManager& positionManager,
+        vector<pair<string, size_t>> players);
 
     // Game Data Getters
     static vector<tuple<string, ActionType, size_t>> getActionTimelineVector(GameData& gameData);

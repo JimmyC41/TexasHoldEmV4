@@ -14,6 +14,7 @@ bool PlayerManager::addNewPlayers(vector<pair<string, size_t>> newPlayersInfo) {
 }
 
 bool PlayerManager::removeExistingPlayers(vector<string> playersIdOrName) {
+    cout << "(+) PlayerManager: removeExistingPlayer called." << endl;
     for (auto& idOrName : playersIdOrName) {
         // Fetch the shared ptr to the player we want to remove
         auto player = GameUtil::getPlayer(gameData, idOrName);
@@ -21,7 +22,7 @@ bool PlayerManager::removeExistingPlayers(vector<string> playersIdOrName) {
         // Attempt to remove this player from Game Data
         if (!gameData.removePlayer(player)) {
             cout << "Player removal process terminated!" << endl;
-            return false;
+            continue;
         }
     }
     return true;

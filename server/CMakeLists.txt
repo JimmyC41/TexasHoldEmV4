@@ -36,6 +36,7 @@ set(TEST_FILES
     HandRankTest
     ActionTest
     PotManagerTest
+    IOTest
 )
 
 foreach(TEST_NAME IN LISTS TEST_FILES)

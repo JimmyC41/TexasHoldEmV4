@@ -23,7 +23,7 @@ public:
 
     vector<pair<string, size_t>> addPlayersStdIn();
     vector<string> removePlayersStdIn();
-    pair<ActionType, size_t> getPlayerAction();
+    pair<ActionType, size_t> getPlayerActionStdIn();
 };
 
 #endif

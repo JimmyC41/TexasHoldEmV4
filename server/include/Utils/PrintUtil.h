@@ -17,6 +17,7 @@ public:
     static void printPlayers(GameData& gameData);
     static void printPots(GameData& gameData);
     static void printPossibleActionsForCurPlayer(GameData& gameData);
+    static void printClientAction(pair<ActionType, size_t> action);
 
     // String Helpers
     static string printVectorCards(const vector<Card>& cards);

@@ -4,32 +4,38 @@ bool IOUtil::getYesOrNo() {
     string input;
 
     while (true) {
-        cin >> input;
-        transform(input.begin(), input.end(), input.begin(), ::toupper);
-        
-        if (input == "Y") return true;
-        else if (input == "N") return false;
-        else cout << "Please enter Y or N. Try again." << endl;
+        cout << "Y or N? ";
+        getline(cin, input);
+        if (toLowerCase(input) == "y") return true;
+        else if (toLowerCase(input) == "n") return false;
+        cout << "Invalid Input! Would you like to add a new player? ";
     }
 };
 
 string IOUtil::getPlayerName() {
     string input;
-
     while (true) {
+        cout << "Enter a player name: ";
         getline(cin, input);
         if (!input.empty()) return capitaliseFirstLetter(input);
-        else cout << "Name cannot be empty. Try again." << endl;
+        else cout << "Name cannot be empty. Try again.\n" << endl;
     }
 }
 
 size_t IOUtil::getPlayerChips(size_t minChips) {
+    string input;
     size_t chips;
 
     while (true) {
-        cin >> chips;
-        if (chips >= minChips) return chips;
-        else cout << "Please enter a positive number of chips." << endl;
+        cout << "Enter starting chip count: ";
+        getline(cin, input);
+        try {
+            chips = stoi(input);
+            if (chips < minChips) cout << "Chip count too low. Try again.\n";
+            else return chips;
+        } catch (const invalid_argument&) {
+            cout << "Invalid number. Try again.\n";
+        }
     }
 }
 
@@ -64,9 +70,16 @@ size_t IOUtil::getActionAmount(vector<shared_ptr<PossibleAction>>& actions, Acti
     auto [primary, secondary] = getRangeOfValidAmounts(actions, type);
     if (secondary == 0) return primary;
 
+    string input;
     size_t amount;
     while (true) {
-        cin >> amount;
+        cout << "Amount? ";
+        getline(cin, input);
+        try {
+            amount = stoi(input);
+        } catch (const invalid_argument&) {
+            cout << "Invalid number. Try again.";
+        }
 
         switch(type) {
             case ActionType::BET:

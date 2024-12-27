@@ -83,6 +83,12 @@ void PrintUtil::printPossibleActionsForCurPlayer(GameData& gameData) {
     }
 }
 
+void PrintUtil::printClientAction(pair<ActionType, size_t> action) {
+    auto type = actionTypeToString(action.first);
+    auto amount = action.second;
+    cout << "Client action is: " << type << " " << amount << endl;
+}
+
 string PrintUtil::printVectorCards(const vector<Card>& cards) {
     string aggregate { "" };
     for (const auto& card : cards) {
@@ -137,6 +143,7 @@ string PrintUtil::actionTypeToString(ActionType type) {
         case ActionType::FOLD: return "Fold";
         case ActionType::ALL_IN_BET: return "All In Bet";
         case ActionType::ALL_IN_CALL: return "All In Call";
+        case ActionType::ALL_IN_RAISE: return "All In Raise";
         default: return "Unknown Action Type";
     }
 }

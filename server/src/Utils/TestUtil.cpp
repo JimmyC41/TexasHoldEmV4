@@ -40,6 +40,18 @@ void TestUtil::dealCardsToPlayers(GameData& gameData, vector<string> idOrNames, 
     }
 }
 
+void TestUtil::manualAddPlayers(GameData& gameData, PlayerManager& playerManager, PositionManager& positionManager,
+    vector<pair<string, size_t>> players) {
+
+        playerManager.addNewPlayers(players);
+        positionManager.allocatePositions();
+        PrintUtil::printPlayers(gameData);
+}
+
+void TestUtil::manualSetPossibleAction(GameData& gameData, vector<shared_ptr<PossibleAction>> possible) {
+    gameData.setPossibleActions(possible);
+}
+
 vector<Card> TestUtil::strToVectorOfCards(const string& stringOfCards) {
     vector<Card> hand;
     for (size_t i = 0; i < stringOfCards.size(); i += 2) {
