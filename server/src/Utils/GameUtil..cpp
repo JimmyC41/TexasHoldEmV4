@@ -50,6 +50,12 @@ vector<string> GameUtil::getPlayerIds(GameData& gameData) {
     return playerIds;
 }
 
+vector<string> getPlayerNames(GameData& gameData) {
+    vector<string> playerIds;
+    for (const auto& player : gameData.getPlayers()) playerIds.push_back(player->getName());
+    return playerIds;
+}
+
 vector<string> GameUtil::getListofNames(GameData& gameData) {
     vector<string> playerNames;
     for (const auto& player : gameData.getPlayers()) playerNames.push_back(player->getName());
@@ -65,8 +71,16 @@ vector<Position> GameUtil::getListOfPositions(GameData& gameData) {
     return positions;
 }
 
+vector<string> GameUtil::getNamesFromIds(GameData& gameData, const vector<string>& ids) {
+    vector<string> names;
+    for (auto& id : ids) names.push_back(GameUtil::getPlayerNameFromId(gameData, id));
+    return names;
+}
+
+
 string GameUtil::getPlayerNameFromId(GameData& gameData, string id) {
     auto player = getPlayer(gameData, id);
+    if (player == nullptr) return "Player does not exist!";
     return player->getName();
 }
 
@@ -77,6 +91,20 @@ shared_ptr<Player> GameUtil::getPlayer(GameData& gameData, string idOrName) {
 
 bool GameUtil::isPlayerBigBlind(GameData& gameData, string idOrName) {
     return (idOrName == gameData.getBigBlindId());
+}
+
+bool GameUtil::isSmallBlindExists(GameData& gameData) {
+    auto smallId = gameData.getSmallBlindId();
+    return (getPlayer(gameData, smallId) != nullptr);
+}
+
+bool GameUtil::isBigBlindExists(GameData& gameData) {
+    auto bigId = gameData.getBigBlindId();
+    return (getPlayer(gameData, bigId) != nullptr);
+}
+
+bool GameUtil::isPlayerExists(GameData& gameData, string idOrName) {
+    return (getPlayer(gameData, idOrName) != nullptr);
 }
 
 HandCategory GameUtil::getPlayerHandCategory(GameData& gameData, string idOrName) {
@@ -168,6 +196,15 @@ vector<shared_ptr<Player>> GameUtil::getOccupiedPlayers(GameData& gameData) {
             });
 
     return occupiedPlayers;
+}
+
+vector<pair<string, size_t>> GameUtil::getPlayersCurChips(GameData& gameData) {
+    vector<pair<string, size_t>> namesToChips;
+    auto players = gameData.getPlayers();
+    for (const auto& player : players) {
+        namesToChips.push_back({player->getName(), player->getCurChips()});
+    }
+    return namesToChips;
 }
 
 int GameUtil::getNumPlayers(GameData& gameData) {

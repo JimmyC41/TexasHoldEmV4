@@ -75,6 +75,22 @@ void PotManager::calculatePots() {
     GameUtil::resetPlayerRecentBets(gameData);
 }
 
-void PotManager::resetPots() {
+void PotManager::awardPots() {
+    auto rankedIds = gameData.getRankedIds();
+    auto pots = gameData.getPots();
+
+    // For each pot, find the highest ranking player that is eligible
+    // and increment their chip count by the amount in the pot
+    for (auto& pot : pots) {
+        for (auto& id : rankedIds) {
+            if (pot->isIdEligible(id)) {
+                auto player = GameUtil::getPlayer(gameData, id);
+                player->addChips(pot->getChips());
+                cout << "Pot Manager: Awarded " << pot->getChips() << " to " << player->getName() << " chip count!" << endl;
+                break;
+            }
+        }
+    }
+
     gameData.clearAllPots();
 }

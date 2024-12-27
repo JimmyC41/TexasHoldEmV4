@@ -1,18 +1,16 @@
 #include "../../include/Utils/TestUtil.h"
 #include "../../include/Entities/Board.h"
 
-vector<string> TestUtil::getNamesFromIds(GameData& gameData, const vector<string>& ids) {
-    vector<string> names;
-    for (auto& id : ids) names.push_back(GameUtil::getPlayerNameFromId(gameData, id));
-    return names;
-}
-
 void TestUtil::manualSetStreet(GameData& GameData, Street newStreet) {
     GameData.setCurStreet(newStreet);
 }
 
 void TestUtil::manualClearActionTimeline(GameData& gameData) {
     gameData.clearActionTimeline();
+}
+
+void TestUtil::manualClearPots(GameData& gameData) {
+    gameData.clearAllPots();
 }
 
 bool TestUtil::isCardsUnique(const vector<Card>& cards) {
@@ -97,8 +95,31 @@ vector<pair<size_t, vector<string>>> TestUtil::getPotsChipsAndNames(GameData& ga
     for (auto& pot : pots) {
         chipsInPots.push_back({
             pot->getChips(), 
-            TestUtil::getNamesFromIds(gameData, pot->getEligibleIds())
+            GameUtil::getNamesFromIds(gameData, pot->getEligibleIds())
         });
     }
     return chipsInPots;
+}
+
+// Deals players, calls hand evaluator to rank players and returns the ranked names
+vector<string> TestUtil::evaluateHandsAndGetRankedNames(GameData& gameData, HandRankManager& handRankManager, vector<pair<Suit, Value>> cards) {
+    // Create a vector of player names e.g. {"P1", "P2", "P3"}
+    vector<string> playerNames;
+    int numPlayers = (cards.size() - 5) / 2;
+    for (int i = 1; i <= numPlayers; ++i) playerNames.push_back("P" + to_string(i));
+        
+    // Deal the board cards to each player
+    vector<pair<Suit, Value>> board = TestUtil::getSubset(cards, 0, 5);
+    TestUtil::dealCardsToPlayers(gameData, playerNames, board);
+
+    // Deal each player's hole cards
+    size_t offset = 5;
+    for (int i = 0; i < numPlayers; ++i) {
+        vector<pair<Suit, Value>> holeCards = TestUtil::getSubset(cards, offset, offset + 2);
+        TestUtil::dealCardsToPlayers(gameData, {playerNames[i]}, holeCards);
+        offset += 2;
+    }
+
+    handRankManager.evaluateRankedIds();
+    return GameUtil::getRankedNames(gameData);
 }

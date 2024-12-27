@@ -28,6 +28,8 @@ void DealerManager::dealBoard(int num) {
 }
 
 void DealerManager::resetDeck() {
+    cout << "Dealer Manager: Shuffling the Deck!" << endl;
+    
     deck.resetDeck();
 }
 

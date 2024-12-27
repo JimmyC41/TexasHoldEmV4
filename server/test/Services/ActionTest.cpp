@@ -48,6 +48,10 @@ protected:
         positionManager.setEarlyPositionToAct();
     }
 
+    void TearDown() override {
+        TestUtil::manualClearActionTimeline(gameData);
+    }
+
     void verifyGameData(
         GameData& gameData,
         vector<tuple<string, ActionType, size_t>> expectedTimeline,

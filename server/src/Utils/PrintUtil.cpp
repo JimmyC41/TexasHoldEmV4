@@ -2,30 +2,85 @@
 
 void PrintUtil::printActionTimeline(GameData& gameData) {
     cout << "(*) Displaying the Action Timeline." << '\n';
-    for (auto& action : gameData.getActionTimeline()) {
+    for (const auto& action : gameData.getActionTimeline()) {
         cout    << "   "
                 << "player: " << GameUtil::getPlayerNameFromId(gameData, action->getPlayerId()) << " | "
                 << "type: " << actionTypeToString(action->getActionType()) << " | "
-                << "amount: " << action->getAmount() << endl;
+                << "amount: " << action->getAmount() << '\n';
     }
 
     cout    << "(*) Active Action Type is: " 
             << actionTypeToString(GameUtil::getActiveActionType(gameData)) << endl;
 }
 
+void PrintUtil::printAllCards(GameData& gameData) {
+    cout << "(*) Displaying the Board: " << '\n';
+    auto communityCards = gameData.getBoardCards();
+    printVectorCards(communityCards);
+
+    cout << "(*) Displaying player's hole cards" << '\n';
+    auto players = gameData.getPlayers();
+    for (const auto& player : players) {
+        cout    << "    "
+                << player->getName() << ": "
+                << printVectorCards(player->getHand()) << endl;
+    }
+}
+
 void PrintUtil::printPlayers(GameData& gameData) {
-    cout << "(*) Displaying Players in Game Data." << '\n';
-    int num = 1;
-    for (auto& player : gameData.getPlayers()) {
+    cout << "(*) Displaying Players:" << '\n';
+
+    auto players = gameData.getPlayers();
+    for (const auto& player : players) {
         cout    << "    "
                 << "name: " << player->getName() << " | "
                 << "id: " << player->getId() << " | "
                 << "chips: " << player->getCurChips() << " | "
                 << "recent bet: " << player->getRecentBet() << " | "
-                << "position: " << positionToString(player->getPosition()) << endl;
+                << "position: " << positionToString(player->getPosition()) << '\n';
     }
-    cout << "Small ID: " << gameData.getSmallBlindId() << '\n';
-    cout << "Dealer ID: " << gameData.getButtonId() << endl;
+
+    cout << "Small Blind: " << GameUtil::getPlayerNameFromId(gameData, gameData.getSmallBlindId()) << '\n';
+    cout << "Big Blind: " << GameUtil::getPlayerNameFromId(gameData, gameData.getBigBlindId()) << '\n';
+    cout << "Dealer: " << GameUtil::getPlayerNameFromId(gameData, gameData.getButtonId()) << endl;
+}
+
+void PrintUtil::printPots(GameData& gameData) {
+    cout << "(*) Displaying Pots: " << '\n';
+
+    if (GameUtil::getNumPots(gameData) == 0) {
+        cout    << "   "
+                << "No pots to display." << endl;
+        return;
+    }
+
+    auto pots = gameData.getPots();
+    for (auto& pot : pots) {
+        cout    << "    "
+                << "Chips in Pot: " << pot->getChips() << " | "
+                << "Eligible Players: "
+                << printVectorString(GameUtil::getNamesFromIds(gameData, pot->getEligibleIds())) << endl;
+    }
+}
+
+void PrintUtil::printPossibleActionsForCurPlayer(GameData& gameData) {
+    cout << "(*) Displaying Possible Actions: " << '\n';
+
+    auto id = gameData.getCurPlayerId();
+    auto name = GameUtil::getPlayerNameFromId(gameData, id);
+    auto toAct = GameUtil::getPlayer(gameData, id);
+    auto possibleActions = gameData.getPossibleActions();
+
+    cout << "   " << name << " has options: ";
+    for (const auto& action : possibleActions) { 
+        cout << actionTypeToString(action->getActionType());
+
+        if (action->getSecondaryAmount() != 0) {
+            cout << " | Range: [" << action->getPrimaryAmount() << ", " << action->getSecondaryAmount() << "]" << '\n';
+        } else {
+            cout << " | Amount: " << action->getPrimaryAmount() << '\n';
+        }
+    }
 }
 
 string PrintUtil::printVectorCards(const vector<Card>& cards) {
@@ -95,6 +150,14 @@ string PrintUtil::playerStatusToString(PlayerStatus status) {
         case PlayerStatus::ALL_IN_CALL: return "All In Call";
         default: return "Unknown Player Status";
     }
+}
+
+string PrintUtil::printVectorString(const vector<string>& strings) {
+    string result;
+    for (size_t i = 0; i < strings.size(); ++i) {
+        result += strings[i];
+    }
+    return result;
 }
 
 void PrintUtil::printPlayerBetsInPotManager(PlayerBetInfo& playerBetInfo) {

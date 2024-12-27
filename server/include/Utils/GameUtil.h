@@ -20,11 +20,16 @@ public:
 
     // GET Methods
     static vector<string> getPlayerIds(GameData& gameData);
+    static vector<string> getPlayerNames(GameData& gameData);
     static vector<string> getListofNames(GameData& gameData);
+    static vector<string> getNamesFromIds(GameData& gameData, const vector<string>& ids);
     static vector<Position> getListOfPositions(GameData& gameData);
     static string getPlayerNameFromId(GameData& gameData, string id);
     static shared_ptr<Player> getPlayer(GameData& gameData, string idOrName);
     static bool isPlayerBigBlind(GameData& gameData, string idOrName);
+    static bool isSmallBlindExists(GameData& gameData);
+    static bool isBigBlindExists(GameData& gameData);
+    static bool isPlayerExists(GameData& gameData, string idOrName);
     static HandCategory getPlayerHandCategory(GameData& gameData, string idOrName);
     static vector<Card> getPlayerBestFiveCards(GameData& gameData, string idOrName);
     static size_t getPlayerInitialChips(GameData& gameData, string idOrName);
@@ -34,6 +39,7 @@ public:
     static shared_ptr<Player> getNextPlayerInHand(GameData& gameData, string idOrName);
     static vector<shared_ptr<Player>> getPreFlopOrderPlayers(GameData& gameData);
     static vector<shared_ptr<Player>> getOccupiedPlayers(GameData& gameData);
+    static vector<pair<string, size_t>> getPlayersCurChips(GameData& gameData);
     static int getNumPlayers(GameData& gameData);
     static int getNumFolded(GameData& gameData);
     static bool isPlayersDealt(GameData& gameData);

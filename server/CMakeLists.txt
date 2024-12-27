@@ -9,7 +9,6 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 file(GLOB SRC_FILES
     src/Entities/*.cpp
-    src/GameState/*.cpp
     src/Shared/*.cpp
     src/Services/*.cpp
     src/Utils/*.cpp

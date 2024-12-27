@@ -23,8 +23,8 @@ public:
     const size_t& getPrimaryAmount() const { return primaryAmount; }
     
     virtual ~PossibleAction() {}
+    virtual const size_t getSecondaryAmount() const { return 0; }
     virtual ActionType getActionType() const = 0;
-    virtual const size_t getSecondaryAmount() const = 0;
 };
 
 #endif

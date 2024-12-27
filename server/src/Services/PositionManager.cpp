@@ -25,9 +25,7 @@ void PositionManager::updatePlayerPositionInGameData(const string& idOrName, con
 }
 
 void PositionManager::allocatePositions() {
-    // Error check to see if there is at least one player
-    int numPlayers = GameUtil::getNumPlayers(gameData);
-    if (numPlayers == 0) throw runtime_error("allocatePositions: 0 players.");
+    cout << "(+) Position Manager: Allocating Positions to Players!" << endl;
 
     // Populate the set of occupied positions from the player vector
     // Occupied positions before allocating position to a new player informs us
@@ -55,6 +53,9 @@ void PositionManager::allocatePositions() {
 
     // Set players' status to IN_HAND
     GameUtil::setInHandStatusForPlayers(gameData);
+
+    // Assign small and big blinds if players have left the game
+    assignBlindsIfMissing();
 }
 
 void PositionManager::rotatePositions() {
@@ -65,7 +66,6 @@ void PositionManager::rotatePositions() {
     // Button becomes new small, small becomes new big
     updatePlayerPositionInGameData(newSmallId, Position::SMALL_BLIND);
     updatePlayerPositionInGameData(newBigId, Position::BIG_BLIND);
-
 
     // From the BB onwards, update their position!
     auto& players = gameData.getPlayers();
@@ -95,6 +95,8 @@ void PositionManager::updatePlayerToAct() {
 }
 
 void PositionManager::setEarlyPositionToAct() {
+    cout << "(+) PositionManager: Determining the First Player To Act!" << endl;
+
     Street curStreet = gameData.getStreet();
     shared_ptr<Player> earlyPosition;
 
@@ -103,4 +105,18 @@ void PositionManager::setEarlyPositionToAct() {
 
     // Set the current player to act
     gameData.setCurPlayerId(earlyPosition->getId());
+}
+
+void PositionManager::assignBlindsIfMissing() {
+    if (GameUtil::getNumPlayers(gameData) < 2) return;
+
+    bool smallExists = GameUtil::isSmallBlindExists(gameData);
+    bool bigExists = GameUtil::isBigBlindExists(gameData);
+
+    // Both previous small and big blinds have left the game
+    if (!smallExists || !bigExists) {
+        auto players = gameData.getPlayers();
+        updatePlayerPositionInGameData(players[0]->getId(), Position::SMALL_BLIND);
+        updatePlayerPositionInGameData(players[1]->getId(), Position::BIG_BLIND);
+    }
 }

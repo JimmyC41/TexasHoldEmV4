@@ -60,29 +60,6 @@ protected:
             expectedBestFive
         );
     }
-
-    // Deals players, calls hand evaluator to rank players and checks if the hand ranking is as expected
-    void verifyHandRanking(GameData& gameData, vector<pair<Suit, Value>> cards, vector<string> expectedRanking) {
-        // Create a vector of player names e.g. {"P1", "P2", "P3"}
-        vector<string> playerNames;
-        int numPlayers = (cards.size() - 5) / 2;
-        for (int i = 1; i <= numPlayers; ++i) playerNames.push_back("P" + to_string(i));
-        
-        // Deal the board cards to each player
-        vector<pair<Suit, Value>> board = TestUtil::getSubset(cards, 0, 5);
-        TestUtil::dealCardsToPlayers(gameData, playerNames, board);
-
-        // Deal each player's hole cards
-        size_t offset = 5;
-        for (int i = 0; i < numPlayers; ++i) {
-            vector<pair<Suit, Value>> holeCards = TestUtil::getSubset(cards, offset, offset + 2);
-            TestUtil::dealCardsToPlayers(gameData, {playerNames[i]}, holeCards);
-            offset += 2;
-        }
-
-        handRankManager.evaluateRankedIds();
-        EXPECT_EQ(GameUtil::getRankedNames(gameData), expectedRanking);
-    }
 };
 
 TEST_F(HandRankTest, RoyalFlush) {
@@ -365,7 +342,8 @@ TEST_F(HandRankTest, FullHouseTie) {
         {Suit::HEARTS, Value::QUEEN}
     };
 
-    verifyHandRanking(gameData, cards, vector<string>{"P1", "P2"});
+    auto actual = TestUtil::evaluateHandsAndGetRankedNames(gameData, handRankManager, cards);
+    EXPECT_EQ(actual, vector<string>({"P1", "P2"}));
 };
 
 TEST_F(HandRankTest, FlushTie) {
@@ -396,7 +374,8 @@ TEST_F(HandRankTest, FlushTie) {
         {Suit::HEARTS, Value::TEN}
     };
 
-    verifyHandRanking(gameData, cards, vector<string>{"P3", "P1", "P2", "P4"});
+    auto actual = TestUtil::evaluateHandsAndGetRankedNames(gameData, handRankManager, cards);
+    EXPECT_EQ(actual, vector<string>({"P3", "P1", "P2", "P4"}));
 };
 
 TEST_F(HandRankTest, StraightTie) {
@@ -423,7 +402,8 @@ TEST_F(HandRankTest, StraightTie) {
         {Suit::HEARTS, Value::NINE}
     };
 
-    verifyHandRanking(gameData, cards, vector<string>{"P3", "P1", "P2"});
+    auto actual = TestUtil::evaluateHandsAndGetRankedNames(gameData, handRankManager, cards);
+    EXPECT_EQ(actual, vector<string>({"P3", "P1", "P2"}));
 };
 
 TEST_F(HandRankTest, ThreeOfAKindTie) {
@@ -446,7 +426,8 @@ TEST_F(HandRankTest, ThreeOfAKindTie) {
         {Suit::HEARTS, Value::KING}
     };
 
-    verifyHandRanking(gameData, cards, vector<string>{"P2", "P1"});
+    auto actual = TestUtil::evaluateHandsAndGetRankedNames(gameData, handRankManager, cards);
+    EXPECT_EQ(actual, vector<string>({"P1", "P2"}));
 };
 
 TEST_F(HandRankTest, TwoPairTie) {
@@ -473,7 +454,8 @@ TEST_F(HandRankTest, TwoPairTie) {
         {Suit::DIAMONDS, Value::JACK},
     };
 
-    verifyHandRanking(gameData, cards, vector<string>{"P1", "P2", "P3"});
+    auto actual = TestUtil::evaluateHandsAndGetRankedNames(gameData, handRankManager, cards);
+    EXPECT_EQ(actual, vector<string>({"P1", "P2", "P3"}));
 };
 
 TEST_F(HandRankTest, ComplexHandRanking) {
@@ -524,6 +506,6 @@ TEST_F(HandRankTest, ComplexHandRanking) {
         {Suit::SPADES, Value::FOUR}
     };
 
-    verifyHandRanking(gameData, cards,
-        vector<string>{"P1", "P2", "P8", "P4", "P9", "P7", "P3", "P6", "P5"});
+    auto actual = TestUtil::evaluateHandsAndGetRankedNames(gameData, handRankManager, cards);
+    EXPECT_EQ(actual, vector<string>({"P1", "P2", "P8", "P4", "P9", "P7", "P3", "P6", "P5"}));
 };

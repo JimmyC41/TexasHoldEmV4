@@ -2,7 +2,7 @@
 #define POT_UTIL_H
 
 #include "Shared/Enums.h"
-#include "Utils/GameUtil.h"
+#include "Shared/GameData.h"
 
 #include <vector>
 #include <string>

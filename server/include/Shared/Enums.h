@@ -1,6 +1,11 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
+#include <unordered_map>
+#include <string>
+
+using namespace std;
+
 namespace Enums {
 
 enum class Suit {
@@ -84,6 +89,37 @@ enum HandCategory {
     ROYAL_FLUSH
 };
 
+inline string actionTypeToString(ActionType& actionType) {
+    switch(actionType) {
+        case ActionType::NONE: return "None";
+        case ActionType::POST_BIG: return "Big";
+        case ActionType::POST_SMALL: return "Small";
+        case ActionType::CHECK: return "Check";
+        case ActionType::BET: return "Bet";
+        case ActionType::CALL: return "Call";
+        case ActionType::RAISE: return "Raise";
+        case ActionType::FOLD: return "Fold";
+        case ActionType::ALL_IN_BET: return "All In Bet";
+        case ActionType::ALL_IN_CALL: return "All In Call";
+        default: return "Unknown Action Type";
+    }
+}
+
+inline ActionType stringToActionType(const string& actionStr) {
+    static const unordered_map<string, ActionType> actionMap = {
+        {"all in bet", ActionType::ALL_IN_BET},
+        {"all in call", ActionType::ALL_IN_CALL},
+        {"all in raise", ActionType::ALL_IN_RAISE},
+        {"bet", ActionType::BET},
+        {"call", ActionType::CALL},
+        {"check", ActionType::CHECK},
+        {"fold", ActionType::FOLD},
+        {"raise", ActionType::RAISE},
+    };
+    auto it = actionMap.find(actionStr);
+    if (it != actionMap.end()) return it->second;
+    return ActionType::NONE;
+}
 }
 
 #endif

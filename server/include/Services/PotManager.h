@@ -43,10 +43,6 @@ public:
     // To: Awards chips to players according to their hand ranking
     // and pot eligibility
     void awardPots();
-
-    // Event: Triggered at the start of Round End State
-    // To GameData: Clears the pots vector in the Game Data and playerBets internally
-    void resetPots();
 };
 
 #endif // POT_MANAGER_H

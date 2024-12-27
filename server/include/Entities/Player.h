@@ -13,6 +13,7 @@
 using namespace std;
 using Position = Enums::Position;
 using PlayerStatus = Enums::PlayerStatus;
+using HandCategory = Enums::HandCategory;
 
 class Player {
 private:

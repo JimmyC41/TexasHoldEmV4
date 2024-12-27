@@ -14,6 +14,7 @@
 #include <iostream>
 
 class Player;
+class Board;
 class Card;
 class Action;
 class PossibleAction;
@@ -56,8 +57,8 @@ public:
         deadChips(),
         actionTimeline(),
         activeAction(),
-        smallBlind(),
-        bigBlind()
+        smallBlind(size_t{1}),
+        bigBlind(size_t{2})
     {}
 
     // SET Methods
@@ -104,6 +105,7 @@ public:
     const vector<shared_ptr<Pot>>& getPots() const { return pots; }
     const shared_ptr<Pot>& getCurPot() const { return pots.back(); }
     const size_t& getDeadChips() const { return deadChips; }
+    const size_t& getBigBlind() const { return bigBlind; }
 };
 
 #endif

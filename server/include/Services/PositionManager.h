@@ -20,6 +20,9 @@ private:
     // Updates GameData when a player's position is changed
     void updatePlayerPositionInGameData(const string& idOrName, const Position& newPosition);
 
+    // Assigns a small and big blind if previous players left the game and there are at least 2 players
+    void assignBlindsIfMissing();
+
 public:
     PositionManager(GameData& gameData);
 
