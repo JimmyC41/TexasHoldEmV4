@@ -11,6 +11,7 @@ file(GLOB SRC_FILES
     src/Entities/*.cpp
     src/Shared/*.cpp
     src/Services/*.cpp
+    src/States/*.cpp
     src/Utils/*.cpp
     src/*.cpp
 )

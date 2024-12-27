@@ -2,6 +2,7 @@
 #define GAME_CONTROLLER_H
 
 #include "Shared/GameData.h"
+#include "States/StateManager.h"
 #include "Services/ActionManager.h"
 #include "Services/DealerManager.h"
 #include "Services/HandRankManager.h"
@@ -9,6 +10,10 @@
 #include "Services/PositionManager.h"
 #include "Services/PotManager.h"
 #include "Services/IOManager.h"
+#include "States/State.h"
+#include "States/GameSetup.h"
+#include "States/BettingStreet.h"
+#include "States/Winner.h"
 #include <memory>
 
 class GameController {
@@ -21,12 +26,12 @@ private:
     PositionManager positionManager;
     PotManager potManager;
     IOManager inputOutputManager;
+    StateManager stateManager;
 
 public:
     GameController();
-    void startGame();
-    void nextState();
-    void runGame();
+    void beginGameSetup();
+    void moveToNextState();
 
     ActionManager& getActionManager() { return actionManager; }
     DealerManager& getDealerManager() { return dealerManager; }
@@ -35,7 +40,6 @@ public:
     PositionManager& getPositionManager() { return positionManager; }
     PotManager& getPotManager() { return potManager; }
     IOManager& getIOManager() { return inputOutputManager; }
-
 };
 
 #endif
