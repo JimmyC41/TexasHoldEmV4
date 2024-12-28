@@ -27,6 +27,10 @@ public:
     // Returns true if player(s) removal was successful
     bool removeExistingPlayers(vector<string> playersIdOrName);
 
+    // Event: Triggered at the beginning of the Game Setup state
+    // To GameData: Removes players from the game that have 0 chips
+    void removeBrokePlayers();
+
     void removeAllPlayers();
     vector<string> getPlayerIds();
     int getNumPlayers() const;

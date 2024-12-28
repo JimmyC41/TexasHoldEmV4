@@ -44,7 +44,7 @@ public:
     static vector<shared_ptr<Player>> getOccupiedPlayers(GameData& gameData);
     static vector<pair<string, size_t>> getPlayersCurChips(GameData& gameData);
     static int getNumPlayers(GameData& gameData);
-    static int getNumFolded(GameData& gameData);
+    static int getNumPlayersInHand(GameData& gameData);
     static bool isPlayersDealt(GameData& gameData);
     static int getBoardSize(GameData& gameData);
     static int getNumActionsInTimeline(GameData& gameData);
@@ -53,6 +53,7 @@ public:
     static bool isIdInCurPot(GameData& gameData, string id);
     static size_t getNumPots(GameData& gameData);
     static bool isShortPlayersInHand(GameData& gameData);
+    static bool isActiveBetFoldedTo(GameData& gameData);
 };
 
 #endif

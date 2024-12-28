@@ -3,19 +3,24 @@
 #include "../../include/GameController.h"
 
 void BettingStreet::execute() {
-    executeStreet(Street::PRE_FLOP);
-
-    for (int street = static_cast<int>(Street::FLOP);
-            street <= static_cast<int>(Street::RIVER);
-            ++street)
+    for (int street = static_cast<int>(Street::PRE_FLOP);
+            street <= static_cast<int>(Street::RIVER); ++street)
     {
         executeStreet(static_cast<Street>(street));
+
+        // Early exit condition if all players fold to an active bet
+        // Skip betting street and go to the winner state
+        if (controller.isActiveBetFoldedTo()) {
+            transition();
+            return;
+        }
     }
-    
+
     transition();
 }
 
 void BettingStreet::executeStreet(Street street) {
+    cout << "--------------------------------------------------------------\n";
     cout << "(+) State Manager: Entering the " << PrintUtil::streetToString(street) << "\n" << endl;
 
     // Deal the board and players
@@ -36,9 +41,7 @@ void BettingStreet::executeStreet(Street street) {
     // Set the early position to act
     controller.getPositionManager().setEarlyPositionToAct();
     
-    // Display the game state
-    controller.getIOManager().displayGameStateStdOut();
-
+    // Betting action loop
     while (!controller.isBettingStreetComplete()) {
         auto id = gameData.getCurPlayerId();
 
@@ -51,15 +54,12 @@ void BettingStreet::executeStreet(Street street) {
         controller.getActionManager().addNewAction(id, type, amount);
 
         // Update player to act
-        if (!controller.isBettingStreetComplete()) controller.getPositionManager().updatePlayerToAct();
-
-        PrintUtil::printPlayers(gameData);
+        if (controller.isBettingStreetComplete()) break;
+        controller.getPositionManager().updatePlayerToAct();
     }
 
     // Calculate pots from the betting street
     controller.getPotManager().calculatePots();
-
-    PrintUtil::printPots(gameData);
 }
 
 void BettingStreet::transition() {

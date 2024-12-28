@@ -1,6 +1,10 @@
 #include "../../include/Services/ActionManager.h"
 
-ActionManager::ActionManager(GameData& gameData) : gameData(gameData), streetActionData() {
+ActionManager::ActionManager(GameData& gameData) :
+    gameData(gameData),
+    streetActionData(),
+    numPlayersInStreet({0, false})
+{
     setActiveActionAsNone();
 }
 
@@ -8,9 +12,6 @@ void ActionManager::clearStreetActionData() {
     streetActionData.numCalls = 0;
     streetActionData.numChecks = 0;
     streetActionData.numFolded = 0;
-
-    // numAllInBet records both all-in bets and raises 
-    // (functionally identical)
     streetActionData.numAllInBet = 0;
     streetActionData.numAllInCall = 0;
 }
@@ -25,6 +26,16 @@ int ActionManager::findNumSittingOut() {
 void ActionManager::setActiveActionAsNone() {
     shared_ptr<Action> noActiveAction = make_shared<NoneAction>();
     gameData.setActiveAction(noActiveAction);
+}
+
+void ActionManager::setNumInitialPlayers() {
+    auto& [num, isSet] = numPlayersInStreet;
+    if (isSet) return;
+    numPlayersInStreet = {GameUtil::getNumPlayersInHand(gameData), true};
+}
+
+void ActionManager::resetInitialPlayers() {
+    numPlayersInStreet = {0, false};
 }
 
 void ActionManager::updateStreetActionData(ActionType actionType) {
@@ -155,6 +166,9 @@ void ActionManager::generatePossibleActionsForCurPlayer() {
                 if (canCallActiveBet) possibleActions.push_back(newCall);
                 if (!canCallActiveBet) possibleActions.push_back(newAllInCall);
             }
+            if (canRaise && canMinRaise) possibleActions.push_back(newRaise);
+            if (canRaise && !canMinRaise) possibleActions.push_back(newAllInRaise);
+            possibleActions.push_back(newFold);
             break;
         case ActionType::BET:
         case ActionType::RAISE:
@@ -180,8 +194,11 @@ void ActionManager::generatePossibleActionsForCurPlayer() {
 }
 
 bool ActionManager::isActionsFinished() {
+    // Find the number of players that *began* the current street
+    setNumInitialPlayers();
+
+    int initialPlayers = numPlayersInStreet.first;
     bool isActionsFinished = false;
-    int players = GameUtil::getNumPlayers(gameData);
     int checks = streetActionData.numChecks;
     int calls = streetActionData.numCalls;
     int folded = streetActionData.numFolded;
@@ -193,20 +210,21 @@ bool ActionManager::isActionsFinished() {
     // Note: The BB check functions as a 'call' to the active bet.
     if ((streetActionData.limpedPreflop == true) &&
         (checks == 1) &&
-        (calls == (players - folded - 1))) isActionsFinished = true;
+        (calls == (initialPlayers - folded - 1))) isActionsFinished = true;
 
     // Case 2: All players have checked through.
     else if ((streetActionData.limpedPreflop == false) &&
-        checks == players) isActionsFinished = true;
+        checks == initialPlayers - folded) isActionsFinished = true;
 
     // Case 3: A player bets/raises and remaining players call or fold
     // Note: The "-1" at the end represents the initial aggressor who bet/raised
     else if ((streetActionData.limpedPreflop == false) &&
-            (calls == (players - folded - sittingOut - 1))) isActionsFinished = true;
+            (calls == (initialPlayers - folded - sittingOut - 1))) isActionsFinished = true;
 
-    // If actions are finished, update the StreetActionData (internal) and GameData (shared)
+    // If actions are finished, update the StreetActionData, numPlayersInStreet (internal) and GameData (shared)
     if (isActionsFinished) {
         clearStreetActionData();
+        resetInitialPlayers();
 
         // Player Attributes
         GameUtil::setPlayerInitialToCurChips(gameData);

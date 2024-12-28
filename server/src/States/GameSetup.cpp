@@ -3,11 +3,15 @@
 #include "../../include/GameController.h"
 
 void GameSetup::execute() {
-    cout << "(+) StateManager: Entering the Game" << endl;
+    cout << "--------------------------------------------------------------\n";
+    cout << "(+) StateManager: Entering the Game\n" << endl;
+
+    // Remove players that do not have sufficient chips
+    controller.getPlayerManager().removeBrokePlayers();
 
     // Player Addition and Removal
     while (!controller.isAtLeastTwoPlayers(gameData)) {
-
+        
         while (!controller.isAtLeastTwoPlayers(gameData)){
             auto newPlayers = controller.getIOManager().addPlayersStdIn();
             if (newPlayers.size() != 0) controller.getPlayerManager().addNewPlayers(newPlayers);

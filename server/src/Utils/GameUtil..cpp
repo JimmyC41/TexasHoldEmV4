@@ -147,8 +147,16 @@ vector<string> GameUtil::getRankedNames(GameData& gameData) {
 }
 
 shared_ptr<Player> GameUtil::getEarlyPosition(GameData& gameData) {
+    // Finds the first player that is in the hand
     auto players = gameData.getPlayers();
-    return players.front();
+    auto it = find_if(players.begin(), players.end(),
+        [](const shared_ptr<Player>& player) {
+            return player->getPlayerStatus() == PlayerStatus::IN_HAND;
+        });
+    if (it != players.end()) {
+        return (*it);
+    }
+    return nullptr;
 }
 
 shared_ptr<Player> GameUtil::getNextPlayerInHand(GameData& gameData, string idOrName) {
@@ -212,6 +220,15 @@ int GameUtil::getNumPlayers(GameData& gameData) {
     return gameData.getPlayers().size();
 }
 
+int GameUtil::getNumPlayersInHand(GameData& gameData) {
+    int numInHand = 0;
+    auto players = gameData.getPlayers();
+    for (const auto& player : players) {
+        if (player->getPlayerStatus() == PlayerStatus::IN_HAND) numInHand++;
+    }
+    return numInHand;
+}
+
 bool GameUtil::isPlayersDealt(GameData& gameData) {
     for (const auto& player : gameData.getPlayers()) {
         if (player->getHand().size() != 2) return false;
@@ -251,4 +268,19 @@ bool GameUtil::isShortPlayersInHand(GameData& gameData) {
         if (player->getPlayerStatus() == PlayerStatus::IN_HAND) numInHand++;
     }
     return (numInHand < 2);
+}
+
+bool GameUtil::isActiveBetFoldedTo(GameData& gameData) {
+    auto players = gameData.getPlayers();
+    int numPlayers = players.size();
+    int activeBet = 0;
+    int folded = 0;
+
+    for (const auto& player : players) {
+        PlayerStatus status = player->getPlayerStatus();
+        if (status == PlayerStatus::FOLDED) folded++;
+        if (status == PlayerStatus::IN_HAND || status == PlayerStatus::ALL_IN_BET) activeBet++;
+    }
+
+    return (activeBet == 1 && (folded == (numPlayers - 1)));
 }

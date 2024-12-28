@@ -46,8 +46,10 @@ class ActionManager {
 private:
     GameData& gameData;
     StreetActionData streetActionData;
+    pair<int, bool> numPlayersInStreet; // Number of players at the start of a betting street
 
     void clearStreetActionData();
+    
     void updateStreetActionData(ActionType actionType);
 
     // Players that have bet all-in do not count towards players that are 'sitting out;
@@ -56,6 +58,14 @@ private:
 
     // Creates a NoneAction and sets the active action in Game Data to NoneAction
     void setActiveActionAsNone();
+
+    // Queries gameData to find the number of players before beginning action in a street
+    // Should only be called ONCE at the start of each street (bool tracks if it has been set this street)
+    void setNumInitialPlayers();
+
+    // Resets numPlayersInStreet for the next street
+    void resetInitialPlayers();
+
 public:
     ActionManager(GameData& gameData);
 
@@ -76,6 +86,7 @@ public:
    // Resets player attributes (initialChips, recent bet)
    // Clears the action timeline and sets the active action to NoneAction
    // Returns True is all betting action is complete and the GameController can move to the next Street.
+   // Note: initialPlayers is the initial number of players that began a betting street.
    bool isActionsFinished();
 };
 

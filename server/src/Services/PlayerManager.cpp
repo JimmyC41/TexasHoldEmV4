@@ -28,6 +28,17 @@ bool PlayerManager::removeExistingPlayers(vector<string> playersIdOrName) {
     return true;
 }
 
+void PlayerManager::removeBrokePlayers() {
+    auto players = gameData.getPlayers();
+    for (const auto& player : players) {
+        if (player->getCurChips() == 0) {
+            cout    << "(+) Player Manager: Removing the following player from the game due to insufficient chips:"
+                    << player->getName() << '\n' << endl;
+            removeExistingPlayers({player->getId()});
+        }
+    }
+}
+
 void PlayerManager::removeAllPlayers() {
     gameData.removeAllPlayers();
 }

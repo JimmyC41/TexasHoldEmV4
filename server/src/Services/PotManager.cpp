@@ -86,7 +86,7 @@ void PotManager::awardPots() {
             if (pot->isIdEligible(id)) {
                 auto player = GameUtil::getPlayer(gameData, id);
                 player->addChips(pot->getChips());
-                cout << "Pot Manager: Awarded " << pot->getChips() << " to " << player->getName() << " chip count!" << endl;
+                cout << "(+) Pot Manager: Awarded " << pot->getChips() << " to " << player->getName() << " chip count!\n" << endl;
                 break;
             }
         }

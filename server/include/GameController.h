@@ -43,8 +43,9 @@ public:
 
     // State Transition Methods
     bool isAtLeastTwoPlayers(GameData& gameData) { return (GameUtil::getNumPlayers(gameData) > 1); }
-    bool isBettingStreetComplete() { return actionManager.isActionsFinished(); }
     bool isShortPlayersInHand() { return GameUtil::isShortPlayersInHand(gameData); }
+    bool isActiveBetFoldedTo() { return GameUtil::isActiveBetFoldedTo(gameData); }
+    bool isBettingStreetComplete() { return actionManager.isActionsFinished(); }
 };
 
 #endif
