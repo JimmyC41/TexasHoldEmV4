@@ -1,4 +1,5 @@
 #include "../../include/Utils/GameUtil.h"
+#include "../../include/GameController.h"
 
 vector<shared_ptr<Player>>::const_iterator GameUtil::findPlayerIt(GameData& gameData, string idOrName) {
     auto& players = gameData.getPlayers();
@@ -241,4 +242,13 @@ bool GameUtil::isIdInCurPot(GameData& gameData, string id) {
 
 size_t GameUtil::getNumPots(GameData& gameData) {
     return gameData.getPots().size();
+}
+
+bool GameUtil::isShortPlayersInHand(GameData& gameData) {
+    int numInHand = 0;
+    auto players = gameData.getPlayers();
+    for (const auto& player : players) { 
+        if (player->getPlayerStatus() == PlayerStatus::IN_HAND) numInHand++;
+    }
+    return (numInHand < 2);
 }

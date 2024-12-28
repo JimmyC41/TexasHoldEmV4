@@ -30,8 +30,7 @@ private:
 
 public:
     GameController();
-    void beginGameSetup();
-    void moveToNextState();
+    void startGame();
 
     ActionManager& getActionManager() { return actionManager; }
     DealerManager& getDealerManager() { return dealerManager; }
@@ -40,6 +39,12 @@ public:
     PositionManager& getPositionManager() { return positionManager; }
     PotManager& getPotManager() { return potManager; }
     IOManager& getIOManager() { return inputOutputManager; }
+    StateManager& getStateManager() { return stateManager; }
+
+    // State Transition Methods
+    bool isAtLeastTwoPlayers(GameData& gameData) { return (GameUtil::getNumPlayers(gameData) > 1); }
+    bool isBettingStreetComplete() { return actionManager.isActionsFinished(); }
+    bool isShortPlayersInHand() { return GameUtil::isShortPlayersInHand(gameData); }
 };
 
 #endif

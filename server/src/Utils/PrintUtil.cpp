@@ -14,17 +14,19 @@ void PrintUtil::printActionTimeline(GameData& gameData) {
 }
 
 void PrintUtil::printAllCards(GameData& gameData) {
-    cout << "(*) Displaying the Board: " << '\n';
-    auto communityCards = gameData.getBoardCards();
-    printVectorCards(communityCards);
+    if (gameData.getBoardCards().size() > 0) {
+        cout << "(*) Displaying the board\n";
+        cout << "    " << printVectorCards(gameData.getBoardCards()) << "\n"; 
+    }
 
-    cout << "(*) Displaying player's hole cards" << '\n';
+    cout << "(*) Displaying player's hole cards\n";
     auto players = gameData.getPlayers();
     for (const auto& player : players) {
         cout    << "    "
                 << player->getName() << ": "
                 << printVectorCards(player->getHand()) << endl;
     }
+    cout << endl;
 }
 
 void PrintUtil::printPlayers(GameData& gameData) {
@@ -40,9 +42,9 @@ void PrintUtil::printPlayers(GameData& gameData) {
                 << "position: " << positionToString(player->getPosition()) << '\n';
     }
 
-    cout << "Small Blind: " << GameUtil::getPlayerNameFromId(gameData, gameData.getSmallBlindId()) << '\n';
-    cout << "Big Blind: " << GameUtil::getPlayerNameFromId(gameData, gameData.getBigBlindId()) << '\n';
-    cout << "Dealer: " << GameUtil::getPlayerNameFromId(gameData, gameData.getButtonId()) << endl;
+    cout << "    SB: " << GameUtil::getPlayerNameFromId(gameData, gameData.getSmallBlindId()) << '\n';
+    cout << "    BB: " << GameUtil::getPlayerNameFromId(gameData, gameData.getBigBlindId()) << '\n';
+    cout << "    Button: " << GameUtil::getPlayerNameFromId(gameData, gameData.getButtonId()) << endl;
 }
 
 void PrintUtil::printPots(GameData& gameData) {
@@ -50,7 +52,7 @@ void PrintUtil::printPots(GameData& gameData) {
 
     if (GameUtil::getNumPots(gameData) == 0) {
         cout    << "   "
-                << "No pots to display." << endl;
+                << "No pots to display\n" << endl;
         return;
     }
 
@@ -61,26 +63,30 @@ void PrintUtil::printPots(GameData& gameData) {
                 << "Eligible Players: "
                 << printVectorString(GameUtil::getNamesFromIds(gameData, pot->getEligibleIds())) << endl;
     }
+
+    cout << endl;
 }
 
 void PrintUtil::printPossibleActionsForCurPlayer(GameData& gameData) {
-    cout << "(*) Displaying Possible Actions: " << '\n';
-
     auto id = gameData.getCurPlayerId();
     auto name = GameUtil::getPlayerNameFromId(gameData, id);
     auto toAct = GameUtil::getPlayer(gameData, id);
     auto possibleActions = gameData.getPossibleActions();
 
-    cout << "   " << name << " has options: ";
-    for (const auto& action : possibleActions) { 
-        cout << actionTypeToString(action->getActionType());
+    cout << "   (*) " << name << " has options: \n";
+    for (const auto& action : possibleActions) {
+        cout    << "        "
+                << actionTypeToString(action->getActionType());
 
         if (action->getSecondaryAmount() != 0) {
-            cout << " | Range: [" << action->getPrimaryAmount() << ", " << action->getSecondaryAmount() << "]" << '\n';
-        } else {
-            cout << " | Amount: " << action->getPrimaryAmount() << '\n';
+            cout << " [" << action->getPrimaryAmount() << ", " << action->getSecondaryAmount() << "]";
         }
+        else if (action->getPrimaryAmount() != 0) {
+            cout << " " << action->getPrimaryAmount();
+        }
+        cout << "\n";
     }
+    cout << endl;
 }
 
 void PrintUtil::printClientAction(pair<ActionType, size_t> action) {
@@ -145,6 +151,16 @@ string PrintUtil::actionTypeToString(ActionType type) {
         case ActionType::ALL_IN_CALL: return "All In Call";
         case ActionType::ALL_IN_RAISE: return "All In Raise";
         default: return "Unknown Action Type";
+    }
+}
+
+string PrintUtil::streetToString(Street& street) {
+    switch (street) {
+        case Street::PRE_FLOP: return "Pre Flop";
+        case Street::FLOP: return "Flop";
+        case Street::TURN: return "Turn";
+        case Street::RIVER: return "River";
+        default: return "Unknown Street";
     }
 }
 

@@ -1,10 +1,11 @@
 #include "../../include/States/Winner.h"
 #include "../../include/States/GameSetup.h"
+#include "../../include/GameController.h"
 
 void Winner::execute() {
-    cout << "Executing Winner" << endl;
+    cout << "(State Manger) New State: Winner" << endl;
 }
 
 void Winner::transition() {
-    stateManager.setState(make_unique<GameSetup>(gameData, controller, stateManager));
+    controller.getStateManager().setState(make_unique<GameSetup>(gameData, controller));
  }

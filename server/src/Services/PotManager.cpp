@@ -7,6 +7,7 @@ PotManager::PotManager(GameData& gameData) :
 
 void PotManager::populatePlayerBets() { 
     playerBets = PotUtil::getPlayerRecentBets(gameData);
+    // PrintUtil::printPlayerBetsInPotManager(playerBets);
 }
 
 size_t PotManager::getMinBetInPlayerBets() {
@@ -23,17 +24,16 @@ bool PotManager::allBetsAllocatedToPots() {
         // Return false if there is an outstanding recent bet
         // that has not been processed for a player that is still
         // in the hand!
-        if (bet != 0 && status == PlayerStatus::IN_HAND) return false;
+        if (bet != 0 && status != PlayerStatus::FOLDED) return false;
     }
     return true;
 }
 
 void PotManager::calculatePots() {
+    cout << "(+) Pot Manager: Calculating pots based on bets made for the current street.\n" << endl;
     // Fetch recent bets at the end of the Street
     populatePlayerBets();
     if (GameUtil::getNumPots(gameData) == 0) gameData.addNewPot(make_shared<Pot>());
-
-    PrintUtil::printPlayerBetsInPotManager(playerBets);
 
     // Add each player's contribution to the current pot
     // Add dead money to the current pot

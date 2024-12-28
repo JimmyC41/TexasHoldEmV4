@@ -101,9 +101,7 @@ void ActionManager::addNewAction(string idOrName, ActionType actionType, size_t 
 
 void ActionManager::generatePossibleActionsForCurPlayer() {
     string curPlayerId = gameData.getCurPlayerId();
-
-    cout << "processing pos actions for: " << curPlayerId << endl;
-
+    
     bool isBigBlind = GameUtil::isPlayerBigBlind(gameData, curPlayerId);
     bool canRaise = ActionUtil::canPlayerRaise(gameData, curPlayerId);
     bool canMinRaise = ActionUtil::canPlayerMinRaise(gameData, curPlayerId);
@@ -148,13 +146,8 @@ void ActionManager::generatePossibleActionsForCurPlayer() {
     // Get the most active action that is not a CALL or FOLD
     ActionType activeActionType = GameUtil::getActiveActionType(gameData);
     switch(activeActionType) {
-        case ActionType::BET:
-        case ActionType::RAISE:
-        case ActionType::ALL_IN_BET:
-        case ActionType::ALL_IN_RAISE:
-        case ActionType::POST_SMALL:
         case ActionType::POST_BIG:
-            // Edge Case: Preflop, players have limped around to the BB.
+        // Edge Case: Preflop, players have limped around to the BB.
             // The BB option should be check (instead of call), raise or fold
             if (isBigBlind) {
                 possibleActions.push_back(newCheck);
@@ -162,7 +155,14 @@ void ActionManager::generatePossibleActionsForCurPlayer() {
                 if (canCallActiveBet) possibleActions.push_back(newCall);
                 if (!canCallActiveBet) possibleActions.push_back(newAllInCall);
             }
-
+            break;
+        case ActionType::BET:
+        case ActionType::RAISE:
+        case ActionType::ALL_IN_BET:
+        case ActionType::ALL_IN_RAISE:
+        case ActionType::POST_SMALL:
+            if (canCallActiveBet) possibleActions.push_back(newCall);
+            if (!canCallActiveBet) possibleActions.push_back(newAllInCall);
             if (canRaise && canMinRaise) possibleActions.push_back(newRaise);
             if (canRaise && !canMinRaise) possibleActions.push_back(newAllInRaise);
             possibleActions.push_back(newFold);

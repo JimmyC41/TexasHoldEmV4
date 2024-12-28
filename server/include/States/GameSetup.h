@@ -7,7 +7,7 @@ class BettingStreet;
 
 class GameSetup : public State {
 public:
-    GameSetup(GameData& gd, GameController& ctrl, StateManager& sm) : State(gd, ctrl, sm) {}
+    GameSetup(GameData& gd, GameController& ctrl) : State(gd, ctrl) {}
 
     void execute() override;
     void transition() override;

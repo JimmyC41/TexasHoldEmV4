@@ -23,6 +23,7 @@ class NoneAction;
 using namespace std;
 using Street = Enums::Street;
 using Position = Enums::Position;
+using PlayerStatus = Enums::PlayerStatus;
 
 class GameData {
 private:

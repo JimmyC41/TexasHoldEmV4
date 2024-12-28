@@ -3,6 +3,8 @@
 DealerManager::DealerManager(GameData& gameData) : gameData(gameData), deck() {}
 
 void DealerManager::dealGamePlayers() {
+    cout << "(+) Dealer Manager: Dealing hole cards to players!\n";
+
     // Start dealing from the first player AFTER the Big Blind
     // players is a copy of re-ordered game players
     auto players = GameUtil::getPreFlopOrderPlayers(gameData);
@@ -11,25 +13,28 @@ void DealerManager::dealGamePlayers() {
         for (auto& player : players) {
             Card& card = deck.dealCard();
             player->addHoleCard(card);
-            cout << "   " << player->getName() << " has been dealt " << card.toString() << endl;
+            cout << "   " << player->getName() << " has been dealt " << card.toString() << '\n';
         }
     }
+
+    cout << endl;
 }
 
 void DealerManager::dealBoard(int num) {
+    cout << "(+) Dealer Manager: Dealing the Board!\n";
     deck.burnCard();
     cout << "   Card burned..." << endl;
 
     for (int i = 0; i < num; ++i) {
         Card& communityCard = deck.dealCard();
         gameData.dealCommunityCard(communityCard);
-        cout << "   " << communityCard.toString() << " has been dealt to the board!" << endl;
+        cout << "   " << communityCard.toString() << " has been dealt to the board!\n";
     }
+    cout << endl;
 }
 
 void DealerManager::resetDeck() {
-    cout << "Dealer Manager: Shuffling the Deck!" << endl;
-    
+    cout << "(+) Dealer Manager: Shuffling the Deck!\n" << endl;
     deck.resetDeck();
 }
 

@@ -11,10 +11,6 @@ GameController::GameController() :
     inputOutputManager(gameData),
     stateManager(gameData, *this) {}
 
-void GameController::beginGameSetup() {
-    stateManager.setState(make_unique<GameSetup>(gameData, *this, stateManager));
-}
-
-void GameController::moveToNextState() {
-    stateManager.transitionState();
+void GameController::startGame() {
+    stateManager.setState(make_unique<GameSetup>(gameData, *this));
 }

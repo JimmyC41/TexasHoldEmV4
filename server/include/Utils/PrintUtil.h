@@ -26,6 +26,7 @@ public:
     static string actionTypeToString(ActionType type);
     static string playerStatusToString(PlayerStatus status);
     static string printVectorString(const vector<string>& strings);
+    static string streetToString(Street& street);
 
     // PotManagerTest
     static void printPlayerBetsInPotManager(PlayerBetInfo& playerBetInfo);

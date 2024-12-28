@@ -2,8 +2,11 @@
 #define GAME_UTIL
 
 #include "../Shared/GameData.h"
+#include "../Shared/Enums.h"
 #include "PrintUtil.h"
 #include <algorithm>
+
+using PlayerStatus = Enums::PlayerStatus;
 
 class GameUtil {
 public:
@@ -49,6 +52,7 @@ public:
     static size_t getActiveActionAmount(GameData& gameData);
     static bool isIdInCurPot(GameData& gameData, string id);
     static size_t getNumPots(GameData& gameData);
+    static bool isShortPlayersInHand(GameData& gameData);
 };
 
 #endif

@@ -15,10 +15,11 @@ bool IOUtil::getYesOrNo() {
 string IOUtil::getPlayerName() {
     string input;
     while (true) {
-        cout << "Enter a player name: ";
+        cout    << "   "
+                << "Enter a player name: ";
         getline(cin, input);
         if (!input.empty()) return capitaliseFirstLetter(input);
-        else cout << "Name cannot be empty. Try again.\n" << endl;
+        else cout << "Name cannot be empty. Try again." << endl;
     }
 }
 
@@ -27,12 +28,20 @@ size_t IOUtil::getPlayerChips(size_t minChips) {
     size_t chips;
 
     while (true) {
-        cout << "Enter starting chip count: ";
+        cout    << "   "
+                << "Enter starting chip count: ";
         getline(cin, input);
         try {
             chips = stoi(input);
-            if (chips < minChips) cout << "Chip count too low. Try again.\n";
-            else return chips;
+            if (chips < minChips) {
+                cout    << "   "
+                        << "Chip count too low. Try again.\n";
+                continue;
+            }
+            else {
+                cout << endl;
+                return chips;
+            }
         } catch (const invalid_argument&) {
             cout << "Invalid number. Try again.\n";
         }
@@ -78,7 +87,7 @@ size_t IOUtil::getActionAmount(vector<shared_ptr<PossibleAction>>& actions, Acti
         try {
             amount = stoi(input);
         } catch (const invalid_argument&) {
-            cout << "Invalid number. Try again.";
+            cout << "Invalid number. Try again." << endl;
         }
 
         switch(type) {

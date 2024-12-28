@@ -13,10 +13,8 @@ class State {
 protected:
     GameData& gameData;
     GameController& controller;
-    StateManager& stateManager;
 
-    State(GameData& gd, GameController& ctrl, StateManager& sm)
-        : gameData(gd), controller(ctrl), stateManager(sm) {}
+    State(GameData& gd, GameController& ctrl) : gameData(gd), controller(ctrl) {}
 
 public:
     virtual ~State() = default;
