@@ -1,4 +1,4 @@
-#include "../include/Utils/PlayerUtil.h"
+#include "../../include/Utils/PlayerUtil.h"
 
 string PlayerUtil::generateUUID() {
     uuid_t uuid;

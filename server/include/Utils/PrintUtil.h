@@ -3,9 +3,9 @@
 
 #include "../Shared/GameData.h"
 #include "../Services/PotManager.h"
-#include "../include/Entities/PossibleAction.h"
-#include "../include/Utils/GameUtil.h"
-#include "../include/Utils/PotUtil.h"
+#include "../Entities/PossibleAction.h"
+#include "GameUtil.h"
+#include "PotUtil.h"
 
 using PlayerBetInfo = vector<tuple<string, size_t, PlayerStatus>>;
 

@@ -1,4 +1,4 @@
-#include "Services/PotManager.h"
+#include "../../include/Services/PotManager.h"
 
 PotManager::PotManager(GameData& gameData) : 
     gameData(gameData),

@@ -1,11 +1,11 @@
 #ifndef POT_MANAGER_H
 #define POT_MANAGER_H
 
-#include "Entities/Player.h"
-#include "Entities/Pot.h"
-#include "Shared/Types.h"
-#include "Utils/PotUtil.h"
-#include "Utils/PrintUtil.h"
+#include "../Entities/Player.h"
+#include "../Entities/Pot.h"
+#include "../Shared/Types.h"
+#include "../Utils/PotUtil.h"
+#include "../Utils/PrintUtil.h"
 
 using namespace std;
 using PlayerBetInfo = vector<tuple<string, size_t, PlayerStatus>>;

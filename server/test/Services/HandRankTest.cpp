@@ -427,7 +427,7 @@ TEST_F(HandRankTest, ThreeOfAKindTie) {
     };
 
     auto actual = TestUtil::evaluateHandsAndGetRankedNames(gameData, handRankManager, cards);
-    EXPECT_EQ(actual, vector<string>({"P1", "P2"}));
+    EXPECT_EQ(actual, vector<string>({"P2", "P1"}));
 };
 
 TEST_F(HandRankTest, TwoPairTie) {

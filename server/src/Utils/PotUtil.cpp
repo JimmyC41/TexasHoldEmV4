@@ -1,4 +1,4 @@
-#include "Utils/PotUtil.h"
+#include "../../include/Utils/PotUtil.h"
 
 PlayerBetInfo PotUtil::getPlayerRecentBets(GameData& gameData) {
     auto players = gameData.getPlayers();

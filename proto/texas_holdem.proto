@@ -5,7 +5,7 @@ service PokerService {
     rpc GameStream(GameStreamReq) returns (stream GameStreamRes);
 
     // Client-to-server unary calls
-    rpc JoinGame(JoinGameReq) returns (JoinGameRes);
+    rpc JoinGame(JoinGameReq) returns (PlayerReqRes);
     rpc LeaveGame(LeaveGameReq) returns (PlayerReqRes);
     rpc PlayerAction(PlayerActionReq) returns (PlayerReqRes);
 }
@@ -22,7 +22,7 @@ message LeaveGameReq {
 message PlayerActionReq {
     string player_id = 1;
     ActionType action_type = 2;
-    uint64_t action_amount = 3;
+    uint64 action_amount = 3;
 }
 
 message PlayerReqRes {
@@ -30,7 +30,7 @@ message PlayerReqRes {
     string message = 2;
 }
 
-message GameSreamReq {
+message GameStreamReq {
     string player_id = 1;
 }
 
@@ -49,7 +49,7 @@ message GameStreamRes {
 }
 
 // Event: Players added, removed or chips update.
-message PlayerUpdateEvent {
+message PlayersUpdateEvent {
     repeated Player new_players = 1;
 }
 
@@ -60,17 +60,29 @@ message NewStreetEvent {
 
 // Event: Players are dealt their hole cards.
 message DealPlayersEvent {
+    message PlayerCard {
+        string player_id = 1;
+        repeated Card hole_cards = 2;
+    }
 
+    repeated PlayerCard player_cards = 1;
 }
 
 // Event: Community cards are dealt.
 message DealBoardEvent {
-    
+    repeated Card community_cards = 1;
 }
 
 // Event: Awaiting input for the next player to act.
 message NewPlayerToActEvent {
     string player_to_act = 1;
+
+    message PossibleAction {
+        ActionType action_type = 1;
+        uint64 primary_amount = 2;
+        uint64 secondary_amount = 3;
+    }
+
     repeated PossibleAction possible_actions = 2;
 }
 
@@ -78,12 +90,22 @@ message NewPlayerToActEvent {
 message NewPlayerActionEvent {
     string player_id = 1;
 
+    message Action {
+        ActionType action_type = 1;
+        uint64 action_amount = 2;
+    }
+
     // Update player recent bet and status in the frontend.
     Action action = 2;
 }
 
 // Event: Pots are calculated at the end of each street.
 message PotUpdateEvent {
+    message Pot {
+        uint64 potChips = 1;
+        repeated string eligible_ids = 2;
+    }
+
     repeated Pot updated_pots = 1;
 }
 
@@ -94,6 +116,11 @@ message ShowdownEvent {
 
 // Event: Awards pots and updates player chips.
 message PotWinnerEvent {
+    message PotWinner {
+        uint64 pot_chips = 1;
+        string winner = 2;
+    }
+
     repeated PotWinner pot_winners = 1;
 }
 
@@ -126,15 +153,6 @@ message Card {
     Value value = 2;
 }
 
-message Board {
-    repeated Card community_cards = 1;
-}
-
-message Pot {
-    uint64 potChips = 1;
-    repeated string eligible_ids = 2;
-}
-
 message Player {
     string name = 1;
     uint64 chips = 2;
@@ -165,22 +183,6 @@ message Player {
     }
 
     PlayerStatus status = 6;
-}
-
-message Action {
-    ActionType action_type = 1;
-    uint64 action_amount = 2;
-}
-
-message PossibleAction {
-    ActionType action_type = 1;
-    uint64 primary_amount = 2;
-    uint64 secondary_amount = 3;
-}
-
-message PotWinner {
-    uint64 pot_chips = 1;
-    string winner = 2;
 }
 
 enum Street {

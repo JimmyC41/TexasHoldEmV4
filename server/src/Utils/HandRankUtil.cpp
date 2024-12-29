@@ -1,4 +1,4 @@
-#include "../include/Utils/HandRankUtil.h"
+#include "../../include/Utils/HandRankUtil.h"
 
 void HandRankUtil::computeBitwiseForHand(HandInfo& handInfo) {
     handInfo.setBitwise(BitwiseUtil::computeBitwiseHand(handInfo.getHand()));

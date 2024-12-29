@@ -1,5 +1,5 @@
-#include "States/StateManager.h"
-#include "States/State.h"
+#include "../../include/States/StateManager.h"
+#include "../../include/States/State.h"
 
 StateManager::StateManager(GameData& gd, GameController& ctrl) : gameData(gd), controller(ctrl), currentState() {}
 
