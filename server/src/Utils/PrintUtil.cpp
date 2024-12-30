@@ -36,6 +36,7 @@ void PrintUtil::printPlayers(GameData& gameData) {
     for (const auto& player : players) {
         cout    << "    "
                 << "name: " << player->getName() << " | "
+                << "id: " << player->getId() << " | "
                 << "chips: " << player->getCurChips() << " | "
                 << "recent bet: " << player->getRecentBet() << " | "
                 << "position: " << positionToString(player->getPosition()) << '\n';

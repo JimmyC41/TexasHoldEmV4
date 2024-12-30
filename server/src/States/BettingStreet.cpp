@@ -23,6 +23,8 @@ void BettingStreet::executeStreet(Street street) {
     cout << "--------------------------------------------------------------\n";
     cout << "(+) State Manager: Entering the " << PrintUtil::streetToString(street) << "\n" << endl;
 
+    PrintUtil::printPlayers(gameData);
+
     // Deal the board and players
     switch(street) {
         case Street::PRE_FLOP: 

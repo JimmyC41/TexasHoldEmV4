@@ -1,13 +1,14 @@
 #include "../../include/Utils/PlayerUtil.h"
+#include "boost/uuid.hpp"
+#include <boost/uuid/uuid_generators.hpp> 
+#include <boost/uuid/uuid_io.hpp>
+
+namespace uuids = boost::uuids;
 
 string PlayerUtil::generateUUID() {
-    uuid_t uuid;
-    char uuidStr[37];
-
-    uuid_generate(uuid);
-    uuid_unparse(uuid, uuidStr);
-
-    return string(uuidStr);
+    static uuids::random_generator generator;
+    uuids::uuid uuid = generator();
+    return to_string(uuid);
 }
 
 vector<string> PlayerUtil::playerPointersToIds(vector<shared_ptr<Player>>& players) {

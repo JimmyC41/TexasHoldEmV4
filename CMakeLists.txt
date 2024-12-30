@@ -1,16 +1,13 @@
-# ========================================
-# Project Setup
-# ========================================
-
 cmake_minimum_required(VERSION 3.16)
 project(TexasHoldEmServer VERSION 1.0 LANGUAGES CXX)
+
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-include_directories(${PROJECT_SOURCE_DIR}/include)
 
-# ========================================
-# Add Source Files
-# ========================================
+find_package(Boost REQUIRED COMPONENTS random)
+find_package(GTest REQUIRED)
+
+include_directories(${PROJECT_SOURCE_DIR}/include)
 
 file(GLOB SRC_FILES
     server/src/Entities/*.cpp
@@ -23,12 +20,10 @@ file(GLOB SRC_FILES
 
 add_library(HoldEmLibrary ${SRC_FILES})
 
-# ========================================
-# GTest
-# ========================================
+target_link_libraries(HoldEmLibrary PRIVATE Boost::random)
 
 enable_testing()
-find_package(GTest REQUIRED)
+
 include_directories(${GTEST_INCLUDE_DIRS})
 
 function(addTest TEST_NAME TEST_FILE)
@@ -51,16 +46,8 @@ foreach(TEST_NAME IN LISTS TEST_FILES)
     addTest(${TEST_NAME} server/test/Services/${TEST_NAME}.cpp)
 endforeach()
 
-# ========================================
-# Main Executable
-# ========================================
-
 add_executable(PokerMain server/main.cpp)
 target_link_libraries(PokerMain PRIVATE HoldEmLibrary)
-
-# ========================================
-# Custom Targets
-# ========================================
 
 add_custom_target(run
     COMMAND PokerMain
