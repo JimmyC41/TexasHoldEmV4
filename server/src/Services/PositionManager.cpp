@@ -20,8 +20,14 @@ void PositionManager::updatePlayerPositionInGameData(const string& idOrName, con
     auto player = GameUtil::getPlayer(gameData, idOrName);
 
     player->setPosition(newPosition);
-    if (newPosition == Position::SMALL_BLIND) gameData.setSmallBlindId(player->getId());
-    if (newPosition == Position::BIG_BLIND) gameData.setBigBlindId(player->getId());
+    if (newPosition == Position::SMALL_BLIND) {
+        gameData.setSmallBlindId(player->getId());
+        gameData.setSmallBlindPlayer(player);
+    }
+    if (newPosition == Position::BIG_BLIND) {
+        gameData.setBigBlindId(player->getId());
+        gameData.setBigBlindPlayer(player);
+    }
 }
 
 void PositionManager::allocatePositions() {
@@ -59,9 +65,14 @@ void PositionManager::allocatePositions() {
 }
 
 void PositionManager::rotatePositions() {
+    cout << "(+) Position Manager: Rotating Positions for the next round!\n" << endl;
+
     // Fetch the previous button and small blind
-    string newSmallId = gameData.getButtonId();
-    string newBigId = gameData.getSmallBlindId();
+    // string newSmallId = gameData.getButtonId();
+    // string newBigId = gameData.getSmallBlindId();
+
+    string newSmallId = gameData.getButtonPlayer()->getId();
+    string newBigId = gameData.getSmallBlindPlayer()->getId();
 
     // Button becomes new small, small becomes new big
     updatePlayerPositionInGameData(newSmallId, Position::SMALL_BLIND);
@@ -88,11 +99,15 @@ void PositionManager::rotatePositions() {
 void PositionManager::updatePlayerToAct() {
     cout << "(+) Position Manager: Finding the next player to act!\n" << endl;
     // Find the player the next player to act
-    const string& curId = gameData.getCurPlayerId();
+    // const string& curId = gameData.getCurPlayerId();
+    const string& curId = gameData.getCurPlayer()->getId();
     shared_ptr<Player> nextPlayer = GameUtil::getNextPlayerInHand(gameData, curId);
 
     // Set the next player as the next to act
-    if (nextPlayer != nullptr) gameData.setCurPlayerId(nextPlayer->getId());
+    if (nextPlayer != nullptr) {
+        gameData.setCurPlayer(nextPlayer);
+        gameData.setCurPlayerId(nextPlayer->getId());
+    }
 }
 
 void PositionManager::setEarlyPositionToAct() {
@@ -101,11 +116,21 @@ void PositionManager::setEarlyPositionToAct() {
     Street curStreet = gameData.getStreet();
     shared_ptr<Player> earlyPosition;
 
-    // Find the first player in the players vector
-    earlyPosition = GameUtil::getEarlyPosition(gameData);
+    // If Preflop, then early position is the player after the BB
+    // For all other streets, early position is the SB
+    switch(curStreet) {
+        case Street::PRE_FLOP:
+            earlyPosition = GameUtil::getNextPlayerInHand(gameData,
+                    gameData.getBigBlindPlayer()->getId());
+            break;
+        default:
+            earlyPosition = GameUtil::getEarlyPosition(gameData); 
+            break;
+    }
 
     // Set the current player to act
     gameData.setCurPlayerId(earlyPosition->getId());
+    gameData.setCurPlayer(earlyPosition);
 }
 
 void PositionManager::assignBlindsIfMissing() {

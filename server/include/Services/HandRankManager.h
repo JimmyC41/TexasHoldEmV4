@@ -6,7 +6,6 @@
 #include "../Entities/HandInfo.h"
 #include "../Shared/GameData.h"
 #include "../Shared/Enums.h"
-#include "../Shared/Types.h"
 #include "../Utils/BitwiseUtil.h"
 #include "../Utils/HandRankUtil.h"
 #include "../Utils/GameUtil.h"

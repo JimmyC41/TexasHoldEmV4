@@ -10,22 +10,27 @@ void GameSetup::execute() {
     controller.getPlayerManager().removeBrokePlayers();
 
     // Player Addition and Removal
+    // Player Manager adds the player, sets position to lobby and status to waiting
+    // Position Manager assigns the player an open seat and updates the pointers to
+    // blinds and the button
     while (!controller.isAtLeastTwoPlayers(gameData)) {
         
         while (!controller.isAtLeastTwoPlayers(gameData)){
             auto newPlayers = controller.getIOManager().addPlayersStdIn();
-            if (newPlayers.size() != 0) controller.getPlayerManager().addNewPlayers(newPlayers);
+            if (newPlayers.size() != 0) {
+                controller.getPlayerManager().addNewPlayers(newPlayers);
+                controller.getPositionManager().allocatePositions();
+            }
         }
         cout << "\n";
 
         auto oldPlayers = controller.getIOManager().removePlayersStdIn();
-        if (oldPlayers.size() != 0) controller.getPlayerManager().removeExistingPlayers(oldPlayers);
+        if (oldPlayers.size() != 0) {
+            controller.getPlayerManager().removeExistingPlayers(oldPlayers);
+            controller.getPositionManager().allocatePositions();
+        }
         cout << "\n";
     }
-
-    // Assign positions, blinds and button to players
-    controller.getPositionManager().allocatePositions();
-
     // Shuffle the deck
     controller.getDealerManager().resetDeck();
 

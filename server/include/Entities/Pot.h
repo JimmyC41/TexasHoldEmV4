@@ -9,16 +9,16 @@ using namespace std;
 class Pot {
 private:
     size_t chips;
-    vector<string> eligibleIds;
+    vector<string> contributorIds;;
 
 public:
-    Pot() : chips(0), eligibleIds() {}
-    void addPlayerId(const string& id) { eligibleIds.push_back(id); }
+    Pot() : chips(0), contributorIds() {}
+    void addPlayerId(const string& id) { contributorIds.push_back(id); }
     void addChips(const size_t& amount) { chips += amount; }
     
     size_t getChips() const { return chips; }
-    const vector<string>& getEligibleIds() const { return eligibleIds; }
-    bool isIdEligible(string id) const { return find(eligibleIds.begin(), eligibleIds.end(), id) != eligibleIds.end(); }
+    const vector<string>& getContributorIds() const { return contributorIds; }
+    bool isIdAContributor(string id) const { return find(contributorIds.begin(), contributorIds.end(), id) != contributorIds.end(); }
 };
 
 #endif

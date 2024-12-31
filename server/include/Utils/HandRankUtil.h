@@ -2,7 +2,6 @@
 #define RANK_HAND_UTIL_H
 
 #include "BitwiseUtil.h"
-#include "../Shared/Types.h"
 #include "../Shared/Enums.h"
 #include "../Entities/Card.h"
 #include "../Entities/HandInfo.h"

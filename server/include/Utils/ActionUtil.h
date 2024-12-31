@@ -6,26 +6,26 @@
 
 class ActionUtil { 
 public:
-    // Checks if a player can raise (i.e. initial chips > active bet)
-    static bool canPlayerRaise(GameData& gameData, string idOrName);
+    // Checks if the player to act can raise (i.e. initial chips > active bet)
+    static bool canCurPlayerRaise(GameData& gameData);
 
-    // Checks if a player can min raise (i.e. intial chips > 2 * active bet)
-    static bool canPlayerMinRaise(GameData& gameData, string idOrName);
+    // Checks if the player to act can min raise (i.e. intial chips > 2 * active bet)
+    static bool canCurPlayerMinRaise(GameData& gameData);
 
-    // Checks if a player can bet all-in (i.e. initial chips < big stack among others)
-    static bool canPlayerAllInBet(GameData& gameData, string idOrName);
+    // Checks if the player to act can bet all-in (i.e. initial chips < big stack among others)
+    static bool canCurPlayerAllInBet(GameData& gameData);
 
-    // Checks if a player can call the active bet without going all-in
-    static bool canPlayerCallActiveBet(GameData& gameData, string idOrName);
+    // Checks if the player to act can call the active bet without going all-in
+    static bool canCurPlayerCallActiveBet(GameData& gameData);
 
-    // Finds the minimum valid raise for a player given stack sizes
-    static size_t getMinRaiseAmount(GameData& gameData, string idOrName);
+    // Finds the minimum valid raise for the player to act given stack sizes
+    static size_t getMinRaiseAmount(GameData& gameData);
 
-    // Finds the maximum amount that a player can bet given stack sizes
-    static size_t getMaxBetAmount(GameData& gameData, string idOrName);
+    // Finds the maximum amount that the player to act can bet given stack sizes
+    static size_t getMaxBetAmount(GameData& gameData);
 
-    // Finds the amount that a player must call given their relative stack size
-    static size_t getCallAmount(GameData& gameData, string idOrName);
+    // Finds the amount that the player to act must call given their relative stack size
+    static size_t getCallAmount(GameData& gameData);
 
     // Checks if an Action Type is aggressive (i.e. requires other players to match the bet)
     // Aggressive actions include: Bet, All-In Bet, Raise, Post Small, Post Big

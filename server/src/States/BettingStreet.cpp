@@ -6,29 +6,31 @@ void BettingStreet::execute() {
     for (int street = static_cast<int>(Street::PRE_FLOP);
             street <= static_cast<int>(Street::RIVER); ++street)
     {
-        executeStreet(static_cast<Street>(street));
+        gameData.setCurStreet(static_cast<Street>(street));
+        executeStreet();
 
-        // Early exit condition if all players fold to an active bet
+        // Early exit condition if less than 2 players in hand
+        // Occurs when all but one players fold to a blind/bet
         // Skip betting street and go to the winner state
-        if (controller.isActiveBetFoldedTo()) {
+        if (controller.getActionManager().isShortPlayersInHand()) {
             transition();
             return;
         }
     }
-
     transition();
 }
 
-void BettingStreet::executeStreet(Street street) {
+void BettingStreet::executeStreet() {
+    Street street = gameData.getStreet();
+
     cout << "--------------------------------------------------------------\n";
     cout << "(+) State Manager: Entering the " << PrintUtil::streetToString(street) << "\n" << endl;
-
-    PrintUtil::printPlayers(gameData);
 
     // Deal the board and players
     switch(street) {
         case Street::PRE_FLOP: 
             controller.getDealerManager().dealGamePlayers();
+            controller.getActionManager().handleBlinds();
             break;
         case Street::FLOP:
             controller.getDealerManager().dealBoard(3);
@@ -37,8 +39,7 @@ void BettingStreet::executeStreet(Street street) {
             controller.getDealerManager().dealBoard(1);           
     }
 
-    // Early exit if there are less than 2 players in the hand
-    if (controller.isShortPlayersInHand()) return;
+    PrintUtil::printPlayers(gameData);
 
     // Set the early position to act
     controller.getPositionManager().setEarlyPositionToAct();
@@ -62,6 +63,9 @@ void BettingStreet::executeStreet(Street street) {
 
     // Calculate pots from the betting street
     controller.getPotManager().calculatePots();
+
+    PrintUtil::printPlayers(gameData);
+    PrintUtil::printPots(gameData);
 }
 
 void BettingStreet::transition() {

@@ -9,14 +9,6 @@ vector<shared_ptr<Player>>::const_iterator GameUtil::findPlayerIt(GameData& game
                     });
 }
 
-void GameUtil::setPlayerPosition(GameData& gameData, string id, Position position) {
-    auto player = getPlayer(gameData, id);
-    if (player != nullptr) {
-        player->setPosition(position);
-        if (position == Position::BIG_BLIND) gameData.setBigBlindId(player->getId());
-    }
-}
-
 void GameUtil::setPlayerInitialToCurChips(GameData& gameData) {
     auto players = gameData.getPlayers();
     for (auto& player : players) {
@@ -95,13 +87,17 @@ bool GameUtil::isPlayerBigBlind(GameData& gameData, string idOrName) {
 }
 
 bool GameUtil::isSmallBlindExists(GameData& gameData) {
-    auto smallId = gameData.getSmallBlindId();
-    return (getPlayer(gameData, smallId) != nullptr);
+    // auto smallId = gameData.getSmallBlindId();
+    // return (getPlayer(gameData, smallId) != nullptr);
+
+    return (gameData.getSmallBlindPlayer() != nullptr);
 }
 
 bool GameUtil::isBigBlindExists(GameData& gameData) {
-    auto bigId = gameData.getBigBlindId();
-    return (getPlayer(gameData, bigId) != nullptr);
+    // auto bigId = gameData.getBigBlindId();
+    // return (getPlayer(gameData, bigId) != nullptr);
+
+    return (gameData.getBigBlindPlayer() != nullptr);
 }
 
 bool GameUtil::isPlayerExists(GameData& gameData, string idOrName) {
@@ -123,8 +119,8 @@ size_t GameUtil::getPlayerInitialChips(GameData& gameData, string idOrName) {
     return player->getInitialChips();
 }
 
-size_t GameUtil::getBigStackAmongOthers(GameData& gameData, string idOrName) {
-    auto skipPlayer = getPlayer(gameData, idOrName);
+size_t GameUtil::getBigStackAmongOthers(GameData& gameData) {
+    auto skipPlayer = gameData.getCurPlayer();
     auto players = gameData.getPlayers();
 
     size_t bigStack = 0;
@@ -177,22 +173,6 @@ shared_ptr<Player> GameUtil::getNextPlayerInHand(GameData& gameData, string idOr
     }
     
     return nullptr;
-}
-
-vector<shared_ptr<Player>> GameUtil::getPreFlopOrderPlayers(GameData& gameData) {
-    auto bigBlindId = gameData.getBigBlindId();
-    auto preFlopOrder = gameData.getPlayers();
-
-    auto bigBlindIt = std::find_if(preFlopOrder.begin(), preFlopOrder.end(),
-                                    [&bigBlindId] (const shared_ptr<Player>& player) {
-                                        return player->getId() == bigBlindId;
-                                    });
-    
-    if (bigBlindIt != preFlopOrder.end()) {
-        rotate(preFlopOrder.begin(), std::next(bigBlindIt), preFlopOrder.end());
-    }
-
-    return preFlopOrder;
 }
 
 vector<shared_ptr<Player>> GameUtil::getOccupiedPlayers(GameData& gameData) {
@@ -254,7 +234,7 @@ size_t GameUtil::getActiveActionAmount(GameData& gameData) {
 
 bool GameUtil::isIdInCurPot(GameData& gameData, string id) {
     auto curPot = gameData.getCurPot();
-    return (curPot->isIdEligible(id));
+    return (curPot->isIdAContributor(id));
 }
 
 size_t GameUtil::getNumPots(GameData& gameData) {

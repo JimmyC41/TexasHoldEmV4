@@ -1,44 +1,44 @@
 #include "../../include/Utils/ActionUtil.h"
 
-bool ActionUtil::canPlayerRaise(GameData& gameData, string idOrName) {
-    size_t playerStack = GameUtil::getPlayerInitialChips(gameData, idOrName);
+bool ActionUtil::canCurPlayerRaise(GameData& gameData) {
+    size_t playerStack = gameData.getCurPlayer()->getInitialChips();
     size_t activeBet = GameUtil::getActiveActionAmount(gameData);
     return (playerStack > activeBet);
 }
 
-bool ActionUtil::canPlayerMinRaise(GameData& gameData, string idOrName) {
-    size_t playerStack = GameUtil::getPlayerInitialChips(gameData, idOrName);
+bool ActionUtil::canCurPlayerMinRaise(GameData& gameData) {
+    size_t playerStack = gameData.getCurPlayer()->getInitialChips();
     size_t activeBet = GameUtil::getActiveActionAmount(gameData);
     return (playerStack > 2 * activeBet);
 }
 
-bool ActionUtil::canPlayerAllInBet(GameData& gameData, string idOrName) {
-    size_t playerStack = GameUtil::getPlayerInitialChips(gameData, idOrName);
-    size_t bigStackAmongOthers = GameUtil::getBigStackAmongOthers(gameData, idOrName);
+bool ActionUtil::canCurPlayerAllInBet(GameData& gameData) {
+    size_t playerStack = gameData.getCurPlayer()->getInitialChips();
+    size_t bigStackAmongOthers = GameUtil::getBigStackAmongOthers(gameData);
     return (bigStackAmongOthers >= playerStack);
 }
 
-bool ActionUtil::canPlayerCallActiveBet(GameData& gameData, string idOrName) {
-    size_t playerStack = GameUtil::getPlayerInitialChips(gameData, idOrName);
+bool ActionUtil::canCurPlayerCallActiveBet(GameData& gameData) {
+    size_t playerStack = gameData.getCurPlayer()->getInitialChips();
     size_t activeBetAmount = GameUtil::getActiveActionAmount(gameData);
     return (playerStack > activeBetAmount);
 }
 
-size_t ActionUtil::getMinRaiseAmount(GameData& gameData, string idOrName) {
-    size_t playerStack = GameUtil::getPlayerInitialChips(gameData, idOrName);
+size_t ActionUtil::getMinRaiseAmount(GameData& gameData) {
+    size_t playerStack = gameData.getCurPlayer()->getInitialChips();
     size_t standardRaise = 2 * GameUtil::getActiveActionAmount(gameData);
     return min(playerStack, standardRaise);
 }
 
-size_t ActionUtil::getMaxBetAmount(GameData& gameData, string idOrName) {
-    size_t playerStack = GameUtil::getPlayerInitialChips(gameData, idOrName);
-    size_t bigStackAmongOthers = GameUtil::getBigStackAmongOthers(gameData, idOrName);
+size_t ActionUtil::getMaxBetAmount(GameData& gameData) {
+    size_t playerStack = gameData.getCurPlayer()->getInitialChips();
+    size_t bigStackAmongOthers = GameUtil::getBigStackAmongOthers(gameData);
     return min(playerStack, bigStackAmongOthers);
 }
 
- size_t ActionUtil::getCallAmount(GameData& gameData, string idOrName) { 
+ size_t ActionUtil::getCallAmount(GameData& gameData) { 
     size_t activeBetAmount = GameUtil::getActiveActionAmount(gameData);
-    size_t playerStack = GameUtil::getPlayerInitialChips(gameData, idOrName);
+    size_t playerStack = gameData.getCurPlayer()->getInitialChips();
     return min(playerStack, activeBetAmount);
  }
 

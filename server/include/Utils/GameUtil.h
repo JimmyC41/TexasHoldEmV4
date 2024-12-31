@@ -14,7 +14,6 @@ public:
     static vector<shared_ptr<Player>>::const_iterator findPlayerIt(GameData& gameData, string idOrName);
 
     // SET Methods
-    static void setPlayerPosition(GameData& gameData, string id, Position position);
     static void clearPlayerHands(GameData& gameData);
     static void removePlayer(GameData& gameData, string idOrName);
     static void setPlayerInitialToCurChips(GameData& gameData);
@@ -36,11 +35,10 @@ public:
     static HandCategory getPlayerHandCategory(GameData& gameData, string idOrName);
     static vector<Card> getPlayerBestFiveCards(GameData& gameData, string idOrName);
     static size_t getPlayerInitialChips(GameData& gameData, string idOrName);
-    static size_t getBigStackAmongOthers(GameData& gameData, string idOrName);
+    static size_t getBigStackAmongOthers(GameData& gameData);
     static vector<string> getRankedNames(GameData& gameData);
     static shared_ptr<Player> getEarlyPosition(GameData& gameData);
     static shared_ptr<Player> getNextPlayerInHand(GameData& gameData, string idOrName);
-    static vector<shared_ptr<Player>> getPreFlopOrderPlayers(GameData& gameData);
     static vector<shared_ptr<Player>> getOccupiedPlayers(GameData& gameData);
     static vector<pair<string, size_t>> getPlayersCurChips(GameData& gameData);
     static int getNumPlayers(GameData& gameData);

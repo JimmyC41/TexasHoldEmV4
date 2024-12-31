@@ -4,10 +4,7 @@ DealerManager::DealerManager(GameData& gameData) : gameData(gameData), deck() {}
 
 void DealerManager::dealGamePlayers() {
     cout << "(+) Dealer Manager: Dealing hole cards to players!\n";
-
-    // Start dealing from the first player AFTER the Big Blind
-    // players is a copy of re-ordered game players
-    auto players = GameUtil::getPreFlopOrderPlayers(gameData);
+    auto players = gameData.getPlayers();
 
     for (int i = 0; i < 2; i++) {
         for (auto& player : players) {

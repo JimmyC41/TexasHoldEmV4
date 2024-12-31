@@ -2,7 +2,6 @@
 #define GAME_DATA_H
 
 #include "Enums.h"
-#include "Types.h"
 #include "../Entities/Player.h"
 #include "../Entities/Board.h"
 #include "../Entities/Pot.h"
@@ -28,25 +27,37 @@ using PlayerStatus = Enums::PlayerStatus;
 class GameData {
 private:
     // Persists for the Entire Round
-    // Only Persists in Each Street:
-    Street curStreet;
-    string curPlayerId;                         // ID of the player to act
+    shared_ptr<Player> curPlayer;
+    shared_ptr<Player> smallBlindPlayer;
+    shared_ptr<Player> bigBlindPlayer;
+    shared_ptr<Player> buttonPlayer;
+
+    string curPlayerId;
     string smallBlindId;
     string bigBlindId;
-    string buttonId;                            // ID of the player with the button
+    string buttonId;
+
     vector<shared_ptr<Player>> gamePlayers;     // Ordered list of players by position
-    vector<string> rankedPlayerIds;             // Vector of IDs ranked on hand strengths
-    Board board;
-    vector<shared_ptr<Pot>> pots;
+    vector<string> rankedPlayerIds;             // Vector of IDs ranked on hand strengths (calculated in the Winner game state)
+    vector<shared_ptr<Pot>> pots;               // Calculated at the end of each betting street
     size_t deadChips;
-    vector<shared_ptr<Action>> actionTimeline;  // An ordered list of actions in the current betting street
-    shared_ptr<Action> activeAction;               // Ptr to the last action that is not of type CALL or FOLD
-    vector<shared_ptr<PossibleAction>> possibleActions; // List of possible actions for the current player to act
+    Board board;
     size_t smallBlind;
     size_t bigBlind;
+
+    // Only Persists in Each Street:
+    Street curStreet;
+    vector<shared_ptr<Action>> actionTimeline;              // An ordered list of actions in the current betting street
+    shared_ptr<Action> activeAction;                        // Ptr to the last action that is not of type CALL or FOLD
+    vector<shared_ptr<PossibleAction>> possibleActions;     // List of possible actions for the current player to act
+
 public:
     GameData() : 
         curStreet(Street::NONE),
+        curPlayer(),
+        smallBlindPlayer(),
+        bigBlindPlayer(),
+        buttonPlayer(),
         smallBlindId(),
         bigBlindId(),
         curPlayerId(),
@@ -70,9 +81,17 @@ public:
 
     void removeAllPlayers() { gamePlayers.clear(); }
     void setRankedPlayerIds(const vector<string>& ids) { rankedPlayerIds = ids; }
+
+    void setCurPlayer(const shared_ptr<Player>& player) { curPlayer = player; }
+    void setSmallBlindPlayer(const shared_ptr<Player>& player) { smallBlindPlayer = player; }
+    void setBigBlindPlayer(const shared_ptr<Player>& player) { bigBlindPlayer = player; }
+    void setButtonPlayer(const shared_ptr<Player>& player) { buttonPlayer = player; }
+
+
     void setSmallBlindId(const string& id) { smallBlindId = id; }
     void setBigBlindId(const string& id) { bigBlindId = id; }
     void setCurPlayerId(const string&id) { curPlayerId = id; }
+
     void setCurStreet(const Street& street) { curStreet = street; }
     void dealCommunityCard(const Card& card) { board.addCommunityCard(card); }
     void clearBoard() { board.resetBoard(); }
@@ -96,6 +115,12 @@ public:
     const string& getBigBlindId() const { return bigBlindId; }
     const string& getButtonId() const { return buttonId; }
     const string& getCurPlayerId() const { return curPlayerId; }
+
+    const shared_ptr<Player>& getCurPlayer() const { return curPlayer; }
+    const shared_ptr<Player>& getSmallBlindPlayer() const { return smallBlindPlayer; }
+    const shared_ptr<Player>& getBigBlindPlayer() const { return bigBlindPlayer; }
+    const shared_ptr<Player>& getButtonPlayer() const { return buttonPlayer; }
+
     const vector<shared_ptr<Player>>& getPlayers() { return gamePlayers; }
     const Street getStreet() const { return curStreet; }
     const Board& getBoard() const { return board; }
@@ -108,6 +133,7 @@ public:
     const shared_ptr<Pot>& getCurPot() const { return pots.back(); }
     const size_t& getDeadChips() const { return deadChips; }
     const size_t& getBigBlind() const { return bigBlind; }
+    const size_t& getSmallBlind() const { return smallBlind; }
 };
 
 #endif

@@ -36,15 +36,17 @@ void PrintUtil::printPlayers(GameData& gameData) {
     for (const auto& player : players) {
         cout    << "    "
                 << "name: " << player->getName() << " | "
-                << "id: " << player->getId() << " | "
                 << "chips: " << player->getCurChips() << " | "
                 << "recent bet: " << player->getRecentBet() << " | "
                 << "position: " << positionToString(player->getPosition()) << '\n';
     }
 
-    cout << "    SB: " << GameUtil::getPlayerNameFromId(gameData, gameData.getSmallBlindId()) << '\n';
-    cout << "    BB: " << GameUtil::getPlayerNameFromId(gameData, gameData.getBigBlindId()) << '\n';
-    cout << "    Button: " << GameUtil::getPlayerNameFromId(gameData, gameData.getButtonId()) << endl;
+    if (gameData.getSmallBlindPlayer() != nullptr)
+        cout << "    SB: " << GameUtil::getPlayerNameFromId(gameData, gameData.getSmallBlindPlayer()->getId()) << '\n';
+    if (gameData.getBigBlindPlayer() != nullptr)
+        cout << "    BB: " << GameUtil::getPlayerNameFromId(gameData, gameData.getBigBlindPlayer()->getId()) << '\n';
+    if (gameData.getButtonPlayer() != nullptr)
+        cout << "    Button: " << GameUtil::getPlayerNameFromId(gameData, gameData.getButtonPlayer()->getId()) << endl;
 }
 
 void PrintUtil::printPots(GameData& gameData) {
@@ -61,7 +63,7 @@ void PrintUtil::printPots(GameData& gameData) {
         cout    << "    "
                 << "Chips in Pot: " << pot->getChips() << " | "
                 << "Eligible Players: "
-                << printVectorString(GameUtil::getNamesFromIds(gameData, pot->getEligibleIds())) << endl;
+                << printVectorString(GameUtil::getNamesFromIds(gameData, pot->getContributorIds())) << endl;
     }
 
     cout << endl;

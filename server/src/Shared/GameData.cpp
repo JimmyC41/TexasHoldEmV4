@@ -15,11 +15,8 @@ bool GameData::removePlayer(const shared_ptr<Player>& player) {
     }
 }
 
-void GameData::setLastPlayerAsButton() {
-    if (!gamePlayers.empty()) {
-        auto& buttonPlayer = gamePlayers.back();
-        buttonId = buttonPlayer->getId();
-    }
+void GameData::setLastPlayerAsButton() { 
+    if (!gamePlayers.empty()) setButtonPlayer(gamePlayers.back());
 }
 
 void GameData::sortPlayersByPosition() {

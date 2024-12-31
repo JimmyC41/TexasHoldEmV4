@@ -81,10 +81,14 @@ void PotManager::awardPots() {
 
     // For each pot, find the highest ranking player that is eligible
     // and increment their chip count by the amount in the pot
+
+    // For a player to be eligible, they must have contributed to the pot
+    // and still be in the hand
     for (auto& pot : pots) {
         for (auto& id : rankedIds) {
-            if (pot->isIdEligible(id)) {
-                auto player = GameUtil::getPlayer(gameData, id);
+            auto player = GameUtil::getPlayer(gameData, id);
+            auto status = player->getPlayerStatus();
+            if (pot->isIdAContributor(id) && status != PlayerStatus::FOLDED) {
                 player->addChips(pot->getChips());
                 cout << "(+) Pot Manager: Awarded " << pot->getChips() << " to " << player->getName() << " chip count!\n" << endl;
                 break;
@@ -92,5 +96,8 @@ void PotManager::awardPots() {
         }
     }
 
+    // Since some player's chip counts may have changed, update their
+    // "initialChips" attribute for the next betting street
+    GameUtil::setPlayerInitialToCurChips(gameData);
     gameData.clearAllPots();
 }

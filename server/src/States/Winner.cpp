@@ -3,6 +3,7 @@
 #include "../../include/GameController.h"
 
 void Winner::execute() {
+    cout << "--------------------------------------------------------------\n";
     cout << "(+) State Manger: Winner State\n" << endl;
 
     // Evaluate hand strengths and award pots
@@ -10,9 +11,6 @@ void Winner::execute() {
 
     controller.getHandRankManager().evaluateRankedIds();
     controller.getPotManager().awardPots();
-
-    // Print the Game State
-    controller.getIOManager().displayGameStateStdOut();
 
     // Rotate positions
     controller.getPositionManager().rotatePositions();

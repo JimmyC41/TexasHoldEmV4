@@ -269,8 +269,7 @@ TEST_F(ActionTest, PossibleActionsForLimpedBigBlind) {
     // BB should have options: check (not call), raise, fold
     vector<tuple<ActionType, PossibleAmounts>> expected = {
         {ActionType::CHECK, monostate{}},
-        {ActionType::RAISE, make_tuple(20, 200)},
-        {ActionType::FOLD, monostate{}}
+        {ActionType::RAISE, make_tuple(20, 200)}
     };
     verifyPossibleActions(expected);
 };

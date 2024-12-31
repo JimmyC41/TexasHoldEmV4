@@ -107,7 +107,7 @@ vector<pair<size_t, vector<string>>> TestUtil::getPotsChipsAndNames(GameData& ga
     for (auto& pot : pots) {
         chipsInPots.push_back({
             pot->getChips(), 
-            GameUtil::getNamesFromIds(gameData, pot->getEligibleIds())
+            GameUtil::getNamesFromIds(gameData, pot->getContributorIds())
         });
     }
     return chipsInPots;
