@@ -46,7 +46,7 @@ void BettingStreet::executeStreet() {
     
     // Betting action loop
     while (!controller.isBettingStreetComplete()) {
-        auto id = gameData.getCurPlayerId();
+        auto id = gameData.getCurPlayer()->getId();
 
         // Display possible actions for the current player to act
         controller.getActionManager().generatePossibleActionsForCurPlayer();
@@ -59,16 +59,10 @@ void BettingStreet::executeStreet() {
         // Update player to act
         if (controller.isBettingStreetComplete()) break;
         controller.getPositionManager().updatePlayerToAct();
-
-        PrintUtil::printActionTimeline(gameData);
-        PrintUtil::printPlayers(gameData);
     }
 
     // Calculate pots from the betting street
     controller.getPotManager().calculatePots();
-
-    PrintUtil::printPlayers(gameData);
-    PrintUtil::printPots(gameData);
 }
 
 void BettingStreet::transition() {

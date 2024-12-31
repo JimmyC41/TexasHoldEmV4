@@ -71,7 +71,7 @@ protected:
         vector<tuple<string, ActionType, size_t>> expectedTimeline,
         ActionType expectedActive) {
         
-        actionManager.addNewAction(gameData.getCurPlayerId(), newActionType, amount);
+        actionManager.addNewAction(gameData.getCurPlayer()->getId(), newActionType, amount);
         verifyGameData(gameData, expectedTimeline, expectedActive);
         positionManager.updatePlayerToAct();
     }
@@ -184,6 +184,7 @@ TEST_F(ActionTest, PossibleActions) {
     expected = {
         {ActionType::CALL, size_t{50}},
         {ActionType::RAISE, make_tuple(100, 300)},
+        {ActionType::ALL_IN_RAISE, size_t{300}},
         {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
@@ -195,6 +196,7 @@ TEST_F(ActionTest, PossibleActions) {
     expected = {
         {ActionType::CALL, size_t{100}},
         {ActionType::RAISE, make_tuple(200, 400)},
+        {ActionType::ALL_IN_RAISE, size_t{400}},
         {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
@@ -269,7 +271,9 @@ TEST_F(ActionTest, PossibleActionsForLimpedBigBlind) {
     // BB should have options: check (not call), raise, fold
     vector<tuple<ActionType, PossibleAmounts>> expected = {
         {ActionType::CHECK, monostate{}},
-        {ActionType::RAISE, make_tuple(20, 200)}
+        {ActionType::RAISE, make_tuple(20, 200)},
+        {ActionType::ALL_IN_RAISE, size_t{200}},
+        {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
 };

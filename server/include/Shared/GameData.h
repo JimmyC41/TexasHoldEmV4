@@ -32,11 +32,6 @@ private:
     shared_ptr<Player> bigBlindPlayer;
     shared_ptr<Player> buttonPlayer;
 
-    string curPlayerId;
-    string smallBlindId;
-    string bigBlindId;
-    string buttonId;
-
     vector<shared_ptr<Player>> gamePlayers;     // Ordered list of players by position
     vector<string> rankedPlayerIds;             // Vector of IDs ranked on hand strengths (calculated in the Winner game state)
     vector<shared_ptr<Pot>> pots;               // Calculated at the end of each betting street
@@ -58,10 +53,6 @@ public:
         smallBlindPlayer(),
         bigBlindPlayer(),
         buttonPlayer(),
-        smallBlindId(),
-        bigBlindId(),
-        curPlayerId(),
-        buttonId(),
         gamePlayers(),
         rankedPlayerIds(),
         board(),
@@ -78,20 +69,12 @@ public:
     bool removePlayer(const shared_ptr<Player>& player);
     void sortPlayersByPosition();
     void setLastPlayerAsButton();
-
     void removeAllPlayers() { gamePlayers.clear(); }
     void setRankedPlayerIds(const vector<string>& ids) { rankedPlayerIds = ids; }
-
     void setCurPlayer(const shared_ptr<Player>& player) { curPlayer = player; }
     void setSmallBlindPlayer(const shared_ptr<Player>& player) { smallBlindPlayer = player; }
     void setBigBlindPlayer(const shared_ptr<Player>& player) { bigBlindPlayer = player; }
     void setButtonPlayer(const shared_ptr<Player>& player) { buttonPlayer = player; }
-
-
-    void setSmallBlindId(const string& id) { smallBlindId = id; }
-    void setBigBlindId(const string& id) { bigBlindId = id; }
-    void setCurPlayerId(const string&id) { curPlayerId = id; }
-
     void setCurStreet(const Street& street) { curStreet = street; }
     void dealCommunityCard(const Card& card) { board.addCommunityCard(card); }
     void clearBoard() { board.resetBoard(); }
@@ -111,11 +94,6 @@ public:
     void setBigBlind(const size_t& big) { bigBlind = big; }
 
     // GET Methods
-    const string& getSmallBlindId() const { return smallBlindId; }
-    const string& getBigBlindId() const { return bigBlindId; }
-    const string& getButtonId() const { return buttonId; }
-    const string& getCurPlayerId() const { return curPlayerId; }
-
     const shared_ptr<Player>& getCurPlayer() const { return curPlayer; }
     const shared_ptr<Player>& getSmallBlindPlayer() const { return smallBlindPlayer; }
     const shared_ptr<Player>& getBigBlindPlayer() const { return bigBlindPlayer; }

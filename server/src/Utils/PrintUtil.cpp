@@ -73,28 +73,17 @@ void PrintUtil::printPots(GameData& gameData) {
 }
 
 void PrintUtil::printPossibleActionsForCurPlayer(GameData& gameData) {
-    auto id = gameData.getCurPlayerId();
-    auto name = GameUtil::getPlayerNameFromId(gameData, id);
-    auto toAct = GameUtil::getPlayer(gameData, id);
+    auto id = gameData.getCurPlayer()->getId();
+    auto name = gameData.getCurPlayer()->getName();
+    auto toAct = gameData.getCurPlayer();
     auto possibleActions = gameData.getPossibleActions();
 
     cout << "   (*) " << name << " has options: \n";
     for (const auto& action : possibleActions) {
         cout    << "        "
                 << actionTypeToString(action->getActionType());
-        
-        // Edge case where min = max amount for raise
-        // A big stack has the option to raise a small stack,
-        // but a std 2x min raise is >= the stack, so
-        // the big stack does not get to choose from a 'range'
-        // of amounts if he chooses to raises - the big stack
-        // must put the small stack all in
-        if (action->getSecondaryAmount() != 0 &&
-            action->getSecondaryAmount() != 0 &&
-            action->getPrimaryAmount() == action->getSecondaryAmount()) {
-            cout << " " << action->getPrimaryAmount();
-        }
-        else if (action->getSecondaryAmount() != 0) {
+
+        if (action->getSecondaryAmount() != 0) {
             cout << " [" << action->getPrimaryAmount() << ", " << action->getSecondaryAmount() << "]";
         }
         else if (action->getPrimaryAmount() != 0) {

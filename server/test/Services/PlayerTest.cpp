@@ -33,7 +33,7 @@ protected:
         playerManager.addNewPlayers(playersInfo);
         positionManager.allocatePositions();
         EXPECT_EQ(playerManager.getNumPlayers(), expectedNumPlayers);
-        PrintUtil::printPlayers(gameData);
+        // PrintUtil::printPlayers(gameData);
     }
 
     // Removes players, then prints players to the console
@@ -41,7 +41,7 @@ protected:
         playerManager.removeExistingPlayers(players);
         positionManager.allocatePositions();
         EXPECT_EQ(playerManager.getNumPlayers(), expectedNumPlayers);
-        PrintUtil::printPlayers(gameData);
+        // PrintUtil::printPlayers(gameData);
     }
 
     void TearDown() override {

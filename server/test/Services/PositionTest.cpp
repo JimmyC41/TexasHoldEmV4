@@ -88,7 +88,7 @@ protected:
 
 
     void addActionAndUpdateCurPlayer(ActionType type, size_t amount) {
-        actionManager.addNewAction(gameData.getCurPlayerId(), type, amount);
+        actionManager.addNewAction(gameData.getCurPlayer()->getId(), type, amount);
         positionManager.updatePlayerToAct();
     }
 
@@ -99,7 +99,7 @@ protected:
     }
 
     void verifyCurPlayerAndUpdate(string expectedName) {
-        string curPlayer = GameUtil::getPlayerNameFromId(gameData, gameData.getCurPlayerId());
+        string curPlayer = GameUtil::getPlayerNameFromId(gameData, gameData.getCurPlayer()->getId());
         EXPECT_EQ(curPlayer, expectedName);
         positionManager.updatePlayerToAct();
     }

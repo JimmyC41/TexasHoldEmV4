@@ -83,20 +83,14 @@ shared_ptr<Player> GameUtil::getPlayer(GameData& gameData, string idOrName) {
 }
 
 bool GameUtil::isPlayerBigBlind(GameData& gameData, string idOrName) {
-    return (idOrName == gameData.getBigBlindId());
+    return (idOrName == gameData.getBigBlindPlayer()->getId());
 }
 
 bool GameUtil::isSmallBlindExists(GameData& gameData) {
-    // auto smallId = gameData.getSmallBlindId();
-    // return (getPlayer(gameData, smallId) != nullptr);
-
     return (gameData.getSmallBlindPlayer() != nullptr);
 }
 
 bool GameUtil::isBigBlindExists(GameData& gameData) {
-    // auto bigId = gameData.getBigBlindId();
-    // return (getPlayer(gameData, bigId) != nullptr);
-
     return (gameData.getBigBlindPlayer() != nullptr);
 }
 
@@ -120,12 +114,13 @@ size_t GameUtil::getPlayerInitialChips(GameData& gameData, string idOrName) {
 }
 
 size_t GameUtil::getBigStackAmongOthers(GameData& gameData) {
-    auto skipPlayer = gameData.getCurPlayer();
+    auto skipId = gameData.getCurPlayer()->getId();
     auto players = gameData.getPlayers();
 
     size_t bigStack = 0;
     for (const auto& player : players) {
-        if (player == skipPlayer) continue;
+        if (player->getId() == skipId) continue;
+        if (player->getPlayerStatus() == PlayerStatus::FOLDED) continue;
         bigStack = max(bigStack, player->getInitialChips());
     }
 

@@ -127,86 +127,77 @@ void ActionManager::addNewAction(string idOrName, ActionType actionType, size_t 
 }
 
 void ActionManager::generatePossibleActionsForCurPlayer() {
-    // string curPlayerId = gameData.getCurPlayerId();
     string curPlayerId = gameData.getCurPlayer()->getId();
-    
     bool isBigBlind = GameUtil::isPlayerBigBlind(gameData, curPlayerId);
-    bool canRaise = ActionUtil::canCurPlayerRaise(gameData);
-    bool canMinRaise = ActionUtil::canCurPlayerMinRaise(gameData);
-    bool canBetAllIn = ActionUtil::canCurPlayerAllInBet(gameData);
-    bool canCallActiveBet = ActionUtil::canCurPlayerCallActiveBet(gameData);
 
-    size_t curPlayerStack = gameData.getCurPlayer()->getInitialChips();
-    size_t minRaiseAmount = ActionUtil::getMinRaiseAmount(gameData);
+    size_t playerStack = gameData.getCurPlayer()->getInitialChips();
+    size_t otherBig = GameUtil::getBigStackAmongOthers(gameData);
+    size_t activeBet = GameUtil::getActiveActionAmount(gameData);
+    size_t stdRaise = 2 * activeBet;
+
+    // maxBetAmount = min(player's stack, biggest stack among other players)
     size_t maxBetAmount = ActionUtil::getMaxBetAmount(gameData);
-    size_t callAmount = ActionUtil::getCallAmount(gameData);
 
-    // POSSIBLE BET
-    // Min: 0 and Max: minimum of (player's stack, biggest stack among others)
+    // Create ALL possible actions:
     auto newBet = make_shared<PossibleBet>(maxBetAmount);
-
-    // If player's stack < biggest stack among others, option for all-in bet
-    auto newAllInBet = make_shared<PossibleAllInBet>(maxBetAmount);
-
-    // POSSIBLE RAISE
-    // Min: minimum of (player's stack, min raise)
-    // Max: minimum of (player's stack, biggest stack among others)
-    // Edge case: If min raise >= biggest stack among others, then set minRaise amount
-    // to maxBet Amount
-    if (minRaiseAmount >= maxBetAmount) minRaiseAmount = maxBetAmount;
-    auto newRaise = make_shared<PossibleRaise>(minRaiseAmount, maxBetAmount);
-
-    // If active bet < player stack < min raise
-    auto newAllInRaise = make_shared<PossibleAllInRaise>(minRaiseAmount);
-
-    // POSSIBLE CALL
-    // Amount is the minimum of (active bet to match, player's stack)
-    auto newCall = make_shared<PossibleCall>(callAmount);
-
-    // If player's stack < active bet to match, then all-in to call
-    auto newAllInCall = make_shared<PossibleAllInCall>(callAmount);
-
-    // POSSIBLE CHECK OF FOLD (No amounts)
+    auto newAllInBet = make_shared<PossibleAllInBet>(playerStack);
+    auto newStdRaise = make_shared<PossibleRaise>(stdRaise, maxBetAmount);
+    auto newRaiseToNextBigStack = make_shared<PossibleRaise>(otherBig, 0);
+    auto newAllInRaise = make_shared<PossibleAllInRaise>(playerStack);
+    auto newCall = make_shared<PossibleCall>(activeBet);
+    auto newAllInCall = make_shared<PossibleAllInCall>(playerStack);
     auto newCheck = make_shared<PossibleCheck>();
     auto newFold = make_shared<PossibleFold>();
 
-    // ASSEMBLE THE VECTOR OF POSSIBLE ACTIONS
-
+    // Then, add possible actions that are valid given the betting action:
     vector<shared_ptr<PossibleAction>> possibleActions;
 
-    // Get the most active action that is not a CALL or FOLD
-    ActionType activeActionType = GameUtil::getActiveActionType(gameData);
-    switch(activeActionType) {
-        case ActionType::POST_BIG:
-        // Edge Case: Preflop, players have limped around to the BB.
-            // The BB option should be check (instead of call), raise or fold
-            if (isBigBlind) {
-                possibleActions.push_back(newCheck);
-            } else {
-                if (canCallActiveBet) possibleActions.push_back(newCall);
-                if (!canCallActiveBet) possibleActions.push_back(newAllInCall);
-            }
-            if (canRaise && canMinRaise) possibleActions.push_back(newRaise);
-            if (canRaise && !canMinRaise) possibleActions.push_back(newAllInRaise);
+    // Edge case where all players limp and the BB has the option to 'check'
+    bool preflopLimp = false;
 
-            // Do not allow BB to fold if it limps around to them (they can just check)
-            if (!isBigBlind) possibleActions.push_back(newFold);
-            break;
+    // Get the most recent action in the street that is not a CALL or FOLD
+    ActionType recentActionType = GameUtil::getActiveActionType(gameData);
+    switch(recentActionType) {
+        case ActionType::POST_BIG:
+            if (isBigBlind) preflopLimp = true;
         case ActionType::BET:
         case ActionType::RAISE:
         case ActionType::ALL_IN_BET:
         case ActionType::ALL_IN_RAISE:
         case ActionType::POST_SMALL:
-            if (canCallActiveBet) possibleActions.push_back(newCall);
-            if (!canCallActiveBet) possibleActions.push_back(newAllInCall);
-            if (canRaise && canMinRaise) possibleActions.push_back(newRaise);
-            if (canRaise && !canMinRaise) possibleActions.push_back(newAllInRaise);
+            // CALL
+            if (preflopLimp) possibleActions.push_back(newCheck);
+            else if (playerStack > activeBet) possibleActions.push_back(newCall);
+            else possibleActions.push_back(newAllInCall);
+
+            // RAISE
+            if (playerStack > activeBet) {
+                if (playerStack > otherBig) {
+                    if (stdRaise >= otherBig) {
+                        possibleActions.push_back(newRaiseToNextBigStack);
+                    }
+                    else if (stdRaise < otherBig) {
+                        possibleActions.push_back(newStdRaise);
+                    }
+                } else if (otherBig >= playerStack) {
+                    if (stdRaise >= playerStack) {
+                        possibleActions.push_back(newAllInRaise);
+                    }
+                    else if (stdRaise < playerStack) {
+                        possibleActions.push_back(newStdRaise);
+                        possibleActions.push_back(newAllInRaise);
+                    }
+                }
+            }
+
+            // FOLD
             possibleActions.push_back(newFold);
             break;
         default: 
+            // CHECK, BET, FOLD
             possibleActions.push_back(newCheck);
             possibleActions.push_back(newBet);
-            if (canBetAllIn) possibleActions.push_back(newAllInBet);
+            if (otherBig >= playerStack) possibleActions.push_back(newAllInBet);
             possibleActions.push_back(newFold);
             break;
     }
@@ -267,7 +258,7 @@ bool ActionManager::isActionsFinished() {
 
 bool ActionManager::isShortPlayersInHand() {
     if (GameUtil::isShortPlayersInHand(gameData)) {
-        cout << "(+) Action Manager: ALL PLAYERS FOLDED. SKIPPING BETTING STREETS AND ANNOUNCING THE WINNER.\n" << endl;
+        cout << "(+) Action Manager: Less than 2 players left in the hand. Skipping betting streets.\n" << endl;
         return true;
     }
     return false;

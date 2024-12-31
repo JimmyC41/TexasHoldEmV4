@@ -32,10 +32,9 @@ void GameSetup::execute() {
         }
         cout << "\n";
     }
+    
     // Shuffle the deck
     controller.getDealerManager().resetDeck();
-
-    PrintUtil::printPlayers(gameData);
 
     // Transition to Betting Streets
     transition();

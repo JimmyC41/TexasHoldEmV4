@@ -32,7 +32,7 @@ void PlayerManager::removeBrokePlayers() {
     auto players = gameData.getPlayers();
     for (const auto& player : players) {
         if (player->getCurChips() == 0) {
-            cout    << "(+) Player Manager: Removing the following player from the game due to insufficient chips:"
+            cout    << "(+) Player Manager: Removing the following player from the game due to insufficient chips: "
                     << player->getName() << '\n' << endl;
             removeExistingPlayers({player->getId()});
         }

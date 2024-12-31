@@ -21,11 +21,9 @@ void PositionManager::updatePlayerPositionInGameData(const string& idOrName, con
 
     player->setPosition(newPosition);
     if (newPosition == Position::SMALL_BLIND) {
-        gameData.setSmallBlindId(player->getId());
         gameData.setSmallBlindPlayer(player);
     }
     if (newPosition == Position::BIG_BLIND) {
-        gameData.setBigBlindId(player->getId());
         gameData.setBigBlindPlayer(player);
     }
 }
@@ -68,9 +66,6 @@ void PositionManager::rotatePositions() {
     cout << "(+) Position Manager: Rotating Positions for the next round!\n" << endl;
 
     // Fetch the previous button and small blind
-    // string newSmallId = gameData.getButtonId();
-    // string newBigId = gameData.getSmallBlindId();
-
     string newSmallId = gameData.getButtonPlayer()->getId();
     string newBigId = gameData.getSmallBlindPlayer()->getId();
 
@@ -99,14 +94,12 @@ void PositionManager::rotatePositions() {
 void PositionManager::updatePlayerToAct() {
     cout << "(+) Position Manager: Finding the next player to act!\n" << endl;
     // Find the player the next player to act
-    // const string& curId = gameData.getCurPlayerId();
     const string& curId = gameData.getCurPlayer()->getId();
     shared_ptr<Player> nextPlayer = GameUtil::getNextPlayerInHand(gameData, curId);
 
     // Set the next player as the next to act
     if (nextPlayer != nullptr) {
         gameData.setCurPlayer(nextPlayer);
-        gameData.setCurPlayerId(nextPlayer->getId());
     }
 }
 
@@ -129,7 +122,6 @@ void PositionManager::setEarlyPositionToAct() {
     }
 
     // Set the current player to act
-    gameData.setCurPlayerId(earlyPosition->getId());
     gameData.setCurPlayer(earlyPosition);
 }
 
@@ -139,7 +131,7 @@ void PositionManager::assignBlindsIfMissing() {
     bool smallExists = GameUtil::isSmallBlindExists(gameData);
     bool bigExists = GameUtil::isBigBlindExists(gameData);
 
-    // Both previous small and big blinds have left the game
+    // Either previous small and big blinds have left the game
     if (!smallExists || !bigExists) {
         auto players = gameData.getPlayers();
         updatePlayerPositionInGameData(players[0]->getId(), Position::SMALL_BLIND);
