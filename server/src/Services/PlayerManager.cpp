@@ -3,7 +3,7 @@
 PlayerManager::PlayerManager(GameData& gameData) : gameData(gameData) {}
 
 bool PlayerManager::addNewPlayers(vector<pair<string, size_t>> newPlayersInfo) {
-    cout << "(+) PlayerManager: addNewPlayers called." << endl;
+    cout << "(+) PlayerManager: addNewPlayers called.\n" << endl;
     for (auto& info : newPlayersInfo) {
         shared_ptr<Player> player = make_shared<Player>(info.first, info.second);
         gameData.addPlayer(player);
@@ -14,7 +14,7 @@ bool PlayerManager::addNewPlayers(vector<pair<string, size_t>> newPlayersInfo) {
 }
 
 bool PlayerManager::removeExistingPlayers(vector<string> playersIdOrName) {
-    cout << "(+) PlayerManager: removeExistingPlayer called." << endl;
+    cout << "(+) PlayerManager: removeExistingPlayer called.\n" << endl;
     for (auto& idOrName : playersIdOrName) {
         // Fetch the shared ptr to the player we want to remove
         auto player = GameUtil::getPlayer(gameData, idOrName);

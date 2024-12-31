@@ -8,6 +8,7 @@ void GameSetup::execute() {
 
     // Remove players that do not have sufficient chips
     controller.getPlayerManager().removeBrokePlayers();
+    controller.getPositionManager().allocatePositions();
 
     // Player Addition and Removal
     // Player Manager adds the player, sets position to lobby and status to waiting
@@ -33,6 +34,8 @@ void GameSetup::execute() {
     }
     // Shuffle the deck
     controller.getDealerManager().resetDeck();
+
+    PrintUtil::printPlayers(gameData);
 
     // Transition to Betting Streets
     transition();

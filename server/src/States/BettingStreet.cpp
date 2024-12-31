@@ -59,6 +59,9 @@ void BettingStreet::executeStreet() {
         // Update player to act
         if (controller.isBettingStreetComplete()) break;
         controller.getPositionManager().updatePlayerToAct();
+
+        PrintUtil::printActionTimeline(gameData);
+        PrintUtil::printPlayers(gameData);
     }
 
     // Calculate pots from the betting street

@@ -29,6 +29,7 @@ void PrintUtil::printAllCards(GameData& gameData) {
     cout << endl;
 }
 
+
 void PrintUtil::printPlayers(GameData& gameData) {
     cout << "(*) Displaying Players:" << '\n';
 
@@ -38,6 +39,8 @@ void PrintUtil::printPlayers(GameData& gameData) {
                 << "name: " << player->getName() << " | "
                 << "chips: " << player->getCurChips() << " | "
                 << "recent bet: " << player->getRecentBet() << " | "
+                << "initial chips: " << player->getInitialChips() << " | "
+                << "status: " << playerStatusToString(player->getPlayerStatus()) << " | "
                 << "position: " << positionToString(player->getPosition()) << '\n';
     }
 
@@ -79,8 +82,19 @@ void PrintUtil::printPossibleActionsForCurPlayer(GameData& gameData) {
     for (const auto& action : possibleActions) {
         cout    << "        "
                 << actionTypeToString(action->getActionType());
-
-        if (action->getSecondaryAmount() != 0) {
+        
+        // Edge case where min = max amount for raise
+        // A big stack has the option to raise a small stack,
+        // but a std 2x min raise is >= the stack, so
+        // the big stack does not get to choose from a 'range'
+        // of amounts if he chooses to raises - the big stack
+        // must put the small stack all in
+        if (action->getSecondaryAmount() != 0 &&
+            action->getSecondaryAmount() != 0 &&
+            action->getPrimaryAmount() == action->getSecondaryAmount()) {
+            cout << " " << action->getPrimaryAmount();
+        }
+        else if (action->getSecondaryAmount() != 0) {
             cout << " [" << action->getPrimaryAmount() << ", " << action->getSecondaryAmount() << "]";
         }
         else if (action->getPrimaryAmount() != 0) {

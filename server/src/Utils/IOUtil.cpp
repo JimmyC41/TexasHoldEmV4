@@ -78,6 +78,7 @@ pair<size_t, size_t> IOUtil::getRangeOfValidAmounts(vector<shared_ptr<PossibleAc
 size_t IOUtil::getActionAmount(vector<shared_ptr<PossibleAction>>& actions, ActionType type) {
     auto [primary, secondary] = getRangeOfValidAmounts(actions, type);
     if (secondary == 0) return primary;
+    else if (primary == secondary) return primary;
 
     string input;
     size_t amount;

@@ -6,6 +6,8 @@ void Winner::execute() {
     cout << "--------------------------------------------------------------\n";
     cout << "(+) State Manger: Winner State\n" << endl;
 
+    PrintUtil::printPlayers(gameData);
+
     // Evaluate hand strengths and award pots
     PrintUtil::printPots(gameData);
 
@@ -14,6 +16,8 @@ void Winner::execute() {
 
     // Rotate positions
     controller.getPositionManager().rotatePositions();
+
+    PrintUtil::printPlayers(gameData);
 
     // Go to Game Setup state
     transition();

@@ -151,6 +151,9 @@ void ActionManager::generatePossibleActionsForCurPlayer() {
     // POSSIBLE RAISE
     // Min: minimum of (player's stack, min raise)
     // Max: minimum of (player's stack, biggest stack among others)
+    // Edge case: If min raise >= biggest stack among others, then set minRaise amount
+    // to maxBet Amount
+    if (minRaiseAmount >= maxBetAmount) minRaiseAmount = maxBetAmount;
     auto newRaise = make_shared<PossibleRaise>(minRaiseAmount, maxBetAmount);
 
     // If active bet < player stack < min raise

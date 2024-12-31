@@ -18,7 +18,7 @@ public:
     
     size_t getChips() const { return chips; }
     const vector<string>& getContributorIds() const { return contributorIds; }
-    bool isIdAContributor(string id) const { return find(contributorIds.begin(), contributorIds.end(), id) != contributorIds.end(); }
+    bool isIdAContributor(const string& id) const { return (std::find(contributorIds.begin(), contributorIds.end(), id) != contributorIds.end()); }
 };
 
 #endif
