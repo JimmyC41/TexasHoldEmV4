@@ -2,7 +2,6 @@
 #define PLAYER_UTIL
 
 #include "../Entities/Player.h"
-#include <uuid/uuid.h>
 #include <string>
 #include <memory>
 using namespace std;
