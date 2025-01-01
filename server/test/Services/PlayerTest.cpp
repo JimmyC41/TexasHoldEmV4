@@ -12,7 +12,7 @@ protected:
     PositionManager positionManager;
     GameData gameData;
 
-    vector<pair<string, size_t>> playersInfo = 
+    vector<pair<string, uint32_t>> playersInfo = 
     {
         {"P1", 100},
         {"P2", 200},
@@ -29,7 +29,7 @@ protected:
 
 
     // Add new players, allocate positions and sort, then print players to the console
-    void addPlayersAndAllocatePositions(vector<pair<string, size_t>> playersInfo, int expectedNumPlayers) {
+    void addPlayersAndAllocatePositions(vector<pair<string, uint32_t>> playersInfo, int expectedNumPlayers) {
         playerManager.addNewPlayers(playersInfo);
         positionManager.allocatePositions();
         EXPECT_EQ(playerManager.getNumPlayers(), expectedNumPlayers);

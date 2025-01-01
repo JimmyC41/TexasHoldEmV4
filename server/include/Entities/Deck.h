@@ -11,7 +11,7 @@ const int DECK_SIZE = 52;
 class Deck {
 private:
     array<Card, DECK_SIZE> deck;
-    size_t deckIndex;
+    uint32_t deckIndex;
     bool isShuffled;
     void shuffleDeck();
 public:
@@ -20,11 +20,11 @@ public:
     Card& dealCard();
     void burnCard();
     void resetDeck();
-    size_t getDealtCardCount() const;
+    uint32_t getDealtCardCount() const;
 
     // Test Functions
     array<Card, DECK_SIZE> getArrayOfDeckCards() const;
-    size_t getDeckSize() const;
+    uint32_t getDeckSize() const;
 };
 
 #endif // DECK_H

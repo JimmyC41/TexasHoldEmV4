@@ -5,9 +5,9 @@
 
 class PossibleCall : public PossibleAction {
 public:
-    PossibleCall(size_t amount) : PossibleAction(amount) {}
+    PossibleCall(uint32_t amount) : PossibleAction(amount) {}
     ActionType getActionType() const override { return ActionType::CALL; }
-    const size_t getSecondaryAmount() const override { return 0; }
+    const uint32_t getSecondaryAmount() const override { return 0; }
 };
 
 #endif

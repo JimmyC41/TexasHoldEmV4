@@ -20,7 +20,7 @@ protected:
     HandRankManager handRankManager;
     GameData gameData;
 
-    vector<pair<string, size_t>> playersInfo = 
+    vector<pair<string, uint32_t>> playersInfo = 
     {
         {"P1", 100},
         {"P2", 200},

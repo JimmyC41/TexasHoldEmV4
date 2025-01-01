@@ -7,7 +7,7 @@
 #include "GameUtil.h"
 #include "PotUtil.h"
 
-using PlayerBetInfo = vector<tuple<string, size_t, PlayerStatus>>;
+using PlayerBetInfo = vector<tuple<string, uint32_t, PlayerStatus>>;
 
 class PrintUtil {
 public:
@@ -17,7 +17,7 @@ public:
     static void printPlayers(GameData& gameData);
     static void printPots(GameData& gameData);
     static void printPossibleActionsForCurPlayer(GameData& gameData);
-    static void printClientAction(pair<ActionType, size_t> action);
+    static void printClientAction(pair<ActionType, uint32_t> action);
 
     // String Helpers
     static string printVectorCards(const vector<Card>& cards);

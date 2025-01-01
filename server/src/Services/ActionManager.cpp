@@ -88,7 +88,7 @@ void ActionManager::handleBlinds() {
     addNewAction(bigId, ActionType::POST_BIG, bigB);
 }
 
-void ActionManager::addNewAction(string idOrName, ActionType actionType, size_t amount) {
+void ActionManager::addNewAction(string idOrName, ActionType actionType, uint32_t amount) {
     // Update the internal tracking of action types in a betting street
     updateStreetActionData(actionType);
 
@@ -106,10 +106,10 @@ void ActionManager::generatePossibleActionsForCurPlayer() {
     // Fetch data related for the player to act
     string curPlayerId = gameData.getCurPlayer()->getId();
     bool isBigBlind = GameUtil::isPlayerBigBlind(gameData, curPlayerId);
-    size_t playerStack = gameData.getCurPlayer()->getInitialChips();
-    size_t otherBig = GameUtil::getBigStackAmongOthers(gameData);
-    size_t activeBet = GameUtil::getActiveActionAmount(gameData);
-    size_t stdRaise = 2 * activeBet;
+    uint32_t playerStack = gameData.getCurPlayer()->getInitialChips();
+    uint32_t otherBig = GameUtil::getBigStackAmongOthers(gameData);
+    uint32_t activeBet = GameUtil::getActiveActionAmount(gameData);
+    uint32_t stdRaise = 2 * activeBet;
 
     // Then, add possible actions that are valid given the betting action:
     vector<shared_ptr<PossibleAction>> possibleActions;
@@ -184,7 +184,7 @@ bool ActionManager::isShortPlayersInHand() {
 
 void ActionManager::updateAttributesAfterAction(const string& idOrName, const shared_ptr<Action>& newAction) {
     auto player = GameUtil::getPlayer(gameData, idOrName);
-    size_t amount = newAction->getAmount();
+    uint32_t amount = newAction->getAmount();
     ActionType type = newAction->getActionType();
 
     // Update player's chips
@@ -239,7 +239,7 @@ void ActionManager::addPossibleChecks(vector<shared_ptr<PossibleAction>>& possib
 }
 
 void ActionManager::addPossibleBets( vector<shared_ptr<PossibleAction>>& possibleActions, 
-    ActionType recentType, size_t playerStack, size_t otherBig) {
+    ActionType recentType, uint32_t playerStack, uint32_t otherBig) {
 
     switch(recentType) {
         case ActionType::NONE:
@@ -258,7 +258,7 @@ void ActionManager::addPossibleBets( vector<shared_ptr<PossibleAction>>& possibl
 }
 
 void ActionManager::addPossibleCalls(vector<shared_ptr<PossibleAction>>& possibleActions,
-    ActionType recentType, size_t playerStack, size_t activeBet, bool isBigBlind) {
+    ActionType recentType, uint32_t playerStack, uint32_t activeBet, bool isBigBlind) {
 
     switch(recentType) {
         // See above edge case - BB has the option to check rather than call
@@ -281,9 +281,9 @@ void ActionManager::addPossibleCalls(vector<shared_ptr<PossibleAction>>& possibl
 }
 
 void ActionManager::addPossibleRaises(vector<shared_ptr<PossibleAction>>& possibleActions,
-    ActionType recentType, size_t playerStack, size_t otherBig, size_t activebet) {
+    ActionType recentType, uint32_t playerStack, uint32_t otherBig, uint32_t activebet) {
     
-    size_t stdRaise = 2 * activebet;
+    uint32_t stdRaise = 2 * activebet;
     switch(recentType) {
         case ActionType::POST_SMALL:
         case ActionType::POST_BIG:

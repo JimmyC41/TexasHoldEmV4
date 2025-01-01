@@ -10,8 +10,8 @@ void PotManager::populatePlayerBets() {
     // PrintUtil::printPlayerBetsInPotManager(playerBets);
 }
 
-size_t PotManager::getMinBetInPlayerBets() {
-    size_t minBet = numeric_limits<size_t>::max();
+uint32_t PotManager::getMinBetInPlayerBets() {
+    uint32_t minBet = numeric_limits<uint32_t>::max();
     for (auto [player, bet, status] : playerBets) { 
         if (bet == 0 || status == PlayerStatus::FOLDED) continue;
         if (bet < minBet) minBet = bet;
@@ -40,7 +40,7 @@ void PotManager::calculatePots() {
     // Create side pot(s) and repeat as needed
     int numFolds = 0;
     while (!allBetsAllocatedToPots()) {
-        size_t minContribution = getMinBetInPlayerBets();
+        uint32_t minContribution = getMinBetInPlayerBets();
         for (auto& [id, bet, status] : playerBets) {
             if (bet == 0) continue;
 
@@ -62,7 +62,7 @@ void PotManager::calculatePots() {
         // Add the maximum amount of dead chips to the pot
         // Each folded player can only contribute up to the
         // minimum contribution of their dead chips to the pot!
-        size_t deadChipsToAdd = min((minContribution * numFolds), gameData.getDeadChips());
+        uint32_t deadChipsToAdd = min((minContribution * numFolds), gameData.getDeadChips());
         gameData.addChipsToCurPot(deadChipsToAdd);
         gameData.lessDeadChips(deadChipsToAdd);
 

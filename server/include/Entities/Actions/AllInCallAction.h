@@ -5,7 +5,7 @@
 
 class AllInCallAction : public Action {
 public:
-    AllInCallAction(string id, size_t amount) : Action(id, amount) {}
+    AllInCallAction(string id, uint32_t amount) : Action(id, amount) {}
     ActionType getActionType() const override { return ActionType::ALL_IN_CALL; }
 };
 

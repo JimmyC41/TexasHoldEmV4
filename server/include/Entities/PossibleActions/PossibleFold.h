@@ -7,7 +7,7 @@ class PossibleFold : public PossibleAction {
 public:
     PossibleFold() : PossibleAction(0) {}
     ActionType getActionType() const override { return ActionType::FOLD; }
-    const size_t getSecondaryAmount() const override { return 0; }
+    const uint32_t getSecondaryAmount() const override { return 0; }
 };
 
 #endif

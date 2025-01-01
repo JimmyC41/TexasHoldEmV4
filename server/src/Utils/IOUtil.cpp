@@ -23,9 +23,9 @@ string IOUtil::getPlayerName() {
     }
 }
 
-size_t IOUtil::getPlayerChips(size_t minChips) {
+uint32_t IOUtil::getPlayerChips(uint32_t minChips) {
     string input;
-    size_t chips;
+    uint32_t chips;
 
     while (true) {
         cout    << "   "
@@ -48,9 +48,9 @@ size_t IOUtil::getPlayerChips(size_t minChips) {
     }
 }
 
-pair<ActionType, size_t> IOUtil::getAction(vector<shared_ptr<PossibleAction>>& actions) {
+pair<ActionType, uint32_t> IOUtil::getAction(vector<shared_ptr<PossibleAction>>& actions) {
     ActionType type = getActionType(actions);
-    size_t amount = getActionAmount(actions, type);
+    uint32_t amount = getActionAmount(actions, type);
     return {type, amount};
 }
 
@@ -66,7 +66,7 @@ ActionType IOUtil::getActionType(vector<shared_ptr<PossibleAction>>& actions) {
     }
 }
 
-pair<size_t, size_t> IOUtil::getRangeOfValidAmounts(vector<shared_ptr<PossibleAction>>& actions, ActionType type) {
+pair<uint32_t, uint32_t> IOUtil::getRangeOfValidAmounts(vector<shared_ptr<PossibleAction>>& actions, ActionType type) {
     for (auto& action : actions) {
         if (action->getActionType() == type) {
             return {action->getPrimaryAmount(), action->getSecondaryAmount()};
@@ -75,12 +75,12 @@ pair<size_t, size_t> IOUtil::getRangeOfValidAmounts(vector<shared_ptr<PossibleAc
     return {0, 0};
 }
 
-size_t IOUtil::getActionAmount(vector<shared_ptr<PossibleAction>>& actions, ActionType type) {
+uint32_t IOUtil::getActionAmount(vector<shared_ptr<PossibleAction>>& actions, ActionType type) {
     auto [primary, secondary] = getRangeOfValidAmounts(actions, type);
     if (secondary == 0) return primary;
 
     string input;
-    size_t amount;
+    uint32_t amount;
     while (true) {
         cout << "Amount? ";
         getline(cin, input);

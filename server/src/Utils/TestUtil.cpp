@@ -41,7 +41,7 @@ void TestUtil::dealCardsToPlayers(GameData& gameData, vector<string> idOrNames, 
 }
 
 void TestUtil::manualAddPlayers(GameData& gameData, PlayerManager& playerManager, PositionManager& positionManager,
-    vector<pair<string, size_t>> players) {
+    vector<pair<string, uint32_t>> players) {
 
         playerManager.addNewPlayers(players);
         positionManager.allocatePositions();
@@ -54,7 +54,7 @@ void TestUtil::manualSetPossibleAction(GameData& gameData, vector<shared_ptr<Pos
 
 vector<Card> TestUtil::strToVectorOfCards(const string& stringOfCards) {
     vector<Card> hand;
-    for (size_t i = 0; i < stringOfCards.size(); i += 2) {
+    for (uint32_t i = 0; i < stringOfCards.size(); i += 2) {
         Value value = CardUtil::charToValue(stringOfCards[i]);
         Suit suit = CardUtil::charToSuit(stringOfCards[i + 1]);
         hand.emplace_back(Card(suit, value));
@@ -62,8 +62,8 @@ vector<Card> TestUtil::strToVectorOfCards(const string& stringOfCards) {
     return hand;
 }
 
-vector<tuple<string, ActionType, size_t>> TestUtil::getActionTimelineVector(GameData& gameData) {
-    vector<tuple<string, ActionType, size_t>> result;
+vector<tuple<string, ActionType, uint32_t>> TestUtil::getActionTimelineVector(GameData& gameData) {
+    vector<tuple<string, ActionType, uint32_t>> result;
     auto actionTimeline = gameData.getActionTimeline();
     for (const auto& action : actionTimeline) {
         auto name = GameUtil::getPlayerNameFromId(gameData, action->getPlayerId());
@@ -101,8 +101,8 @@ vector<tuple<ActionType, PossibleAmounts>> TestUtil::getPossibleActionsVector(Ga
     return result;
 }
 
-vector<pair<size_t, vector<string>>> TestUtil::getPotsChipsAndNames(GameData& gameData) {
-    vector<pair<size_t, vector<string>>> chipsInPots;
+vector<pair<uint32_t, vector<string>>> TestUtil::getPotsChipsAndNames(GameData& gameData) {
+    vector<pair<uint32_t, vector<string>>> chipsInPots;
     auto pots = gameData.getPots();
     for (auto& pot : pots) {
         chipsInPots.push_back({
@@ -125,7 +125,7 @@ vector<string> TestUtil::evaluateHandsAndGetRankedNames(GameData& gameData, Hand
     TestUtil::dealCardsToPlayers(gameData, playerNames, board);
 
     // Deal each player's hole cards
-    size_t offset = 5;
+    uint32_t offset = 5;
     for (int i = 0; i < numPlayers; ++i) {
         vector<pair<Suit, Value>> holeCards = TestUtil::getSubset(cards, offset, offset + 2);
         TestUtil::dealCardsToPlayers(gameData, {playerNames[i]}, holeCards);

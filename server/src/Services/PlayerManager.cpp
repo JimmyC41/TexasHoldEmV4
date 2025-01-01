@@ -2,7 +2,7 @@
 
 PlayerManager::PlayerManager(GameData& gameData) : gameData(gameData) {}
 
-bool PlayerManager::addNewPlayers(vector<pair<string, size_t>> newPlayersInfo) {
+bool PlayerManager::addNewPlayers(vector<pair<string, uint32_t>> newPlayersInfo) {
     cout << "(+) PlayerManager: addNewPlayers called.\n" << endl;
     for (auto& info : newPlayersInfo) {
         shared_ptr<Player> player = make_shared<Player>(info.first, info.second);

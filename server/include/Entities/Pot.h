@@ -8,15 +8,15 @@ using namespace std;
 
 class Pot {
 private:
-    size_t chips;
+    uint32_t chips;
     vector<string> contributorIds;;
 
 public:
     Pot() : chips(0), contributorIds() {}
     void addPlayerId(const string& id) { contributorIds.push_back(id); }
-    void addChips(const size_t& amount) { chips += amount; }
+    void addChips(const uint32_t& amount) { chips += amount; }
     
-    size_t getChips() const { return chips; }
+    uint32_t getChips() const { return chips; }
     const vector<string>& getContributorIds() const { return contributorIds; }
     bool isIdAContributor(const string& id) const { return (std::find(contributorIds.begin(), contributorIds.end(), id) != contributorIds.end()); }
 };

@@ -5,7 +5,7 @@
 
 class AllInBetAction : public Action {
 public:
-    AllInBetAction(string id, size_t amount) : Action(id, amount) {}
+    AllInBetAction(string id, uint32_t amount) : Action(id, amount) {}
     ActionType getActionType() const override { return ActionType::ALL_IN_BET; }
 };
 

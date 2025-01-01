@@ -5,12 +5,12 @@
 
 class PossibleBet : public PossibleAction {
 private:
-    size_t secondaryAmount;
+    uint32_t secondaryAmount;
 public:
-    PossibleBet(size_t max) : PossibleAction(0), secondaryAmount(max) {}
+    PossibleBet(uint32_t max) : PossibleAction(0), secondaryAmount(max) {}
 
     ActionType getActionType() const override { return ActionType::BET; }
-    const size_t getSecondaryAmount() const override { return secondaryAmount; }
+    const uint32_t getSecondaryAmount() const override { return secondaryAmount; }
 };
 
 #endif

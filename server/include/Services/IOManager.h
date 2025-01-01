@@ -21,9 +21,9 @@ public:
     void displayGameStateStdOut();
     void displayPossibleActionsStdOut();
 
-    vector<pair<string, size_t>> addPlayersStdIn();
+    vector<pair<string, uint32_t>> addPlayersStdIn();
     vector<string> removePlayersStdIn();
-    pair<ActionType, size_t> getPlayerActionStdIn();
+    pair<ActionType, uint32_t> getPlayerActionStdIn();
 };
 
 #endif

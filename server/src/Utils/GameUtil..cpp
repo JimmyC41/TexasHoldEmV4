@@ -108,16 +108,16 @@ vector<Card> GameUtil::getPlayerBestFiveCards(GameData& gameData, string idOrNam
     return player->getBestFiveCards();
 }
 
-size_t GameUtil::getPlayerInitialChips(GameData& gameData, string idOrName) {
+uint32_t GameUtil::getPlayerInitialChips(GameData& gameData, string idOrName) {
     auto player = getPlayer(gameData, idOrName);
     return player->getInitialChips();
 }
 
-size_t GameUtil::getBigStackAmongOthers(GameData& gameData) {
+uint32_t GameUtil::getBigStackAmongOthers(GameData& gameData) {
     auto skipId = gameData.getCurPlayer()->getId();
     auto players = gameData.getPlayers();
 
-    size_t bigStack = 0;
+    uint32_t bigStack = 0;
     for (const auto& player : players) {
         if (player->getId() == skipId) continue;
         if (player->getPlayerStatus() == PlayerStatus::FOLDED) continue;
@@ -182,8 +182,8 @@ vector<shared_ptr<Player>> GameUtil::getOccupiedPlayers(GameData& gameData) {
     return occupiedPlayers;
 }
 
-vector<pair<string, size_t>> GameUtil::getPlayersCurChips(GameData& gameData) {
-    vector<pair<string, size_t>> namesToChips;
+vector<pair<string, uint32_t>> GameUtil::getPlayersCurChips(GameData& gameData) {
+    vector<pair<string, uint32_t>> namesToChips;
     auto players = gameData.getPlayers();
     for (const auto& player : players) {
         namesToChips.push_back({player->getName(), player->getCurChips()});
@@ -223,7 +223,7 @@ ActionType GameUtil::getActiveActionType(GameData& gameData) {
     return gameData.getActiveAction()->getActionType();
 }
 
-size_t GameUtil::getActiveActionAmount(GameData& gameData) {
+uint32_t GameUtil::getActiveActionAmount(GameData& gameData) {
     return gameData.getActiveAction()->getAmount();
 }
 
@@ -232,7 +232,7 @@ bool GameUtil::isIdInCurPot(GameData& gameData, string id) {
     return (curPot->isIdAContributor(id));
 }
 
-size_t GameUtil::getNumPots(GameData& gameData) {
+uint32_t GameUtil::getNumPots(GameData& gameData) {
     return gameData.getPots().size();
 }
 

@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package texas_holdem;
+
 service PokerService {
     // Server-to-client game state updates
     rpc GameStream(GameStreamReq) returns (stream GameStreamRes);
@@ -12,7 +14,7 @@ service PokerService {
 
 message JoinGameReq {
     string player_name = 1;
-    uint64 chips = 2;
+    uint32 chips = 2;
 }
 
 message LeaveGameReq {
@@ -22,7 +24,7 @@ message LeaveGameReq {
 message PlayerActionReq {
     string player_id = 1;
     ActionType action_type = 2;
-    uint64 action_amount = 3;
+    uint32 action_amount = 3;
 }
 
 message PlayerReqRes {
@@ -79,8 +81,8 @@ message NewPlayerToActEvent {
 
     message PossibleAction {
         ActionType action_type = 1;
-        uint64 primary_amount = 2;
-        uint64 secondary_amount = 3;
+        uint32 primary_amount = 2;
+        uint32 secondary_amount = 3;
     }
 
     repeated PossibleAction possible_actions = 2;
@@ -92,7 +94,7 @@ message NewPlayerActionEvent {
 
     message Action {
         ActionType action_type = 1;
-        uint64 action_amount = 2;
+        uint32 action_amount = 2;
     }
 
     // Update player recent bet and status in the frontend.
@@ -102,7 +104,7 @@ message NewPlayerActionEvent {
 // Event: Pots are calculated at the end of each street.
 message PotUpdateEvent {
     message Pot {
-        uint64 potChips = 1;
+        uint32 potChips = 1;
         repeated string eligible_ids = 2;
     }
 
@@ -117,7 +119,7 @@ message ShowdownEvent {
 // Event: Awards pots and updates player chips.
 message PotWinnerEvent {
     message PotWinner {
-        uint64 pot_chips = 1;
+        uint32 pot_chips = 1;
         string winner = 2;
     }
 
@@ -155,9 +157,9 @@ message Card {
 
 message Player {
     string name = 1;
-    uint64 chips = 2;
+    uint32 chips = 2;
     repeated Card hole_cards = 3;
-    uint64 recent_bets = 4;
+    uint32 recent_bets = 4;
 
     enum Position {
         LOBBY = 0;

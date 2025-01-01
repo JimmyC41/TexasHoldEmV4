@@ -68,13 +68,13 @@ private:
         ActionType recentType, bool isBigBlind);
 
     void addPossibleBets(vector<shared_ptr<PossibleAction>>& possibleActions, 
-        ActionType recentType, size_t playerStack, size_t otherBig);
+        ActionType recentType, uint32_t playerStack, uint32_t otherBig);
     
     void addPossibleCalls(vector<shared_ptr<PossibleAction>>& possibleActions,
-        ActionType recentType, size_t playerStack, size_t activeBet, bool isBigBlind);
+        ActionType recentType, uint32_t playerStack, uint32_t activeBet, bool isBigBlind);
     
     void addPossibleRaises(vector<shared_ptr<PossibleAction>>& possibleActions,
-        ActionType recentType, size_t playerStack, size_t otherBig, size_t activebet);
+        ActionType recentType, uint32_t playerStack, uint32_t otherBig, uint32_t activebet);
     
     void addPossibleFolds(vector<shared_ptr<PossibleAction>>& possibleActions);
 
@@ -86,7 +86,7 @@ public:
     // To GameData: 
     // Updates player attributes (current chips, player status, recent bet)
     // Appends the new action to the action timeline and sets the active action (if aggressive actions)
-    void addNewAction(string idOrName, ActionType actionType, size_t amount = 0);
+    void addNewAction(string idOrName, ActionType actionType, uint32_t amount = 0);
 
     // Event: Triggered after players are dealt cards in the preflop
     // Adds a new action for the posting of small and big blind

@@ -11,7 +11,7 @@
 #include "../../include/Entities/Actions/RaiseAction.h"
 #include "../../include/Entities/Actions/NoneAction.h"
 
-shared_ptr<Action> ActionUtil::createAction(const string& idOrName, ActionType actionType, size_t amount){
+shared_ptr<Action> ActionUtil::createAction(const string& idOrName, ActionType actionType, uint32_t amount){
     switch(actionType) {
         case ActionType::ALL_IN_BET: return make_shared<AllInBetAction>(idOrName, amount); break;
         case ActionType::ALL_IN_CALL: return make_shared<AllInCallAction>(idOrName, amount); break;
@@ -27,9 +27,9 @@ shared_ptr<Action> ActionUtil::createAction(const string& idOrName, ActionType a
     }
 }
 
-size_t ActionUtil::getMaxBetAmount(GameData& gameData) {
-    size_t playerStack = gameData.getCurPlayer()->getInitialChips();
-    size_t bigStackAmongOthers = GameUtil::getBigStackAmongOthers(gameData);
+uint32_t ActionUtil::getMaxBetAmount(GameData& gameData) {
+    uint32_t playerStack = gameData.getCurPlayer()->getInitialChips();
+    uint32_t bigStackAmongOthers = GameUtil::getBigStackAmongOthers(gameData);
     return min(playerStack, bigStackAmongOthers);
 }
 

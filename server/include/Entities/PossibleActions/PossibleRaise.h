@@ -5,11 +5,11 @@
 
 class PossibleRaise : public PossibleAction {
 private:
-size_t secondaryAmount;
+uint32_t secondaryAmount;
 public:
-    PossibleRaise(size_t min, size_t max) : PossibleAction(min), secondaryAmount(max) {}
+    PossibleRaise(uint32_t min, uint32_t max) : PossibleAction(min), secondaryAmount(max) {}
     ActionType getActionType() const override {return ActionType::RAISE; }
-    const size_t getSecondaryAmount() const override { return secondaryAmount; }
+    const uint32_t getSecondaryAmount() const override { return secondaryAmount; }
 };
 
 #endif

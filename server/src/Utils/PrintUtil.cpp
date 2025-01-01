@@ -94,7 +94,7 @@ void PrintUtil::printPossibleActionsForCurPlayer(GameData& gameData) {
     cout << endl;
 }
 
-void PrintUtil::printClientAction(pair<ActionType, size_t> action) {
+void PrintUtil::printClientAction(pair<ActionType, uint32_t> action) {
     auto type = actionTypeToString(action.first);
     auto amount = action.second;
     cout << "Client action is: " << type << " " << amount << endl;
@@ -182,7 +182,7 @@ string PrintUtil::playerStatusToString(PlayerStatus status) {
 
 string PrintUtil::printVectorString(const vector<string>& strings) {
     string result;
-    for (size_t i = 0; i < strings.size(); ++i) {
+    for (uint32_t i = 0; i < strings.size(); ++i) {
         result += strings[i];
     }
     return result;

@@ -7,10 +7,10 @@
 class ActionUtil { 
 public:
     // Creates a new action object and returns a shared ptr
-    static shared_ptr<Action> createAction(const string& idOrName, ActionType actionType, size_t amount = 0);
+    static shared_ptr<Action> createAction(const string& idOrName, ActionType actionType, uint32_t amount = 0);
 
     // Finds the maximum amount that the player to act can bet given stack sizes
-    static size_t getMaxBetAmount(GameData& gameData);
+    static uint32_t getMaxBetAmount(GameData& gameData);
 
     // Checks if an Action Type is aggressive (i.e. requires other players to match the bet)
     // Aggressive actions include: Bet, All-In Bet, Raise, Post Small, Post Big

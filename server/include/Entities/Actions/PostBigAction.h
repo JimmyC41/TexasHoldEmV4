@@ -5,7 +5,7 @@
 
 class PostBigAction : public Action {
 public:
-    PostBigAction(string id, size_t amount) : Action(id, amount) {}
+    PostBigAction(string id, uint32_t amount) : Action(id, amount) {}
     ActionType getActionType() const override { return ActionType::POST_BIG; }
 };
 

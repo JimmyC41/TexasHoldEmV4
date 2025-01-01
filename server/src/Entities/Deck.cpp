@@ -6,7 +6,7 @@ using namespace std;
 
 Deck::Deck() : deckIndex(0), isShuffled(false) {
     // Populate and shuffle the deck
-    size_t index = 0;
+    uint32_t index = 0;
     for (int suit = 0; suit < 4; ++suit) {
         for (int value = 2; value <= 14; ++value) {
             deck[index++] = Card(static_cast<Suit>(suit), static_cast<Value>(value));
@@ -19,7 +19,7 @@ Card& Deck::dealCard() {
     return deck[deckIndex++];
 }
 
-size_t Deck::getDealtCardCount() const { return deckIndex; }
+uint32_t Deck::getDealtCardCount() const { return deckIndex; }
 
 void Deck::burnCard() { deckIndex++; }
 
@@ -36,7 +36,7 @@ void Deck::shuffleDeck() {
     isShuffled = true;
 }
 
-size_t Deck::getDeckSize() const {
+uint32_t Deck::getDeckSize() const {
     return (DECK_SIZE - deckIndex);
 }
 

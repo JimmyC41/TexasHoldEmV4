@@ -19,7 +19,7 @@ using namespace std;
 
 class PossibleAction;
 
-using PossibleAmounts = variant<monostate, size_t, tuple<size_t, size_t>>;
+using PossibleAmounts = variant<monostate, uint32_t, tuple<uint32_t, uint32_t>>;
 
 class TestUtil {
 public:
@@ -31,12 +31,12 @@ public:
     static void dealCardsToPlayers(GameData& gameData, vector<string> idOrNames, vector<pair<Suit, Value>>& cards);
     
     static void manualAddPlayers(GameData& gameData, PlayerManager& playerManager, PositionManager& positionManager,
-        vector<pair<string, size_t>> players);
+        vector<pair<string, uint32_t>> players);
 
     // Game Data Getters
-    static vector<tuple<string, ActionType, size_t>> getActionTimelineVector(GameData& gameData);
+    static vector<tuple<string, ActionType, uint32_t>> getActionTimelineVector(GameData& gameData);
     static vector<tuple<ActionType, PossibleAmounts>> getPossibleActionsVector(GameData& gameData);
-    static vector<pair<size_t, vector<string>>> getPotsChipsAndNames(GameData& gameData);
+    static vector<pair<uint32_t, vector<string>>> getPotsChipsAndNames(GameData& gameData);
 
     // General Helper Methods
     static bool isCardsUnique(const vector<Card>& cards);

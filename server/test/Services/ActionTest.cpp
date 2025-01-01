@@ -13,7 +13,7 @@ protected:
     PositionManager positionManager;
     ActionManager actionManager;
 
-    vector<pair<string, size_t>> playersInfo = 
+    vector<pair<string, uint32_t>> playersInfo = 
     {
         {"P1", 100},
         {"P2", 200},
@@ -26,7 +26,7 @@ protected:
         {"P9", 100}
     };
 
-    vector<tuple<string, ActionType, size_t>> limpedPreflop = {
+    vector<tuple<string, ActionType, uint32_t>> limpedPreflop = {
         {"P1", ActionType::POST_SMALL, 5},
         {"P2", ActionType::POST_BIG, 10},
         {"P3", ActionType::CALL, 10},
@@ -54,7 +54,7 @@ protected:
 
     void verifyGameData(
         GameData& gameData,
-        vector<tuple<string, ActionType, size_t>> expectedTimeline,
+        vector<tuple<string, ActionType, uint32_t>> expectedTimeline,
         ActionType expectedActiveActionType) {
 
         auto actualTimeline = TestUtil::getActionTimelineVector(gameData);
@@ -67,8 +67,8 @@ protected:
     // Verifies the actionTimeline and the activeAction is correctly updated in the Game Data
     void verifyNewAction(
         ActionType newActionType,
-        size_t amount,
-        vector<tuple<string, ActionType, size_t>> expectedTimeline,
+        uint32_t amount,
+        vector<tuple<string, ActionType, uint32_t>> expectedTimeline,
         ActionType expectedActive) {
         
         actionManager.addNewAction(gameData.getCurPlayer()->getId(), newActionType, amount);
@@ -97,7 +97,7 @@ protected:
 
 // Check if the Action Manager processes a new action and updates the internal GameData
 TEST_F(ActionTest, NewActionAdded) {
-    vector<tuple<string, ActionType, size_t>> actions = {
+    vector<tuple<string, ActionType, uint32_t>> actions = {
         {"P1", ActionType::CHECK, 0},
         {"P2", ActionType::BET, 50},
         {"P3", ActionType::CALL, 50},
@@ -143,7 +143,7 @@ TEST_F(ActionTest, NewActionAdded) {
 // actions to generate the possible actions for the next player.
 
 TEST_F(ActionTest, PossibleActions) {
-    vector<tuple<string, ActionType, size_t>> actions = {
+    vector<tuple<string, ActionType, uint32_t>> actions = {
         {"P1", ActionType::CHECK, 0},
         {"P2", ActionType::BET, 50},
         {"P3", ActionType::RAISE, 100},
@@ -160,7 +160,7 @@ TEST_F(ActionTest, PossibleActions) {
     vector<tuple<ActionType, PossibleAmounts>> expected = {
         {ActionType::CHECK, monostate{}},
         {ActionType::BET, make_tuple(0, 100)},
-        {ActionType::ALL_IN_BET, size_t{100}},
+        {ActionType::ALL_IN_BET, uint32_t{100}},
         {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
@@ -172,7 +172,7 @@ TEST_F(ActionTest, PossibleActions) {
     expected = {
         {ActionType::CHECK, monostate{}},
         {ActionType::BET, make_tuple(0, 200)},
-        {ActionType::ALL_IN_BET, size_t{200}},
+        {ActionType::ALL_IN_BET, uint32_t{200}},
         {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
@@ -182,9 +182,9 @@ TEST_F(ActionTest, PossibleActions) {
     // P3 is the next to act - can call, raise or fold
     // Suppose P3 raises to 100
     expected = {
-        {ActionType::CALL, size_t{50}},
+        {ActionType::CALL, uint32_t{50}},
         {ActionType::RAISE, make_tuple(100, 300)},
-        {ActionType::ALL_IN_RAISE, size_t{300}},
+        {ActionType::ALL_IN_RAISE, uint32_t{300}},
         {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
@@ -194,9 +194,9 @@ TEST_F(ActionTest, PossibleActions) {
     // P4 - is the next to act - can call, raise or fold
     // Suppose P4 folds
     expected = {
-        {ActionType::CALL, size_t{100}},
+        {ActionType::CALL, uint32_t{100}},
         {ActionType::RAISE, make_tuple(200, 400)},
-        {ActionType::ALL_IN_RAISE, size_t{400}},
+        {ActionType::ALL_IN_RAISE, uint32_t{400}},
         {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
@@ -206,7 +206,7 @@ TEST_F(ActionTest, PossibleActions) {
     // P5 is the next to act - can call, raise or fold
     // Suppose P5 raises to 300
     expected = {
-        {ActionType::CALL, size_t{100}},
+        {ActionType::CALL, uint32_t{100}},
         {ActionType::RAISE, make_tuple(200, 400)},
         {ActionType::FOLD, monostate{}}
     };
@@ -217,8 +217,8 @@ TEST_F(ActionTest, PossibleActions) {
     // P6 is the next to act - can call, raise all-in or fold
     // Suppose P6 raises all-in to 400
     expected = {
-        {ActionType::CALL, size_t{300}},
-        {ActionType::ALL_IN_RAISE, size_t{400}},
+        {ActionType::CALL, uint32_t{300}},
+        {ActionType::ALL_IN_RAISE, uint32_t{400}},
         {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
@@ -228,7 +228,7 @@ TEST_F(ActionTest, PossibleActions) {
     // P7 is the next to act - can call all-in or fold
     // Suppose P7 calls all-in
     expected = {
-        {ActionType::ALL_IN_CALL, size_t{300}},
+        {ActionType::ALL_IN_CALL, uint32_t{300}},
         {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
@@ -238,7 +238,7 @@ TEST_F(ActionTest, PossibleActions) {
     // P8 is the next to act - can call all-in or fold
     // Suppose P8 calls all-in
     expected = {
-        {ActionType::ALL_IN_CALL, size_t{200}},
+        {ActionType::ALL_IN_CALL, uint32_t{200}},
         {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
@@ -248,7 +248,7 @@ TEST_F(ActionTest, PossibleActions) {
     // P9 is the next to act - can call all-in or fold
     // Suppose P9 folds
     expected = {
-        {ActionType::ALL_IN_CALL, size_t{100}},
+        {ActionType::ALL_IN_CALL, uint32_t{100}},
         {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
@@ -272,7 +272,7 @@ TEST_F(ActionTest, PossibleActionsForLimpedBigBlind) {
     vector<tuple<ActionType, PossibleAmounts>> expected = {
         {ActionType::CHECK, monostate{}},
         {ActionType::RAISE, make_tuple(20, 200)},
-        {ActionType::ALL_IN_RAISE, size_t{200}},
+        {ActionType::ALL_IN_RAISE, uint32_t{200}},
         {ActionType::FOLD, monostate{}}
     };
     verifyPossibleActions(expected);
@@ -280,7 +280,7 @@ TEST_F(ActionTest, PossibleActionsForLimpedBigBlind) {
 
 TEST_F(ActionTest, ActionsFinishedAllPlayersCheck) {
     // All players check their option
-    vector<tuple<string, ActionType, size_t>> actions = {
+    vector<tuple<string, ActionType, uint32_t>> actions = {
         {"P1", ActionType::CHECK, 0},
         {"P2", ActionType::CHECK, 0},
         {"P3", ActionType::CHECK, 0},

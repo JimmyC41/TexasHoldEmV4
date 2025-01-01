@@ -16,7 +16,7 @@ protected:
     ActionManager actionManager;
     GameData gameData;
 
-    vector<pair<string, size_t>> playersInfo = 
+    vector<pair<string, uint32_t>> playersInfo = 
     {
         {"P1", 100},
         {"P2", 200},
@@ -58,7 +58,7 @@ protected:
     }
 
     void verifyPositionsAfterPlayerAddition(
-        vector<pair<string, size_t>> newPlayers,
+        vector<pair<string, uint32_t>> newPlayers,
         vector<Position> expectedPositions) {
         
         playerManager.addNewPlayers(newPlayers);
@@ -87,7 +87,7 @@ protected:
     }
 
 
-    void addActionAndUpdateCurPlayer(ActionType type, size_t amount) {
+    void addActionAndUpdateCurPlayer(ActionType type, uint32_t amount) {
         actionManager.addNewAction(gameData.getCurPlayer()->getId(), type, amount);
         positionManager.updatePlayerToAct();
     }

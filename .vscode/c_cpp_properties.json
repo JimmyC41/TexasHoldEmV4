@@ -4,7 +4,13 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/homebrew/Cellar/googletest/1.15.2/include"
+                "${workspaceFolder}/server/include",
+                "${workspaceFolder}/server/include/**",
+                "${workspaceFolder}/build/build",
+                "/opt/homebrew/Cellar/googletest/1.15.2/include",
+                "C:/Users/Jimmy/.conan2/p/proto1bc625ad405e0/p/include",
+                "C:/Users/Jimmy/.conan2/p/absei584666daebe9f/p/include",
+                "C:/Users/Jimmy/.conan2/p/grpcc1fa87c503b46/p/include"
             ],
             "defines": [],
             "macFrameworkPath": [
@@ -13,7 +19,8 @@
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c23",
             "cppStandard": "c++23",
-            "intelliSenseMode": "${default}"
+            "intelliSenseMode": "${default}",
+            "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
     "version": 4

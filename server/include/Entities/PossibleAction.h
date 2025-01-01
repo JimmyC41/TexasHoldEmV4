@@ -15,15 +15,15 @@ using ActionType = Enums::ActionType;
 
 class PossibleAction {
 private:
-    size_t primaryAmount;
+    uint32_t primaryAmount;
 
 public:
-    PossibleAction(size_t amount = 0) : primaryAmount(amount) {}
+    PossibleAction(uint32_t amount = 0) : primaryAmount(amount) {}
 
-    const size_t& getPrimaryAmount() const { return primaryAmount; }
+    const uint32_t& getPrimaryAmount() const { return primaryAmount; }
     
     virtual ~PossibleAction() {}
-    virtual const size_t getSecondaryAmount() const { return 0; }
+    virtual const uint32_t getSecondaryAmount() const { return 0; }
     virtual ActionType getActionType() const = 0;
 };
 

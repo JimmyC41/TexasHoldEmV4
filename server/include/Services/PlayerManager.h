@@ -20,7 +20,7 @@ public:
     // Event: Triggered when a new client requests to enter the game during the Game Setup state
     // ToGameData: Adds a shared Player ptr to the gamePlayers vector
     // Returns true if player addition was successful
-    bool addNewPlayers(vector<pair<string, size_t>> newPlayersInfo);
+    bool addNewPlayers(vector<pair<string, uint32_t>> newPlayersInfo);
 
     // Event: Triggered when a new client requests to leave the game during the Game Setup state
     // ToGameData: Removes the player from vector<shared_ptr<Player>> gamePlayers

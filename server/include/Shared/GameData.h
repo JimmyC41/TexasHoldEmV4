@@ -35,10 +35,10 @@ private:
     vector<shared_ptr<Player>> gamePlayers;     // Ordered list of players by position
     vector<string> rankedPlayerIds;             // Vector of IDs ranked on hand strengths (calculated in the Winner game state)
     vector<shared_ptr<Pot>> pots;               // Calculated at the end of each betting street
-    size_t deadChips;
+    uint32_t deadChips;
     Board board;
-    size_t smallBlind;
-    size_t bigBlind;
+    uint32_t smallBlind;
+    uint32_t bigBlind;
 
     // Only Persists in Each Street:
     Street curStreet;
@@ -60,8 +60,8 @@ public:
         deadChips(),
         actionTimeline(),
         activeAction(),
-        smallBlind(size_t{1}),
-        bigBlind(size_t{2})
+        smallBlind(uint32_t{1}),
+        bigBlind(uint32_t{2})
     {}
 
     // SET Methods
@@ -86,12 +86,12 @@ public:
         for (const auto& action : actions) possibleActions.push_back(action);
     }
     void addNewPot(const shared_ptr<Pot>& newPot) { pots.emplace_back(newPot); }
-    void addChipsToCurPot(const size_t& chips) { pots.back()->addChips(chips); }
+    void addChipsToCurPot(const uint32_t& chips) { pots.back()->addChips(chips); }
     void addIdToCurPot(const string& id) { pots.back()->addPlayerId(id); }
-    void addDeadChips(const size_t& chips) { deadChips += chips; }
-    void lessDeadChips(const size_t& chips) { deadChips -= chips; }
+    void addDeadChips(const uint32_t& chips) { deadChips += chips; }
+    void lessDeadChips(const uint32_t& chips) { deadChips -= chips; }
     void clearAllPots() { pots.clear(); }
-    void setBigBlind(const size_t& big) { bigBlind = big; }
+    void setBigBlind(const uint32_t& big) { bigBlind = big; }
 
     // GET Methods
     const shared_ptr<Player>& getCurPlayer() const { return curPlayer; }
@@ -109,9 +109,9 @@ public:
     const vector<shared_ptr<PossibleAction>>& getPossibleActions() const { return possibleActions; }
     const vector<shared_ptr<Pot>>& getPots() const { return pots; }
     const shared_ptr<Pot>& getCurPot() const { return pots.back(); }
-    const size_t& getDeadChips() const { return deadChips; }
-    const size_t& getBigBlind() const { return bigBlind; }
-    const size_t& getSmallBlind() const { return smallBlind; }
+    const uint32_t& getDeadChips() const { return deadChips; }
+    const uint32_t& getBigBlind() const { return bigBlind; }
+    const uint32_t& getSmallBlind() const { return smallBlind; }
 };
 
 #endif

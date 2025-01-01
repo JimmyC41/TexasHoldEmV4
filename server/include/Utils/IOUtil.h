@@ -19,11 +19,11 @@ class IOUtil {
 public:
     static bool getYesOrNo();
     static string getPlayerName();
-    static size_t getPlayerChips(size_t minChips);
-    static pair<ActionType, size_t> getAction(vector<shared_ptr<PossibleAction>>& actions);
+    static uint32_t getPlayerChips(uint32_t minChips);
+    static pair<ActionType, uint32_t> getAction(vector<shared_ptr<PossibleAction>>& actions);
     static ActionType getActionType(vector<shared_ptr<PossibleAction>>& actions);
-    static pair<size_t, size_t> getRangeOfValidAmounts(vector<shared_ptr<PossibleAction>>& actions, ActionType type);
-    static size_t getActionAmount(vector<shared_ptr<PossibleAction>>& actions, ActionType type);
+    static pair<uint32_t, uint32_t> getRangeOfValidAmounts(vector<shared_ptr<PossibleAction>>& actions, ActionType type);
+    static uint32_t getActionAmount(vector<shared_ptr<PossibleAction>>& actions, ActionType type);
 
     // String Helper Methods
     static string toLowerCase(const string& input);

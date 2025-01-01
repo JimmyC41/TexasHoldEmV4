@@ -33,7 +33,7 @@ bool HandRankManager::compareHands(const HandInfo& handA, const HandInfo& handB)
     }
 
     // Compare best five cards lexicographically
-    for (size_t i = 0; i < handA.getBestFiveCards().size(); ++i) {
+    for (uint32_t i = 0; i < handA.getBestFiveCards().size(); ++i) {
         if (handAFive[i].getValue() != handBFive[i].getValue()) {
             return handAFive[i].getValue() > handBFive[i].getValue();
         }

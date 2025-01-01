@@ -10,7 +10,7 @@
 using namespace std;
 using PlayerStatus = Enums::PlayerStatus;
 
-using PlayerBetInfo = vector<tuple<string, size_t, PlayerStatus>>;
+using PlayerBetInfo = vector<tuple<string, uint32_t, PlayerStatus>>;
 
 class PotUtil { 
 private:

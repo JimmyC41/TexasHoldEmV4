@@ -1,7 +1,7 @@
 #include "../../include/Entities/Player.h"
 #include "../../include/Utils/PlayerUtil.h"
 
-Player::Player(string name, size_t chips) :
+Player::Player(string name, uint32_t chips) :
     name(name),
     id(PlayerUtil::generateUUID()),
     position(Position::LOBBY),
@@ -17,9 +17,9 @@ Player::Player(string name, size_t chips) :
 
 void Player::setPosition(Position newPosition) { position = newPosition; }
 
-void Player::addChips(size_t newChips) { curChips += newChips; }
+void Player::addChips(uint32_t newChips) { curChips += newChips; }
 
-void Player::reduceChips(size_t lostChips) { curChips -= lostChips; }
+void Player::reduceChips(uint32_t lostChips) { curChips -= lostChips; }
 
 void Player:: addHoleCard(const Card& card) { hand.push_back(card); }
 
@@ -27,9 +27,9 @@ void Player::clearHand() { hand.clear(); }
 
 void Player::setPlayerStatus(PlayerStatus status) { playerStatus = status; }
 
-void Player:: setInitialChips(size_t chips) { initialChips = chips; }
+void Player:: setInitialChips(uint32_t chips) { initialChips = chips; }
 
-void Player::setRecentBet(size_t newBet) { recentBet = newBet; }
+void Player::setRecentBet(uint32_t newBet) { recentBet = newBet; }
 
 void Player::setHandCategory(HandCategory category) { handCategory = category; }
 
@@ -43,7 +43,7 @@ const string& Player::getId() const { return id; }
 
 Position Player:: getPosition() const { return position; }
 
-size_t Player::getCurChips() const { return curChips; }
+uint32_t Player::getCurChips() const { return curChips; }
 
 const vector<Card>& Player::getHand() const { return hand; }
 
@@ -51,8 +51,8 @@ const vector<Card>& Player::getBestFiveCards() const { return bestFiveCards; }
 
 PlayerStatus Player::getPlayerStatus() const { return playerStatus; }
 
-size_t Player::getInitialChips() const { return initialChips; }
+uint32_t Player::getInitialChips() const { return initialChips; }
 
-size_t Player::getRecentBet() const { return recentBet; }
+uint32_t Player::getRecentBet() const { return recentBet; }
 
 HandCategory Player::getHandCategory() const { return handCategory; }

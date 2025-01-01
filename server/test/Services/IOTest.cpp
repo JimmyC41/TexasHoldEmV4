@@ -54,7 +54,7 @@ TEST_F(IOTest, addPlayersStdIn) {
 
 TEST_F(IOTest, removePlayersStdIn) {
     // First, add players to the game
-    vector<pair<string, size_t>> playersInfo = 
+    vector<pair<string, uint32_t>> playersInfo = 
     {
         {"P1", 100},
         {"P2", 200},

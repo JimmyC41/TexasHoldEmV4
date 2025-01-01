@@ -7,7 +7,7 @@
 #include "../Utils/PrintUtil.h"
 
 using namespace std;
-using PlayerBetInfo = vector<tuple<string, size_t, PlayerStatus>>;
+using PlayerBetInfo = vector<tuple<string, uint32_t, PlayerStatus>>;
 
 
 class PotManager {
@@ -25,7 +25,7 @@ private:
 
     // Fetches the minimum bet in player bets, the minimum
     // contribution each player makes to the current pot
-    size_t getMinBetInPlayerBets();
+    uint32_t getMinBetInPlayerBets();
 
     // Checks if all player bets have been allocated to pots
     // If there are remaining bets to be processed, then there
