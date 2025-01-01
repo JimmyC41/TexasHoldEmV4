@@ -6,6 +6,9 @@
 
 class ActionUtil { 
 public:
+    // Creates a new action object and returns a shared ptr
+    static shared_ptr<Action> createAction(const string& idOrName, ActionType actionType, size_t amount = 0);
+
     // Finds the maximum amount that the player to act can bet given stack sizes
     static size_t getMaxBetAmount(GameData& gameData);
 

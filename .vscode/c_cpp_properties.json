@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Mac",
+            "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
                 "/opt/homebrew/Cellar/googletest/1.15.2/include"
@@ -13,7 +13,7 @@
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c23",
             "cppStandard": "c++23",
-            "intelliSenseMode": "macos-clang-arm64"
+            "intelliSenseMode": "${default}"
         }
     ],
     "version": 4

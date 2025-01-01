@@ -1,4 +1,5 @@
 #include "../../include/Services/ActionManager.h"
+#include "../../include/Entities/Actions/NoneAction.h"
 
 ActionManager::ActionManager(GameData& gameData) :
     gameData(gameData),
@@ -88,121 +89,38 @@ void ActionManager::handleBlinds() {
 }
 
 void ActionManager::addNewAction(string idOrName, ActionType actionType, size_t amount) {
-    // Update StreetActionData (internal tracking of action types in a given street)
+    // Update the internal tracking of action types in a betting street
     updateStreetActionData(actionType);
 
-    // Create the new action shared pointer
-    shared_ptr<Action> newAction;
-    switch(actionType) {
-        case ActionType::ALL_IN_BET:newAction = make_shared<AllInBetAction>(idOrName, amount); break;
-        case ActionType::ALL_IN_CALL: newAction = make_shared<AllInCallAction>(idOrName, amount); break;
-        case ActionType::ALL_IN_RAISE: newAction = make_shared<AllInRaiseAction>(idOrName, amount); break;
-        case ActionType::BET: newAction = make_shared<BetAction>(idOrName, amount); break;
-        case ActionType::CALL: newAction = make_shared<CallAction>(idOrName, amount); break;
-        case ActionType::CHECK: newAction = make_shared<CheckAction>(idOrName); break;
-        case ActionType::FOLD: newAction = make_shared<FoldAction>(idOrName); break;
-        case ActionType::RAISE: newAction = make_shared<RaiseAction>(idOrName, amount); break;
-        case ActionType::POST_SMALL: newAction = make_shared<PostSmallAction>(idOrName, amount); break;
-        case ActionType::POST_BIG: newAction = make_shared<PostBigAction>(idOrName, amount); break;
-        default: newAction = make_shared<NoneAction>(); break;
-    }
+    // Create a shared pointer to the new action instance
+    shared_ptr<Action> newAction = ActionUtil::createAction(idOrName, actionType, amount);
 
-    // NOW, UPDATE THE GAME DATA:
+    // Update player's attributes in Game Data
+    updateAttributesAfterAction(idOrName, newAction);
 
-    // Player-specific attributes:
-   auto player = GameUtil::getPlayer(gameData, idOrName);
-   if (newAction->getAmount() != 0) player->reduceChips(newAction->getAmount() - player->getRecentBet());
-   player->setPlayerStatus(ActionUtil::inferStatusFromActionType(actionType));
-
-   // If recent bet > 0, but most recent action is check, this means the BB
-   // has checked their option. Do not set recent bet to 0 (check).
-   // In this case, don't 
-   if (actionType == ActionType::CHECK && player->getRecentBet() > 0) player->setRecentBet(player->getRecentBet());
-   else if (actionType != ActionType::FOLD) player->setRecentBet(amount);
-
-    // Shared information in the Game Data
-    gameData.addActionToTimeline(newAction);
-    if (ActionUtil::isActionAggressive(actionType)) gameData.setActiveAction(newAction);
-    if (gameData.getActiveAction() == nullptr) gameData.setActiveAction(make_shared<NoneAction>());
+    // Update timeline and active action in Game Data
+    updateGameDataAfterAction(newAction);
 }
 
 void ActionManager::generatePossibleActionsForCurPlayer() {
+    // Fetch data related for the player to act
     string curPlayerId = gameData.getCurPlayer()->getId();
     bool isBigBlind = GameUtil::isPlayerBigBlind(gameData, curPlayerId);
-
     size_t playerStack = gameData.getCurPlayer()->getInitialChips();
     size_t otherBig = GameUtil::getBigStackAmongOthers(gameData);
     size_t activeBet = GameUtil::getActiveActionAmount(gameData);
     size_t stdRaise = 2 * activeBet;
 
-    // maxBetAmount = min(player's stack, biggest stack among other players)
-    size_t maxBetAmount = ActionUtil::getMaxBetAmount(gameData);
-
-    // Create ALL possible actions:
-    auto newBet = make_shared<PossibleBet>(maxBetAmount);
-    auto newAllInBet = make_shared<PossibleAllInBet>(playerStack);
-    auto newStdRaise = make_shared<PossibleRaise>(stdRaise, maxBetAmount);
-    auto newRaiseToNextBigStack = make_shared<PossibleRaise>(otherBig, 0);
-    auto newAllInRaise = make_shared<PossibleAllInRaise>(playerStack);
-    auto newCall = make_shared<PossibleCall>(activeBet);
-    auto newAllInCall = make_shared<PossibleAllInCall>(playerStack);
-    auto newCheck = make_shared<PossibleCheck>();
-    auto newFold = make_shared<PossibleFold>();
-
     // Then, add possible actions that are valid given the betting action:
     vector<shared_ptr<PossibleAction>> possibleActions;
+    ActionType recentType = GameUtil::getActiveActionType(gameData);
+    addPossibleChecks(possibleActions, recentType, isBigBlind);
+    addPossibleBets(possibleActions, recentType, playerStack, otherBig);
+    addPossibleCalls(possibleActions, recentType, playerStack, activeBet, isBigBlind);
+    addPossibleRaises(possibleActions, recentType, playerStack, otherBig, activeBet);
+    addPossibleFolds(possibleActions);
 
-    // Edge case where all players limp and the BB has the option to 'check'
-    bool preflopLimp = false;
-
-    // Get the most recent action in the street that is not a CALL or FOLD
-    ActionType recentActionType = GameUtil::getActiveActionType(gameData);
-    switch(recentActionType) {
-        case ActionType::POST_BIG:
-            if (isBigBlind) preflopLimp = true;
-        case ActionType::BET:
-        case ActionType::RAISE:
-        case ActionType::ALL_IN_BET:
-        case ActionType::ALL_IN_RAISE:
-        case ActionType::POST_SMALL:
-            // CALL
-            if (preflopLimp) possibleActions.push_back(newCheck);
-            else if (playerStack > activeBet) possibleActions.push_back(newCall);
-            else possibleActions.push_back(newAllInCall);
-
-            // RAISE
-            if (playerStack > activeBet) {
-                if (playerStack > otherBig) {
-                    if (stdRaise >= otherBig) {
-                        possibleActions.push_back(newRaiseToNextBigStack);
-                    }
-                    else if (stdRaise < otherBig) {
-                        possibleActions.push_back(newStdRaise);
-                    }
-                } else if (otherBig >= playerStack) {
-                    if (stdRaise >= playerStack) {
-                        possibleActions.push_back(newAllInRaise);
-                    }
-                    else if (stdRaise < playerStack) {
-                        possibleActions.push_back(newStdRaise);
-                        possibleActions.push_back(newAllInRaise);
-                    }
-                }
-            }
-
-            // FOLD
-            possibleActions.push_back(newFold);
-            break;
-        default: 
-            // CHECK, BET, FOLD
-            possibleActions.push_back(newCheck);
-            possibleActions.push_back(newBet);
-            if (otherBig >= playerStack) possibleActions.push_back(newAllInBet);
-            possibleActions.push_back(newFold);
-            break;
-    }
-
-    // Update the list of possible actions for the current player in Game Data
+    // Update the list of possible actions for the player to act in Game Data
     gameData.setPossibleActions(possibleActions);
 }
 
@@ -262,4 +180,147 @@ bool ActionManager::isShortPlayersInHand() {
         return true;
     }
     return false;
+}
+
+void ActionManager::updateAttributesAfterAction(const string& idOrName, const shared_ptr<Action>& newAction) {
+    auto player = GameUtil::getPlayer(gameData, idOrName);
+    size_t amount = newAction->getAmount();
+    ActionType type = newAction->getActionType();
+
+    // Update player's chips
+    // Only reduce chips if the new action has an amount > 0
+    // Important because a BB can have a recent bet > 0, but check their option
+    // In this case, we don't want need to reduce any chips
+    if (amount != 0) {
+        player->reduceChips(newAction->getAmount() - player->getRecentBet());
+    }
+
+    // Update player's status
+    player->setPlayerStatus(ActionUtil::inferStatusFromActionType(type));
+
+    // Update player's recent bet
+    // If recent bet > 0 but new action is check, this is an edge case
+    // where BB has checked their option
+    // In this case, we do not set recent bet to 0 since they have already
+    // posted a blind (which counts as a 'bet')
+    if (type == ActionType::CHECK && player->getRecentBet() > 0) player->setRecentBet(player->getRecentBet());
+    else if (type != ActionType::FOLD) player->setRecentBet(amount);
+}
+
+void ActionManager::updateGameDataAfterAction(const shared_ptr<Action>& newAction) {
+    ActionType type = newAction->getActionType();
+
+    // Add action to the timeline
+    gameData.addActionToTimeline(newAction);
+
+    // Set the action as active if aggressive
+    // An aggressive action must be responded to e.g. players must call a bet or fold
+    // Vice versa, a check would be non-aggressive as players do not need to respond
+    if (ActionUtil::isActionAggressive(type)) gameData.setActiveAction(newAction);
+    if (gameData.getActiveAction() == nullptr) gameData.setActiveAction(make_shared<NoneAction>());
+}
+
+void ActionManager::addPossibleChecks(vector<shared_ptr<PossibleAction>>& possibleActions,
+    ActionType recentType, bool isBigBlind) {
+    
+    switch(recentType) {
+        // Edge case where it limps around preflop to the BB, and the BB should
+        // have the option to check
+        case ActionType::POST_BIG:
+            if (!isBigBlind) break;
+        case ActionType::NONE:
+        case ActionType::CHECK:
+        case ActionType::FOLD:
+            possibleActions.push_back(make_shared<PossibleCheck>());
+            break;
+        default:
+            break;
+    }
+}
+
+void ActionManager::addPossibleBets( vector<shared_ptr<PossibleAction>>& possibleActions, 
+    ActionType recentType, size_t playerStack, size_t otherBig) {
+
+    switch(recentType) {
+        case ActionType::NONE:
+        case ActionType::CHECK:
+        case ActionType::FOLD:
+            // Max bet amount is the minimum of the player's stack and
+            // the next biggest stack among other players
+            possibleActions.push_back(make_shared<PossibleBet>(min(playerStack, otherBig)));
+
+            // Player can only bet all-in if another player can at least all in call
+            // this all in bet
+            if (otherBig >= playerStack) possibleActions.push_back(make_shared<PossibleAllInBet>(playerStack));
+        default:
+            break;
+    }
+}
+
+void ActionManager::addPossibleCalls(vector<shared_ptr<PossibleAction>>& possibleActions,
+    ActionType recentType, size_t playerStack, size_t activeBet, bool isBigBlind) {
+
+    switch(recentType) {
+        // See above edge case - BB has the option to check rather than call
+        case ActionType::POST_BIG:
+            if (isBigBlind) break;
+        case ActionType::BET:
+        case ActionType::RAISE:
+        case ActionType::ALL_IN_BET:
+        case ActionType::ALL_IN_RAISE:
+        case ActionType::POST_SMALL:
+            // If player can match the active bet, normal call
+            if (playerStack > activeBet) possibleActions.push_back(make_shared<PossibleCall>(activeBet));
+            
+            // If player can not match the active bet, must go all in -> side pot creation
+            else possibleActions.push_back(make_shared<PossibleAllInCall>(playerStack));
+            break;
+        default:
+            break;
+    }
+}
+
+void ActionManager::addPossibleRaises(vector<shared_ptr<PossibleAction>>& possibleActions,
+    ActionType recentType, size_t playerStack, size_t otherBig, size_t activebet) {
+    
+    size_t stdRaise = 2 * activebet;
+    switch(recentType) {
+        case ActionType::POST_SMALL:
+        case ActionType::POST_BIG:
+        case ActionType::BET:
+        case ActionType::RAISE:
+        case ActionType::ALL_IN_BET:
+        case ActionType::ALL_IN_RAISE:
+            // Early exit if the player can't raise the active bet
+            if (playerStack <= activebet) break;
+
+            // If std raise is less than the player's stack OR the next biggest stack,
+            // treat as a normal raise, where the min is std raise and the max is the
+            // min of the player's stack and the big stack among other players
+            // Recall, you can only raise to what a player can call, so there's no point
+            // allowing the big stack to raise all in to his chip count.
+            if (stdRaise < playerStack || stdRaise < otherBig) {
+                possibleActions.push_back(make_shared<PossibleRaise>(stdRaise, min(playerStack, otherBig)));
+            }
+
+            // If the player is NOT the big stack, has the option to raise all in
+            if (otherBig >= playerStack) {
+                possibleActions.push_back(make_shared<PossibleAllInRaise>(playerStack));
+            }
+            
+            // If player is the big stack and the next biggest stack must go all in to call
+            // the std raise, then the player can only raise to the amount of the next
+            // biggest stack
+            if (stdRaise >= otherBig && playerStack > otherBig) {
+                possibleActions.push_back(make_shared<PossibleRaise>(otherBig, 0));
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+void ActionManager::addPossibleFolds(vector<shared_ptr<PossibleAction>>& possibleActions) {
+    // Players should always have the option to fold regardless of the action
+    possibleActions.push_back(make_shared<PossibleFold>());
 }

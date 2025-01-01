@@ -2,17 +2,6 @@
 #define ACTION_MANAGER_H
 
 #include "../Entities/Action.h"
-#include "../Entities/Actions/AllInBetAction.h"
-#include "../Entities/Actions/AllInCallAction.h"
-#include "../Entities/Actions/AllInRaiseAction.h"
-#include "../Entities/Actions/BetAction.h"
-#include "../Entities/Actions/CallAction.h"
-#include "../Entities/Actions/CheckAction.h"
-#include "../Entities/Actions/FoldAction.h"
-#include "../Entities/Actions/PostSmallAction.h"
-#include "../Entities/Actions/PostBigAction.h"
-#include "../Entities/Actions/RaiseAction.h"
-#include "../Entities/Actions/NoneAction.h"
 
 #include "../Entities/PossibleAction.h"
 #include "../Entities/PossibleActions/PossibleAllInBet.h"
@@ -65,6 +54,30 @@ private:
 
     // Creates a NoneAction and sets the active action in Game Data to NoneAction
     void setActiveActionAsNone();
+
+    // Updates player-specific attributes in GameData after an action
+    // Updates chips, player status and recent bet
+    void updateAttributesAfterAction(const string& idOrName, const shared_ptr<Action>& newAction);
+
+    // Updates game-wide information after an action
+    // Adds action to the action time line and sets the active action (if necessary)
+    void updateGameDataAfterAction(const shared_ptr<Action>& newAction);
+
+    // Helper methods to add possible actions to a vector given stack sizes and active bets
+    void addPossibleChecks(vector<shared_ptr<PossibleAction>>& possibleActions,
+        ActionType recentType, bool isBigBlind);
+
+    void addPossibleBets(vector<shared_ptr<PossibleAction>>& possibleActions, 
+        ActionType recentType, size_t playerStack, size_t otherBig);
+    
+    void addPossibleCalls(vector<shared_ptr<PossibleAction>>& possibleActions,
+        ActionType recentType, size_t playerStack, size_t activeBet, bool isBigBlind);
+    
+    void addPossibleRaises(vector<shared_ptr<PossibleAction>>& possibleActions,
+        ActionType recentType, size_t playerStack, size_t otherBig, size_t activebet);
+    
+    void addPossibleFolds(vector<shared_ptr<PossibleAction>>& possibleActions);
+
 
 public:
     ActionManager(GameData& gameData);
