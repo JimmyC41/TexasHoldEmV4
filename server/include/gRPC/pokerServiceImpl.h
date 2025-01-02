@@ -2,10 +2,9 @@
 #define POKER_SERVICE_IMPL_H
 
 #include "texas_holdem.grpc.pb.h"
-#include "../GameController.h"
-#include <texas_holdem.pb.h>
+#include "texas_holdem.pb.h"
 
-using namespace texas_holdem;
+class GameController;
 
 class PokerServiceImpl final : public PokerService::CallbackService {
 private:
