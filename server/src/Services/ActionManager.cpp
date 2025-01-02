@@ -95,6 +95,8 @@ void ActionManager::addNewAction(string idOrName, ActionType actionType, uint32_
     // Create a shared pointer to the new action instance
     shared_ptr<Action> newAction = ActionUtil::createAction(idOrName, actionType, amount);
 
+    
+
     // Update player's attributes in Game Data
     updateAttributesAfterAction(idOrName, newAction);
 

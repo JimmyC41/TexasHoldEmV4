@@ -3,7 +3,6 @@
 
 #include "../Entities/Player.h"
 #include "../Shared/GameData.h"
-#include "../Utils/GameUtil.h"
 
 #include <vector>
 #include <string>
@@ -14,6 +13,10 @@ using namespace std;
 class PlayerManager {
 private:
     GameData& gameData;
+
+    // Validation Helper Methods
+
+    bool isValidName(const string& name);
 public:
     PlayerManager(GameData& gameData);
 

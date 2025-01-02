@@ -71,8 +71,7 @@ enum class ActionType {
     FOLD,
     ALL_IN_BET,
     ALL_IN_CALL,
-    ALL_IN_RAISE,
-    INVALID_ACTION
+    ALL_IN_RAISE
 };
 
 enum HandCategory {

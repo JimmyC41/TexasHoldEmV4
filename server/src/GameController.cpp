@@ -9,7 +9,8 @@ GameController::GameController() :
     positionManager(gameData),
     potManager(gameData),
     inputOutputManager(gameData),
-    stateManager(gameData, *this) {}
+    stateManager(gameData, *this),
+    eventManager(gameData) {}
 
 void GameController::startGame() {
     stateManager.setState(make_unique<GameSetup>(gameData, *this));

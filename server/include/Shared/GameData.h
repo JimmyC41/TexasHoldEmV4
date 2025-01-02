@@ -26,6 +26,9 @@ using PlayerStatus = Enums::PlayerStatus;
 
 class GameData {
 private:
+    // Protects access to shared game data
+    mutable mutex gameDataMutex;
+
     // Persists for the Entire Round
     shared_ptr<Player> curPlayer;
     shared_ptr<Player> smallBlindPlayer;
@@ -66,7 +69,7 @@ public:
 
     // SET Methods
     void addPlayer(const shared_ptr<Player>& player);
-    bool removePlayer(const shared_ptr<Player>& player);
+    void removePlayer(const shared_ptr<Player>& player);
     void sortPlayersByPosition();
     void setLastPlayerAsButton();
     void removeAllPlayers() { gamePlayers.clear(); }

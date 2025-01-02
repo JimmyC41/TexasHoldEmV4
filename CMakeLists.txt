@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Include Conan toolchain and find packages
-include(${CMAKE_SOURCE_DIR}/build/build/Release/generators/conan_toolchain.cmake)
+include(${CMAKE_SOURCE_DIR}/build/build/generators/conan_toolchain.cmake)
 
 find_package(Boost REQUIRED COMPONENTS random)
 find_package(GTest REQUIRED)

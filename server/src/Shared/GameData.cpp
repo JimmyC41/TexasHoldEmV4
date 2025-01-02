@@ -4,15 +4,9 @@ void GameData::addPlayer(const shared_ptr<Player>& player) {
     gamePlayers.push_back(player);
 }
 
-bool GameData::removePlayer(const shared_ptr<Player>& player) {
+void GameData::removePlayer(const shared_ptr<Player>& player) {
     auto it = find(gamePlayers.begin(), gamePlayers.end(), player);
-    if (it != gamePlayers.end()) {
-        gamePlayers.erase(it);
-        return true;
-    } else {
-        cout << "Player cannot be found for removal!" << '\n' << endl;
-        return false;
-    }
+    if (it != gamePlayers.end()) gamePlayers.erase(it);
 }
 
 void GameData::setLastPlayerAsButton() { 

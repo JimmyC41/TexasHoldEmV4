@@ -10,11 +10,14 @@
 #include "Services/PositionManager.h"
 #include "Services/PotManager.h"
 #include "Services/IOManager.h"
+#include "Services/EventManager.h"
 #include "States/State.h"
 #include "States/GameSetup.h"
 #include "States/BettingStreet.h"
 #include "States/Winner.h"
+
 #include <memory>
+#include <mutex>
 
 class GameController {
 private:
@@ -27,6 +30,7 @@ private:
     PotManager potManager;
     IOManager inputOutputManager;
     StateManager stateManager;
+    EventManager eventManager;
 
 public:
     GameController();
@@ -40,6 +44,7 @@ public:
     PotManager& getPotManager() { return potManager; }
     IOManager& getIOManager() { return inputOutputManager; }
     StateManager& getStateManager() { return stateManager; }
+    EventManager& getEventManager() { return eventManager; }
 
     // State Transition Methods
     bool isAtLeastTwoPlayers(GameData& gameData) { return (GameUtil::getNumPlayers(gameData) > 1); }

@@ -1,11 +1,21 @@
 #include "../../include/Services/PlayerManager.h"
+#include "../../include/Utils/PlayerUtil.h"
+#include "../../include/Utils/GameUtil.h"
 
 PlayerManager::PlayerManager(GameData& gameData) : gameData(gameData) {}
 
 bool PlayerManager::addNewPlayers(vector<pair<string, uint32_t>> newPlayersInfo) {
     cout << "(+) PlayerManager: addNewPlayers called.\n" << endl;
     for (auto& info : newPlayersInfo) {
-        shared_ptr<Player> player = make_shared<Player>(info.first, info.second);
+        string name = info.first;
+        uint32_t chips = info.second;
+        
+        // Validate name and chip count
+        if (!PlayerUtil::isValidName(name) ||
+            !PlayerUtil::isMinBuyin(gameData.getBigBlind(), chips)) return false;
+
+        // Add the player to Game Data and set their position and status
+        shared_ptr<Player> player = make_shared<Player>(name, chips);
         gameData.addPlayer(player);
         player->setPosition(Position::LOBBY);
         player->setPlayerStatus(PlayerStatus::WAITING);
@@ -16,14 +26,12 @@ bool PlayerManager::addNewPlayers(vector<pair<string, uint32_t>> newPlayersInfo)
 bool PlayerManager::removeExistingPlayers(vector<string> playersIdOrName) {
     cout << "(+) PlayerManager: removeExistingPlayer called.\n" << endl;
     for (auto& idOrName : playersIdOrName) {
-        // Fetch the shared ptr to the player we want to remove
+        // Validate player existence
         auto player = GameUtil::getPlayer(gameData, idOrName);
+        if (player == nullptr) return false;
 
-        // Attempt to remove this player from Game Data
-        if (!gameData.removePlayer(player)) {
-            cout << "Player removal process terminated!" << endl;
-            continue;
-        }
+        // Remove the player from Game Data
+        gameData.removePlayer(player);
     }
     return true;
 }

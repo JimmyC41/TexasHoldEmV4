@@ -18,8 +18,11 @@ private:
 public:
     IOManager(GameData& gameData);
     
+    void displayPlayers();
     void displayGameStateStdOut();
     void displayPossibleActionsStdOut();
+    void displayActionTimeline();
+    void displaySubscribers();
 
     vector<pair<string, uint32_t>> addPlayersStdIn();
     vector<string> removePlayersStdIn();

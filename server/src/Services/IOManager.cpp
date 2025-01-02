@@ -2,6 +2,11 @@
 
 IOManager::IOManager(GameData& gameData) : gameData(gameData) {}
 
+void IOManager::displayPlayers() {
+    cout << "(+) I/O Manager: Displaying players!\n" << endl;
+    PrintUtil::printPlayers(gameData);
+}
+
 void IOManager::displayGameStateStdOut() {
     cout << "(+) I/O Manager: Displaying the current game state!\n" << endl;
     PrintUtil::printPlayers(gameData);
@@ -12,6 +17,15 @@ void IOManager::displayGameStateStdOut() {
 void IOManager::displayPossibleActionsStdOut() {
     cout << "(+) I/O Manager: Displaying possible actions!\n" << endl;
     PrintUtil::printPossibleActionsForCurPlayer(gameData);
+}
+
+void IOManager::displayActionTimeline() {
+    cout << "(+) I/O Manager: Displaying action timeline!\n" << endl;
+    PrintUtil::printActionTimeline(gameData);
+}
+
+void IOManager::displaySubscribers() {
+    cout << "(+) I/O Manager: Displaying game subscribers!\n" << endl;
 }
 
 vector<pair<string, uint32_t>> IOManager::addPlayersStdIn() {
