@@ -26,9 +26,6 @@ using PlayerStatus = Enums::PlayerStatus;
 
 class GameData {
 private:
-    // Protects access to shared game data
-    mutable mutex gameDataMutex;
-
     // Persists for the Entire Round
     shared_ptr<Player> curPlayer;
     shared_ptr<Player> smallBlindPlayer;
@@ -66,6 +63,8 @@ public:
         smallBlind(uint32_t{1}),
         bigBlind(uint32_t{2})
     {}
+
+    void reset();
 
     // SET Methods
     void addPlayer(const shared_ptr<Player>& player);

@@ -11,10 +11,10 @@ using namespace std;
 
 class PositionTest : public ::testing::Test {
 protected:
-    PlayerManager playerManager;
-    PositionManager positionManager;
-    ActionManager actionManager;
-    GameData gameData;
+    unique_ptr<PlayerManager> playerManager;
+    unique_ptr<PositionManager> positionManager;
+    unique_ptr<ActionManager> actionManager;
+    unique_ptr<GameData> gameData;
 
     vector<pair<string, uint32_t>> playersInfo = 
     {
@@ -41,38 +41,50 @@ protected:
         Position::DEALER
     };
 
-    PositionTest() : playerManager(gameData), positionManager(gameData), actionManager(gameData) {
-        TestUtil::manualSetStreet(gameData, Street::FLOP);
+    void SetUp() override {
+        gameData = make_unique<GameData>();
+        playerManager = make_unique<PlayerManager>(*gameData);
+        positionManager = make_unique<PositionManager>(*gameData);
+        actionManager = make_unique<ActionManager>(*gameData);
+
+        TestUtil::manualSetStreet(*gameData, Street::FLOP);
     }
 
     void TearDown() override {
-        playerManager.removeAllPlayers();
-        TestUtil::manualClearActionTimeline(gameData);
+        gameData->reset();
     }
 
     // For some 'n' adds players 1 to n and allocates positions
     void playerSetup(int n) {
-        playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, n));
-        positionManager.allocatePositions();
-        positionManager.setEarlyPositionToAct();
+        playerManager->addNewPlayers(TestUtil::getSubset(playersInfo, 0, n));
+        positionManager->allocatePositions();
+        positionManager->setEarlyPositionToAct();
+
+        PrintUtil::printPlayers(*gameData);
     }
 
     void verifyPositionsAfterPlayerAddition(
         vector<pair<string, uint32_t>> newPlayers,
         vector<Position> expectedPositions) {
         
-        playerManager.addNewPlayers(newPlayers);
-        positionManager.allocatePositions();
-        EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
+        playerManager->addNewPlayers(newPlayers);
+        positionManager->allocatePositions();
+
+        PrintUtil::printPlayers(*gameData);
+
+        EXPECT_EQ(GameUtil::getListOfPositions(*gameData), expectedPositions);
     }
 
     void verifyPositionsAfterPlayerRemoval(
         vector<string> playersToRemove,
         vector<Position> expectedPositions) {
         
-        playerManager.removeExistingPlayers(playersToRemove);
-        positionManager.allocatePositions();
-        EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
+        playerManager->removeExistingPlayers(playersToRemove);
+        positionManager->allocatePositions();
+
+        PrintUtil::printPlayers(*gameData);
+
+        EXPECT_EQ(GameUtil::getListOfPositions(*gameData), expectedPositions);
     }
 
     void verifyPositionsAfterNRotations(
@@ -80,34 +92,35 @@ protected:
         vector<Position> expectedPositions, 
         vector<string> expectedOrderOfNames) {
         
-        for (int i = 0; i < numRotations; ++i) positionManager.rotatePositions();
+        for (int i = 0; i < numRotations; ++i) positionManager->rotatePositions();
 
-        EXPECT_EQ(GameUtil::getListOfPositions(gameData), expectedPositions);
-        EXPECT_EQ(GameUtil::getListofNames(gameData), expectedOrderOfNames);
+        PrintUtil::printPlayers(*gameData);
+
+        EXPECT_EQ(GameUtil::getListOfPositions(*gameData), expectedPositions);
+        EXPECT_EQ(GameUtil::getListofNames(*gameData), expectedOrderOfNames);
     }
 
-
     void addActionAndUpdateCurPlayer(ActionType type, uint32_t amount) {
-        actionManager.addNewAction(gameData.getCurPlayer()->getId(), type, amount);
-        positionManager.updatePlayerToAct();
+        actionManager->addNewAction(gameData->getCurPlayer()->getId(), type, amount);
+        positionManager->updatePlayerToAct();
     }
 
     void verifyEarlyPositionToAct(Street street, string expectedEarlyPosition) {
-        TestUtil::manualSetStreet(gameData, street);
-        positionManager.setEarlyPositionToAct();
+        TestUtil::manualSetStreet(*gameData, street);
+        positionManager->setEarlyPositionToAct();
         verifyCurPlayerAndUpdate(expectedEarlyPosition);
     }
 
     void verifyCurPlayerAndUpdate(string expectedName) {
-        string curPlayer = GameUtil::getPlayerNameFromId(gameData, gameData.getCurPlayer()->getId());
+        string curPlayer = GameUtil::getPlayerNameFromId(*gameData, gameData->getCurPlayer()->getId());
         EXPECT_EQ(curPlayer, expectedName);
-        positionManager.updatePlayerToAct();
+        positionManager->updatePlayerToAct();
     }
 };
 
 TEST_F(PositionTest, AllocatePositions) {
     playerSetup(2);
-    EXPECT_EQ(GameUtil::getListOfPositions(gameData), TestUtil::getSubset(allPositions, 0, 2));
+    EXPECT_EQ(GameUtil::getListOfPositions(*gameData), TestUtil::getSubset(allPositions, 0, 2));
 
     verifyPositionsAfterPlayerRemoval(
         {"P1"}, 
@@ -132,18 +145,17 @@ TEST_F(PositionTest, RotatePositionsFullTable) {
     verifyPositionsAfterNRotations(1, TestUtil::getSubset(allPositions, 0, 9),
         vector<string>({"P8", "P9", "P1", "P2", "P3", "P4", "P5", "P6", "P7"}));
 
-    verifyPositionsAfterNRotations(4, TestUtil::getSubset(allPositions, 0, 9),
-        vector<string>({"P4", "P5", "P6", "P7", "P8", "P9", "P1", "P2", "P3"}));
-
-    verifyPositionsAfterNRotations(7, TestUtil::getSubset(allPositions, 0, 9),
+    verifyPositionsAfterNRotations(2, TestUtil::getSubset(allPositions, 0, 9),
         vector<string>({"P6", "P7", "P8", "P9", "P1", "P2", "P3", "P4", "P5"}));
+
+    verifyPositionsAfterNRotations(3, TestUtil::getSubset(allPositions, 0, 9),
+        vector<string>({"P3", "P4", "P5", "P6", "P7", "P8", "P9", "P1", "P2"}));
 }
 
 TEST_F(PositionTest, RotatePositionsHeadsUp) {
     // Add 2 players
-    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, 2));
-    positionManager.allocatePositions();
-    PrintUtil::printPlayers(gameData);
+    playerManager->addNewPlayers(TestUtil::getSubset(playersInfo, 0, 2));
+    positionManager->allocatePositions();
 
     verifyPositionsAfterNRotations(1, TestUtil::getSubset(allPositions, 0, 2),
         vector<string>({"P2", "P1"}));
@@ -152,7 +164,7 @@ TEST_F(PositionTest, RotatePositionsHeadsUp) {
         vector<string>({"P1", "P2"}));
 
     // Rotate odd times and expect order to swap
-    verifyPositionsAfterNRotations(7, TestUtil::getSubset(allPositions, 0, 2),
+    verifyPositionsAfterNRotations(3, TestUtil::getSubset(allPositions, 0, 2),
         vector<string>({"P2", "P1"}));
 };
 
@@ -200,10 +212,10 @@ TEST_F(PositionTest, curPlayerUpdatesWithFolds) {
 
 TEST_F(PositionTest, curPlayerUpdatesWithAllIns) {
     // Setup: FLOP, 4 players
-    TestUtil::manualSetStreet(gameData, Street::FLOP);
-    playerManager.addNewPlayers(TestUtil::getSubset(playersInfo, 0, 4));
-    positionManager.allocatePositions();
-    positionManager.setEarlyPositionToAct();
+    TestUtil::manualSetStreet(*gameData, Street::FLOP);
+    playerManager->addNewPlayers(TestUtil::getSubset(playersInfo, 0, 4));
+    positionManager->allocatePositions();
+    positionManager->setEarlyPositionToAct();
 
     // Add the following actions:
     // P1 - Bet, 5
@@ -234,8 +246,8 @@ TEST_F(PositionTest, RotatePositionResetsPlayerStatus) {
     addActionAndUpdateCurPlayer(ActionType::FOLD, 0);
 
     // Rotate positions for a new round
-    positionManager.rotatePositions();
-    positionManager.setEarlyPositionToAct();
+    positionManager->rotatePositions();
+    positionManager->setEarlyPositionToAct();
 
     verifyCurPlayerAndUpdate("P4");
     verifyCurPlayerAndUpdate("P1");

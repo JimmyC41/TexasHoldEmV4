@@ -6,7 +6,7 @@
 
 namespace uuids = boost::uuids;
 
-constexpr int MIN_BIG_BLINDS = 50;
+constexpr int MIN_BIG_BLINDS = 1;
 
 string PlayerUtil::generateUUID() {
     static uuids::random_generator generator;
@@ -21,7 +21,7 @@ vector<string> PlayerUtil::playerPointersToIds(vector<shared_ptr<Player>>& playe
 }
 
 bool PlayerUtil::isValidName(const string& name) {
-    regex namePattern("^[A-Za-z][A-Za-z' -]*[A-Za-z]$");
+    regex namePattern("^[A-Za-z][A-Za-z0-9' -]*[A-Za-z0-9]$");
     return !name.empty() && regex_match(name, namePattern);
 }
 

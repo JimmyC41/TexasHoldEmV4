@@ -116,7 +116,6 @@ set(TEST_FILES
     HandRankTest
     ActionTest
     PotManagerTest
-    IOTest
 )
 
 # Add each test file

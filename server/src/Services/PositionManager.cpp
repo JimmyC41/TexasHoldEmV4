@@ -92,7 +92,8 @@ void PositionManager::rotatePositions() {
 }
 
 void PositionManager::updatePlayerToAct() {
-    cout << "(+) Position Manager: Finding the next player to act!\n" << endl;
+    // cout << "(+) Position Manager: Finding the next player to act!\n" << endl;
+    
     // Find the player the next player to act
     const string& curId = gameData.getCurPlayer()->getId();
     shared_ptr<Player> nextPlayer = GameUtil::getNextPlayerInHand(gameData, curId);

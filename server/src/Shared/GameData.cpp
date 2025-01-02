@@ -19,3 +19,21 @@ void GameData::sortPlayersByPosition() {
             return static_cast<int>(a->getPosition()) < static_cast<int>(b->getPosition());
         });
 }
+
+void GameData::reset() {
+    curPlayer.reset();
+    smallBlindPlayer.reset();
+    bigBlindPlayer.reset();
+    buttonPlayer.reset();
+    gamePlayers.clear();
+    rankedPlayerIds.clear();
+    pots.clear();
+    actionTimeline.clear();
+    possibleActions.clear();
+    deadChips = 0;
+    curStreet = Street::NONE;
+    board.resetBoard();
+    smallBlind = 1;
+    bigBlind = 2;
+    activeAction.reset();
+}
