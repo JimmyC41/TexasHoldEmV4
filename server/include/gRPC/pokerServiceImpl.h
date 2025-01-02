@@ -6,7 +6,7 @@
 
 class GameController;
 
-class PokerServiceImpl final : public PokerService::CallbackService {
+class PokerServiceImpl final : public PokerService::Service {
 private:
     GameController& controller;
 public:

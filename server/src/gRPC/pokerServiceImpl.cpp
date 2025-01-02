@@ -14,7 +14,8 @@ PokerServiceImpl::PokerServiceImpl(GameController& ctrl) : controller(ctrl) {
 }
 
 ::grpc::Status PokerServiceImpl::JoinGame(::grpc::ServerContext* context, const ::JoinGameReq* request, ::PlayerReqRes* response) {
-    std::cout << "JoinGame called!" << std::endl;
+    std::cout << "JoinGame called with player_name: " << request->player_name()
+              << ", chips: " << request->chips() << std::endl;
     response->set_success(true);
     response->set_message("(Dummy) Player joined successfully!");
     return ::grpc::Status::OK;
