@@ -102,7 +102,7 @@ message NewPlayerActionEvent {
 // Event: Pots are calculated at the end of each street.
 message PotUpdateEvent {
     message ProtoPot {
-        uint32 potChips = 1;
+        uint32 pot_chips = 1;
         repeated string eligible_ids = 2;
     }
 

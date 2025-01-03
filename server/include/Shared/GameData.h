@@ -41,6 +41,7 @@ private:
     Board board;
     uint32_t smallBlind;
     uint32_t bigBlind;
+    vector<pair<unint32_t, string>> winners;
 
     // Only Persists in Each Street:
     Street curStreet;
@@ -63,7 +64,8 @@ public:
         actionTimeline(),
         activeAction(),
         smallBlind(uint32_t{1}),
-        bigBlind(uint32_t{2})
+        bigBlind(uint32_t{2}),
+        winners()
     {}
 
     void reset();
@@ -96,6 +98,8 @@ public:
     void lessDeadChips(const uint32_t& chips) { deadChips -= chips; }
     void clearAllPots() { pots.clear(); }
     void setBigBlind(const uint32_t& big) { bigBlind = big; }
+    void clearPotWinners() { winners.clear(); }
+    void addPotWinner(const uint32_t& chips, const string& id) { winners.emplace_back(chips, id)}
 
     // GET Methods
     const shared_ptr<Player>& getCurPlayer() const { return curPlayer; }
@@ -116,6 +120,7 @@ public:
     const uint32_t& getBigBlind() const { return bigBlind; }
     const uint32_t& getSmallBlind() const { return smallBlind; }
     const int getNumPlayers() const { return gamePlayers.size(); }
+    const vector<pair<uint32_t, string>> getPotWinners() { return winners; }
 };
 
 #endif

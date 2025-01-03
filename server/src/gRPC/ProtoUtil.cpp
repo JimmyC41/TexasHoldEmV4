@@ -16,6 +16,18 @@ ProtoPosition ProtoUtil::toProtoPosition(const Position& position) {
     return static_cast<ProtoPosition>(position);
 }
 
+ProtoStreet ProtoUtil::toProtoStreet(const Street& street) {
+    return static_cast<ProtoStreet>(street);
+}
+
+ProtoValue ProtoUtil::toProtoValue(const Value& value) {
+    return static_cast<ProtoValue>(value);
+}
+
+ProtoSuit ProtoUtil::toProtoSuit(const Suit& suit) {
+    return static_cast<ProtoSuit>(suit);
+}
+
 void ProtoUtil::displayEventDetails(const GameStreamRes& event) {
     cout << "GameStreamRes Debug Output: " << endl;
     cout << event.DebugString() << endl;

@@ -11,6 +11,10 @@ class RPCValidator {
 public:
     RPCValidator(GameData& gd);
 
+    // Returns FALSE if
+    // Player does not exist in the game
+    bool isInGame(const string& idOrName);
+
     // Returns FALSE if:
     // Game is full, name is invalid, chips is below min buyin
     bool canJoin(const string& name, const uint32_t& chips) const;

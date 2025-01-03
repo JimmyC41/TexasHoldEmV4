@@ -37,3 +37,13 @@ bool GameController::handlePlayerActionRequest(const string& id, ActionType type
     requestManager.addToActionQueue(type, amount);
     return true;
 }
+
+bool GameController::handleSubscribe(const string& id, grpc::ServerWriter<GameStreamRes>* writer) {
+     if (!rpcValidator.isInGame(id)) return false;
+     eventManager.addSubscriber(writer);
+     return true;
+}
+
+void GameController::handleUnsubscribe(grpc::ServerWriter<GameStreamRes>* writer) {
+    eventManager.removeSubscriber(writer);
+}

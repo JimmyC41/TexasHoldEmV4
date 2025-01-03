@@ -72,3 +72,8 @@ bool RPCValidator::isPossibleAction(const string& id, ActionType type, const uin
     cout << "(+) RPC Validator: Action Request accepted.\n" << endl;
     return true;
 }
+
+bool RPCValidator::isInGame(const string& idOrName) {
+    lock_guard<mutex> lock(gameDataMtx);
+    return GameUtil::isPlayerExists(gameData, idOrName);
+}

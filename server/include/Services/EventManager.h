@@ -33,8 +33,6 @@ public:
     void publishPotUpdateEvent();
     void publishShowdownEvent();
     void publishPotWinnerEvent();
-
-    void displaySubscribers();
 };
 
 

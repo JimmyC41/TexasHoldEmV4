@@ -190,6 +190,18 @@ vector<shared_ptr<Player>> GameUtil::getOccupiedPlayers(GameData& gameData) {
     return occupiedPlayers;
 }
 
+vector<shared_ptr<Player>> GameUtil::getPlayersNotFolded(GameData& gameData) {
+    auto players = gameData.getPlayers();
+    vector<shared_ptr<Player>> playersNotFolded;
+
+    copy_if(players.begin(), players.end(), back_inserter(playersNotFolded),
+            [](const shared_ptr<Player>& player) {
+                return player->getPlayerStatus() != PlayerStatus::FOLDED;
+            });
+
+    return playersNotFolded;
+}
+
 vector<pair<string, uint32_t>> GameUtil::getPlayersCurChips(GameData& gameData) {
     vector<pair<string, uint32_t>> namesToChips;
     auto players = gameData.getPlayers();
@@ -221,6 +233,13 @@ bool GameUtil::isPlayersDealt(GameData& gameData) {
 
 int GameUtil::getBoardSize(GameData& gameData) {
     return gameData.getBoard().getBoardSize();
+}
+
+shared_ptr<Action> GameUtil::getLastAction(GameData& gameData) {
+    if (getNumActionsInTimeline(gameData) != 0) {
+        return gameData.getActionTimeline().back();
+    }
+    return nullptr;
 }
 
 int GameUtil::getNumActionsInTimeline(GameData& gameData) { 

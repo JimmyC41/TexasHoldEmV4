@@ -31,6 +31,10 @@ bool PotManager::allBetsAllocatedToPots() {
 
 void PotManager::calculatePots() {
     cout << "(+) Pot Manager: Calculating pots based on bets made for the current street.\n" << endl;
+    
+    // Clear winners (to be evaluated when betting actions are concluded)
+    gameData.clearPotWinners();
+
     // Fetch recent bets at the end of the Street
     populatePlayerBets();
     if (GameUtil::getNumPots(gameData) == 0) gameData.addNewPot(make_shared<Pot>());
@@ -88,9 +92,12 @@ void PotManager::awardPots() {
         for (auto& id : rankedIds) {
             auto player = GameUtil::getPlayer(gameData, id);
             auto status = player->getPlayerStatus();
+
             if (pot->isIdAContributor(id) && status != PlayerStatus::FOLDED) {
-                player->addChips(pot->getChips());
-                cout << "(+) Pot Manager: Awarded " << pot->getChips() << " to " << player->getName() << " chip count!\n" << endl;
+                uint32_t potAmount = pot->getChips();
+                gameData.addPotWinner(potAmount, id);
+                player->addChips(potAmount);
+                cout << "(+) Pot Manager: Awarded " << potAmount << " to " << player->getName() << " chip count!\n" << endl;
                 break;
             }
         }

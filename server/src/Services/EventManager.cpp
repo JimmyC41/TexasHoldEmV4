@@ -1,6 +1,13 @@
 #include "../../include/Services/EventManager.h"
 #include "../../include/Entities/Player.h"
 #include "../../include/gRPC/ProtoUtil.h"
+#include "../../include/Utils/GameUtil.h"
+
+using PlayerCard = DealPlayersEvent_PlayerCard;
+using ProtoPossibleAction = NewPlayerToActEvent_ProtoPossibleAction;
+using ProtoAction = NewPlayerActionEvent_ProtoAction;
+using ProtoPot = PotUpdateEvent_ProtoPot;
+using PotWinner = PotWinnerEvent_PotWinner;
 
 EventManager::EventManager(GameData& gameData) : gameData(gameData) {}
 
@@ -29,7 +36,6 @@ void EventManager::publishEvent(const GameStreamRes& event) {
 }
 
 void EventManager::publishPlayersUpdateEvent() {
-    cout << "(+) Event Manager: Players updated!" << endl;
     GameStreamRes event;
     PlayersUpdateEvent* playersUpdate = event.mutable_players_update();
 
@@ -42,34 +48,142 @@ void EventManager::publishPlayersUpdateEvent() {
         cur->set_status(ProtoUtil::toProtoStatus(player->getPlayerStatus()));
         cur->set_position(ProtoUtil::toProtoPosition(player->getPosition()));
     }
+
     publishEvent(event);
+    cout << "   [+] PlayersUpdateEvent published!\n" << endl;
 }
 
 void EventManager::publishNewStreetEvent() {
+    GameStreamRes event;
+    NewStreetEvent* newStreet = event.mutable_new_street();
 
+    ProtoStreet protoStreet = ProtoUtil::toProtoStreet(gameData.getStreet());
+    newStreet->set_new_street(protoStreet);
+
+    publishEvent(event);
+    cout << "   [+] NewStreetEvent published!\n" << endl;
 }
 
 void EventManager::publishDealPlayersEvent() {
+    GameStreamRes event;
+    DealPlayersEvent* dealPlayers = event.mutable_deal_players();
 
+    vector<shared_ptr<Player>> players = gameData.getPlayers();
+
+    // For each player, set their id and hand
+    for (const auto& player : players) {
+        // Create the PlayerCard message
+        PlayerCard* cur = dealPlayers->add_player_cards();
+
+        // Set the player id
+        cur->set_player_id(player->getId());
+        
+        // Set the hole cards
+        vector<Card> cards = player->getHand();
+        for (const auto& card : cards) {
+            ProtoCard* protoCard = cur->add_hole_cards();
+            protoCard->set_value(ProtoUtil::toProtoValue(card.getValue()));
+            protoCard->set_suit(ProtoUtil::toProtoSuit(card.getSuit()));
+        }
+    }
+
+    publishEvent(event);
+    cout << "   [+] DealPlayersEvent published!\n" << endl;
 }
 
-
 void EventManager::publishDealBoardEvent() {
+    GameStreamRes event;
+    DealBoardEvent* dealBoard = event.mutable_deal_board();
 
+    vector<Card> boardCards = gameData.getBoardCards();
+    for (const auto& card : boardCards) {
+        ProtoCard* protoCard = dealBoard->add_community_cards();
+        protoCard->set_value(ProtoUtil::toProtoValue(card.getValue()));
+        protoCard->set_suit(ProtoUtil::toProtoSuit(card.getSuit()));
+    }
+
+    publishEvent(event);
+    cout << "   [+] DealBoardEvent published!\n" << endl;
 }
 
 void EventManager::publishNewPlayerToActEvent() {
+    GameStreamRes event;
+    NewPlayerToActEvent* newPlayerToAct = event.mutable_next_player_to_act();
 
+    string id = GameUtil::getCurPlayerId(gameData);
+    newPlayerToAct->set_player_to_act(id);
+
+    vector<shared_ptr<PossibleAction>> possibleActions = gameData.getPossibleActions();
+    for (const auto& action : possibleActions) {
+        ProtoPossibleAction* cur = newPlayerToAct->add_possible_actions();
+        cur->set_action_type(ProtoUtil::toProtoType(action->getActionType()));
+        cur->set_primary_amount(action->getPrimaryAmount());
+        cur->set_secondary_amount(action->getSecondaryAmount());
+    }
+
+    publishEvent(event);
+    cout << "   [+] NewPlayerToActEvent published!\n" << endl;
 }
+
 void EventManager::publishNewPlayerActionEvent() {
+    GameStreamRes event;
+    NewPlayerActionEvent* newPlayerAction = event.mutable_new_player_action();
 
+    string id = GameUtil::getCurPlayerId(gameData);
+    newPlayerAction->set_player_id(id);
+
+    shared_ptr<Action> lastAction = GameUtil::getLastAction(gameData);
+    ProtoAction* action = newPlayerAction->mutable_action();
+    action->set_action_type(ProtoUtil::toProtoType(lastAction->getActionType()));
+    action->set_action_amount(lastAction->getAmount());
+
+    publishEvent(event);
+    cout << "   [+] NewPlayerActionEvent published!\n" << endl;
 }
+
 void EventManager::publishPotUpdateEvent() {
+    GameStreamRes event;
+    PotUpdateEvent* potUpdate = event.mutable_pot_update();
 
+    vector<shared_ptr<Pot>> pots = gameData.getPots();
+    for (const auto& pot : pots) {
+        ProtoPot* cur = potUpdate->add_updated_pots();
+        cur->set_pot_chips(pot->getChips());
+
+        vector<string> ids = pot->getContributorIds();
+        for (const auto& id : ids) {
+            cur->add_eligible_ids(id);
+        }
+    }
+
+    publishEvent(event);
+    cout << "   [+] PotUpdateEvent published!\n" << endl;
 }
+
 void EventManager::publishShowdownEvent() {
+    GameStreamRes event;
+    ShowdownEvent* showdown = event.mutable_showdown();
 
+    vector<shared_ptr<Player>> playersNotFolded = GameUtil::getPlayersNotFolded(gameData);
+    for (const auto& player : playersNotFolded) {
+        showdown->add_players_in_hand(player->getId());
+    }
+
+    publishEvent(event);
+    cout << "   [+] ShowdownEvent published!\n" << endl;
 }
-void EventManager::publishPotWinnerEvent() {
 
+void EventManager::publishPotWinnerEvent() {
+    GameStreamRes event;
+    PotWinnerEvent* potWinner = event.mutable_pot_winner();
+
+    vector<pair<uint32_t, string>> winners = gameData.getPotWinners();
+    for (const auto& [potAmount, winnerId] : winners) {
+        PotWinner* cur = potWinner->add_pot_winners();
+        cur->set_pot_chips(potAmount);
+        cur->set_winner(winnerId);
+    }
+    
+    publishEvent(event);
+    cout << "   [+] PotWinnerEvent published!\n" << endl;
 }

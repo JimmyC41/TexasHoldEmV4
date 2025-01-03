@@ -42,11 +42,13 @@ public:
     static shared_ptr<Player> getEarlyPosition(GameData& gameData);
     static shared_ptr<Player> getNextPlayerInHand(GameData& gameData, string idOrName);
     static vector<shared_ptr<Player>> getOccupiedPlayers(GameData& gameData);
+    static vector<shared_ptr<Player>> getPlayersNotFolded(GameData& gameData);
     static vector<pair<string, uint32_t>> getPlayersCurChips(GameData& gameData);
     static int getNumPlayers(GameData& gameData);
     static int getNumPlayersInHand(GameData& gameData);
     static bool isPlayersDealt(GameData& gameData);
     static int getBoardSize(GameData& gameData);
+    static shared_ptr<Action> getLastAction(GameData& gameData);
     static int getNumActionsInTimeline(GameData& gameData);
     static ActionType getActiveActionType(GameData& gameData);
     static uint32_t getActiveActionAmount(GameData& gameData);

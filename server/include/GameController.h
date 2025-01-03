@@ -17,6 +17,7 @@
 #include "States/GameSetup.h"
 #include "States/BettingStreet.h"
 #include "States/Winner.h"
+#include "texas_holdem.grpc.pb.h"
 
 #include <memory>
 #include <mutex>
@@ -61,6 +62,8 @@ public:
     bool handleJoinGameRequest(const string& name, const uint32_t& chips);
     bool handleLeaveGameRequest(const string& name);
     bool handlePlayerActionRequest(const string& id, ActionType type, const uint32_t& amount = 0);
+    bool handleSubscribe(const string& id, grpc::ServerWriter<GameStreamRes>* writer);
+    void handleUnsubscribe(grpc::ServerWriter<GameStreamRes>* writer);
 };
 
 #endif

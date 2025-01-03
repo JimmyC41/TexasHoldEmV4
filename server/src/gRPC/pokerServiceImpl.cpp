@@ -12,15 +12,18 @@ using namespace std;
 PokerServiceImpl::PokerServiceImpl(GameController& ctrl) : controller(ctrl) {}
 
 ::grpc::Status PokerServiceImpl::GameStream(::grpc::ServerContext* context, const ::GameStreamReq* request, ::grpc::ServerWriter< ::GameStreamRes>* writer) {
-    cout << "=== GRPC SERVER: Game Stream RPC! Steaming Now ===" << endl;
-    
-    controller.getEventManager().addSubscriber(writer);
+    string playerId = request->player_id();
+    cout << "=== GRPC SERVER: Game Stream RPC receieved for id:  " << playerId << " ===" << endl;
+
+    bool success = controller.handleSubscribe(playerId, writer);
 
     while (!context->IsCancelled()) {
         this_thread::sleep_for(chrono::milliseconds(100));
     }
 
-    controller.getEventManager().removeSubscriber(writer);
+    controller.handleUnsubscribe(writer);
+    
+    cout << "=== GRPC SERVER: Game Stream RPC ended for id:  " << playerId << " ===" << endl;
     return ::grpc::Status::OK;
 }
 
