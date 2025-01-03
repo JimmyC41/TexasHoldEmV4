@@ -5,7 +5,7 @@
 PlayerManager::PlayerManager(GameData& gameData) : gameData(gameData) {}
 
 bool PlayerManager::addNewPlayers(vector<pair<string, uint32_t>> newPlayersInfo) {
-    cout << "(+) PlayerManager: addNewPlayers called.\n" << endl;
+    // cout << "(+) PlayerManager: addNewPlayers called.\n" << endl;
     for (auto& info : newPlayersInfo) {
         string name = info.first;
         uint32_t chips = info.second;
@@ -20,7 +20,7 @@ bool PlayerManager::addNewPlayers(vector<pair<string, uint32_t>> newPlayersInfo)
 }
 
 bool PlayerManager::removeExistingPlayers(vector<string> playersIdOrName) {
-    cout << "(+) PlayerManager: removeExistingPlayer called.\n" << endl;
+    // cout << "(+) PlayerManager: removeExistingPlayer called.\n" << endl;
     for (auto& idOrName : playersIdOrName) {
         // Validate player existence
         auto player = GameUtil::getPlayer(gameData, idOrName);
@@ -36,8 +36,8 @@ void PlayerManager::removeBrokePlayers() {
     auto players = gameData.getPlayers();
     for (const auto& player : players) {
         if (player->getCurChips() == 0) {
-            cout    << "(+) Player Manager: Removing the following player from the game due to insufficient chips: "
-                    << player->getName() << '\n' << endl;
+            // cout    << "(+) Player Manager: Removing the following player from the game due to insufficient chips: "
+            //        << player->getName() << '\n' << endl;
             removeExistingPlayers({player->getId()});
         }
     }

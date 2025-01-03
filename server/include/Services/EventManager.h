@@ -19,6 +19,7 @@ private:
     mutex subscriberMutex;
 
     void publishEvent(const GameStreamRes& event);
+    void logJsonOutput(const GameStreamRes& event);
 public:
     EventManager(GameData& gameData);
     void addSubscriber(grpc::ServerWriter<GameStreamRes>* subscriber);

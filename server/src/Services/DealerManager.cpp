@@ -3,7 +3,7 @@
 DealerManager::DealerManager(GameData& gameData) : gameData(gameData), deck() {}
 
 void DealerManager::dealGamePlayers() {
-    cout << "(+) Dealer Manager: Dealing hole cards to players!\n";
+    // cout << "(+) Dealer Manager: Dealing hole cards to players!\n";
     auto players = gameData.getPlayers();
 
     for (int i = 0; i < 2; i++) {
@@ -18,7 +18,7 @@ void DealerManager::dealGamePlayers() {
 }
 
 void DealerManager::dealBoard(int num) {
-    cout << "(+) Dealer Manager: Dealing the Board!\n";
+    // cout << "(+) Dealer Manager: Dealing the Board!\n";
     deck.burnCard();
     cout << "   Card burned..." << endl;
 
@@ -31,7 +31,7 @@ void DealerManager::dealBoard(int num) {
 }
 
 void DealerManager::resetDeck() {
-    cout << "(+) Dealer Manager: Shuffling the Deck!\n" << endl;
+    // cout << "(+) Dealer Manager: Shuffling the Deck!\n" << endl;
     deck.resetDeck();
 }
 

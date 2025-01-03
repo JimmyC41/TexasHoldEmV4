@@ -42,7 +42,7 @@ bool HandRankManager::compareHands(const HandInfo& handA, const HandInfo& handB)
 }
 
 void HandRankManager::evaluateRankedIds() {
-    cout << "(+) Hand Rank Manager: Evaluating hand rankings!\n" << endl;
+    // cout << "(+) Hand Rank Manager: Evaluating hand rankings!\n" << endl;
 
     // Evaluate Hand Info for players:
     populateHandsInfo(gameData);

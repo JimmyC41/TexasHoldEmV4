@@ -3,6 +3,9 @@
 #include "../../include/gRPC/ProtoUtil.h"
 #include "../../include/Utils/GameUtil.h"
 
+#include <google/protobuf/util/json_util.h>
+#include <iostream>
+
 using PlayerCard = DealPlayersEvent_PlayerCard;
 using ProtoPossibleAction = NewPlayerToActEvent_ProtoPossibleAction;
 using ProtoAction = NewPlayerActionEvent_ProtoAction;
@@ -28,11 +31,14 @@ void EventManager::removeSubscriber(grpc::ServerWriter<GameStreamRes>* writer) {
 void EventManager::publishEvent(const GameStreamRes& event) {
     lock_guard<mutex> lock(subscriberMutex);
 
-    cout << "(+) Event Manager: Publishing an event to " << subscribers.size() << "subscribers.\n" << endl;
+    // cout << "(+) Event Manager: Publishing an event to " << subscribers.size() << "subscribers.\n" << endl;
     for (auto it = subscribers.begin(); it != subscribers.end(); ) {
         if (!(*it)->Write(event)) it = subscribers.erase(it);
         else ++it;
     }
+
+    // For debugging, log JSON-ified output
+    logJsonOutput(event);
 }
 
 void EventManager::publishPlayersUpdateEvent() {
@@ -47,10 +53,17 @@ void EventManager::publishPlayersUpdateEvent() {
         cur->set_recent_bets(player->getRecentBet());
         cur->set_status(ProtoUtil::toProtoStatus(player->getPlayerStatus()));
         cur->set_position(ProtoUtil::toProtoPosition(player->getPosition()));
+
+        auto cards = player->getHand();
+        for (const auto& card : cards) {
+            ProtoCard* protoCard = cur->add_hole_cards();
+            protoCard->set_suit(ProtoUtil::toProtoSuit(card.getSuit()));
+            protoCard->set_value(ProtoUtil::toProtoValue(card.getValue()));
+        }
     }
 
     publishEvent(event);
-    cout << "   [+] PlayersUpdateEvent published!\n" << endl;
+    cout << "[+] PlayersUpdateEvent published to " << subscribers.size() << " subscribers.\n" << endl;
 }
 
 void EventManager::publishNewStreetEvent() {
@@ -61,7 +74,7 @@ void EventManager::publishNewStreetEvent() {
     newStreet->set_new_street(protoStreet);
 
     publishEvent(event);
-    cout << "   [+] NewStreetEvent published!\n" << endl;
+    cout << "[+] NewStreetEvent published to " << subscribers.size() << " subscribers.\n" << endl;
 }
 
 void EventManager::publishDealPlayersEvent() {
@@ -88,7 +101,7 @@ void EventManager::publishDealPlayersEvent() {
     }
 
     publishEvent(event);
-    cout << "   [+] DealPlayersEvent published!\n" << endl;
+    cout << "[+] DealPlayersEvent published to " << subscribers.size() << " subscribers.\n" << endl;
 }
 
 void EventManager::publishDealBoardEvent() {
@@ -103,7 +116,7 @@ void EventManager::publishDealBoardEvent() {
     }
 
     publishEvent(event);
-    cout << "   [+] DealBoardEvent published!\n" << endl;
+    cout << "[+] DealBoardEvent published to " << subscribers.size() << " subscribers.\n" << endl;
 }
 
 void EventManager::publishNewPlayerToActEvent() {
@@ -122,7 +135,7 @@ void EventManager::publishNewPlayerToActEvent() {
     }
 
     publishEvent(event);
-    cout << "   [+] NewPlayerToActEvent published!\n" << endl;
+    cout << "[+] NewPlayerToActEvent published to " << subscribers.size() << " subscribers.\n" << endl;
 }
 
 void EventManager::publishNewPlayerActionEvent() {
@@ -138,7 +151,7 @@ void EventManager::publishNewPlayerActionEvent() {
     action->set_action_amount(lastAction->getAmount());
 
     publishEvent(event);
-    cout << "   [+] NewPlayerActionEvent published!\n" << endl;
+    cout << "[+] NewPlayerActionEvent published to " << subscribers.size() << " subscribers.\n" << endl;
 }
 
 void EventManager::publishPotUpdateEvent() {
@@ -157,7 +170,7 @@ void EventManager::publishPotUpdateEvent() {
     }
 
     publishEvent(event);
-    cout << "   [+] PotUpdateEvent published!\n" << endl;
+    cout << "[+] PotUpdateEvent published to " << subscribers.size() << " subscribers.\n" << endl;
 }
 
 void EventManager::publishShowdownEvent() {
@@ -170,7 +183,7 @@ void EventManager::publishShowdownEvent() {
     }
 
     publishEvent(event);
-    cout << "   [+] ShowdownEvent published!\n" << endl;
+    cout << "[+] ShowdownEvent published to " << subscribers.size() << " subscribers.\n" << endl;
 }
 
 void EventManager::publishPotWinnerEvent() {
@@ -185,5 +198,11 @@ void EventManager::publishPotWinnerEvent() {
     }
     
     publishEvent(event);
-    cout << "   [+] PotWinnerEvent published!\n" << endl;
+    cout << "[+] PotWinnerEvent published to " << subscribers.size() << " subscribers.\n" << endl;
+}
+
+void EventManager::logJsonOutput(const GameStreamRes& event) {
+    string jsonString;
+    google::protobuf::util::MessageToJsonString(event, &jsonString);
+    cout << "JSON Output: " << jsonString << endl;
 }

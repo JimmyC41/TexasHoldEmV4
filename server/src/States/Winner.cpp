@@ -3,8 +3,8 @@
 #include "../../include/GameController.h"
 
 void Winner::execute() {
-    cout << "--------------------------------------------------------------\n";
-    cout << "(+) State Manger: Winner State\n" << endl;
+    // cout << "--------------------------------------------------------------\n";
+    // cout << "(+) State Manger: Winner State\n" << endl;
 
     // Evaluate hand strengths and award pots
     controller.getHandRankManager().evaluateRankedIds();

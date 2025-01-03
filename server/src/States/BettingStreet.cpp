@@ -28,8 +28,8 @@ void BettingStreet::execute() {
 void BettingStreet::executeStreet() {
     Street street = gameData.getStreet();
 
-    cout << "--------------------------------------------------------------\n";
-    cout << "(+) State Manager: Entering the " << PrintUtil::streetToString(street) << "\n" << endl;
+    //cout << "--------------------------------------------------------------\n";
+    //cout << "(+) State Manager: Entering the " << PrintUtil::streetToString(street) << "\n" << endl;
 
     // Deal the board and players
     switch(street) {

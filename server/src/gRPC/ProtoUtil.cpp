@@ -25,7 +25,7 @@ ProtoValue ProtoUtil::toProtoValue(const Value& value) {
 }
 
 ProtoSuit ProtoUtil::toProtoSuit(const Suit& suit) {
-    return static_cast<ProtoSuit>(suit);
+    return static_cast<ProtoSuit>(static_cast<int>(suit) + 1);
 }
 
 void ProtoUtil::displayEventDetails(const GameStreamRes& event) {

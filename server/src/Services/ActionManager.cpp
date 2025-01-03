@@ -178,7 +178,7 @@ bool ActionManager::isActionsFinished() {
 
 bool ActionManager::isShortPlayersInHand() {
     if (GameUtil::isShortPlayersInHand(gameData)) {
-        cout << "(+) Action Manager: Less than 2 players left in the hand. Skipping betting streets.\n" << endl;
+        // cout << "(+) Action Manager: Less than 2 players left in the hand. Skipping betting streets.\n" << endl;
         return true;
     }
     return false;

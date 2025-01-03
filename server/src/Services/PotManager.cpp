@@ -30,7 +30,7 @@ bool PotManager::allBetsAllocatedToPots() {
 }
 
 void PotManager::calculatePots() {
-    cout << "(+) Pot Manager: Calculating pots based on bets made for the current street.\n" << endl;
+    // cout << "(+) Pot Manager: Calculating pots based on bets made for the current street.\n" << endl;
     
     // Clear winners (to be evaluated when betting actions are concluded)
     gameData.clearPotWinners();

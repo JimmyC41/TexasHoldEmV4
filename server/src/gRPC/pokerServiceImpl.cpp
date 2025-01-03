@@ -17,6 +17,10 @@ PokerServiceImpl::PokerServiceImpl(GameController& ctrl) : controller(ctrl) {}
 
     bool success = controller.handleSubscribe(playerId, writer);
 
+    if (!success) {
+        return ::grpc::Status(::grpc::StatusCode::INVALID_ARGUMENT, "Cannot subscribe a player that does not exist.");
+    }
+
     while (!context->IsCancelled()) {
         this_thread::sleep_for(chrono::milliseconds(100));
     }
