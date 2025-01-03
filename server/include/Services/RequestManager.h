@@ -45,6 +45,9 @@ public:
 
     // Check if the leave queue is empty
     bool isLeaveQueueEmpty();
+
+    // Returns the number of players waiting in the queue
+    int getNumInPlayerJoinQueue();
 };
 
 

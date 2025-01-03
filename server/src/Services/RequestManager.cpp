@@ -37,6 +37,11 @@ bool RequestManager::isJoinQueueEmpty() {
     return playerJoinQueue.empty();
 }
 
+int RequestManager::getNumInPlayerJoinQueue() {
+    lock_guard<mutex> lock(joinMtx);
+    return playerJoinQueue.size();
+}
+
 // PLAYER LEAVE METHODS
 
 void RequestManager::addToPlayerLeaveQueue(const string& name) {

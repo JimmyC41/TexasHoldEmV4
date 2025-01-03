@@ -24,7 +24,6 @@ bool RPCValidator::canJoin(const string& name, const uint32_t& chips) const {
         return false;
     }
 
-
     if (gameData.getNumPlayers() >= MAX_NUM_PLAYERS) {
         cout << "(+) RPC Validator: Maximum number of players reached. "
              << "Join Request denied.\n" << endl;

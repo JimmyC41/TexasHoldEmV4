@@ -10,19 +10,21 @@ void GameSetup::execute() {
     cout << "--------------------------------------------------------------\n";
     cout << "(+) StateManager: Entering the Game\n" << endl;
 
-    while (controller.getGameData().getNumPlayers() <= MAX_NUM_PLAYERS) {
-        
-        // Process outstanding join requests
-        while (!controller.getRequestManager().isJoinQueueEmpty()) {
+    // Process oustanding requests to leave the game
+    while (!controller.getRequestManager().isLeaveQueueEmpty()) {
+
+        auto request = controller.getRequestManager().getLeaveRequest();
+        controller.getPlayerManager().removeExistingPlayers({request});
+        controller.getPositionManager().allocatePositions();
+    }
+
+    // Process outstanding requests to join the game
+    while (controller.getGameData().getNumPlayers() < MAX_NUM_PLAYERS) {
+        while (!controller.getRequestManager().isJoinQueueEmpty() &&
+            controller.getGameData().getNumPlayers() < MAX_NUM_PLAYERS) {
+            
             auto request = controller.getRequestManager().getJoinRequest();
             controller.getPlayerManager().addNewPlayers({request});
-            controller.getPositionManager().allocatePositions();
-        }
-
-        // Process outstanding leave requests
-        while (!controller.getRequestManager().isLeaveQueueEmpty()) {
-            auto request = controller.getRequestManager().getLeaveRequest();
-            controller.getPlayerManager().removeExistingPlayers({request});
             controller.getPositionManager().allocatePositions();
         }
 
