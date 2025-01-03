@@ -24,21 +24,6 @@ PokerServiceImpl::PokerServiceImpl(GameController& ctrl) : controller(ctrl) {}
     return ::grpc::Status::OK;
 }
 
-::grpc::Status PokerServiceImpl::PlayerAction(::grpc::ServerContext* context, const ::PlayerActionReq* request, ::PlayerReqRes* response) {
-    cout << "=== GRPC SERVER: Player Action RPC!  ===" << endl;
-
-    string id = request->player_id();
-    ActionType type = ProtoUtil::toActionType(request->action_type());
-    uint32_t amount = request->action_amount();
-
-    controller.getActionManager().addNewAction(id, type, amount);
-    controller.getIOManager().displayActionTimeline();
-
-    response->set_success(true);
-    response->set_message("Action request processed.");
-    return ::grpc::Status::OK;
-}
-
 ::grpc::Status PokerServiceImpl::JoinGame(::grpc::ServerContext* context, const ::JoinGameReq* request, ::PlayerReqRes* response) {
     cout << "=== GRPC SERVER: Join Game RPC!  ===" << endl;
 
@@ -68,11 +53,30 @@ PokerServiceImpl::PokerServiceImpl(GameController& ctrl) : controller(ctrl) {}
     if (success) {
         response->set_success(true);
         response->set_message("Player " + name + " was added to the queue to leave the game.");
-        controller.getIOManager().displayPlayers();
         return ::grpc::Status::OK;
     } else {
         response->set_success(false);
         response->set_message("Failed to remove player '" + name + "'.");
         return ::grpc::Status(::grpc::StatusCode::INVALID_ARGUMENT, "Unable to remove player. Player does not exist.");
+    }
+}
+
+::grpc::Status PokerServiceImpl::PlayerAction(::grpc::ServerContext* context, const ::PlayerActionReq* request, ::PlayerReqRes* response) {
+    cout << "=== GRPC SERVER: Player Action RPC!  ===" << endl;
+
+    string id = request->player_id();
+    ActionType type = ProtoUtil::toActionType(request->action_type());
+    uint32_t amount = request->action_amount();
+
+    bool success = controller.handlePlayerActionRequest(id, type, amount);
+
+    if (success) {
+        response->set_success(true);
+        response->set_message("Valid action received for " + id + ".");
+        return ::grpc::Status::OK;
+    } else {
+        response->set_success(false);
+        response->set_message("Invalid action receieved for '" + id + "'.");
+        return ::grpc::Status(::grpc::StatusCode::INVALID_ARGUMENT, "Action receieved does not match valid possible actions.");
     }
 }

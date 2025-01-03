@@ -1,20 +1,23 @@
 #ifndef GAME_QUEUE_MANGER
 #define GAME_QUEUE_MANAGER
 
+#include "../Shared/Enums.h"
 #include <mutex>
 #include <queue>
 #include <string>
 #include <utility>
 #include <condition_variable>
 
+using ActionType = Enums::ActionType;
 using namespace std;
 
 class RequestManager {
 private:
     queue<pair<string, uint32_t>> playerJoinQueue;
     queue<string> playerLeaveQueue;
-    mutex joinMtx, leaveMtx;
-    condition_variable joinCV, leaveCV;
+    queue<pair<ActionType, uint32_t>> actionQueue;
+    mutex joinMtx, leaveMtx, actionMtx;
+    condition_variable joinCV, leaveCV, actionCV;
 
 public:
     RequestManager();
@@ -25,11 +28,17 @@ public:
     // Adds a leave request
     void addToPlayerLeaveQueue(const string& name);
 
+    // Adds a new action request
+    void addToActionQueue(const ActionType& type, const uint32_t& amount = 0);
+
     // Gets the next join request from queue (blocks if empty)
-    pair<string, int32_t> getJoinRequest();
+    pair<string, uint32_t> getJoinRequest();
 
     // Gets the next leave request from queue (blocks if empty)
     string getLeaveRequest();
+
+    // Gets the next action request from queue (blocks if empty)
+    pair<ActionType, uint32_t> getActionRequest();
 
     // Check if the join queue is empty
     bool isJoinQueueEmpty();

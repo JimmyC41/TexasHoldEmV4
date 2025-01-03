@@ -3,10 +3,13 @@
 RequestManager::RequestManager() :
     playerJoinQueue(),
     playerLeaveQueue(),
+    actionQueue(),
     joinMtx(),
     leaveMtx(),
+    actionMtx(),
     joinCV(),
-    leaveCV()
+    leaveCV(),
+    actionCV()
     {}
 
 // PLAYER JOIN METHODS
@@ -17,7 +20,7 @@ void RequestManager::addToPlayerJoinQueue(const string& name, const uint32_t& ch
     joinCV.notify_one(); // Notify waiting thread
 }
 
-pair<string, int32_t> RequestManager::getJoinRequest() {
+pair<string, uint32_t> RequestManager::getJoinRequest() {
     unique_lock<mutex> lock(joinMtx);
 
     // Wait until we are notified of a new join request
@@ -57,4 +60,24 @@ string RequestManager::getLeaveRequest() {
 bool RequestManager::isLeaveQueueEmpty() {
     lock_guard<mutex> lock(leaveMtx);
     return playerLeaveQueue.empty();
+}
+
+// PLAYER ACTION METHODS
+
+void RequestManager::addToActionQueue(const ActionType& type, const uint32_t& amount) {
+    lock_guard<mutex> lock(actionMtx);
+    actionQueue.emplace(type, amount);
+    actionCV.notify_one();
+}
+
+pair<ActionType, uint32_t> RequestManager::getActionRequest() {
+    unique_lock<mutex> lock(actionMtx);
+
+    // Wait until we are notified of a new action request
+    // and the action queue is not empty
+    actionCV.wait(lock, [this] { return !actionQueue.empty(); });
+
+    auto actionRequest = actionQueue.front();
+    actionQueue.pop();
+    return actionRequest;
 }

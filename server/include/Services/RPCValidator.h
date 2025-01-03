@@ -18,6 +18,10 @@ public:
     // Returns FALSE if player does not exist in the game
     bool canLeave(const string& name) const;
 
+    // Returns FALSE if:
+    // Client is not the player to act (acting out of turn)
+    // Type and amount are not among valid possible actions!
+    bool isPossibleAction(const string& id, ActionType type, const uint32_t& amount) const;
 };
 
 #endif

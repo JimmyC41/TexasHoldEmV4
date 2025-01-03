@@ -31,3 +31,9 @@ bool GameController::handleLeaveGameRequest(const string& name) {
     requestManager.addToPlayerLeaveQueue(name);
     return true;
 }
+
+bool GameController::handlePlayerActionRequest(const string& id, ActionType type, const uint32_t& amount) {
+    if (!rpcValidator.isPossibleAction(id, type, amount)) return false;
+    requestManager.addToActionQueue(type, amount);
+    return true;
+}

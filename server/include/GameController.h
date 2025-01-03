@@ -60,6 +60,7 @@ public:
     // gRPC Handling Methods
     bool handleJoinGameRequest(const string& name, const uint32_t& chips);
     bool handleLeaveGameRequest(const string& name);
+    bool handlePlayerActionRequest(const string& id, ActionType type, const uint32_t& amount = 0);
 };
 
 #endif

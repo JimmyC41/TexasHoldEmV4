@@ -82,6 +82,14 @@ shared_ptr<Player> GameUtil::getPlayer(GameData& gameData, string idOrName) {
     return (it != gameData.getPlayers().end())? (*it) : nullptr;
 }
 
+string GameUtil::getCurPlayerId(GameData& gameData) {
+    return gameData.getCurPlayer()->getId();
+}
+
+string GameUtil::getCurPlayerName(GameData& gameData) {
+    return gameData.getCurPlayer()->getName();
+}
+
 bool GameUtil::isPlayerBigBlind(GameData& gameData, string idOrName) {
     return (idOrName == gameData.getBigBlindPlayer()->getId());
 }
@@ -258,4 +266,22 @@ bool GameUtil::isActiveBetFoldedTo(GameData& gameData) {
     }
 
     return (activeBet == 1 && (folded == (numPlayers - 1)));
+}
+
+bool GameUtil::isAPossibleAction(GameData& gameData, ActionType type, const uint32_t& amount) {
+    auto possibleActions = gameData.getPossibleActions();
+
+    for (auto const& possible : possibleActions) {
+        // If action type matches, verify the amount is valid
+        if (type == possible->getActionType()) {
+            uint32_t primaryAmount = possible->getPrimaryAmount();
+            uint32_t secondaryAmount = possible->getSecondaryAmount();
+
+            if (secondaryAmount == 0) return (primaryAmount == amount);
+            else return ((amount >= primaryAmount) && (amount <= secondaryAmount));
+        }
+    }
+
+    // Action type not found
+    return false;
 }

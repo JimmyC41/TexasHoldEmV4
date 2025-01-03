@@ -53,3 +53,23 @@ bool RPCValidator::canLeave(const string& name) const {
     cout << "(+) RPC Validator: Leave Request accepted.\n" << endl;
     return true;
 }
+
+bool RPCValidator::isPossibleAction(const string& id, ActionType type, const uint32_t& amount) const {
+    lock_guard<mutex> lock(gameDataMtx);
+
+    if (GameUtil::getCurPlayerId(gameData) != id &&
+        GameUtil::getCurPlayerName(gameData) != id) {
+        cout << "(+) RPC Validator: Player is acting out of turn. "
+             << "Action Request denied.\n" << endl;
+        return false;
+    }
+
+    if (!GameUtil::isAPossibleAction(gameData, type, amount)) {
+        cout << "(+) RPC Validator: Requested action is not valid. "
+             << "Action Request denied.\n" << endl;
+        return false;
+    }
+
+    cout << "(+) RPC Validator: Action Request accepted.\n" << endl;
+    return true;
+}

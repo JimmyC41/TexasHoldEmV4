@@ -53,9 +53,9 @@ void BettingStreet::executeStreet() {
         controller.getIOManager().displayPossibleActionsStdOut();
 
         // Fetch action from the client
-        auto [type, amount] = controller.getIOManager().getPlayerActionStdIn();
+        auto [type, amount] = controller.getRequestManager().getActionRequest();
         controller.getActionManager().addNewAction(id, type, amount);
-
+        
         // Update player to act
         if (controller.isBettingStreetComplete()) break;
         controller.getPositionManager().updatePlayerToAct();

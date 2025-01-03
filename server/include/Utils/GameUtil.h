@@ -28,6 +28,8 @@ public:
     static vector<Position> getListOfPositions(GameData& gameData);
     static string getPlayerNameFromId(GameData& gameData, string id);
     static shared_ptr<Player> getPlayer(GameData& gameData, string idOrName);
+    static string getCurPlayerId(GameData& gameData);
+    static string getCurPlayerName(GameData& gameData);
     static bool isPlayerBigBlind(GameData& gameData, string idOrName);
     static bool isSmallBlindExists(GameData& gameData);
     static bool isBigBlindExists(GameData& gameData);
@@ -52,6 +54,7 @@ public:
     static uint32_t getNumPots(GameData& gameData);
     static bool isShortPlayersInHand(GameData& gameData);
     static bool isActiveBetFoldedTo(GameData& gameData);
+    static bool isAPossibleAction(GameData& gameData, ActionType type, const uint32_t& amount);
 };
 
 #endif
