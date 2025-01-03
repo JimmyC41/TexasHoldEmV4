@@ -11,6 +11,8 @@
 #include "Services/PotManager.h"
 #include "Services/IOManager.h"
 #include "Services/EventManager.h"
+#include "Services/RequestManager.h"
+#include "Services/RPCValidator.h"
 #include "States/State.h"
 #include "States/GameSetup.h"
 #include "States/BettingStreet.h"
@@ -31,6 +33,8 @@ private:
     IOManager inputOutputManager;
     StateManager stateManager;
     EventManager eventManager;
+    RequestManager requestManager;
+    RPCValidator rpcValidator;
 
 public:
     GameController();
@@ -45,11 +49,17 @@ public:
     IOManager& getIOManager() { return inputOutputManager; }
     StateManager& getStateManager() { return stateManager; }
     EventManager& getEventManager() { return eventManager; }
+    GameData& getGameData() { return gameData; }
+    RequestManager& getRequestManager() { return requestManager; }
 
     // State Transition Methods
-    bool isAtLeastTwoPlayers(GameData& gameData) { return (GameUtil::getNumPlayers(gameData) > 1); }
+    bool isAtLeastTwoPlayers() { return GameUtil::getNumPlayers(gameData) > 1; }
     bool isShortPlayersInHand() { return GameUtil::isShortPlayersInHand(gameData); }
     bool isBettingStreetComplete() { return actionManager.isActionsFinished(); }
+
+    // gRPC Handling Methods
+    bool handleJoinGameRequest(const string& name, const uint32_t& chips);
+    bool handleLeaveGameRequest(const string& name);
 };
 
 #endif

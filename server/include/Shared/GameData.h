@@ -11,6 +11,8 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <condition_variable>
+#include <queue>
 
 class Player;
 class Board;
@@ -47,7 +49,7 @@ private:
     vector<shared_ptr<PossibleAction>> possibleActions;     // List of possible actions for the current player to act
 
 public:
-    GameData() : 
+    GameData() :
         curStreet(Street::NONE),
         curPlayer(),
         smallBlindPlayer(),
@@ -100,7 +102,6 @@ public:
     const shared_ptr<Player>& getSmallBlindPlayer() const { return smallBlindPlayer; }
     const shared_ptr<Player>& getBigBlindPlayer() const { return bigBlindPlayer; }
     const shared_ptr<Player>& getButtonPlayer() const { return buttonPlayer; }
-
     const vector<shared_ptr<Player>>& getPlayers() { return gamePlayers; }
     const Street getStreet() const { return curStreet; }
     const Board& getBoard() const { return board; }
@@ -114,6 +115,7 @@ public:
     const uint32_t& getDeadChips() const { return deadChips; }
     const uint32_t& getBigBlind() const { return bigBlind; }
     const uint32_t& getSmallBlind() const { return smallBlind; }
+    const int getNumPlayers() const { return gamePlayers.size(); }
 };
 
 #endif

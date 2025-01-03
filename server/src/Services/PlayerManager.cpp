@@ -10,10 +10,6 @@ bool PlayerManager::addNewPlayers(vector<pair<string, uint32_t>> newPlayersInfo)
         string name = info.first;
         uint32_t chips = info.second;
         
-        // Validate name and chip count
-        if (!PlayerUtil::isValidName(name) ||
-            !PlayerUtil::isMinBuyin(gameData.getBigBlind(), chips)) return false;
-
         // Add the player to Game Data and set their position and status
         shared_ptr<Player> player = make_shared<Player>(name, chips);
         gameData.addPlayer(player);

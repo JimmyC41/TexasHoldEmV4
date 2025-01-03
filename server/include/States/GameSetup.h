@@ -6,6 +6,9 @@
 class BettingStreet;
 
 class GameSetup : public State {
+private:
+    void processPlayerQueue();
+
 public:
     GameSetup(GameData& gd, GameController& ctrl) : State(gd, ctrl) {}
 

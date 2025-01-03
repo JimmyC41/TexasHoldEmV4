@@ -44,14 +44,12 @@ PokerServiceImpl::PokerServiceImpl(GameController& ctrl) : controller(ctrl) {}
 
     string name = request->player_name();
     uint32_t chips = request->chips();
-    vector<pair<string, uint32_t>> newPlayer = {make_pair(name, chips)};
 
-    bool success = controller.getPlayerManager().addNewPlayers(newPlayer);
+    bool success = controller.handleJoinGameRequest(name, chips);
 
     if (success) {
         response->set_success(true);
-        response->set_message("Player " + name + " succesfully joined the game.");
-        controller.getIOManager().displayPlayers();
+        response->set_message("Player " + name + " was added to the queue to join the game!");
         return ::grpc::Status::OK;
     } else {
         response->set_success(false);
@@ -64,11 +62,12 @@ PokerServiceImpl::PokerServiceImpl(GameController& ctrl) : controller(ctrl) {}
     cout << "=== GRPC SERVER: Leave Game RPC!  ===" << endl;
 
     string name = request->player_name();
-    bool success = controller.getPlayerManager().removeExistingPlayers({name});
+
+    bool success = controller.handleLeaveGameRequest(name);
 
     if (success) {
         response->set_success(true);
-        response->set_message("Player " + name + " removed from the game.");
+        response->set_message("Player " + name + " was added to the queue to leave the game.");
         controller.getIOManager().displayPlayers();
         return ::grpc::Status::OK;
     } else {
