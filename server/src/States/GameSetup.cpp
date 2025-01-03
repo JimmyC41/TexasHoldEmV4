@@ -35,6 +35,9 @@ void GameSetup::execute() {
     // Shuffle the deck
     controller.getDealerManager().resetDeck();
 
+    // EVENT MANAGER: Publish PlayersUpdateEvent
+    controller.getEventManager().publishPlayersUpdateEvent();
+
     // Transition to betting street
     transition();
 }

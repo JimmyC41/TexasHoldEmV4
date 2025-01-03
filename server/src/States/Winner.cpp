@@ -7,10 +7,11 @@ void Winner::execute() {
     cout << "(+) State Manger: Winner State\n" << endl;
 
     // Evaluate hand strengths and award pots
-    PrintUtil::printPots(gameData);
-
     controller.getHandRankManager().evaluateRankedIds();
     controller.getPotManager().awardPots();
+
+    // Event Manager: Publish PotWinner Event
+    controller.getEventManager().publishPotWinnerEvent();
 
     // Rotate positions
     controller.getPositionManager().rotatePositions();

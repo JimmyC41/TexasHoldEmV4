@@ -41,7 +41,7 @@ private:
     Board board;
     uint32_t smallBlind;
     uint32_t bigBlind;
-    vector<pair<unint32_t, string>> winners;
+    vector<pair<uint32_t, string>> winners;
 
     // Only Persists in Each Street:
     Street curStreet;
@@ -99,7 +99,7 @@ public:
     void clearAllPots() { pots.clear(); }
     void setBigBlind(const uint32_t& big) { bigBlind = big; }
     void clearPotWinners() { winners.clear(); }
-    void addPotWinner(const uint32_t& chips, const string& id) { winners.emplace_back(chips, id)}
+    void addPotWinner(const uint32_t& chips, const string& id) { winners.emplace_back(chips, id); }
 
     // GET Methods
     const shared_ptr<Player>& getCurPlayer() const { return curPlayer; }
