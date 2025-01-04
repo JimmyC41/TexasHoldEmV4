@@ -1,5 +1,5 @@
-#ifndef GAME_QUEUE_MANGER
-#define GAME_QUEUE_MANAGER
+#ifndef REQUEST_MANAGER
+#define REQUEST_MANAGER
 
 #include "../Shared/Enums.h"
 #include <mutex>
