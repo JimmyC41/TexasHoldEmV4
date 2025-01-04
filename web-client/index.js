@@ -45,47 +45,16 @@ const playerAction = (id, type, amount) => {
 /**
  * gRPC method to start a game stream for a player that has joined
  * @param {string} id 
- * @param {Object} eventHandlers - Object containing functions for different game events
- * @param {Function} onStreamError - Callback to handle stream errors
- * @param {Function} onStreamEnd - Callback to handle stream termination
  * @returns 
  */
-const gameStream = (id, eventHandlers, onStreamError, onStreamEnd) => {
+const gameStream = (id) => {
     const gameStreamReq = new pb.GameStreamReq();
     gameStreamReq.setPlayerId(id);
     const stream = client.gameStream(gameStreamReq);
 
-    const eventTypeMap = {
-        playersUpdate: eventHandlers.playersUpdate,
-        newStreet: eventHandlers.newStreet,
-        dealPlayers: eventHandlers.dealPlayers,
-        dealBoard: eventHandlers.dealBoard,
-        nextPlayerToAct: eventHandlers.nextPlayerToAct,
-        newPlayerAction: eventHandlers.newPlayerAction,
-        potUpdate: eventHandlers.potUpdate,
-        showdown: eventHandlers.showdown,
-        potWinner: eventHandlers.potWinner,
-    };
-
     stream.on('data', (response) => {
         const event = response.toObject();
-
-        for (const [key, handler] of Object.entries(eventTypeMap)) {
-            if (event[key] && handler) {
-                handler(event[key]);
-                return;
-            }
-    }
-    });
-
-    stream.on('error', (error) => {
-        console.error('Stream error:', error.message);
-        if (onStreamError) onStreamError(error);
-    });
-
-    stream.on('end', () => {
-        console.log('Stream ended.');
-        if (onStreamEnd) onStreamEnd();
+        console.log('Raw Event Data:', event);
     });
 
     return stream;
@@ -106,35 +75,39 @@ const grpcRequest = (method, request) => {
 };
 
 
-// const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// const runGameSequence = async () => {
-//     try {
-//         const joinP1Response = await joinGame('P1', 10000);
-//         console.log('Join Game Response for P1:', joinP1Response);
+const runGameSequence = async () => {
+    try {
+        const joinP1Response = await joinGame('P1', 10000);
+        console.log('Join Game Response for P1:', joinP1Response);
 
-//         await delay(1000); // Pause for 1 second
+        await gameStream('P1');
 
-//         const joinP2Response = await joinGame('P2', 10000);
-//         console.log('Join Game Response for P2:', joinP2Response);
+        await delay(1000); // Pause for 1 second
 
-//         await delay(1000); // Pause for 1 second
+        const joinP2Response = await joinGame('P2', 10000);
+        console.log('Join Game Response for P2:', joinP2Response);
+        
+        await gameStream('P2');
 
-//         const raiseP1Response = await playerAction('P1', pb.ProtoActionType.RAISE, 500);
-//         console.log('Player Action Response for P1 (RAISE):', raiseP1Response);
+        await delay(1000); // Pause for 1 second
 
-//         await delay(1000); // Pause for 1 second
+        const raiseP1Response = await playerAction('P1', pb.ProtoActionType.RAISE, 500);
+        console.log('Player Action Response for P1 (RAISE):', raiseP1Response);
 
-//         const callP2Response = await playerAction('P2', pb.ProtoActionType.CALL, 500);
-//         console.log('Player Action Response for P2 (CALL):', callP2Response);
+        await delay(1000); // Pause for 1 second
 
-//         await delay(1000); // Pause for 1 second
+        const callP2Response = await playerAction('P2', pb.ProtoActionType.CALL, 500);
+        console.log('Player Action Response for P2 (CALL):', callP2Response);
 
-//         const foldP1Response = await playerAction('P1', pb.ProtoActionType.FOLD, 0);
-//         console.log('Player Action Response for P1 (FOLD):', foldP1Response);
-//     } catch (error) {
-//         console.error('Error during game sequence:', error);
-//     }
-// };
+        await delay(1000); // Pause for 1 second
 
-// runGameSequence();
+        const foldP1Response = await playerAction('P1', pb.ProtoActionType.FOLD, 0);
+        console.log('Player Action Response for P1 (FOLD):', foldP1Response);
+    } catch (error) {
+        console.error('Error during game sequence:', error);
+    }
+};
+
+runGameSequence();
