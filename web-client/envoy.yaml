@@ -62,5 +62,5 @@ static_resources:
             - endpoint:
                 address:
                   socket_address:
-                    address: node-server
+                    address: localhost
                     port_value: 9090

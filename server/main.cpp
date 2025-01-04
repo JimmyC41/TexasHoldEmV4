@@ -6,6 +6,8 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <chrono>
+#include <thread>
 
 int main(int argc, char** argv) {
     GameController controller;

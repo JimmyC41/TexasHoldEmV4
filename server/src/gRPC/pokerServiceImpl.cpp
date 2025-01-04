@@ -5,6 +5,8 @@
 
 #include <string>
 #include <vector>
+#include <chrono>
+#include <thread>
 
 using ActionType = Enums::ActionType;
 using namespace std;
@@ -37,7 +39,7 @@ grpc::Status PokerServiceImpl::GameStream
 
     while (!context->IsCancelled())
     {
-        this_thread::sleep_for(chrono::milliseconds(100));
+        std::this_thread::sleep_for(chrono::milliseconds(100));
     }
 
 

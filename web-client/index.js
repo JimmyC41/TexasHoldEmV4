@@ -1,11 +1,13 @@
-import { PokerServicePromiseClient } from "C:\Users\Jimmy\Projects\TexasHoldEmV4\web-client\generated\texas_holdem_grpc_web_pb.js"
-import { JoinGameReq } from "C:\Users\Jimmy\Projects\TexasHoldEmV4\web-client\generated\texas_holdem_pb.js"
+const grpcProto = require('./generated/texas_holdem_grpc_web_pb.js');
+const proto = require('./generated/texas_holdem_pb.js');
 
-// Instantiate the client
-const client = new PokerServicePromiseClient('http://localhost:8080');
+console.log('grpcProto:', grpcProto);
+console.log('proto:', proto);
 
-const joinGameReq = new JoinGameReq();
-joinGameReq.setPlayername('Jimmy');
+const client = new grpcProto.PokerServicePromiseClient('http://localhost:8080');
+const joinGameReq = new proto.JoinGameReq();
+
+joinGameReq.setPlayerName('Jimmy');
 joinGameReq.setChips(1000);
 
 client.joinGame(joinGameReq)
