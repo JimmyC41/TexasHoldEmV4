@@ -15,3 +15,4 @@ build/
 .vscode/c_cpp_properties.json
 server/CMakeLists.txt
 CMakeLists.txt
+client-js/
