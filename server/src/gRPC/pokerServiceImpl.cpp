@@ -11,64 +11,87 @@ using namespace std;
 
 PokerServiceImpl::PokerServiceImpl(GameController& ctrl) : controller(ctrl) {}
 
-::grpc::Status PokerServiceImpl::GameStream(::grpc::ServerContext* context, const ::GameStreamReq* request, ::grpc::ServerWriter< ::GameStreamRes>* writer) {
-    string playerId = request->player_id();
-    cout << "=== GRPC SERVER: Game Stream RPC receieved for id:  " << playerId << " ===" << endl;
 
+grpc::Status PokerServiceImpl::GameStream
+(
+    grpc::ServerContext* context,
+    const GameStreamReq* request,
+    grpc::ServerWriter< ::GameStreamRes>* writer
+)
+{
+    cout << "=== GRPC SERVER: Game Stream RPC ===" << endl;
+    string playerId = request->player_id();
     bool success = controller.handleSubscribe(playerId, writer);
 
-    if (!success) {
-        return ::grpc::Status(::grpc::StatusCode::INVALID_ARGUMENT, "Cannot subscribe a player that does not exist.");
+    if (!success)
+    {
+        return grpc::Status(
+            grpc::StatusCode::INVALID_ARGUMENT,
+            "Request to subscribe to the game failed.\n"
+        );
+    }
+    else
+    {
+        cout << "Request to subscribe to the game succeeded!\n";
     }
 
-    while (!context->IsCancelled()) {
+    while (!context->IsCancelled())
+    {
         this_thread::sleep_for(chrono::milliseconds(100));
     }
 
-    controller.handleUnsubscribe(writer);
-    
-    cout << "=== GRPC SERVER: Game Stream RPC ended for id:  " << playerId << " ===" << endl;
-    return ::grpc::Status::OK;
+
+    controller.handleUnsubscribe(writer);    
+    cout << "=== Game stream concluded for: " << playerId << " ===" << endl;
+    return grpc::Status::OK;
 }
 
-::grpc::Status PokerServiceImpl::JoinGame(::grpc::ServerContext* context, const ::JoinGameReq* request, ::PlayerReqRes* response) {
-    cout << "=== GRPC SERVER: Join Game RPC!  ===" << endl;
-
+grpc::Status PokerServiceImpl::JoinGame
+(
+    grpc::ServerContext* context,
+    const JoinGameReq* request,
+    PlayerReqRes* response
+)
+{
     string name = request->player_name();
     uint32_t chips = request->chips();
 
     bool success = controller.handleJoinGameRequest(name, chips);
-
-    if (success) {
-        response->set_success(true);
-        response->set_message("Player " + name + " was added to the queue to join the game!");
-        return ::grpc::Status::OK;
-    } else {
-        response->set_success(false);
-        response->set_message("Failed to add player '" + name + "'.");
-        return ::grpc::Status(::grpc::StatusCode::INVALID_ARGUMENT, "Unable to add a new player.");
-    }
+    return sendPlayerReqRes(
+        success,
+        response,
+        "Player join success!",
+        "Player join failed."
+    );
 }
 
-::grpc::Status PokerServiceImpl::LeaveGame(::grpc::ServerContext* context, const ::LeaveGameReq* request, ::PlayerReqRes* response) {
+grpc::Status PokerServiceImpl::LeaveGame
+(
+    grpc::ServerContext* context,
+    const LeaveGameReq* request,
+    PlayerReqRes* response
+)
+{
     cout << "=== GRPC SERVER: Leave Game RPC!  ===" << endl;
 
     string name = request->player_name();
 
     bool success = controller.handleLeaveGameRequest(name);
-
-    if (success) {
-        response->set_success(true);
-        response->set_message("Player " + name + " was added to the queue to leave the game.");
-        return ::grpc::Status::OK;
-    } else {
-        response->set_success(false);
-        response->set_message("Failed to remove player '" + name + "'.");
-        return ::grpc::Status(::grpc::StatusCode::INVALID_ARGUMENT, "Unable to remove player. Player does not exist.");
-    }
+    return sendPlayerReqRes(
+        success,
+        response,
+        "Player removal success!",
+        "Player removal failed."
+    );
 }
 
-::grpc::Status PokerServiceImpl::PlayerAction(::grpc::ServerContext* context, const ::PlayerActionReq* request, ::PlayerReqRes* response) {
+grpc::Status PokerServiceImpl::PlayerAction
+(
+    grpc::ServerContext* context,
+    const PlayerActionReq* request,
+    PlayerReqRes* response
+)
+{
     cout << "=== GRPC SERVER: Player Action RPC!  ===" << endl;
 
     string id = request->player_id();
@@ -76,14 +99,35 @@ PokerServiceImpl::PokerServiceImpl(GameController& ctrl) : controller(ctrl) {}
     uint32_t amount = request->action_amount();
 
     bool success = controller.handlePlayerActionRequest(id, type, amount);
+    return sendPlayerReqRes(
+        success,
+        response,
+        "Player action succcess!",
+        "Player action failed."
+    );
+}
 
-    if (success) {
+grpc::Status PokerServiceImpl::sendPlayerReqRes
+(
+    bool success,
+    PlayerReqRes* response,
+    const string& successMsg,
+    const string& failMsg
+)
+{
+    if (success)
+    {
         response->set_success(true);
-        response->set_message("Valid action received for " + id + ".");
-        return ::grpc::Status::OK;
-    } else {
+        response->set_message(successMsg);
+        return grpc::Status::OK;
+    }
+    else
+    {
         response->set_success(false);
-        response->set_message("Invalid action receieved for '" + id + "'.");
-        return ::grpc::Status(::grpc::StatusCode::INVALID_ARGUMENT, "Action receieved does not match valid possible actions.");
+        response->set_message(failMsg);
+        return grpc::Status(
+            grpc::StatusCode::INVALID_ARGUMENT,
+            failMsg
+        );
     }
 }
