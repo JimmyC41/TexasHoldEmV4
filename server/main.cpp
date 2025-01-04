@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
     GameController controller;
     PokerServiceImpl poker_service(controller);
 
-    const string server_address("0.0.0.0:50051");    
+    const string server_address("localhost:9090");    
     grpc::ServerBuilder builder;
         
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
