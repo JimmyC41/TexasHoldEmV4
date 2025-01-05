@@ -7,9 +7,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(${CMAKE_SOURCE_DIR}/build/Release/generators/conan_toolchain.cmake)
 
 # Common Directories
-set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
-set(PROTO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/proto)
-set(GEN_DIR ${CMAKE_SOURCE_DIR}/proto-gen)
+set(SERVER_DIR ${PROJECT_SOURCE_DIR}/server)
+set(INCLUDE_DIR ${SERVER_DIR}/include)
+set(PROTO_DIR ${PROJECT_SOURCE_DIR}/proto)
+set(GEN_DIR ${SERVER_DIR}/generated)
 
 # Dependencies
 find_package(Boost REQUIRED COMPONENTS random)
