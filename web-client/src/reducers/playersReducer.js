@@ -6,12 +6,6 @@ const initialState = [
         name: '',
         id: '',
         chips: 0,
-        holeCardsList: [
-            {
-                suit: SUIT.NONE,
-                value: VALUE.NONE
-            }
-        ],
         recentBets: 0,
         position: POSITION.LOBBY,
         status: PLAYER_STATUS.WAITING

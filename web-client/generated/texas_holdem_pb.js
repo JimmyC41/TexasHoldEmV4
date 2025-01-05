@@ -502,7 +502,7 @@ if (goog.DEBUG && !COMPILED) {
  * @constructor
  */
 proto.ProtoPlayer = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.ProtoPlayer.repeatedFields_, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.ProtoPlayer, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -4409,13 +4409,6 @@ proto.ProtoCard.prototype.setValue = function(value) {
 
 
 
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.ProtoPlayer.repeatedFields_ = [4];
-
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -4450,11 +4443,9 @@ proto.ProtoPlayer.toObject = function(includeInstance, msg) {
 name: jspb.Message.getFieldWithDefault(msg, 1, ""),
 id: jspb.Message.getFieldWithDefault(msg, 2, ""),
 chips: jspb.Message.getFieldWithDefault(msg, 3, 0),
-holeCardsList: jspb.Message.toObjectList(msg.getHoleCardsList(),
-    proto.ProtoCard.toObject, includeInstance),
-recentBets: jspb.Message.getFieldWithDefault(msg, 5, 0),
-position: jspb.Message.getFieldWithDefault(msg, 6, 0),
-status: jspb.Message.getFieldWithDefault(msg, 7, 0)
+recentBets: jspb.Message.getFieldWithDefault(msg, 4, 0),
+position: jspb.Message.getFieldWithDefault(msg, 5, 0),
+status: jspb.Message.getFieldWithDefault(msg, 6, 0)
   };
 
   if (includeInstance) {
@@ -4504,19 +4495,14 @@ proto.ProtoPlayer.deserializeBinaryFromReader = function(msg, reader) {
       msg.setChips(value);
       break;
     case 4:
-      var value = new proto.ProtoCard;
-      reader.readMessage(value,proto.ProtoCard.deserializeBinaryFromReader);
-      msg.addHoleCards(value);
-      break;
-    case 5:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setRecentBets(value);
       break;
-    case 6:
+    case 5:
       var value = /** @type {!proto.ProtoPlayer.ProtoPosition} */ (reader.readEnum());
       msg.setPosition(value);
       break;
-    case 7:
+    case 6:
       var value = /** @type {!proto.ProtoPlayer.ProtoPlayerStatus} */ (reader.readEnum());
       msg.setStatus(value);
       break;
@@ -4570,32 +4556,24 @@ proto.ProtoPlayer.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getHoleCardsList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      4,
-      f,
-      proto.ProtoCard.serializeBinaryToWriter
-    );
-  }
   f = message.getRecentBets();
   if (f !== 0) {
     writer.writeUint32(
-      5,
+      4,
       f
     );
   }
   f = message.getPosition();
   if (f !== 0.0) {
     writer.writeEnum(
-      6,
+      5,
       f
     );
   }
   f = message.getStatus();
   if (f !== 0.0) {
     writer.writeEnum(
-      7,
+      6,
       f
     );
   }
@@ -4684,49 +4662,11 @@ proto.ProtoPlayer.prototype.setChips = function(value) {
 
 
 /**
- * repeated ProtoCard hole_cards = 4;
- * @return {!Array<!proto.ProtoCard>}
- */
-proto.ProtoPlayer.prototype.getHoleCardsList = function() {
-  return /** @type{!Array<!proto.ProtoCard>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.ProtoCard, 4));
-};
-
-
-/**
- * @param {!Array<!proto.ProtoCard>} value
- * @return {!proto.ProtoPlayer} returns this
-*/
-proto.ProtoPlayer.prototype.setHoleCardsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 4, value);
-};
-
-
-/**
- * @param {!proto.ProtoCard=} opt_value
- * @param {number=} opt_index
- * @return {!proto.ProtoCard}
- */
-proto.ProtoPlayer.prototype.addHoleCards = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.ProtoCard, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
- * @return {!proto.ProtoPlayer} returns this
- */
-proto.ProtoPlayer.prototype.clearHoleCardsList = function() {
-  return this.setHoleCardsList([]);
-};
-
-
-/**
- * optional uint32 recent_bets = 5;
+ * optional uint32 recent_bets = 4;
  * @return {number}
  */
 proto.ProtoPlayer.prototype.getRecentBets = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
@@ -4735,16 +4675,16 @@ proto.ProtoPlayer.prototype.getRecentBets = function() {
  * @return {!proto.ProtoPlayer} returns this
  */
 proto.ProtoPlayer.prototype.setRecentBets = function(value) {
-  return jspb.Message.setProto3IntField(this, 5, value);
+  return jspb.Message.setProto3IntField(this, 4, value);
 };
 
 
 /**
- * optional ProtoPosition position = 6;
+ * optional ProtoPosition position = 5;
  * @return {!proto.ProtoPlayer.ProtoPosition}
  */
 proto.ProtoPlayer.prototype.getPosition = function() {
-  return /** @type {!proto.ProtoPlayer.ProtoPosition} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+  return /** @type {!proto.ProtoPlayer.ProtoPosition} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
 
@@ -4753,16 +4693,16 @@ proto.ProtoPlayer.prototype.getPosition = function() {
  * @return {!proto.ProtoPlayer} returns this
  */
 proto.ProtoPlayer.prototype.setPosition = function(value) {
-  return jspb.Message.setProto3EnumField(this, 6, value);
+  return jspb.Message.setProto3EnumField(this, 5, value);
 };
 
 
 /**
- * optional ProtoPlayerStatus status = 7;
+ * optional ProtoPlayerStatus status = 6;
  * @return {!proto.ProtoPlayer.ProtoPlayerStatus}
  */
 proto.ProtoPlayer.prototype.getStatus = function() {
-  return /** @type {!proto.ProtoPlayer.ProtoPlayerStatus} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+  return /** @type {!proto.ProtoPlayer.ProtoPlayerStatus} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
 
@@ -4771,7 +4711,7 @@ proto.ProtoPlayer.prototype.getStatus = function() {
  * @return {!proto.ProtoPlayer} returns this
  */
 proto.ProtoPlayer.prototype.setStatus = function(value) {
-  return jspb.Message.setProto3EnumField(this, 7, value);
+  return jspb.Message.setProto3EnumField(this, 6, value);
 };
 
 

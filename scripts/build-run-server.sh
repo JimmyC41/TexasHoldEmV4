@@ -1,6 +1,4 @@
 #!/bin/bash
-cd ..
-
 rm -rf build
 rm -rf server/generated
 rm -rf generated

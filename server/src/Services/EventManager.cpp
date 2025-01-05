@@ -54,13 +54,6 @@ void EventManager::publishPlayersUpdateEvent() {
         cur->set_recent_bets(player->getRecentBet());
         cur->set_status(ProtoUtil::toProtoStatus(player->getPlayerStatus()));
         cur->set_position(ProtoUtil::toProtoPosition(player->getPosition()));
-
-        auto cards = player->getHand();
-        for (const auto& card : cards) {
-            ProtoCard* protoCard = cur->add_hole_cards();
-            protoCard->set_suit(ProtoUtil::toProtoSuit(card.getSuit()));
-            protoCard->set_value(ProtoUtil::toProtoValue(card.getValue()));
-        }
     }
 
     publishEvent(event);
