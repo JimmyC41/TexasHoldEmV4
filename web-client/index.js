@@ -75,39 +75,39 @@ const grpcRequest = (method, request) => {
 };
 
 
-// const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// const runGameSequence = async () => {
-//     try {
-//         const joinP1Response = await joinGame('P1', 10000);
-//         console.log('Join Game Response for P1:', joinP1Response);
+const runGameSequence = async () => {
+    try {
+        const joinP1Response = await joinGame('P1', 10000);
+        console.log('Join Game Response for P1:', joinP1Response);
 
-//         await gameStream('P1');
+        await gameStream('P1');
 
-//         await delay(1000); // Pause for 1 second
+        await delay(1000); // Pause for 1 second
 
-//         const joinP2Response = await joinGame('P2', 10000);
-//         console.log('Join Game Response for P2:', joinP2Response);
+        const joinP2Response = await joinGame('P2', 10000);
+        console.log('Join Game Response for P2:', joinP2Response);
         
-//         await gameStream('P2');
+        await gameStream('P2');
 
-//         await delay(1000); // Pause for 1 second
+        await delay(1000); // Pause for 1 second
 
-//         const raiseP1Response = await playerAction('P1', pb.ProtoActionType.RAISE, 500);
-//         console.log('Player Action Response for P1 (RAISE):', raiseP1Response);
+        const raiseP1Response = await playerAction('P1', pb.ProtoActionType.RAISE, 500);
+        console.log('Player Action Response for P1 (RAISE):', raiseP1Response);
 
-//         await delay(1000); // Pause for 1 second
+        await delay(1000); // Pause for 1 second
 
-//         const callP2Response = await playerAction('P2', pb.ProtoActionType.CALL, 500);
-//         console.log('Player Action Response for P2 (CALL):', callP2Response);
+        const callP2Response = await playerAction('P2', pb.ProtoActionType.CALL, 500);
+        console.log('Player Action Response for P2 (CALL):', callP2Response);
 
-//         await delay(1000); // Pause for 1 second
+        await delay(1000); // Pause for 1 second
 
-//         const foldP1Response = await playerAction('P1', pb.ProtoActionType.FOLD, 0);
-//         console.log('Player Action Response for P1 (FOLD):', foldP1Response);
-//     } catch (error) {
-//         console.error('Error during game sequence:', error);
-//     }
-// };
+        const foldP1Response = await playerAction('P1', pb.ProtoActionType.FOLD, 0);
+        console.log('Player Action Response for P1 (FOLD):', foldP1Response);
+    } catch (error) {
+        console.error('Error during game sequence:', error);
+    }
+};
 
-// runGameSequence();
+runGameSequence();
