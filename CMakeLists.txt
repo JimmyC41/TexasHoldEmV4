@@ -19,6 +19,10 @@ find_package(Protobuf REQUIRED)
 find_package(gRPC REQUIRED)
 find_package(Threads REQUIRED)
 
+# Use Conan version of Protobuf, ignore Homebrew
+set(Protobuf_PROTOC_EXECUTABLE "/Users/jimmy/.conan2/p/b/proto6f9b50924eae0/p/bin/protoc")
+list(REMOVE_ITEM CMAKE_PREFIX_PATH "/opt/homebrew")
+
 # Protobuf Generation
 file(MAKE_DIRECTORY ${GEN_DIR})
 set(PROTO_FILE ${PROTO_DIR}/texas_holdem.proto)
@@ -26,7 +30,6 @@ set(PROTO_SRC ${GEN_DIR}/texas_holdem.pb.cc)
 set(PROTO_HDR ${GEN_DIR}/texas_holdem.pb.h)
 set(GRPC_SRC ${GEN_DIR}/texas_holdem.grpc.pb.cc)
 set(GRPC_HDR ${GEN_DIR}/texas_holdem.grpc.pb.h)
-
 
 get_target_property(GRPC_CPP_PLUGIN_LOCATION gRPC::grpc_cpp_plugin IMPORTED_LOCATION)
 
