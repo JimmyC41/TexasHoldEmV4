@@ -4414,7 +4414,7 @@ proto.ProtoCard.prototype.setValue = function(value) {
  * @private {!Array<number>}
  * @const
  */
-proto.ProtoPlayer.repeatedFields_ = [3];
+proto.ProtoPlayer.repeatedFields_ = [4];
 
 
 
@@ -4448,12 +4448,13 @@ proto.ProtoPlayer.prototype.toObject = function(opt_includeInstance) {
 proto.ProtoPlayer.toObject = function(includeInstance, msg) {
   var f, obj = {
 name: jspb.Message.getFieldWithDefault(msg, 1, ""),
-chips: jspb.Message.getFieldWithDefault(msg, 2, 0),
+id: jspb.Message.getFieldWithDefault(msg, 2, ""),
+chips: jspb.Message.getFieldWithDefault(msg, 3, 0),
 holeCardsList: jspb.Message.toObjectList(msg.getHoleCardsList(),
     proto.ProtoCard.toObject, includeInstance),
-recentBets: jspb.Message.getFieldWithDefault(msg, 4, 0),
-position: jspb.Message.getFieldWithDefault(msg, 5, 0),
-status: jspb.Message.getFieldWithDefault(msg, 6, 0)
+recentBets: jspb.Message.getFieldWithDefault(msg, 5, 0),
+position: jspb.Message.getFieldWithDefault(msg, 6, 0),
+status: jspb.Message.getFieldWithDefault(msg, 7, 0)
   };
 
   if (includeInstance) {
@@ -4495,23 +4496,27 @@ proto.ProtoPlayer.deserializeBinaryFromReader = function(msg, reader) {
       msg.setName(value);
       break;
     case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    case 3:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setChips(value);
       break;
-    case 3:
+    case 4:
       var value = new proto.ProtoCard;
       reader.readMessage(value,proto.ProtoCard.deserializeBinaryFromReader);
       msg.addHoleCards(value);
       break;
-    case 4:
+    case 5:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setRecentBets(value);
       break;
-    case 5:
+    case 6:
       var value = /** @type {!proto.ProtoPlayer.ProtoPosition} */ (reader.readEnum());
       msg.setPosition(value);
       break;
-    case 6:
+    case 7:
       var value = /** @type {!proto.ProtoPlayer.ProtoPlayerStatus} */ (reader.readEnum());
       msg.setStatus(value);
       break;
@@ -4551,17 +4556,24 @@ proto.ProtoPlayer.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
   f = message.getChips();
   if (f !== 0) {
     writer.writeUint32(
-      2,
+      3,
       f
     );
   }
   f = message.getHoleCardsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      3,
+      4,
       f,
       proto.ProtoCard.serializeBinaryToWriter
     );
@@ -4569,21 +4581,21 @@ proto.ProtoPlayer.serializeBinaryToWriter = function(message, writer) {
   f = message.getRecentBets();
   if (f !== 0) {
     writer.writeUint32(
-      4,
+      5,
       f
     );
   }
   f = message.getPosition();
   if (f !== 0.0) {
     writer.writeEnum(
-      5,
+      6,
       f
     );
   }
   f = message.getStatus();
   if (f !== 0.0) {
     writer.writeEnum(
-      6,
+      7,
       f
     );
   }
@@ -4636,11 +4648,29 @@ proto.ProtoPlayer.prototype.setName = function(value) {
 
 
 /**
- * optional uint32 chips = 2;
+ * optional string id = 2;
+ * @return {string}
+ */
+proto.ProtoPlayer.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.ProtoPlayer} returns this
+ */
+proto.ProtoPlayer.prototype.setId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional uint32 chips = 3;
  * @return {number}
  */
 proto.ProtoPlayer.prototype.getChips = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
@@ -4649,17 +4679,17 @@ proto.ProtoPlayer.prototype.getChips = function() {
  * @return {!proto.ProtoPlayer} returns this
  */
 proto.ProtoPlayer.prototype.setChips = function(value) {
-  return jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
 /**
- * repeated ProtoCard hole_cards = 3;
+ * repeated ProtoCard hole_cards = 4;
  * @return {!Array<!proto.ProtoCard>}
  */
 proto.ProtoPlayer.prototype.getHoleCardsList = function() {
   return /** @type{!Array<!proto.ProtoCard>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.ProtoCard, 3));
+    jspb.Message.getRepeatedWrapperField(this, proto.ProtoCard, 4));
 };
 
 
@@ -4668,7 +4698,7 @@ proto.ProtoPlayer.prototype.getHoleCardsList = function() {
  * @return {!proto.ProtoPlayer} returns this
 */
 proto.ProtoPlayer.prototype.setHoleCardsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 3, value);
+  return jspb.Message.setRepeatedWrapperField(this, 4, value);
 };
 
 
@@ -4678,7 +4708,7 @@ proto.ProtoPlayer.prototype.setHoleCardsList = function(value) {
  * @return {!proto.ProtoCard}
  */
 proto.ProtoPlayer.prototype.addHoleCards = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.ProtoCard, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.ProtoCard, opt_index);
 };
 
 
@@ -4692,11 +4722,11 @@ proto.ProtoPlayer.prototype.clearHoleCardsList = function() {
 
 
 /**
- * optional uint32 recent_bets = 4;
+ * optional uint32 recent_bets = 5;
  * @return {number}
  */
 proto.ProtoPlayer.prototype.getRecentBets = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
 
@@ -4705,16 +4735,16 @@ proto.ProtoPlayer.prototype.getRecentBets = function() {
  * @return {!proto.ProtoPlayer} returns this
  */
 proto.ProtoPlayer.prototype.setRecentBets = function(value) {
-  return jspb.Message.setProto3IntField(this, 4, value);
+  return jspb.Message.setProto3IntField(this, 5, value);
 };
 
 
 /**
- * optional ProtoPosition position = 5;
+ * optional ProtoPosition position = 6;
  * @return {!proto.ProtoPlayer.ProtoPosition}
  */
 proto.ProtoPlayer.prototype.getPosition = function() {
-  return /** @type {!proto.ProtoPlayer.ProtoPosition} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+  return /** @type {!proto.ProtoPlayer.ProtoPosition} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
 
@@ -4723,16 +4753,16 @@ proto.ProtoPlayer.prototype.getPosition = function() {
  * @return {!proto.ProtoPlayer} returns this
  */
 proto.ProtoPlayer.prototype.setPosition = function(value) {
-  return jspb.Message.setProto3EnumField(this, 5, value);
+  return jspb.Message.setProto3EnumField(this, 6, value);
 };
 
 
 /**
- * optional ProtoPlayerStatus status = 6;
+ * optional ProtoPlayerStatus status = 7;
  * @return {!proto.ProtoPlayer.ProtoPlayerStatus}
  */
 proto.ProtoPlayer.prototype.getStatus = function() {
-  return /** @type {!proto.ProtoPlayer.ProtoPlayerStatus} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+  return /** @type {!proto.ProtoPlayer.ProtoPlayerStatus} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
 
@@ -4741,7 +4771,7 @@ proto.ProtoPlayer.prototype.getStatus = function() {
  * @return {!proto.ProtoPlayer} returns this
  */
 proto.ProtoPlayer.prototype.setStatus = function(value) {
-  return jspb.Message.setProto3EnumField(this, 6, value);
+  return jspb.Message.setProto3EnumField(this, 7, value);
 };
 
 
