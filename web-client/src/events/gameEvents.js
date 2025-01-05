@@ -4,7 +4,7 @@ export const PLAYERS_UPDATE_EVENT = 'PLAYERS_UPDATE EVENT';
 export const NEW_STREET_EVENT = 'NEW_STREET_EVENT';
 export const DEAL_PLAYERS_EVENT = 'DEAL_PLAYERS_EVENT';
 export const DEAL_BOARD_EVENT = 'DEAL_BOARD_EVENT';
-export const NEW_PLAYER_TO_ACT_EVENT = 'NEW_PLAYER_TO_ACT_EVENT';
+export const NEXT_PLAYER_TO_ACT_EVENT = 'NEXT_PLAYER_TO_ACT_EVENT';
 export const NEW_PLAYER_ACTION_EVENT = 'NEW_PLAYER_ACTION_EVENT';
 export const POT_UPDATE_EVENT = 'POT_UPDATE_EVENT';
 export const SHOWDOWN_EVENT = 'SHOWDOWN_EVENT';
@@ -12,7 +12,7 @@ export const POT_WINNER_EVENT = 'POT_WINNER_EVENT';
 
 export const playersUpdateEvent = (playersUpdate) => ({
     type: PLAYERS_UPDATE_EVENT,
-    payload: playersUpdate
+    payload: playersUpdate 
 });
 
 export const newStreetEvent = (newStreet) => ({
@@ -30,9 +30,9 @@ export const dealBoardEvent = (dealBoard) => ({
     payload: dealBoard
 });
 
-export const nextPlayerToActEvent = (newPlayerToAct) => ({
-    type: NEW_PLAYER_TO_ACT_EVENT,
-    payload: newPlayerToAct
+export const nextPlayerToActEvent = (nextPlayerToAct) => ({
+    type: NEXT_PLAYER_TO_ACT_EVENT,
+    payload: nextPlayerToAct
 });
 
 export const newPlayerActionEvent = (newPlayerAction) => ({

@@ -83,6 +83,9 @@ void BettingStreet::executeStreet() {
 
     // Event Manager: Publish PotUpdateEvent
     controller.getEventManager().publishPotUpdateEvent();
+
+    // Event Manager: Showdown (if end of RIVER reached)
+    controller.getEventManager().publishShowdownEvent();
 }
 
 void BettingStreet::transition() {

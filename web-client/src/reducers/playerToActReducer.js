@@ -1,11 +1,24 @@
-import { NEW_PLAYER_TO_ACT_EVENT } from "../events/gameEvents";
+import { NEXT_PLAYER_TO_ACT_EVENT } from "../events/gameEvents";
+import { ACTION_TYPE } from "../constants/enum";
+
+const initialState = {
+    playerToAct: 0,
+    possibleActionsList: [
+        {
+            actionType: ACTION_TYPE.NONE,
+            primaryAmount: 0,
+            secondaryAmount: 0
+        },
+    ],
+};
 
 const playerToActReducer = (state = initialState, gameEvent) => {
     switch (gameEvent.type) {
-        case NEW_PLAYER_TO_ACT_EVENT:
+        case NEXT_PLAYER_TO_ACT_EVENT:
+            console.log('PLAYER TO ACT REDUCER receieved', gameEvent.payload);
             return {
                 ...state,
-                playerToAct: gameEvent.payload.newPlayerToAct
+                ...gameEvent.payload
             };
         default:
             return state;

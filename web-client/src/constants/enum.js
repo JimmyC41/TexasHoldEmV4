@@ -1,67 +1,67 @@
 export const STREET = {
-    NONE: 'NONE',
-    PRE_FLOP: 'PRE_FLOP',
-    FLOP: 'FLOP',
-    TURN: 'TURN',
-    RIVER: 'RIVER'
+    NONE: 0,
+    PRE_FLOP: 1,
+    FLOP: 2,
+    TURN: 3,
+    RIVER: 4
 }
 
 export const SUIT = {
-    NONE: 'NONE',
-    HEARTS: 'HEARTS',
-    DIAMONDS: 'DIAMONDS',
-    CLUBS: 'CLUBS',
-    SPADES: 'SPADES'
+    NONE: 0,
+    HEARTS: 1,
+    DIAMONDS: 2,
+    CLUBS: 3,
+    SPADES: 4
 };
 
 export const VALUE = {
-    NONE: 'NONE',
-    TWO: 'TWO',
-    THREE: 'THREE',
-    FOUR: 'FOUR',
-    FIVE: 'FIVE',
-    SIX: 'SIX',
-    SEVEN: 'SEVEN',
-    EIGHT: 'EIGHT',
-    NINE: 'NINE',
-    TEN: 'TEN',
-    JACK: 'JACK',
-    QUEEN: 'QUEEN',
-    KING: 'KING',
-    ACE: 'ACE'
+    NONE: 0,
+    TWO: 2,
+    THREE: 3,
+    FOUR: 4,
+    FIVE: 5,
+    SIX: 6,
+    SEVEN: 7,
+    EIGHT: 8,
+    NINE: 9,
+    TEN: 10,
+    JACK: 11,
+    QUEEN: 12,
+    KING: 13,
+    ACE: 14
 }
 
 export const POSITION = {
-    LOBBY: 'LOBBY',
-    SMALL_BLIND: 'SMALL_BLIND',
-    BIG_BLIND: 'BIG_BLIND',
-    UTG: 'UTG',
-    UTG_1: 'UTG_1',
-    MIDDLE: 'MIDDLE',
-    LOJACK: 'LOJACK',
-    HIJACK: 'HIJACK',
-    CUT_OFF: 'CUT_OFF',
-    DEALER: 'DEALER'
+    LOBBY: 0,
+    SMALL_BLIND: 1,
+    BIG_BLIND: 2,
+    UTG: 3,
+    UTG_1: 4,
+    MIDDLE: 5,
+    LOJACK: 6,
+    HIJACK: 7,
+    CUT_OFF: 8,
+    DEALER: 9
 }
 
-export const PLAYERSTATUS = {
-    WAITING: 'WAITING',
-    IN_HAND: 'IN_HAND',
-    FOLDED: 'FOLDED',
-    ALL_IN_BET: 'ALL_IN_BET',
-    ALL_IN_CALL: 'ALL_IN_CALL'
+export const PLAYER_STATUS = {
+    WAITING: 0,
+    IN_HAND: 1,
+    FOLDED: 2,
+    ALL_IN_BET: 3,
+    ALL_IN_CALL: 4
 }
 
 export const ACTION_TYPE = {
-    NONE: 'NONE',
-    POST_SMALL: 'POST_SMALL',
-    POST_BIG: 'POST_BIG',
-    CHECK: 'CHECK',
-    BET: 'BET',
-    CALL: 'CALL',
-    RAISE: 'RAISE',
-    FOLD: 'FOLD',
-    ALL_IN_BET: 'ALL_IN_BET',
-    ALL_IN_CALL: 'ALL_IN_CALL',
-    ALL_IN_RAISE: 'ALL_IN_RAISE'
+    NONE: 0,
+    POST_SMALL: 1,
+    POST_BIG: 2,
+    CHECK: 3,
+    BET: 4,
+    CALL: 5,
+    RAISE: 6,
+    FOLD: 7,
+    ALL_IN_BET: 8,
+    ALL_IN_CALL: 9,
+    ALL_IN_RAISE: 10
 }

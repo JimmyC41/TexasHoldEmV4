@@ -1,11 +1,19 @@
 import { POT_UPDATE_EVENT } from "../events/gameEvents";
 
+const initialState = [
+    {
+        potChips: 0,
+        eligibleIdsList: []
+    }
+];
+
 const potsReducer = (state = initialState, gameEvent) => {
     switch (gameEvent.type) {
         case POT_UPDATE_EVENT:
+            console.log('POTS REDUCER', gameEvent.payload);
             return {
                 ...state,
-                updatedPots: gameEvent.payload.potUpdate
+                ...gameEvent.payload.updatedPotsList
             };
         default:
             return state;

@@ -1,1 +1,0 @@
-PS C:\Users\Jimmy\Projects\TexasHoldEmV4\web-client> protoc --proto_path=../proto texas_holdem.proto --plugin=protoc-gen-js="C:\tools\protobuf-javascript-3.21.4-win64\bin\protoc-gen-js.exe" --js_out=import_style=commonjs:./generated --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./generated

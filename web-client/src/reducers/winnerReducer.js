@@ -1,11 +1,19 @@
 import { POT_WINNER_EVENT } from "../events/gameEvents";
 
+const initialState = [
+    {
+        potChips: 0,
+        winner: ''
+    },
+];
+
 const winnerReducer = (state = initialState, gameEvent) => {
     switch (gameEvent.type) {
-        case SHOWDOWN_EVENT:
+        case POT_WINNER_EVENT:
+            console.log('WINNER REDUCER receieved', gameEvent.payload);
             return {
                 ...state,
-                potWinners: gameEvent.payload.potWinner
+                ...gameEvent.payload.potWinnersList
             };
         default:
             return state;

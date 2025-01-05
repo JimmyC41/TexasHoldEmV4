@@ -1,7 +1,7 @@
 {
   "name": "web-client",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx http-server dist --cors -p 8081"
@@ -12,21 +12,24 @@
   "type": "commonjs",
   "description": "",
   "dependencies": {
-    "@babel/preset-react": "^7.26.3",
     "google-protobuf": "^3.21.4",
     "grpc-web": "^1.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
-    "webpac": "^0.0.1-security",
-    "webpack-dev-server": "^5.2.0"
+    "redux": "^4.0.0",
+    "redux-thunk": "^3.1.0",
+    "webpac": "^0.0.1-security"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/plugin-transform-modules-commonjs": "^7.26.3",
     "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
     "babel-loader": "^9.2.1",
+    "html-webpack-plugin": "^5.6.3",
     "webpack": "^5.97.1",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
   }
 }

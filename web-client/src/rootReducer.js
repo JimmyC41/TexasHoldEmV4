@@ -1,55 +1,25 @@
 import { combineReducers } from 'redux';
 
-const initialState = {
-    street: STREET.NONE,
+import boardReducer from './reducers/boardReducer';
+import holeCardsReducer from './reducers/holeCardsReducer';
+import playerActionReducer from './reducers/playerActionReducer';
+import playersReducer from './reducers/playersReducer';
+import playerToActReducer from './reducers/playerToActReducer';
+import potsReducer from './reducers/potsReducer';
+import showdownReducer from './reducers/showdownReducer';
+import streetReducer from './reducers/streetReducer'
+import winnerReducer from './reducers/winnerReducer'
 
-    players: [
-        {
-            name: '',
-            id: '',
-            chips: 0,
-            holeCards: [
-                {
-                    suit: SUIT.NONE,
-                    value: VALUE.NONE
-                }
-            ],
-            recentBets: 0,
-            position: POSITION.LOBBY,
-            status: PLAYER_STATUS.WAITING
-        }
-    ],
+const rootReducer = combineReducers({
+    street: streetReducer,
+    players: playersReducer,
+    holeCards: holeCardsReducer,
+    communityCards: boardReducer,
+    nextPlayerToAct: playerToActReducer,
+    lastAction: playerActionReducer,
+    pots: potsReducer,
+    playersInShowdown: showdownReducer,
+    potWinners: winnerReducer,
+});
 
-    communityCards: [
-        {
-            suit: SUIT.NONE,
-            value:VALUE.NONE
-        }
-    ],
-
-    playerToAct: '',
-
-    lastAction: {
-        playerId: '',
-        action: {
-            actionType: ACTION_TYPE.NONE,
-            actionAmount: 0
-        }
-    },
-
-    updatedPots: [
-        {
-            potChips: 0,
-            eligibleIds: []
-        }
-    ],
-
-    playersInHand: [],
-
-    potWinners: [
-        {
-            potChips: 0,
-            winner: ''
-        }
-    ]
-}
+export default rootReducer;
