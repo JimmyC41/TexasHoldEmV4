@@ -6,6 +6,7 @@ const initialState = {
     players: [
         {
             name: '',
+            id: '',
             chips: 0,
             holeCards: [
                 {
@@ -27,6 +28,14 @@ const initialState = {
     ],
 
     playerToAct: '',
+
+    lastAction: {
+        playerId: '',
+        action: {
+            actionType: ACTION_TYPE.NONE,
+            actionAmount: 0
+        }
+    },
 
     updatedPots: [
         {

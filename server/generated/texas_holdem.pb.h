@@ -2833,14 +2833,15 @@ class ProtoPlayer final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kHoleCardsFieldNumber = 3,
+    kHoleCardsFieldNumber = 4,
     kNameFieldNumber = 1,
-    kChipsFieldNumber = 2,
-    kRecentBetsFieldNumber = 4,
-    kPositionFieldNumber = 5,
-    kStatusFieldNumber = 6,
+    kIdFieldNumber = 2,
+    kChipsFieldNumber = 3,
+    kRecentBetsFieldNumber = 5,
+    kPositionFieldNumber = 6,
+    kStatusFieldNumber = 7,
   };
-  // repeated .ProtoCard hole_cards = 3;
+  // repeated .ProtoCard hole_cards = 4;
   int hole_cards_size() const;
   private:
   int _internal_hole_cards_size() const;
@@ -2873,7 +2874,23 @@ class ProtoPlayer final : public ::google::protobuf::Message
   std::string* _internal_mutable_name();
 
   public:
-  // uint32 chips = 2;
+  // string id = 2;
+  void clear_id() ;
+  const std::string& id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_id(Arg_&& arg, Args_... args);
+  std::string* mutable_id();
+  PROTOBUF_NODISCARD std::string* release_id();
+  void set_allocated_id(std::string* value);
+
+  private:
+  const std::string& _internal_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_id(
+      const std::string& value);
+  std::string* _internal_mutable_id();
+
+  public:
+  // uint32 chips = 3;
   void clear_chips() ;
   ::uint32_t chips() const;
   void set_chips(::uint32_t value);
@@ -2883,7 +2900,7 @@ class ProtoPlayer final : public ::google::protobuf::Message
   void _internal_set_chips(::uint32_t value);
 
   public:
-  // uint32 recent_bets = 4;
+  // uint32 recent_bets = 5;
   void clear_recent_bets() ;
   ::uint32_t recent_bets() const;
   void set_recent_bets(::uint32_t value);
@@ -2893,7 +2910,7 @@ class ProtoPlayer final : public ::google::protobuf::Message
   void _internal_set_recent_bets(::uint32_t value);
 
   public:
-  // .ProtoPlayer.ProtoPosition position = 5;
+  // .ProtoPlayer.ProtoPosition position = 6;
   void clear_position() ;
   ::ProtoPlayer_ProtoPosition position() const;
   void set_position(::ProtoPlayer_ProtoPosition value);
@@ -2903,7 +2920,7 @@ class ProtoPlayer final : public ::google::protobuf::Message
   void _internal_set_position(::ProtoPlayer_ProtoPosition value);
 
   public:
-  // .ProtoPlayer.ProtoPlayerStatus status = 6;
+  // .ProtoPlayer.ProtoPlayerStatus status = 7;
   void clear_status() ;
   ::ProtoPlayer_ProtoPlayerStatus status() const;
   void set_status(::ProtoPlayer_ProtoPlayerStatus value);
@@ -2918,8 +2935,8 @@ class ProtoPlayer final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      3, 6, 1,
-      24, 2>
+      3, 7, 1,
+      26, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -2941,6 +2958,7 @@ class ProtoPlayer final : public ::google::protobuf::Message
                           const ProtoPlayer& from_msg);
     ::google::protobuf::RepeatedPtrField< ::ProtoCard > hole_cards_;
     ::google::protobuf::internal::ArenaStringPtr name_;
+    ::google::protobuf::internal::ArenaStringPtr id_;
     ::uint32_t chips_;
     ::uint32_t recent_bets_;
     int position_;
@@ -7083,7 +7101,57 @@ inline void ProtoPlayer::set_allocated_name(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:ProtoPlayer.name)
 }
 
-// uint32 chips = 2;
+// string id = 2;
+inline void ProtoPlayer::clear_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.id_.ClearToEmpty();
+}
+inline const std::string& ProtoPlayer::id() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:ProtoPlayer.id)
+  return _internal_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void ProtoPlayer::set_id(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:ProtoPlayer.id)
+}
+inline std::string* ProtoPlayer::mutable_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_id();
+  // @@protoc_insertion_point(field_mutable:ProtoPlayer.id)
+  return _s;
+}
+inline const std::string& ProtoPlayer::_internal_id() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.id_.Get();
+}
+inline void ProtoPlayer::_internal_set_id(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.id_.Set(value, GetArena());
+}
+inline std::string* ProtoPlayer::_internal_mutable_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.id_.Mutable( GetArena());
+}
+inline std::string* ProtoPlayer::release_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:ProtoPlayer.id)
+  return _impl_.id_.Release();
+}
+inline void ProtoPlayer::set_allocated_id(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.id_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.id_.IsDefault()) {
+          _impl_.id_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:ProtoPlayer.id)
+}
+
+// uint32 chips = 3;
 inline void ProtoPlayer::clear_chips() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.chips_ = 0u;
@@ -7105,7 +7173,7 @@ inline void ProtoPlayer::_internal_set_chips(::uint32_t value) {
   _impl_.chips_ = value;
 }
 
-// repeated .ProtoCard hole_cards = 3;
+// repeated .ProtoCard hole_cards = 4;
 inline int ProtoPlayer::_internal_hole_cards_size() const {
   return _internal_hole_cards().size();
 }
@@ -7154,7 +7222,7 @@ ProtoPlayer::_internal_mutable_hole_cards() {
   return &_impl_.hole_cards_;
 }
 
-// uint32 recent_bets = 4;
+// uint32 recent_bets = 5;
 inline void ProtoPlayer::clear_recent_bets() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.recent_bets_ = 0u;
@@ -7176,7 +7244,7 @@ inline void ProtoPlayer::_internal_set_recent_bets(::uint32_t value) {
   _impl_.recent_bets_ = value;
 }
 
-// .ProtoPlayer.ProtoPosition position = 5;
+// .ProtoPlayer.ProtoPosition position = 6;
 inline void ProtoPlayer::clear_position() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.position_ = 0;
@@ -7198,7 +7266,7 @@ inline void ProtoPlayer::_internal_set_position(::ProtoPlayer_ProtoPosition valu
   _impl_.position_ = value;
 }
 
-// .ProtoPlayer.ProtoPlayerStatus status = 6;
+// .ProtoPlayer.ProtoPlayerStatus status = 7;
 inline void ProtoPlayer::clear_status() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.status_ = 0;

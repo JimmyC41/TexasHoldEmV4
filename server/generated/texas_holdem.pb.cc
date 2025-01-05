@@ -280,6 +280,9 @@ inline constexpr ProtoPlayer::Impl_::Impl_(
         name_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
+        id_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
         chips_{0u},
         recent_bets_{0u},
         position_{static_cast< ::ProtoPlayer_ProtoPosition >(0)},
@@ -708,6 +711,7 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::ProtoPlayer, _impl_.name_),
+        PROTOBUF_FIELD_OFFSET(::ProtoPlayer, _impl_.id_),
         PROTOBUF_FIELD_OFFSET(::ProtoPlayer, _impl_.chips_),
         PROTOBUF_FIELD_OFFSET(::ProtoPlayer, _impl_.hole_cards_),
         PROTOBUF_FIELD_OFFSET(::ProtoPlayer, _impl_.recent_bets_),
@@ -816,35 +820,36 @@ const char descriptor_table_protodef_texas_5fholdem_2eproto[] ABSL_ATTRIBUTE_SEC
     "UNSPECIFIED\020\000\022\007\n\003TWO\020\002\022\t\n\005THREE\020\003\022\010\n\004FOU"
     "R\020\004\022\010\n\004FIVE\020\005\022\007\n\003SIX\020\006\022\t\n\005SEVEN\020\007\022\t\n\005EIG"
     "HT\020\010\022\010\n\004NINE\020\t\022\007\n\003TEN\020\n\022\010\n\004JACK\020\013\022\t\n\005QUE"
-    "EN\020\014\022\010\n\004KING\020\r\022\007\n\003ACE\020\016\"\247\003\n\013ProtoPlayer\022"
-    "\014\n\004name\030\001 \001(\t\022\r\n\005chips\030\002 \001(\r\022\036\n\nhole_car"
-    "ds\030\003 \003(\0132\n.ProtoCard\022\023\n\013recent_bets\030\004 \001("
-    "\r\022,\n\010position\030\005 \001(\0162\032.ProtoPlayer.ProtoP"
-    "osition\022.\n\006status\030\006 \001(\0162\036.ProtoPlayer.Pr"
-    "otoPlayerStatus\"\213\001\n\rProtoPosition\022\t\n\005LOB"
-    "BY\020\000\022\017\n\013SMALL_BLIND\020\001\022\r\n\tBIG_BLIND\020\002\022\007\n\003"
-    "UTG\020\003\022\t\n\005UTG_1\020\004\022\n\n\006MIDDLE\020\005\022\n\n\006LOJACK\020\006"
-    "\022\n\n\006HIJACK\020\007\022\013\n\007CUT_OFF\020\010\022\n\n\006DEALER\020\t\"Z\n"
-    "\021ProtoPlayerStatus\022\013\n\007WAITING\020\000\022\013\n\007IN_HA"
-    "ND\020\001\022\n\n\006FOLDED\020\002\022\016\n\nALL_IN_BET\020\003\022\017\n\013ALL_"
-    "IN_CALL\020\004*R\n\013ProtoStreet\022\026\n\022STREET_UNSPE"
-    "CIFIED\020\000\022\014\n\010PRE_FLOP\020\001\022\010\n\004FLOP\020\002\022\010\n\004TURN"
-    "\020\003\022\t\n\005RIVER\020\004*\255\001\n\017ProtoActionType\022\026\n\022ACT"
-    "ION_UNSPECIFIED\020\000\022\016\n\nPOST_SMALL\020\001\022\014\n\010POS"
-    "T_BIG\020\002\022\t\n\005CHECK\020\003\022\007\n\003BET\020\004\022\010\n\004CALL\020\005\022\t\n"
-    "\005RAISE\020\006\022\010\n\004FOLD\020\007\022\016\n\nALL_IN_BET\020\010\022\017\n\013AL"
-    "L_IN_CALL\020\t\022\020\n\014ALL_IN_RAISE\020\n2\303\001\n\014PokerS"
-    "ervice\022.\n\nGameStream\022\016.GameStreamReq\032\016.G"
-    "ameStreamRes0\001\022\'\n\010JoinGame\022\014.JoinGameReq"
-    "\032\r.PlayerReqRes\022)\n\tLeaveGame\022\r.LeaveGame"
-    "Req\032\r.PlayerReqRes\022/\n\014PlayerAction\022\020.Pla"
-    "yerActionReq\032\r.PlayerReqResb\006proto3"
+    "EN\020\014\022\010\n\004KING\020\r\022\007\n\003ACE\020\016\"\263\003\n\013ProtoPlayer\022"
+    "\014\n\004name\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\022\r\n\005chips\030\003 \001(\r"
+    "\022\036\n\nhole_cards\030\004 \003(\0132\n.ProtoCard\022\023\n\013rece"
+    "nt_bets\030\005 \001(\r\022,\n\010position\030\006 \001(\0162\032.ProtoP"
+    "layer.ProtoPosition\022.\n\006status\030\007 \001(\0162\036.Pr"
+    "otoPlayer.ProtoPlayerStatus\"\213\001\n\rProtoPos"
+    "ition\022\t\n\005LOBBY\020\000\022\017\n\013SMALL_BLIND\020\001\022\r\n\tBIG"
+    "_BLIND\020\002\022\007\n\003UTG\020\003\022\t\n\005UTG_1\020\004\022\n\n\006MIDDLE\020\005"
+    "\022\n\n\006LOJACK\020\006\022\n\n\006HIJACK\020\007\022\013\n\007CUT_OFF\020\010\022\n\n"
+    "\006DEALER\020\t\"Z\n\021ProtoPlayerStatus\022\013\n\007WAITIN"
+    "G\020\000\022\013\n\007IN_HAND\020\001\022\n\n\006FOLDED\020\002\022\016\n\nALL_IN_B"
+    "ET\020\003\022\017\n\013ALL_IN_CALL\020\004*R\n\013ProtoStreet\022\026\n\022"
+    "STREET_UNSPECIFIED\020\000\022\014\n\010PRE_FLOP\020\001\022\010\n\004FL"
+    "OP\020\002\022\010\n\004TURN\020\003\022\t\n\005RIVER\020\004*\255\001\n\017ProtoActio"
+    "nType\022\026\n\022ACTION_UNSPECIFIED\020\000\022\016\n\nPOST_SM"
+    "ALL\020\001\022\014\n\010POST_BIG\020\002\022\t\n\005CHECK\020\003\022\007\n\003BET\020\004\022"
+    "\010\n\004CALL\020\005\022\t\n\005RAISE\020\006\022\010\n\004FOLD\020\007\022\016\n\nALL_IN"
+    "_BET\020\010\022\017\n\013ALL_IN_CALL\020\t\022\020\n\014ALL_IN_RAISE\020"
+    "\n2\303\001\n\014PokerService\022.\n\nGameStream\022\016.GameS"
+    "treamReq\032\016.GameStreamRes0\001\022\'\n\010JoinGame\022\014"
+    ".JoinGameReq\032\r.PlayerReqRes\022)\n\tLeaveGame"
+    "\022\r.LeaveGameReq\032\r.PlayerReqRes\022/\n\014Player"
+    "Action\022\020.PlayerActionReq\032\r.PlayerReqResb"
+    "\006proto3"
 };
 static ::absl::once_flag descriptor_table_texas_5fholdem_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_texas_5fholdem_2eproto = {
     false,
     false,
-    2915,
+    2927,
     descriptor_table_protodef_texas_5fholdem_2eproto,
     "texas_holdem.proto",
     &descriptor_table_texas_5fholdem_2eproto_once,
@@ -5785,6 +5790,7 @@ inline PROTOBUF_NDEBUG_INLINE ProtoPlayer::Impl_::Impl_(
     const Impl_& from, const ::ProtoPlayer& from_msg)
       : hole_cards_{visibility, arena, from.hole_cards_},
         name_(arena, from.name_),
+        id_(arena, from.id_),
         _cached_size_{0} {}
 
 ProtoPlayer::ProtoPlayer(
@@ -5811,6 +5817,7 @@ inline PROTOBUF_NDEBUG_INLINE ProtoPlayer::Impl_::Impl_(
     ::google::protobuf::Arena* arena)
       : hole_cards_{visibility, arena},
         name_(arena),
+        id_(arena),
         _cached_size_{0} {}
 
 inline void ProtoPlayer::SharedCtor(::_pb::Arena* arena) {
@@ -5830,6 +5837,7 @@ ProtoPlayer::~ProtoPlayer() {
 inline void ProtoPlayer::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
   _impl_.name_.Destroy();
+  _impl_.id_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -5854,15 +5862,15 @@ ProtoPlayer::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<3, 6, 1, 24, 2> ProtoPlayer::_table_ = {
+const ::_pbi::TcParseTable<3, 7, 1, 26, 2> ProtoPlayer::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    6, 56,  // max_field_number, fast_idx_mask
+    7, 56,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967232,  // skipmap
+    4294967168,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    6,  // num_field_entries
+    7,  // num_field_entries
     1,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     &_ProtoPlayer_default_instance_._instance,
@@ -5876,49 +5884,55 @@ const ::_pbi::TcParseTable<3, 6, 1, 24, 2> ProtoPlayer::_table_ = {
     // string name = 1;
     {::_pbi::TcParser::FastUS1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.name_)}},
-    // uint32 chips = 2;
+    // string id = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.id_)}},
+    // uint32 chips = 3;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ProtoPlayer, _impl_.chips_), 63>(),
-     {16, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.chips_)}},
-    // repeated .ProtoCard hole_cards = 3;
+     {24, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.chips_)}},
+    // repeated .ProtoCard hole_cards = 4;
     {::_pbi::TcParser::FastMtR1,
-     {26, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.hole_cards_)}},
-    // uint32 recent_bets = 4;
+     {34, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.hole_cards_)}},
+    // uint32 recent_bets = 5;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ProtoPlayer, _impl_.recent_bets_), 63>(),
-     {32, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.recent_bets_)}},
-    // .ProtoPlayer.ProtoPosition position = 5;
+     {40, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.recent_bets_)}},
+    // .ProtoPlayer.ProtoPosition position = 6;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ProtoPlayer, _impl_.position_), 63>(),
-     {40, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.position_)}},
-    // .ProtoPlayer.ProtoPlayerStatus status = 6;
+     {48, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.position_)}},
+    // .ProtoPlayer.ProtoPlayerStatus status = 7;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ProtoPlayer, _impl_.status_), 63>(),
-     {48, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.status_)}},
-    {::_pbi::TcParser::MiniParse, {}},
+     {56, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.status_)}},
   }}, {{
     65535, 65535
   }}, {{
     // string name = 1;
     {PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.name_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // uint32 chips = 2;
+    // string id = 2;
+    {PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // uint32 chips = 3;
     {PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.chips_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
-    // repeated .ProtoCard hole_cards = 3;
+    // repeated .ProtoCard hole_cards = 4;
     {PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.hole_cards_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
-    // uint32 recent_bets = 4;
+    // uint32 recent_bets = 5;
     {PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.recent_bets_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
-    // .ProtoPlayer.ProtoPosition position = 5;
+    // .ProtoPlayer.ProtoPosition position = 6;
     {PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.position_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
-    // .ProtoPlayer.ProtoPlayerStatus status = 6;
+    // .ProtoPlayer.ProtoPlayerStatus status = 7;
     {PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.status_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
   }}, {{
     {::_pbi::TcParser::GetTable<::ProtoCard>()},
   }}, {{
-    "\13\4\0\0\0\0\0\0"
+    "\13\4\2\0\0\0\0\0"
     "ProtoPlayer"
     "name"
+    "id"
   }},
 };
 
@@ -5931,6 +5945,7 @@ PROTOBUF_NOINLINE void ProtoPlayer::Clear() {
 
   _impl_.hole_cards_.Clear();
   _impl_.name_.ClearToEmpty();
+  _impl_.id_.ClearToEmpty();
   ::memset(&_impl_.chips_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.status_) -
       reinterpret_cast<char*>(&_impl_.chips_)) + sizeof(_impl_.status_));
@@ -5952,43 +5967,51 @@ PROTOBUF_NOINLINE void ProtoPlayer::Clear() {
     target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
-  // uint32 chips = 2;
+  // string id = 2;
+  if (!this->_internal_id().empty()) {
+    const std::string& _s = this->_internal_id();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "ProtoPlayer.id");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
+  }
+
+  // uint32 chips = 3;
   if (this->_internal_chips() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
-        2, this->_internal_chips(), target);
+        3, this->_internal_chips(), target);
   }
 
-  // repeated .ProtoCard hole_cards = 3;
+  // repeated .ProtoCard hole_cards = 4;
   for (unsigned i = 0, n = static_cast<unsigned>(
                            this->_internal_hole_cards_size());
        i < n; i++) {
     const auto& repfield = this->_internal_hole_cards().Get(i);
     target =
         ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-            3, repfield, repfield.GetCachedSize(),
+            4, repfield, repfield.GetCachedSize(),
             target, stream);
   }
 
-  // uint32 recent_bets = 4;
+  // uint32 recent_bets = 5;
   if (this->_internal_recent_bets() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
-        4, this->_internal_recent_bets(), target);
+        5, this->_internal_recent_bets(), target);
   }
 
-  // .ProtoPlayer.ProtoPosition position = 5;
+  // .ProtoPlayer.ProtoPosition position = 6;
   if (this->_internal_position() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        5, this->_internal_position(), target);
+        6, this->_internal_position(), target);
   }
 
-  // .ProtoPlayer.ProtoPlayerStatus status = 6;
+  // .ProtoPlayer.ProtoPlayerStatus status = 7;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        6, this->_internal_status(), target);
+        7, this->_internal_status(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6009,7 +6032,7 @@ PROTOBUF_NOINLINE void ProtoPlayer::Clear() {
   (void) cached_has_bits;
 
   ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // repeated .ProtoCard hole_cards = 3;
+  // repeated .ProtoCard hole_cards = 4;
   total_size += 1UL * this->_internal_hole_cards_size();
   for (const auto& msg : this->_internal_hole_cards()) {
     total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
@@ -6020,25 +6043,31 @@ PROTOBUF_NOINLINE void ProtoPlayer::Clear() {
                                     this->_internal_name());
   }
 
-  // uint32 chips = 2;
+  // string id = 2;
+  if (!this->_internal_id().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_id());
+  }
+
+  // uint32 chips = 3;
   if (this->_internal_chips() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_chips());
   }
 
-  // uint32 recent_bets = 4;
+  // uint32 recent_bets = 5;
   if (this->_internal_recent_bets() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_recent_bets());
   }
 
-  // .ProtoPlayer.ProtoPosition position = 5;
+  // .ProtoPlayer.ProtoPosition position = 6;
   if (this->_internal_position() != 0) {
     total_size += 1 +
                   ::_pbi::WireFormatLite::EnumSize(this->_internal_position());
   }
 
-  // .ProtoPlayer.ProtoPlayerStatus status = 6;
+  // .ProtoPlayer.ProtoPlayerStatus status = 7;
   if (this->_internal_status() != 0) {
     total_size += 1 +
                   ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
@@ -6060,6 +6089,9 @@ void ProtoPlayer::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::goo
       from._internal_hole_cards());
   if (!from._internal_name().empty()) {
     _this->_internal_set_name(from._internal_name());
+  }
+  if (!from._internal_id().empty()) {
+    _this->_internal_set_id(from._internal_id());
   }
   if (from._internal_chips() != 0) {
     _this->_impl_.chips_ = from._impl_.chips_;
@@ -6091,6 +6123,7 @@ void ProtoPlayer::InternalSwap(ProtoPlayer* PROTOBUF_RESTRICT other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.hole_cards_.InternalSwap(&other->_impl_.hole_cards_);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, &other->_impl_.name_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.id_, &other->_impl_.id_, arena);
   ::google::protobuf::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ProtoPlayer, _impl_.status_)
       + sizeof(ProtoPlayer::_impl_.status_)

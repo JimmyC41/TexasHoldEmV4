@@ -156,9 +156,10 @@ message ProtoCard {
 
 message ProtoPlayer {
     string name = 1;
-    uint32 chips = 2;
-    repeated ProtoCard hole_cards = 3;
-    uint32 recent_bets = 4;
+    string id = 2;
+    uint32 chips = 3;
+    repeated ProtoCard hole_cards = 4;
+    uint32 recent_bets = 5;
 
     enum ProtoPosition {
         LOBBY = 0;
@@ -173,7 +174,7 @@ message ProtoPlayer {
         DEALER = 9;
     }
 
-    ProtoPosition position = 5;
+    ProtoPosition position = 6;
 
     enum ProtoPlayerStatus {
         WAITING = 0;
@@ -183,7 +184,7 @@ message ProtoPlayer {
         ALL_IN_CALL = 4;
     }
 
-    ProtoPlayerStatus status = 6;
+    ProtoPlayerStatus status = 7;
 }
 
 enum ProtoStreet {

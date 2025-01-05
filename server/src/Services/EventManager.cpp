@@ -49,6 +49,7 @@ void EventManager::publishPlayersUpdateEvent() {
     for (const auto& player : players) {
         ProtoPlayer* cur = playersUpdate->add_new_players();
         cur->set_name(player->getName());
+        cur->set_id(player->getId());
         cur->set_chips(player->getCurChips());
         cur->set_recent_bets(player->getRecentBet());
         cur->set_status(ProtoUtil::toProtoStatus(player->getPlayerStatus()));

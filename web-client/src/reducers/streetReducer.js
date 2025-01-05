@@ -1,5 +1,4 @@
 import { NEW_STREET_EVENT } from "../events/gameEvents";
-import { STREET } from "../constants/enum";
 
 const streetReducer = (state = initialState, gameEvent) => {
     switch (gameEvent.type) {

@@ -6,7 +6,7 @@ const holeCardsReducer = (state = initialState, gameEvent) => {
             return {
                 ...state,
                 players: state.players.map(player => {
-                    const update = gameEvent.payload.find(update => update.name === player.name);
+                    const update = gameEvent.payload.find(update => update.id === player.id);
                     if (update) {
                         return { ...player, ...holeCards.update.holeCards };
                     }
