@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { joinGame } from '../grpc/unaryCalls';
 import { gameStream } from '../grpc/streamingCalls';
+import { useDispatch } from 'react-redux';
 
 const JoinGameComponent = () => {
+  const dispatch = useDispatch();
   const [playerName, setPlayerName] = useState('');
   const [chips, setChips] = useState(0);
+  const [stream, setStream] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleJoinGame = async () => {
@@ -12,6 +15,8 @@ const JoinGameComponent = () => {
       const response = await joinGame(playerName, chips);
       if (response.success) {
         console.log(response.message);
+        const newStream = gameStream(playerName, dispatch);
+        setStream(newStream);
       }
       else {
         setErrorMessage(response.message);
