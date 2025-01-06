@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { joinGame } from '../api/grpc';  // Import the joinGame method
-import { playersUpdateEvent } from '../events/gameEvents';  // Import actions
+import { joinGame } from '../grpc/unaryCalls';
+import { gameStream } from '../grpc/streamingCalls';
 
 const JoinGameComponent = () => {
   const [playerName, setPlayerName] = useState('');
   const [chips, setChips] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
-  const dispatch = useDispatch();
 
   const handleJoinGame = async () => {
     try {
       const response = await joinGame(playerName, chips);
       if (response.success) {
-        console.log('Player joined successfully:', response.message);
-      } else {
-        setErrorMessage(response.message);  // Show error message if join fails
+        console.log(response.message);
+      }
+      else {
+        setErrorMessage(response.message);
       }
     } catch (error) {
-      console.error('Error joining game:', error);
-      setErrorMessage('Failed to join the game');
+      console.error(error);
+      setErrorMessage('An unexpected error occured. Try again.');
     }
   };
 

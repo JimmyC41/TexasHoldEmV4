@@ -1,4 +1,4 @@
-import { SHOWDOWN_EVENT } from "../events/gameEvents";
+import { SHOWDOWN_EVENT } from "../grpc/gameEvents";
 
 const initialState = [ '' ];
 

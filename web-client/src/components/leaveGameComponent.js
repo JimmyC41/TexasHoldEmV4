@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { leaveGame } from '../api/grpc';  // Import the leaveGame method
-import { playersUpdateEvent } from '../events/gameEvents';  // Import actions
+import { leaveGame } from '../grpc/unaryCalls';
 
 const LeaveGameComponent = () => {
   const [playerName, setPlayerName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const dispatch = useDispatch();
 
   const handleLeaveGame = async () => {
     try {

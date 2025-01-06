@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-
 import boardReducer from './reducers/boardReducer';
 import holeCardsReducer from './reducers/holeCardsReducer';
 import playerActionReducer from './reducers/playerActionReducer';

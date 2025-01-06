@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { gameStream } from '../api/grpc';  // Assuming gameStream is in grpc.js
+import { gameStream } from '../grpc/streamingCalls'
 
 const SubscribeGameComponent = ({ playerId }) => {
   const dispatch = useDispatch();
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [stream, setStream] = useState(null);
-  const [inputValue, setInputValue] = useState('');  // Handle input state
+  const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);  // Update input value as the user types

@@ -1,5 +1,5 @@
-import { NEW_PLAYER_ACTION_EVENT } from "../events/gameEvents";
-import { ACTION_TYPE } from "../constants/enum";
+import { NEW_PLAYER_ACTION_EVENT } from "../grpc/gameEvents";
+import { ACTION_TYPE } from "../enum";
 
 const initialState =  {
     action: 

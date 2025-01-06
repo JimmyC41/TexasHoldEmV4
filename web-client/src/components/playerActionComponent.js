@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { playerAction } from '../api/grpc';  // Import the playerAction method
-import { newPlayerActionEvent } from '../events/gameEvents';  // Import actions
+import { playerAction } from '../grpc/unaryCalls';
 
 const PlayerActionComponent = () => {
   const [playerId, setPlayerId] = useState('');
