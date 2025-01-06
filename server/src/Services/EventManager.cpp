@@ -6,11 +6,8 @@
 #include <google/protobuf/util/json_util.h>
 #include <iostream>
 
-using PlayerCard = DealPlayersEvent_PlayerCard;
-using ProtoPossibleAction = NewPlayerToActEvent_ProtoPossibleAction;
-using ProtoAction = NewPlayerActionEvent_ProtoAction;
-using ProtoPot = PotUpdateEvent_ProtoPot;
-using PotWinner = PotWinnerEvent_PotWinner;
+using ProtoPossibleAction = PlayerToActInfo_ProtoPossibleAction;
+using ProtoAction = PlayerActionInfo_ProtoAction;
 
 EventManager::EventManager(GameData& gameData) : gameData(gameData) {}
 
@@ -116,13 +113,14 @@ void EventManager::publishDealBoardEvent() {
 void EventManager::publishNewPlayerToActEvent() {
     GameStreamRes event;
     NewPlayerToActEvent* newPlayerToAct = event.mutable_next_player_to_act();
+    PlayerToActInfo* playerToActInfo = newPlayerToAct->mutable_player_to_act_info();
 
     string id = GameUtil::getCurPlayerId(gameData);
-    newPlayerToAct->set_player_to_act(id);
+    playerToActInfo->set_player_to_act(id);
 
     vector<shared_ptr<PossibleAction>> possibleActions = gameData.getPossibleActions();
     for (const auto& action : possibleActions) {
-        ProtoPossibleAction* cur = newPlayerToAct->add_possible_actions();
+        ProtoPossibleAction* cur = playerToActInfo->add_possible_actions();
         cur->set_action_type(ProtoUtil::toProtoType(action->getActionType()));
         cur->set_primary_amount(action->getPrimaryAmount());
         cur->set_secondary_amount(action->getSecondaryAmount());
@@ -135,12 +133,13 @@ void EventManager::publishNewPlayerToActEvent() {
 void EventManager::publishNewPlayerActionEvent() {
     GameStreamRes event;
     NewPlayerActionEvent* newPlayerAction = event.mutable_new_player_action();
+    PlayerActionInfo* playerActionInfo = newPlayerAction->mutable_player_action_info();
 
     string id = GameUtil::getCurPlayerId(gameData);
-    newPlayerAction->set_player_id(id);
+    playerActionInfo->set_player_id(id);
 
     shared_ptr<Action> lastAction = GameUtil::getLastAction(gameData);
-    ProtoAction* action = newPlayerAction->mutable_action();
+    ProtoAction* action = playerActionInfo->mutable_action();
     action->set_action_type(ProtoUtil::toProtoType(lastAction->getActionType()));
     action->set_action_amount(lastAction->getAmount());
 

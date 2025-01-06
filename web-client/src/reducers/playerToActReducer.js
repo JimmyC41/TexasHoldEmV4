@@ -18,7 +18,7 @@ const playerToActReducer = (state = initialState, gameEvent) => {
             console.log('PLAYER TO ACT REDUCER receieved', gameEvent.payload);
             return {
                 ...state,
-                ...gameEvent.payload
+                ...gameEvent.payload.playerToActInfo
             };
         default:
             return state;

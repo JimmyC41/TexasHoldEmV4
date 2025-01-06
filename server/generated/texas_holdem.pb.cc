@@ -43,6 +43,26 @@ struct ShowdownEventDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ShowdownEventDefaultTypeInternal _ShowdownEvent_default_instance_;
 
+inline constexpr ProtoPot::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : eligible_ids_{},
+        pot_chips_{0u},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR ProtoPot::ProtoPot(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct ProtoPotDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ProtoPotDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ProtoPotDefaultTypeInternal() {}
+  union {
+    ProtoPot _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProtoPotDefaultTypeInternal _ProtoPot_default_instance_;
+
 inline constexpr ProtoPlayer::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : name_(
@@ -91,7 +111,7 @@ struct ProtoCardDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProtoCardDefaultTypeInternal _ProtoCard_default_instance_;
 
-inline constexpr PotWinnerEvent_PotWinner::Impl_::Impl_(
+inline constexpr PotWinner::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : winner_(
             &::google::protobuf::internal::fixed_address_empty_string,
@@ -100,38 +120,39 @@ inline constexpr PotWinnerEvent_PotWinner::Impl_::Impl_(
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR PotWinnerEvent_PotWinner::PotWinnerEvent_PotWinner(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR PotWinner::PotWinner(::_pbi::ConstantInitialized)
     : _impl_(::_pbi::ConstantInitialized()) {}
-struct PotWinnerEvent_PotWinnerDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PotWinnerEvent_PotWinnerDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~PotWinnerEvent_PotWinnerDefaultTypeInternal() {}
+struct PotWinnerDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PotWinnerDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PotWinnerDefaultTypeInternal() {}
   union {
-    PotWinnerEvent_PotWinner _instance;
+    PotWinner _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PotWinnerEvent_PotWinnerDefaultTypeInternal _PotWinnerEvent_PotWinner_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PotWinnerDefaultTypeInternal _PotWinner_default_instance_;
 
-inline constexpr PotUpdateEvent_ProtoPot::Impl_::Impl_(
+inline constexpr PlayerToActInfo_ProtoPossibleAction::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : eligible_ids_{},
-        pot_chips_{0u},
+      : action_type_{static_cast< ::ProtoActionType >(0)},
+        primary_amount_{0u},
+        secondary_amount_{0u},
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR PotUpdateEvent_ProtoPot::PotUpdateEvent_ProtoPot(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR PlayerToActInfo_ProtoPossibleAction::PlayerToActInfo_ProtoPossibleAction(::_pbi::ConstantInitialized)
     : _impl_(::_pbi::ConstantInitialized()) {}
-struct PotUpdateEvent_ProtoPotDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PotUpdateEvent_ProtoPotDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~PotUpdateEvent_ProtoPotDefaultTypeInternal() {}
+struct PlayerToActInfo_ProtoPossibleActionDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PlayerToActInfo_ProtoPossibleActionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PlayerToActInfo_ProtoPossibleActionDefaultTypeInternal() {}
   union {
-    PotUpdateEvent_ProtoPot _instance;
+    PlayerToActInfo_ProtoPossibleAction _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PotUpdateEvent_ProtoPotDefaultTypeInternal _PotUpdateEvent_ProtoPot_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayerToActInfo_ProtoPossibleActionDefaultTypeInternal _PlayerToActInfo_ProtoPossibleAction_default_instance_;
 
 inline constexpr PlayerReqRes::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -181,6 +202,26 @@ struct PlayerActionReqDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayerActionReqDefaultTypeInternal _PlayerActionReq_default_instance_;
 
+inline constexpr PlayerActionInfo_ProtoAction::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : action_type_{static_cast< ::ProtoActionType >(0)},
+        action_amount_{0u},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR PlayerActionInfo_ProtoAction::PlayerActionInfo_ProtoAction(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct PlayerActionInfo_ProtoActionDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PlayerActionInfo_ProtoActionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PlayerActionInfo_ProtoActionDefaultTypeInternal() {}
+  union {
+    PlayerActionInfo_ProtoAction _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayerActionInfo_ProtoActionDefaultTypeInternal _PlayerActionInfo_ProtoAction_default_instance_;
+
 inline constexpr NewStreetEvent::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : new_street_{static_cast< ::ProtoStreet >(0)},
@@ -199,47 +240,6 @@ struct NewStreetEventDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NewStreetEventDefaultTypeInternal _NewStreetEvent_default_instance_;
-
-inline constexpr NewPlayerToActEvent_ProtoPossibleAction::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : action_type_{static_cast< ::ProtoActionType >(0)},
-        primary_amount_{0u},
-        secondary_amount_{0u},
-        _cached_size_{0} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR NewPlayerToActEvent_ProtoPossibleAction::NewPlayerToActEvent_ProtoPossibleAction(::_pbi::ConstantInitialized)
-    : _impl_(::_pbi::ConstantInitialized()) {}
-struct NewPlayerToActEvent_ProtoPossibleActionDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NewPlayerToActEvent_ProtoPossibleActionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~NewPlayerToActEvent_ProtoPossibleActionDefaultTypeInternal() {}
-  union {
-    NewPlayerToActEvent_ProtoPossibleAction _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NewPlayerToActEvent_ProtoPossibleActionDefaultTypeInternal _NewPlayerToActEvent_ProtoPossibleAction_default_instance_;
-
-inline constexpr NewPlayerActionEvent_ProtoAction::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : action_type_{static_cast< ::ProtoActionType >(0)},
-        action_amount_{0u},
-        _cached_size_{0} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR NewPlayerActionEvent_ProtoAction::NewPlayerActionEvent_ProtoAction(::_pbi::ConstantInitialized)
-    : _impl_(::_pbi::ConstantInitialized()) {}
-struct NewPlayerActionEvent_ProtoActionDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NewPlayerActionEvent_ProtoActionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~NewPlayerActionEvent_ProtoActionDefaultTypeInternal() {}
-  union {
-    NewPlayerActionEvent_ProtoAction _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NewPlayerActionEvent_ProtoActionDefaultTypeInternal _NewPlayerActionEvent_ProtoAction_default_instance_;
 
 inline constexpr LeaveGameReq::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -362,7 +362,7 @@ struct PlayersUpdateEventDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayersUpdateEventDefaultTypeInternal _PlayersUpdateEvent_default_instance_;
 
-inline constexpr NewPlayerToActEvent::Impl_::Impl_(
+inline constexpr PlayerToActInfo::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : possible_actions_{},
         player_to_act_(
@@ -371,42 +371,20 @@ inline constexpr NewPlayerToActEvent::Impl_::Impl_(
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR NewPlayerToActEvent::NewPlayerToActEvent(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR PlayerToActInfo::PlayerToActInfo(::_pbi::ConstantInitialized)
     : _impl_(::_pbi::ConstantInitialized()) {}
-struct NewPlayerToActEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NewPlayerToActEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~NewPlayerToActEventDefaultTypeInternal() {}
+struct PlayerToActInfoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PlayerToActInfoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PlayerToActInfoDefaultTypeInternal() {}
   union {
-    NewPlayerToActEvent _instance;
+    PlayerToActInfo _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NewPlayerToActEventDefaultTypeInternal _NewPlayerToActEvent_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayerToActInfoDefaultTypeInternal _PlayerToActInfo_default_instance_;
 
-inline constexpr NewPlayerActionEvent::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : _cached_size_{0},
-        player_id_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
-        action_{nullptr} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR NewPlayerActionEvent::NewPlayerActionEvent(::_pbi::ConstantInitialized)
-    : _impl_(::_pbi::ConstantInitialized()) {}
-struct NewPlayerActionEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NewPlayerActionEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~NewPlayerActionEventDefaultTypeInternal() {}
-  union {
-    NewPlayerActionEvent _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NewPlayerActionEventDefaultTypeInternal _NewPlayerActionEvent_default_instance_;
-
-inline constexpr DealPlayersEvent_PlayerCard::Impl_::Impl_(
+inline constexpr PlayerCard::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : hole_cards_{},
         player_id_(
@@ -415,18 +393,40 @@ inline constexpr DealPlayersEvent_PlayerCard::Impl_::Impl_(
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR DealPlayersEvent_PlayerCard::DealPlayersEvent_PlayerCard(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR PlayerCard::PlayerCard(::_pbi::ConstantInitialized)
     : _impl_(::_pbi::ConstantInitialized()) {}
-struct DealPlayersEvent_PlayerCardDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DealPlayersEvent_PlayerCardDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~DealPlayersEvent_PlayerCardDefaultTypeInternal() {}
+struct PlayerCardDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PlayerCardDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PlayerCardDefaultTypeInternal() {}
   union {
-    DealPlayersEvent_PlayerCard _instance;
+    PlayerCard _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DealPlayersEvent_PlayerCardDefaultTypeInternal _DealPlayersEvent_PlayerCard_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayerCardDefaultTypeInternal _PlayerCard_default_instance_;
+
+inline constexpr PlayerActionInfo::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        player_id_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        action_{nullptr} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR PlayerActionInfo::PlayerActionInfo(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct PlayerActionInfoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PlayerActionInfoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PlayerActionInfoDefaultTypeInternal() {}
+  union {
+    PlayerActionInfo _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayerActionInfoDefaultTypeInternal _PlayerActionInfo_default_instance_;
 
 inline constexpr DealBoardEvent::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -446,6 +446,44 @@ struct DealBoardEventDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DealBoardEventDefaultTypeInternal _DealBoardEvent_default_instance_;
+
+inline constexpr NewPlayerToActEvent::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        player_to_act_info_{nullptr} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR NewPlayerToActEvent::NewPlayerToActEvent(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct NewPlayerToActEventDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NewPlayerToActEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NewPlayerToActEventDefaultTypeInternal() {}
+  union {
+    NewPlayerToActEvent _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NewPlayerToActEventDefaultTypeInternal _NewPlayerToActEvent_default_instance_;
+
+inline constexpr NewPlayerActionEvent::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        player_action_info_{nullptr} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR NewPlayerActionEvent::NewPlayerActionEvent(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct NewPlayerActionEventDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NewPlayerActionEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NewPlayerActionEventDefaultTypeInternal() {}
+  union {
+    NewPlayerActionEvent _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NewPlayerActionEventDefaultTypeInternal _NewPlayerActionEvent_default_instance_;
 
 inline constexpr DealPlayersEvent::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -578,16 +616,6 @@ const ::uint32_t
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::NewStreetEvent, _impl_.new_street_),
         ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::DealPlayersEvent_PlayerCard, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::DealPlayersEvent_PlayerCard, _impl_.player_id_),
-        PROTOBUF_FIELD_OFFSET(::DealPlayersEvent_PlayerCard, _impl_.hole_cards_),
-        ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::DealPlayersEvent, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -605,18 +633,7 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::DealBoardEvent, _impl_.community_cards_),
-        ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::NewPlayerToActEvent_ProtoPossibleAction, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::NewPlayerToActEvent_ProtoPossibleAction, _impl_.action_type_),
-        PROTOBUF_FIELD_OFFSET(::NewPlayerToActEvent_ProtoPossibleAction, _impl_.primary_amount_),
-        PROTOBUF_FIELD_OFFSET(::NewPlayerToActEvent_ProtoPossibleAction, _impl_.secondary_amount_),
-        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::NewPlayerToActEvent, _impl_._has_bits_),
         PROTOBUF_FIELD_OFFSET(::NewPlayerToActEvent, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -624,18 +641,8 @@ const ::uint32_t
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::NewPlayerToActEvent, _impl_.player_to_act_),
-        PROTOBUF_FIELD_OFFSET(::NewPlayerToActEvent, _impl_.possible_actions_),
-        ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::NewPlayerActionEvent_ProtoAction, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::NewPlayerActionEvent_ProtoAction, _impl_.action_type_),
-        PROTOBUF_FIELD_OFFSET(::NewPlayerActionEvent_ProtoAction, _impl_.action_amount_),
+        PROTOBUF_FIELD_OFFSET(::NewPlayerToActEvent, _impl_.player_to_act_info_),
+        0,
         PROTOBUF_FIELD_OFFSET(::NewPlayerActionEvent, _impl_._has_bits_),
         PROTOBUF_FIELD_OFFSET(::NewPlayerActionEvent, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -644,20 +651,8 @@ const ::uint32_t
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::NewPlayerActionEvent, _impl_.player_id_),
-        PROTOBUF_FIELD_OFFSET(::NewPlayerActionEvent, _impl_.action_),
-        ~0u,
+        PROTOBUF_FIELD_OFFSET(::NewPlayerActionEvent, _impl_.player_action_info_),
         0,
-        ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::PotUpdateEvent_ProtoPot, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::PotUpdateEvent_ProtoPot, _impl_.pot_chips_),
-        PROTOBUF_FIELD_OFFSET(::PotUpdateEvent_ProtoPot, _impl_.eligible_ids_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::PotUpdateEvent, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -676,16 +671,6 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::ShowdownEvent, _impl_.players_in_hand_),
-        ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::PotWinnerEvent_PotWinner, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::PotWinnerEvent_PotWinner, _impl_.pot_chips_),
-        PROTOBUF_FIELD_OFFSET(::PotWinnerEvent_PotWinner, _impl_.winner_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::PotWinnerEvent, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -719,6 +704,79 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::ProtoPlayer, _impl_.recent_bets_),
         PROTOBUF_FIELD_OFFSET(::ProtoPlayer, _impl_.position_),
         PROTOBUF_FIELD_OFFSET(::ProtoPlayer, _impl_.status_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::PlayerCard, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::PlayerCard, _impl_.player_id_),
+        PROTOBUF_FIELD_OFFSET(::PlayerCard, _impl_.hole_cards_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::PlayerToActInfo_ProtoPossibleAction, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::PlayerToActInfo_ProtoPossibleAction, _impl_.action_type_),
+        PROTOBUF_FIELD_OFFSET(::PlayerToActInfo_ProtoPossibleAction, _impl_.primary_amount_),
+        PROTOBUF_FIELD_OFFSET(::PlayerToActInfo_ProtoPossibleAction, _impl_.secondary_amount_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::PlayerToActInfo, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::PlayerToActInfo, _impl_.player_to_act_),
+        PROTOBUF_FIELD_OFFSET(::PlayerToActInfo, _impl_.possible_actions_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::PlayerActionInfo_ProtoAction, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::PlayerActionInfo_ProtoAction, _impl_.action_type_),
+        PROTOBUF_FIELD_OFFSET(::PlayerActionInfo_ProtoAction, _impl_.action_amount_),
+        PROTOBUF_FIELD_OFFSET(::PlayerActionInfo, _impl_._has_bits_),
+        PROTOBUF_FIELD_OFFSET(::PlayerActionInfo, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::PlayerActionInfo, _impl_.player_id_),
+        PROTOBUF_FIELD_OFFSET(::PlayerActionInfo, _impl_.action_),
+        ~0u,
+        0,
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::ProtoPot, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::ProtoPot, _impl_.pot_chips_),
+        PROTOBUF_FIELD_OFFSET(::ProtoPot, _impl_.eligible_ids_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::PotWinner, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::PotWinner, _impl_.pot_chips_),
+        PROTOBUF_FIELD_OFFSET(::PotWinner, _impl_.winner_),
 };
 
 static const ::_pbi::MigrationSchema
@@ -731,20 +789,22 @@ static const ::_pbi::MigrationSchema
         {50, -1, -1, sizeof(::GameStreamRes)},
         {68, -1, -1, sizeof(::PlayersUpdateEvent)},
         {77, -1, -1, sizeof(::NewStreetEvent)},
-        {86, -1, -1, sizeof(::DealPlayersEvent_PlayerCard)},
-        {96, -1, -1, sizeof(::DealPlayersEvent)},
-        {105, -1, -1, sizeof(::DealBoardEvent)},
-        {114, -1, -1, sizeof(::NewPlayerToActEvent_ProtoPossibleAction)},
-        {125, -1, -1, sizeof(::NewPlayerToActEvent)},
-        {135, -1, -1, sizeof(::NewPlayerActionEvent_ProtoAction)},
-        {145, 155, -1, sizeof(::NewPlayerActionEvent)},
-        {157, -1, -1, sizeof(::PotUpdateEvent_ProtoPot)},
-        {167, -1, -1, sizeof(::PotUpdateEvent)},
-        {176, -1, -1, sizeof(::ShowdownEvent)},
-        {185, -1, -1, sizeof(::PotWinnerEvent_PotWinner)},
-        {195, -1, -1, sizeof(::PotWinnerEvent)},
-        {204, -1, -1, sizeof(::ProtoCard)},
-        {214, -1, -1, sizeof(::ProtoPlayer)},
+        {86, -1, -1, sizeof(::DealPlayersEvent)},
+        {95, -1, -1, sizeof(::DealBoardEvent)},
+        {104, 113, -1, sizeof(::NewPlayerToActEvent)},
+        {114, 123, -1, sizeof(::NewPlayerActionEvent)},
+        {124, -1, -1, sizeof(::PotUpdateEvent)},
+        {133, -1, -1, sizeof(::ShowdownEvent)},
+        {142, -1, -1, sizeof(::PotWinnerEvent)},
+        {151, -1, -1, sizeof(::ProtoCard)},
+        {161, -1, -1, sizeof(::ProtoPlayer)},
+        {175, -1, -1, sizeof(::PlayerCard)},
+        {185, -1, -1, sizeof(::PlayerToActInfo_ProtoPossibleAction)},
+        {196, -1, -1, sizeof(::PlayerToActInfo)},
+        {206, -1, -1, sizeof(::PlayerActionInfo_ProtoAction)},
+        {216, 226, -1, sizeof(::PlayerActionInfo)},
+        {228, -1, -1, sizeof(::ProtoPot)},
+        {238, -1, -1, sizeof(::PotWinner)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::_JoinGameReq_default_instance_._instance,
@@ -755,20 +815,22 @@ static const ::_pb::Message* const file_default_instances[] = {
     &::_GameStreamRes_default_instance_._instance,
     &::_PlayersUpdateEvent_default_instance_._instance,
     &::_NewStreetEvent_default_instance_._instance,
-    &::_DealPlayersEvent_PlayerCard_default_instance_._instance,
     &::_DealPlayersEvent_default_instance_._instance,
     &::_DealBoardEvent_default_instance_._instance,
-    &::_NewPlayerToActEvent_ProtoPossibleAction_default_instance_._instance,
     &::_NewPlayerToActEvent_default_instance_._instance,
-    &::_NewPlayerActionEvent_ProtoAction_default_instance_._instance,
     &::_NewPlayerActionEvent_default_instance_._instance,
-    &::_PotUpdateEvent_ProtoPot_default_instance_._instance,
     &::_PotUpdateEvent_default_instance_._instance,
     &::_ShowdownEvent_default_instance_._instance,
-    &::_PotWinnerEvent_PotWinner_default_instance_._instance,
     &::_PotWinnerEvent_default_instance_._instance,
     &::_ProtoCard_default_instance_._instance,
     &::_ProtoPlayer_default_instance_._instance,
+    &::_PlayerCard_default_instance_._instance,
+    &::_PlayerToActInfo_ProtoPossibleAction_default_instance_._instance,
+    &::_PlayerToActInfo_default_instance_._instance,
+    &::_PlayerActionInfo_ProtoAction_default_instance_._instance,
+    &::_PlayerActionInfo_default_instance_._instance,
+    &::_ProtoPot_default_instance_._instance,
+    &::_PotWinner_default_instance_._instance,
 };
 const char descriptor_table_protodef_texas_5fholdem_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
@@ -793,70 +855,72 @@ const char descriptor_table_protodef_texas_5fholdem_2eproto[] ABSL_ATTRIBUTE_SEC
     "H\000B\007\n\005event\"7\n\022PlayersUpdateEvent\022!\n\013new"
     "_players\030\001 \003(\0132\014.ProtoPlayer\"2\n\016NewStree"
     "tEvent\022 \n\nnew_street\030\001 \001(\0162\014.ProtoStreet"
-    "\"\207\001\n\020DealPlayersEvent\0222\n\014player_cards\030\001 "
-    "\003(\0132\034.DealPlayersEvent.PlayerCard\032\?\n\nPla"
-    "yerCard\022\021\n\tplayer_id\030\001 \001(\t\022\036\n\nhole_cards"
-    "\030\002 \003(\0132\n.ProtoCard\"5\n\016DealBoardEvent\022#\n\017"
-    "community_cards\030\001 \003(\0132\n.ProtoCard\"\340\001\n\023Ne"
-    "wPlayerToActEvent\022\025\n\rplayer_to_act\030\001 \001(\t"
-    "\022B\n\020possible_actions\030\002 \003(\0132(.NewPlayerTo"
-    "ActEvent.ProtoPossibleAction\032n\n\023ProtoPos"
-    "sibleAction\022%\n\013action_type\030\001 \001(\0162\020.Proto"
-    "ActionType\022\026\n\016primary_amount\030\002 \001(\r\022\030\n\020se"
-    "condary_amount\030\003 \001(\r\"\251\001\n\024NewPlayerAction"
-    "Event\022\021\n\tplayer_id\030\001 \001(\t\0221\n\006action\030\002 \001(\013"
-    "2!.NewPlayerActionEvent.ProtoAction\032K\n\013P"
-    "rotoAction\022%\n\013action_type\030\001 \001(\0162\020.ProtoA"
-    "ctionType\022\025\n\raction_amount\030\002 \001(\r\"u\n\016PotU"
-    "pdateEvent\022.\n\014updated_pots\030\001 \003(\0132\030.PotUp"
-    "dateEvent.ProtoPot\0323\n\010ProtoPot\022\021\n\tpot_ch"
-    "ips\030\001 \001(\r\022\024\n\014eligible_ids\030\002 \003(\t\"(\n\rShowd"
-    "ownEvent\022\027\n\017players_in_hand\030\001 \003(\t\"p\n\016Pot"
-    "WinnerEvent\022.\n\013pot_winners\030\001 \003(\0132\031.PotWi"
-    "nnerEvent.PotWinner\032.\n\tPotWinner\022\021\n\tpot_"
-    "chips\030\001 \001(\r\022\016\n\006winner\030\002 \001(\t\"\321\002\n\tProtoCar"
-    "d\022\"\n\004suit\030\001 \001(\0162\024.ProtoCard.ProtoSuit\022$\n"
-    "\005value\030\002 \001(\0162\025.ProtoCard.ProtoValue\"R\n\tP"
-    "rotoSuit\022\024\n\020SUIT_UNSPECIFIED\020\000\022\n\n\006HEARTS"
-    "\020\001\022\014\n\010DIAMONDS\020\002\022\t\n\005CLUBS\020\003\022\n\n\006SPADES\020\004\""
-    "\245\001\n\nProtoValue\022\025\n\021VALUE_UNSPECIFIED\020\000\022\007\n"
-    "\003TWO\020\002\022\t\n\005THREE\020\003\022\010\n\004FOUR\020\004\022\010\n\004FIVE\020\005\022\007\n"
-    "\003SIX\020\006\022\t\n\005SEVEN\020\007\022\t\n\005EIGHT\020\010\022\010\n\004NINE\020\t\022\007"
-    "\n\003TEN\020\n\022\010\n\004JACK\020\013\022\t\n\005QUEEN\020\014\022\010\n\004KING\020\r\022\007"
-    "\n\003ACE\020\016\"\223\003\n\013ProtoPlayer\022\014\n\004name\030\001 \001(\t\022\n\n"
-    "\002id\030\002 \001(\t\022\r\n\005chips\030\003 \001(\r\022\023\n\013recent_bets\030"
-    "\004 \001(\r\022,\n\010position\030\005 \001(\0162\032.ProtoPlayer.Pr"
-    "otoPosition\022.\n\006status\030\006 \001(\0162\036.ProtoPlaye"
-    "r.ProtoPlayerStatus\"\213\001\n\rProtoPosition\022\t\n"
-    "\005LOBBY\020\000\022\017\n\013SMALL_BLIND\020\001\022\r\n\tBIG_BLIND\020\002"
-    "\022\007\n\003UTG\020\003\022\t\n\005UTG_1\020\004\022\n\n\006MIDDLE\020\005\022\n\n\006LOJA"
-    "CK\020\006\022\n\n\006HIJACK\020\007\022\013\n\007CUT_OFF\020\010\022\n\n\006DEALER\020"
-    "\t\"Z\n\021ProtoPlayerStatus\022\013\n\007WAITING\020\000\022\013\n\007I"
-    "N_HAND\020\001\022\n\n\006FOLDED\020\002\022\016\n\nALL_IN_BET\020\003\022\017\n\013"
-    "ALL_IN_CALL\020\004*R\n\013ProtoStreet\022\026\n\022STREET_U"
-    "NSPECIFIED\020\000\022\014\n\010PRE_FLOP\020\001\022\010\n\004FLOP\020\002\022\010\n\004"
-    "TURN\020\003\022\t\n\005RIVER\020\004*\255\001\n\017ProtoActionType\022\026\n"
-    "\022ACTION_UNSPECIFIED\020\000\022\016\n\nPOST_SMALL\020\001\022\014\n"
-    "\010POST_BIG\020\002\022\t\n\005CHECK\020\003\022\007\n\003BET\020\004\022\010\n\004CALL\020"
-    "\005\022\t\n\005RAISE\020\006\022\010\n\004FOLD\020\007\022\016\n\nALL_IN_BET\020\010\022\017"
-    "\n\013ALL_IN_CALL\020\t\022\020\n\014ALL_IN_RAISE\020\n2\303\001\n\014Po"
-    "kerService\022.\n\nGameStream\022\016.GameStreamReq"
-    "\032\016.GameStreamRes0\001\022\'\n\010JoinGame\022\014.JoinGam"
-    "eReq\032\r.PlayerReqRes\022)\n\tLeaveGame\022\r.Leave"
-    "GameReq\032\r.PlayerReqRes\022/\n\014PlayerAction\022\020"
-    ".PlayerActionReq\032\r.PlayerReqResb\006proto3"
+    "\"5\n\020DealPlayersEvent\022!\n\014player_cards\030\001 \003"
+    "(\0132\013.PlayerCard\"5\n\016DealBoardEvent\022#\n\017com"
+    "munity_cards\030\001 \003(\0132\n.ProtoCard\"C\n\023NewPla"
+    "yerToActEvent\022,\n\022player_to_act_info\030\001 \001("
+    "\0132\020.PlayerToActInfo\"E\n\024NewPlayerActionEv"
+    "ent\022-\n\022player_action_info\030\001 \001(\0132\021.Player"
+    "ActionInfo\"1\n\016PotUpdateEvent\022\037\n\014updated_"
+    "pots\030\001 \003(\0132\t.ProtoPot\"(\n\rShowdownEvent\022\027"
+    "\n\017players_in_hand\030\001 \003(\t\"1\n\016PotWinnerEven"
+    "t\022\037\n\013pot_winners\030\001 \003(\0132\n.PotWinner\"\321\002\n\tP"
+    "rotoCard\022\"\n\004suit\030\001 \001(\0162\024.ProtoCard.Proto"
+    "Suit\022$\n\005value\030\002 \001(\0162\025.ProtoCard.ProtoVal"
+    "ue\"R\n\tProtoSuit\022\024\n\020SUIT_UNSPECIFIED\020\000\022\n\n"
+    "\006HEARTS\020\001\022\014\n\010DIAMONDS\020\002\022\t\n\005CLUBS\020\003\022\n\n\006SP"
+    "ADES\020\004\"\245\001\n\nProtoValue\022\025\n\021VALUE_UNSPECIFI"
+    "ED\020\000\022\007\n\003TWO\020\002\022\t\n\005THREE\020\003\022\010\n\004FOUR\020\004\022\010\n\004FI"
+    "VE\020\005\022\007\n\003SIX\020\006\022\t\n\005SEVEN\020\007\022\t\n\005EIGHT\020\010\022\010\n\004N"
+    "INE\020\t\022\007\n\003TEN\020\n\022\010\n\004JACK\020\013\022\t\n\005QUEEN\020\014\022\010\n\004K"
+    "ING\020\r\022\007\n\003ACE\020\016\"\223\003\n\013ProtoPlayer\022\014\n\004name\030\001"
+    " \001(\t\022\n\n\002id\030\002 \001(\t\022\r\n\005chips\030\003 \001(\r\022\023\n\013recen"
+    "t_bets\030\004 \001(\r\022,\n\010position\030\005 \001(\0162\032.ProtoPl"
+    "ayer.ProtoPosition\022.\n\006status\030\006 \001(\0162\036.Pro"
+    "toPlayer.ProtoPlayerStatus\"\213\001\n\rProtoPosi"
+    "tion\022\t\n\005LOBBY\020\000\022\017\n\013SMALL_BLIND\020\001\022\r\n\tBIG_"
+    "BLIND\020\002\022\007\n\003UTG\020\003\022\t\n\005UTG_1\020\004\022\n\n\006MIDDLE\020\005\022"
+    "\n\n\006LOJACK\020\006\022\n\n\006HIJACK\020\007\022\013\n\007CUT_OFF\020\010\022\n\n\006"
+    "DEALER\020\t\"Z\n\021ProtoPlayerStatus\022\013\n\007WAITING"
+    "\020\000\022\013\n\007IN_HAND\020\001\022\n\n\006FOLDED\020\002\022\016\n\nALL_IN_BE"
+    "T\020\003\022\017\n\013ALL_IN_CALL\020\004\"\?\n\nPlayerCard\022\021\n\tpl"
+    "ayer_id\030\001 \001(\t\022\036\n\nhole_cards\030\002 \003(\0132\n.Prot"
+    "oCard\"\330\001\n\017PlayerToActInfo\022\025\n\rplayer_to_a"
+    "ct\030\001 \001(\t\022>\n\020possible_actions\030\002 \003(\0132$.Pla"
+    "yerToActInfo.ProtoPossibleAction\032n\n\023Prot"
+    "oPossibleAction\022%\n\013action_type\030\001 \001(\0162\020.P"
+    "rotoActionType\022\026\n\016primary_amount\030\002 \001(\r\022\030"
+    "\n\020secondary_amount\030\003 \001(\r\"\241\001\n\020PlayerActio"
+    "nInfo\022\021\n\tplayer_id\030\001 \001(\t\022-\n\006action\030\002 \001(\013"
+    "2\035.PlayerActionInfo.ProtoAction\032K\n\013Proto"
+    "Action\022%\n\013action_type\030\001 \001(\0162\020.ProtoActio"
+    "nType\022\025\n\raction_amount\030\002 \001(\r\"3\n\010ProtoPot"
+    "\022\021\n\tpot_chips\030\001 \001(\r\022\024\n\014eligible_ids\030\002 \003("
+    "\t\".\n\tPotWinner\022\021\n\tpot_chips\030\001 \001(\r\022\016\n\006win"
+    "ner\030\002 \001(\t*R\n\013ProtoStreet\022\026\n\022STREET_UNSPE"
+    "CIFIED\020\000\022\014\n\010PRE_FLOP\020\001\022\010\n\004FLOP\020\002\022\010\n\004TURN"
+    "\020\003\022\t\n\005RIVER\020\004*\255\001\n\017ProtoActionType\022\026\n\022ACT"
+    "ION_UNSPECIFIED\020\000\022\016\n\nPOST_SMALL\020\001\022\014\n\010POS"
+    "T_BIG\020\002\022\t\n\005CHECK\020\003\022\007\n\003BET\020\004\022\010\n\004CALL\020\005\022\t\n"
+    "\005RAISE\020\006\022\010\n\004FOLD\020\007\022\016\n\nALL_IN_BET\020\010\022\017\n\013AL"
+    "L_IN_CALL\020\t\022\020\n\014ALL_IN_RAISE\020\n2\303\001\n\014PokerS"
+    "ervice\022.\n\nGameStream\022\016.GameStreamReq\032\016.G"
+    "ameStreamRes0\001\022\'\n\010JoinGame\022\014.JoinGameReq"
+    "\032\r.PlayerReqRes\022)\n\tLeaveGame\022\r.LeaveGame"
+    "Req\032\r.PlayerReqRes\022/\n\014PlayerAction\022\020.Pla"
+    "yerActionReq\032\r.PlayerReqResb\006proto3"
 };
 static ::absl::once_flag descriptor_table_texas_5fholdem_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_texas_5fholdem_2eproto = {
     false,
     false,
-    2919,
+    2995,
     descriptor_table_protodef_texas_5fholdem_2eproto,
     "texas_holdem.proto",
     &descriptor_table_texas_5fholdem_2eproto_once,
     nullptr,
     0,
-    22,
+    24,
     schemas,
     file_default_instances,
     TableStruct_texas_5fholdem_2eproto::offsets,
@@ -3104,227 +3168,6 @@ void NewStreetEvent::InternalSwap(NewStreetEvent* PROTOBUF_RESTRICT other) {
 }
 // ===================================================================
 
-class DealPlayersEvent_PlayerCard::_Internal {
- public:
-};
-
-DealPlayersEvent_PlayerCard::DealPlayersEvent_PlayerCard(::google::protobuf::Arena* arena)
-    : ::google::protobuf::Message(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:DealPlayersEvent.PlayerCard)
-}
-inline PROTOBUF_NDEBUG_INLINE DealPlayersEvent_PlayerCard::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::DealPlayersEvent_PlayerCard& from_msg)
-      : hole_cards_{visibility, arena, from.hole_cards_},
-        player_id_(arena, from.player_id_),
-        _cached_size_{0} {}
-
-DealPlayersEvent_PlayerCard::DealPlayersEvent_PlayerCard(
-    ::google::protobuf::Arena* arena,
-    const DealPlayersEvent_PlayerCard& from)
-    : ::google::protobuf::Message(arena) {
-  DealPlayersEvent_PlayerCard* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-
-  // @@protoc_insertion_point(copy_constructor:DealPlayersEvent.PlayerCard)
-}
-inline PROTOBUF_NDEBUG_INLINE DealPlayersEvent_PlayerCard::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : hole_cards_{visibility, arena},
-        player_id_(arena),
-        _cached_size_{0} {}
-
-inline void DealPlayersEvent_PlayerCard::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-}
-DealPlayersEvent_PlayerCard::~DealPlayersEvent_PlayerCard() {
-  // @@protoc_insertion_point(destructor:DealPlayersEvent.PlayerCard)
-  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  SharedDtor();
-}
-inline void DealPlayersEvent_PlayerCard::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.player_id_.Destroy();
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-DealPlayersEvent_PlayerCard::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
-      ClassDataFull _data_ = {
-          {
-              &_table_.header,
-              nullptr,  // OnDemandRegisterArenaDtor
-              nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(DealPlayersEvent_PlayerCard, _impl_._cached_size_),
-              false,
-          },
-          &DealPlayersEvent_PlayerCard::MergeImpl,
-          &DealPlayersEvent_PlayerCard::kDescriptorMethods,
-          &descriptor_table_texas_5fholdem_2eproto,
-          nullptr,  // tracker
-      };
-  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
-  return _data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 1, 45, 2> DealPlayersEvent_PlayerCard::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    2, 8,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967292,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    2,  // num_field_entries
-    1,  // num_aux_entries
-    offsetof(decltype(_table_), aux_entries),
-    &_DealPlayersEvent_PlayerCard_default_instance_._instance,
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::DealPlayersEvent_PlayerCard>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // repeated .ProtoCard hole_cards = 2;
-    {::_pbi::TcParser::FastMtR1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(DealPlayersEvent_PlayerCard, _impl_.hole_cards_)}},
-    // string player_id = 1;
-    {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(DealPlayersEvent_PlayerCard, _impl_.player_id_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // string player_id = 1;
-    {PROTOBUF_FIELD_OFFSET(DealPlayersEvent_PlayerCard, _impl_.player_id_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // repeated .ProtoCard hole_cards = 2;
-    {PROTOBUF_FIELD_OFFSET(DealPlayersEvent_PlayerCard, _impl_.hole_cards_), 0, 0,
-    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
-  }}, {{
-    {::_pbi::TcParser::GetTable<::ProtoCard>()},
-  }}, {{
-    "\33\11\0\0\0\0\0\0"
-    "DealPlayersEvent.PlayerCard"
-    "player_id"
-  }},
-};
-
-PROTOBUF_NOINLINE void DealPlayersEvent_PlayerCard::Clear() {
-// @@protoc_insertion_point(message_clear_start:DealPlayersEvent.PlayerCard)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.hole_cards_.Clear();
-  _impl_.player_id_.ClearToEmpty();
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-::uint8_t* DealPlayersEvent_PlayerCard::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:DealPlayersEvent.PlayerCard)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  // string player_id = 1;
-  if (!this->_internal_player_id().empty()) {
-    const std::string& _s = this->_internal_player_id();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "DealPlayersEvent.PlayerCard.player_id");
-    target = stream->WriteStringMaybeAliased(1, _s, target);
-  }
-
-  // repeated .ProtoCard hole_cards = 2;
-  for (unsigned i = 0, n = static_cast<unsigned>(
-                           this->_internal_hole_cards_size());
-       i < n; i++) {
-    const auto& repfield = this->_internal_hole_cards().Get(i);
-    target =
-        ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-            2, repfield, repfield.GetCachedSize(),
-            target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target =
-        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:DealPlayersEvent.PlayerCard)
-  return target;
-}
-
-::size_t DealPlayersEvent_PlayerCard::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:DealPlayersEvent.PlayerCard)
-  ::size_t total_size = 0;
-
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // repeated .ProtoCard hole_cards = 2;
-  total_size += 1UL * this->_internal_hole_cards_size();
-  for (const auto& msg : this->_internal_hole_cards()) {
-    total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
-  }
-  // string player_id = 1;
-  if (!this->_internal_player_id().empty()) {
-    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_player_id());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-
-void DealPlayersEvent_PlayerCard::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<DealPlayersEvent_PlayerCard*>(&to_msg);
-  auto& from = static_cast<const DealPlayersEvent_PlayerCard&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:DealPlayersEvent.PlayerCard)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  _this->_internal_mutable_hole_cards()->MergeFrom(
-      from._internal_hole_cards());
-  if (!from._internal_player_id().empty()) {
-    _this->_internal_set_player_id(from._internal_player_id());
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void DealPlayersEvent_PlayerCard::CopyFrom(const DealPlayersEvent_PlayerCard& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:DealPlayersEvent.PlayerCard)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void DealPlayersEvent_PlayerCard::InternalSwap(DealPlayersEvent_PlayerCard* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  auto* arena = GetArena();
-  ABSL_DCHECK_EQ(arena, other->GetArena());
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.hole_cards_.InternalSwap(&other->_impl_.hole_cards_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.player_id_, &other->_impl_.player_id_, arena);
-}
-
-::google::protobuf::Metadata DealPlayersEvent_PlayerCard::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
 class DealPlayersEvent::_Internal {
  public:
 };
@@ -3410,17 +3253,17 @@ const ::_pbi::TcParseTable<0, 1, 1, 0, 2> DealPlayersEvent::_table_ = {
     ::_pbi::TcParser::GetTable<::DealPlayersEvent>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // repeated .DealPlayersEvent.PlayerCard player_cards = 1;
+    // repeated .PlayerCard player_cards = 1;
     {::_pbi::TcParser::FastMtR1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(DealPlayersEvent, _impl_.player_cards_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // repeated .DealPlayersEvent.PlayerCard player_cards = 1;
+    // repeated .PlayerCard player_cards = 1;
     {PROTOBUF_FIELD_OFFSET(DealPlayersEvent, _impl_.player_cards_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
-    {::_pbi::TcParser::GetTable<::DealPlayersEvent_PlayerCard>()},
+    {::_pbi::TcParser::GetTable<::PlayerCard>()},
   }}, {{
   }},
 };
@@ -3443,7 +3286,7 @@ PROTOBUF_NOINLINE void DealPlayersEvent::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // repeated .DealPlayersEvent.PlayerCard player_cards = 1;
+  // repeated .PlayerCard player_cards = 1;
   for (unsigned i = 0, n = static_cast<unsigned>(
                            this->_internal_player_cards_size());
        i < n; i++) {
@@ -3472,7 +3315,7 @@ PROTOBUF_NOINLINE void DealPlayersEvent::Clear() {
   (void) cached_has_bits;
 
   ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // repeated .DealPlayersEvent.PlayerCard player_cards = 1;
+  // repeated .PlayerCard player_cards = 1;
   total_size += 1UL * this->_internal_player_cards_size();
   for (const auto& msg : this->_internal_player_cards()) {
     total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
@@ -3701,238 +3544,12 @@ void DealBoardEvent::InternalSwap(DealBoardEvent* PROTOBUF_RESTRICT other) {
 }
 // ===================================================================
 
-class NewPlayerToActEvent_ProtoPossibleAction::_Internal {
- public:
-};
-
-NewPlayerToActEvent_ProtoPossibleAction::NewPlayerToActEvent_ProtoPossibleAction(::google::protobuf::Arena* arena)
-    : ::google::protobuf::Message(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:NewPlayerToActEvent.ProtoPossibleAction)
-}
-NewPlayerToActEvent_ProtoPossibleAction::NewPlayerToActEvent_ProtoPossibleAction(
-    ::google::protobuf::Arena* arena, const NewPlayerToActEvent_ProtoPossibleAction& from)
-    : NewPlayerToActEvent_ProtoPossibleAction(arena) {
-  MergeFrom(from);
-}
-inline PROTOBUF_NDEBUG_INLINE NewPlayerToActEvent_ProtoPossibleAction::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : _cached_size_{0} {}
-
-inline void NewPlayerToActEvent_ProtoPossibleAction::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-  ::memset(reinterpret_cast<char *>(&_impl_) +
-               offsetof(Impl_, action_type_),
-           0,
-           offsetof(Impl_, secondary_amount_) -
-               offsetof(Impl_, action_type_) +
-               sizeof(Impl_::secondary_amount_));
-}
-NewPlayerToActEvent_ProtoPossibleAction::~NewPlayerToActEvent_ProtoPossibleAction() {
-  // @@protoc_insertion_point(destructor:NewPlayerToActEvent.ProtoPossibleAction)
-  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  SharedDtor();
-}
-inline void NewPlayerToActEvent_ProtoPossibleAction::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-NewPlayerToActEvent_ProtoPossibleAction::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
-      ClassDataFull _data_ = {
-          {
-              &_table_.header,
-              nullptr,  // OnDemandRegisterArenaDtor
-              nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent_ProtoPossibleAction, _impl_._cached_size_),
-              false,
-          },
-          &NewPlayerToActEvent_ProtoPossibleAction::MergeImpl,
-          &NewPlayerToActEvent_ProtoPossibleAction::kDescriptorMethods,
-          &descriptor_table_texas_5fholdem_2eproto,
-          nullptr,  // tracker
-      };
-  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
-  return _data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<2, 3, 0, 0, 2> NewPlayerToActEvent_ProtoPossibleAction::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    3, 24,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967288,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    3,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_NewPlayerToActEvent_ProtoPossibleAction_default_instance_._instance,
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::NewPlayerToActEvent_ProtoPossibleAction>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    {::_pbi::TcParser::MiniParse, {}},
-    // .ProtoActionType action_type = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(NewPlayerToActEvent_ProtoPossibleAction, _impl_.action_type_), 63>(),
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent_ProtoPossibleAction, _impl_.action_type_)}},
-    // uint32 primary_amount = 2;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(NewPlayerToActEvent_ProtoPossibleAction, _impl_.primary_amount_), 63>(),
-     {16, 63, 0, PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent_ProtoPossibleAction, _impl_.primary_amount_)}},
-    // uint32 secondary_amount = 3;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(NewPlayerToActEvent_ProtoPossibleAction, _impl_.secondary_amount_), 63>(),
-     {24, 63, 0, PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent_ProtoPossibleAction, _impl_.secondary_amount_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // .ProtoActionType action_type = 1;
-    {PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent_ProtoPossibleAction, _impl_.action_type_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
-    // uint32 primary_amount = 2;
-    {PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent_ProtoPossibleAction, _impl_.primary_amount_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
-    // uint32 secondary_amount = 3;
-    {PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent_ProtoPossibleAction, _impl_.secondary_amount_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
-  }},
-  // no aux_entries
-  {{
-  }},
-};
-
-PROTOBUF_NOINLINE void NewPlayerToActEvent_ProtoPossibleAction::Clear() {
-// @@protoc_insertion_point(message_clear_start:NewPlayerToActEvent.ProtoPossibleAction)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::memset(&_impl_.action_type_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.secondary_amount_) -
-      reinterpret_cast<char*>(&_impl_.action_type_)) + sizeof(_impl_.secondary_amount_));
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-::uint8_t* NewPlayerToActEvent_ProtoPossibleAction::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:NewPlayerToActEvent.ProtoPossibleAction)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  // .ProtoActionType action_type = 1;
-  if (this->_internal_action_type() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        1, this->_internal_action_type(), target);
-  }
-
-  // uint32 primary_amount = 2;
-  if (this->_internal_primary_amount() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
-        2, this->_internal_primary_amount(), target);
-  }
-
-  // uint32 secondary_amount = 3;
-  if (this->_internal_secondary_amount() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
-        3, this->_internal_secondary_amount(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target =
-        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:NewPlayerToActEvent.ProtoPossibleAction)
-  return target;
-}
-
-::size_t NewPlayerToActEvent_ProtoPossibleAction::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:NewPlayerToActEvent.ProtoPossibleAction)
-  ::size_t total_size = 0;
-
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // .ProtoActionType action_type = 1;
-  if (this->_internal_action_type() != 0) {
-    total_size += 1 +
-                  ::_pbi::WireFormatLite::EnumSize(this->_internal_action_type());
-  }
-
-  // uint32 primary_amount = 2;
-  if (this->_internal_primary_amount() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
-        this->_internal_primary_amount());
-  }
-
-  // uint32 secondary_amount = 3;
-  if (this->_internal_secondary_amount() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
-        this->_internal_secondary_amount());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-
-void NewPlayerToActEvent_ProtoPossibleAction::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<NewPlayerToActEvent_ProtoPossibleAction*>(&to_msg);
-  auto& from = static_cast<const NewPlayerToActEvent_ProtoPossibleAction&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:NewPlayerToActEvent.ProtoPossibleAction)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_action_type() != 0) {
-    _this->_impl_.action_type_ = from._impl_.action_type_;
-  }
-  if (from._internal_primary_amount() != 0) {
-    _this->_impl_.primary_amount_ = from._impl_.primary_amount_;
-  }
-  if (from._internal_secondary_amount() != 0) {
-    _this->_impl_.secondary_amount_ = from._impl_.secondary_amount_;
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void NewPlayerToActEvent_ProtoPossibleAction::CopyFrom(const NewPlayerToActEvent_ProtoPossibleAction& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:NewPlayerToActEvent.ProtoPossibleAction)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void NewPlayerToActEvent_ProtoPossibleAction::InternalSwap(NewPlayerToActEvent_ProtoPossibleAction* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent_ProtoPossibleAction, _impl_.secondary_amount_)
-      + sizeof(NewPlayerToActEvent_ProtoPossibleAction::_impl_.secondary_amount_)
-      - PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent_ProtoPossibleAction, _impl_.action_type_)>(
-          reinterpret_cast<char*>(&_impl_.action_type_),
-          reinterpret_cast<char*>(&other->_impl_.action_type_));
-}
-
-::google::protobuf::Metadata NewPlayerToActEvent_ProtoPossibleAction::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
 class NewPlayerToActEvent::_Internal {
  public:
+  using HasBits =
+      decltype(std::declval<NewPlayerToActEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent, _impl_._has_bits_);
 };
 
 NewPlayerToActEvent::NewPlayerToActEvent(::google::protobuf::Arena* arena)
@@ -3943,8 +3560,7 @@ NewPlayerToActEvent::NewPlayerToActEvent(::google::protobuf::Arena* arena)
 inline PROTOBUF_NDEBUG_INLINE NewPlayerToActEvent::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
     const Impl_& from, const ::NewPlayerToActEvent& from_msg)
-      : possible_actions_{visibility, arena, from.possible_actions_},
-        player_to_act_(arena, from.player_to_act_),
+      : _has_bits_{from._has_bits_},
         _cached_size_{0} {}
 
 NewPlayerToActEvent::NewPlayerToActEvent(
@@ -3956,18 +3572,21 @@ NewPlayerToActEvent::NewPlayerToActEvent(
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.player_to_act_info_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::PlayerToActInfo>(
+                              arena, *from._impl_.player_to_act_info_)
+                        : nullptr;
 
   // @@protoc_insertion_point(copy_constructor:NewPlayerToActEvent)
 }
 inline PROTOBUF_NDEBUG_INLINE NewPlayerToActEvent::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : possible_actions_{visibility, arena},
-        player_to_act_(arena),
-        _cached_size_{0} {}
+      : _cached_size_{0} {}
 
 inline void NewPlayerToActEvent::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.player_to_act_info_ = {};
 }
 NewPlayerToActEvent::~NewPlayerToActEvent() {
   // @@protoc_insertion_point(destructor:NewPlayerToActEvent)
@@ -3976,7 +3595,7 @@ NewPlayerToActEvent::~NewPlayerToActEvent() {
 }
 inline void NewPlayerToActEvent::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.player_to_act_.Destroy();
+  delete _impl_.player_to_act_info_;
   _impl_.~Impl_();
 }
 
@@ -4001,15 +3620,15 @@ NewPlayerToActEvent::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 1, 41, 2> NewPlayerToActEvent::_table_ = {
+const ::_pbi::TcParseTable<0, 1, 1, 0, 2> NewPlayerToActEvent::_table_ = {
   {
-    0,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent, _impl_._has_bits_),
     0, // no _extensions_
-    2, 8,  // max_field_number, fast_idx_mask
+    1, 0,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967292,  // skipmap
+    4294967294,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    2,  // num_field_entries
+    1,  // num_field_entries
     1,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     &_NewPlayerToActEvent_default_instance_._instance,
@@ -4019,27 +3638,18 @@ const ::_pbi::TcParseTable<1, 2, 1, 41, 2> NewPlayerToActEvent::_table_ = {
     ::_pbi::TcParser::GetTable<::NewPlayerToActEvent>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // repeated .NewPlayerToActEvent.ProtoPossibleAction possible_actions = 2;
-    {::_pbi::TcParser::FastMtR1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent, _impl_.possible_actions_)}},
-    // string player_to_act = 1;
-    {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent, _impl_.player_to_act_)}},
+    // .PlayerToActInfo player_to_act_info = 1;
+    {::_pbi::TcParser::FastMtS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent, _impl_.player_to_act_info_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // string player_to_act = 1;
-    {PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent, _impl_.player_to_act_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // repeated .NewPlayerToActEvent.ProtoPossibleAction possible_actions = 2;
-    {PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent, _impl_.possible_actions_), 0, 0,
-    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .PlayerToActInfo player_to_act_info = 1;
+    {PROTOBUF_FIELD_OFFSET(NewPlayerToActEvent, _impl_.player_to_act_info_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
-    {::_pbi::TcParser::GetTable<::NewPlayerToActEvent_ProtoPossibleAction>()},
+    {::_pbi::TcParser::GetTable<::PlayerToActInfo>()},
   }}, {{
-    "\23\15\0\0\0\0\0\0"
-    "NewPlayerToActEvent"
-    "player_to_act"
   }},
 };
 
@@ -4050,8 +3660,12 @@ PROTOBUF_NOINLINE void NewPlayerToActEvent::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.possible_actions_.Clear();
-  _impl_.player_to_act_.ClearToEmpty();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.player_to_act_info_ != nullptr);
+    _impl_.player_to_act_info_->Clear();
+  }
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -4062,23 +3676,11 @@ PROTOBUF_NOINLINE void NewPlayerToActEvent::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // string player_to_act = 1;
-  if (!this->_internal_player_to_act().empty()) {
-    const std::string& _s = this->_internal_player_to_act();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "NewPlayerToActEvent.player_to_act");
-    target = stream->WriteStringMaybeAliased(1, _s, target);
-  }
-
-  // repeated .NewPlayerToActEvent.ProtoPossibleAction possible_actions = 2;
-  for (unsigned i = 0, n = static_cast<unsigned>(
-                           this->_internal_possible_actions_size());
-       i < n; i++) {
-    const auto& repfield = this->_internal_possible_actions().Get(i);
-    target =
-        ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-            2, repfield, repfield.GetCachedSize(),
-            target, stream);
+  cached_has_bits = _impl_._has_bits_[0];
+  // .PlayerToActInfo player_to_act_info = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        1, *_impl_.player_to_act_info_, _impl_.player_to_act_info_->GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4098,16 +3700,11 @@ PROTOBUF_NOINLINE void NewPlayerToActEvent::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // repeated .NewPlayerToActEvent.ProtoPossibleAction possible_actions = 2;
-  total_size += 1UL * this->_internal_possible_actions_size();
-  for (const auto& msg : this->_internal_possible_actions()) {
-    total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
-  }
-  // string player_to_act = 1;
-  if (!this->_internal_player_to_act().empty()) {
-    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_player_to_act());
+  // .PlayerToActInfo player_to_act_info = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size +=
+        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.player_to_act_info_);
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -4117,16 +3714,23 @@ PROTOBUF_NOINLINE void NewPlayerToActEvent::Clear() {
 void NewPlayerToActEvent::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
   auto* const _this = static_cast<NewPlayerToActEvent*>(&to_msg);
   auto& from = static_cast<const NewPlayerToActEvent&>(from_msg);
+  ::google::protobuf::Arena* arena = _this->GetArena();
   // @@protoc_insertion_point(class_specific_merge_from_start:NewPlayerToActEvent)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_internal_mutable_possible_actions()->MergeFrom(
-      from._internal_possible_actions());
-  if (!from._internal_player_to_act().empty()) {
-    _this->_internal_set_player_to_act(from._internal_player_to_act());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(from._impl_.player_to_act_info_ != nullptr);
+    if (_this->_impl_.player_to_act_info_ == nullptr) {
+      _this->_impl_.player_to_act_info_ =
+          ::google::protobuf::Message::CopyConstruct<::PlayerToActInfo>(arena, *from._impl_.player_to_act_info_);
+    } else {
+      _this->_impl_.player_to_act_info_->MergeFrom(*from._impl_.player_to_act_info_);
+    }
   }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -4140,221 +3744,12 @@ void NewPlayerToActEvent::CopyFrom(const NewPlayerToActEvent& from) {
 
 void NewPlayerToActEvent::InternalSwap(NewPlayerToActEvent* PROTOBUF_RESTRICT other) {
   using std::swap;
-  auto* arena = GetArena();
-  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.possible_actions_.InternalSwap(&other->_impl_.possible_actions_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.player_to_act_, &other->_impl_.player_to_act_, arena);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.player_to_act_info_, other->_impl_.player_to_act_info_);
 }
 
 ::google::protobuf::Metadata NewPlayerToActEvent::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
-class NewPlayerActionEvent_ProtoAction::_Internal {
- public:
-};
-
-NewPlayerActionEvent_ProtoAction::NewPlayerActionEvent_ProtoAction(::google::protobuf::Arena* arena)
-    : ::google::protobuf::Message(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:NewPlayerActionEvent.ProtoAction)
-}
-NewPlayerActionEvent_ProtoAction::NewPlayerActionEvent_ProtoAction(
-    ::google::protobuf::Arena* arena, const NewPlayerActionEvent_ProtoAction& from)
-    : NewPlayerActionEvent_ProtoAction(arena) {
-  MergeFrom(from);
-}
-inline PROTOBUF_NDEBUG_INLINE NewPlayerActionEvent_ProtoAction::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : _cached_size_{0} {}
-
-inline void NewPlayerActionEvent_ProtoAction::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-  ::memset(reinterpret_cast<char *>(&_impl_) +
-               offsetof(Impl_, action_type_),
-           0,
-           offsetof(Impl_, action_amount_) -
-               offsetof(Impl_, action_type_) +
-               sizeof(Impl_::action_amount_));
-}
-NewPlayerActionEvent_ProtoAction::~NewPlayerActionEvent_ProtoAction() {
-  // @@protoc_insertion_point(destructor:NewPlayerActionEvent.ProtoAction)
-  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  SharedDtor();
-}
-inline void NewPlayerActionEvent_ProtoAction::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-NewPlayerActionEvent_ProtoAction::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
-      ClassDataFull _data_ = {
-          {
-              &_table_.header,
-              nullptr,  // OnDemandRegisterArenaDtor
-              nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent_ProtoAction, _impl_._cached_size_),
-              false,
-          },
-          &NewPlayerActionEvent_ProtoAction::MergeImpl,
-          &NewPlayerActionEvent_ProtoAction::kDescriptorMethods,
-          &descriptor_table_texas_5fholdem_2eproto,
-          nullptr,  // tracker
-      };
-  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
-  return _data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 0, 0, 2> NewPlayerActionEvent_ProtoAction::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    2, 8,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967292,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    2,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_NewPlayerActionEvent_ProtoAction_default_instance_._instance,
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::NewPlayerActionEvent_ProtoAction>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // uint32 action_amount = 2;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(NewPlayerActionEvent_ProtoAction, _impl_.action_amount_), 63>(),
-     {16, 63, 0, PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent_ProtoAction, _impl_.action_amount_)}},
-    // .ProtoActionType action_type = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(NewPlayerActionEvent_ProtoAction, _impl_.action_type_), 63>(),
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent_ProtoAction, _impl_.action_type_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // .ProtoActionType action_type = 1;
-    {PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent_ProtoAction, _impl_.action_type_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
-    // uint32 action_amount = 2;
-    {PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent_ProtoAction, _impl_.action_amount_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
-  }},
-  // no aux_entries
-  {{
-  }},
-};
-
-PROTOBUF_NOINLINE void NewPlayerActionEvent_ProtoAction::Clear() {
-// @@protoc_insertion_point(message_clear_start:NewPlayerActionEvent.ProtoAction)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::memset(&_impl_.action_type_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.action_amount_) -
-      reinterpret_cast<char*>(&_impl_.action_type_)) + sizeof(_impl_.action_amount_));
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-::uint8_t* NewPlayerActionEvent_ProtoAction::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:NewPlayerActionEvent.ProtoAction)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  // .ProtoActionType action_type = 1;
-  if (this->_internal_action_type() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        1, this->_internal_action_type(), target);
-  }
-
-  // uint32 action_amount = 2;
-  if (this->_internal_action_amount() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
-        2, this->_internal_action_amount(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target =
-        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:NewPlayerActionEvent.ProtoAction)
-  return target;
-}
-
-::size_t NewPlayerActionEvent_ProtoAction::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:NewPlayerActionEvent.ProtoAction)
-  ::size_t total_size = 0;
-
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // .ProtoActionType action_type = 1;
-  if (this->_internal_action_type() != 0) {
-    total_size += 1 +
-                  ::_pbi::WireFormatLite::EnumSize(this->_internal_action_type());
-  }
-
-  // uint32 action_amount = 2;
-  if (this->_internal_action_amount() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
-        this->_internal_action_amount());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-
-void NewPlayerActionEvent_ProtoAction::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<NewPlayerActionEvent_ProtoAction*>(&to_msg);
-  auto& from = static_cast<const NewPlayerActionEvent_ProtoAction&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:NewPlayerActionEvent.ProtoAction)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_action_type() != 0) {
-    _this->_impl_.action_type_ = from._impl_.action_type_;
-  }
-  if (from._internal_action_amount() != 0) {
-    _this->_impl_.action_amount_ = from._impl_.action_amount_;
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void NewPlayerActionEvent_ProtoAction::CopyFrom(const NewPlayerActionEvent_ProtoAction& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:NewPlayerActionEvent.ProtoAction)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void NewPlayerActionEvent_ProtoAction::InternalSwap(NewPlayerActionEvent_ProtoAction* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent_ProtoAction, _impl_.action_amount_)
-      + sizeof(NewPlayerActionEvent_ProtoAction::_impl_.action_amount_)
-      - PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent_ProtoAction, _impl_.action_type_)>(
-          reinterpret_cast<char*>(&_impl_.action_type_),
-          reinterpret_cast<char*>(&other->_impl_.action_type_));
-}
-
-::google::protobuf::Metadata NewPlayerActionEvent_ProtoAction::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // ===================================================================
@@ -4376,8 +3771,7 @@ inline PROTOBUF_NDEBUG_INLINE NewPlayerActionEvent::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
     const Impl_& from, const ::NewPlayerActionEvent& from_msg)
       : _has_bits_{from._has_bits_},
-        _cached_size_{0},
-        player_id_(arena, from.player_id_) {}
+        _cached_size_{0} {}
 
 NewPlayerActionEvent::NewPlayerActionEvent(
     ::google::protobuf::Arena* arena,
@@ -4389,8 +3783,8 @@ NewPlayerActionEvent::NewPlayerActionEvent(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
   ::uint32_t cached_has_bits = _impl_._has_bits_[0];
-  _impl_.action_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::NewPlayerActionEvent_ProtoAction>(
-                              arena, *from._impl_.action_)
+  _impl_.player_action_info_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::PlayerActionInfo>(
+                              arena, *from._impl_.player_action_info_)
                         : nullptr;
 
   // @@protoc_insertion_point(copy_constructor:NewPlayerActionEvent)
@@ -4398,12 +3792,11 @@ NewPlayerActionEvent::NewPlayerActionEvent(
 inline PROTOBUF_NDEBUG_INLINE NewPlayerActionEvent::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : _cached_size_{0},
-        player_id_(arena) {}
+      : _cached_size_{0} {}
 
 inline void NewPlayerActionEvent::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.action_ = {};
+  _impl_.player_action_info_ = {};
 }
 NewPlayerActionEvent::~NewPlayerActionEvent() {
   // @@protoc_insertion_point(destructor:NewPlayerActionEvent)
@@ -4412,8 +3805,7 @@ NewPlayerActionEvent::~NewPlayerActionEvent() {
 }
 inline void NewPlayerActionEvent::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.player_id_.Destroy();
-  delete _impl_.action_;
+  delete _impl_.player_action_info_;
   _impl_.~Impl_();
 }
 
@@ -4438,15 +3830,15 @@ NewPlayerActionEvent::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 1, 38, 2> NewPlayerActionEvent::_table_ = {
+const ::_pbi::TcParseTable<0, 1, 1, 0, 2> NewPlayerActionEvent::_table_ = {
   {
     PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent, _impl_._has_bits_),
     0, // no _extensions_
-    2, 8,  // max_field_number, fast_idx_mask
+    1, 0,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967292,  // skipmap
+    4294967294,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    2,  // num_field_entries
+    1,  // num_field_entries
     1,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     &_NewPlayerActionEvent_default_instance_._instance,
@@ -4456,27 +3848,18 @@ const ::_pbi::TcParseTable<1, 2, 1, 38, 2> NewPlayerActionEvent::_table_ = {
     ::_pbi::TcParser::GetTable<::NewPlayerActionEvent>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // .NewPlayerActionEvent.ProtoAction action = 2;
+    // .PlayerActionInfo player_action_info = 1;
     {::_pbi::TcParser::FastMtS1,
-     {18, 0, 0, PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent, _impl_.action_)}},
-    // string player_id = 1;
-    {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent, _impl_.player_id_)}},
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent, _impl_.player_action_info_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // string player_id = 1;
-    {PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent, _impl_.player_id_), -1, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // .NewPlayerActionEvent.ProtoAction action = 2;
-    {PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent, _impl_.action_), _Internal::kHasBitsOffset + 0, 0,
+    // .PlayerActionInfo player_action_info = 1;
+    {PROTOBUF_FIELD_OFFSET(NewPlayerActionEvent, _impl_.player_action_info_), _Internal::kHasBitsOffset + 0, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
-    {::_pbi::TcParser::GetTable<::NewPlayerActionEvent_ProtoAction>()},
+    {::_pbi::TcParser::GetTable<::PlayerActionInfo>()},
   }}, {{
-    "\24\11\0\0\0\0\0\0"
-    "NewPlayerActionEvent"
-    "player_id"
   }},
 };
 
@@ -4487,11 +3870,10 @@ PROTOBUF_NOINLINE void NewPlayerActionEvent::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.player_id_.ClearToEmpty();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(_impl_.action_ != nullptr);
-    _impl_.action_->Clear();
+    ABSL_DCHECK(_impl_.player_action_info_ != nullptr);
+    _impl_.player_action_info_->Clear();
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
@@ -4504,19 +3886,11 @@ PROTOBUF_NOINLINE void NewPlayerActionEvent::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // string player_id = 1;
-  if (!this->_internal_player_id().empty()) {
-    const std::string& _s = this->_internal_player_id();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "NewPlayerActionEvent.player_id");
-    target = stream->WriteStringMaybeAliased(1, _s, target);
-  }
-
   cached_has_bits = _impl_._has_bits_[0];
-  // .NewPlayerActionEvent.ProtoAction action = 2;
+  // .PlayerActionInfo player_action_info = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-        2, *_impl_.action_, _impl_.action_->GetCachedSize(), target, stream);
+        1, *_impl_.player_action_info_, _impl_.player_action_info_->GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4536,18 +3910,11 @@ PROTOBUF_NOINLINE void NewPlayerActionEvent::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // string player_id = 1;
-  if (!this->_internal_player_id().empty()) {
-    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_player_id());
-  }
-
-  // .NewPlayerActionEvent.ProtoAction action = 2;
+  // .PlayerActionInfo player_action_info = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size +=
-        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.action_);
+        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.player_action_info_);
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -4563,17 +3930,14 @@ void NewPlayerActionEvent::MergeImpl(::google::protobuf::MessageLite& to_msg, co
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_player_id().empty()) {
-    _this->_internal_set_player_id(from._internal_player_id());
-  }
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(from._impl_.action_ != nullptr);
-    if (_this->_impl_.action_ == nullptr) {
-      _this->_impl_.action_ =
-          ::google::protobuf::Message::CopyConstruct<::NewPlayerActionEvent_ProtoAction>(arena, *from._impl_.action_);
+    ABSL_DCHECK(from._impl_.player_action_info_ != nullptr);
+    if (_this->_impl_.player_action_info_ == nullptr) {
+      _this->_impl_.player_action_info_ =
+          ::google::protobuf::Message::CopyConstruct<::PlayerActionInfo>(arena, *from._impl_.player_action_info_);
     } else {
-      _this->_impl_.action_->MergeFrom(*from._impl_.action_);
+      _this->_impl_.player_action_info_->MergeFrom(*from._impl_.player_action_info_);
     }
   }
   _this->_impl_._has_bits_[0] |= cached_has_bits;
@@ -4590,229 +3954,12 @@ void NewPlayerActionEvent::CopyFrom(const NewPlayerActionEvent& from) {
 
 void NewPlayerActionEvent::InternalSwap(NewPlayerActionEvent* PROTOBUF_RESTRICT other) {
   using std::swap;
-  auto* arena = GetArena();
-  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.player_id_, &other->_impl_.player_id_, arena);
-  swap(_impl_.action_, other->_impl_.action_);
+  swap(_impl_.player_action_info_, other->_impl_.player_action_info_);
 }
 
 ::google::protobuf::Metadata NewPlayerActionEvent::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
-class PotUpdateEvent_ProtoPot::_Internal {
- public:
-};
-
-PotUpdateEvent_ProtoPot::PotUpdateEvent_ProtoPot(::google::protobuf::Arena* arena)
-    : ::google::protobuf::Message(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:PotUpdateEvent.ProtoPot)
-}
-inline PROTOBUF_NDEBUG_INLINE PotUpdateEvent_ProtoPot::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::PotUpdateEvent_ProtoPot& from_msg)
-      : eligible_ids_{visibility, arena, from.eligible_ids_},
-        _cached_size_{0} {}
-
-PotUpdateEvent_ProtoPot::PotUpdateEvent_ProtoPot(
-    ::google::protobuf::Arena* arena,
-    const PotUpdateEvent_ProtoPot& from)
-    : ::google::protobuf::Message(arena) {
-  PotUpdateEvent_ProtoPot* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-  _impl_.pot_chips_ = from._impl_.pot_chips_;
-
-  // @@protoc_insertion_point(copy_constructor:PotUpdateEvent.ProtoPot)
-}
-inline PROTOBUF_NDEBUG_INLINE PotUpdateEvent_ProtoPot::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : eligible_ids_{visibility, arena},
-        _cached_size_{0} {}
-
-inline void PotUpdateEvent_ProtoPot::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.pot_chips_ = {};
-}
-PotUpdateEvent_ProtoPot::~PotUpdateEvent_ProtoPot() {
-  // @@protoc_insertion_point(destructor:PotUpdateEvent.ProtoPot)
-  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  SharedDtor();
-}
-inline void PotUpdateEvent_ProtoPot::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-PotUpdateEvent_ProtoPot::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
-      ClassDataFull _data_ = {
-          {
-              &_table_.header,
-              nullptr,  // OnDemandRegisterArenaDtor
-              nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(PotUpdateEvent_ProtoPot, _impl_._cached_size_),
-              false,
-          },
-          &PotUpdateEvent_ProtoPot::MergeImpl,
-          &PotUpdateEvent_ProtoPot::kDescriptorMethods,
-          &descriptor_table_texas_5fholdem_2eproto,
-          nullptr,  // tracker
-      };
-  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
-  return _data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 0, 44, 2> PotUpdateEvent_ProtoPot::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    2, 8,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967292,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    2,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_PotUpdateEvent_ProtoPot_default_instance_._instance,
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::PotUpdateEvent_ProtoPot>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // repeated string eligible_ids = 2;
-    {::_pbi::TcParser::FastUR1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(PotUpdateEvent_ProtoPot, _impl_.eligible_ids_)}},
-    // uint32 pot_chips = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(PotUpdateEvent_ProtoPot, _impl_.pot_chips_), 63>(),
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(PotUpdateEvent_ProtoPot, _impl_.pot_chips_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // uint32 pot_chips = 1;
-    {PROTOBUF_FIELD_OFFSET(PotUpdateEvent_ProtoPot, _impl_.pot_chips_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
-    // repeated string eligible_ids = 2;
-    {PROTOBUF_FIELD_OFFSET(PotUpdateEvent_ProtoPot, _impl_.eligible_ids_), 0, 0,
-    (0 | ::_fl::kFcRepeated | ::_fl::kUtf8String | ::_fl::kRepSString)},
-  }},
-  // no aux_entries
-  {{
-    "\27\0\14\0\0\0\0\0"
-    "PotUpdateEvent.ProtoPot"
-    "eligible_ids"
-  }},
-};
-
-PROTOBUF_NOINLINE void PotUpdateEvent_ProtoPot::Clear() {
-// @@protoc_insertion_point(message_clear_start:PotUpdateEvent.ProtoPot)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.eligible_ids_.Clear();
-  _impl_.pot_chips_ = 0u;
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-::uint8_t* PotUpdateEvent_ProtoPot::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:PotUpdateEvent.ProtoPot)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  // uint32 pot_chips = 1;
-  if (this->_internal_pot_chips() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
-        1, this->_internal_pot_chips(), target);
-  }
-
-  // repeated string eligible_ids = 2;
-  for (int i = 0, n = this->_internal_eligible_ids_size(); i < n; ++i) {
-    const auto& s = this->_internal_eligible_ids().Get(i);
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        s.data(), static_cast<int>(s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "PotUpdateEvent.ProtoPot.eligible_ids");
-    target = stream->WriteString(2, s, target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target =
-        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:PotUpdateEvent.ProtoPot)
-  return target;
-}
-
-::size_t PotUpdateEvent_ProtoPot::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:PotUpdateEvent.ProtoPot)
-  ::size_t total_size = 0;
-
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // repeated string eligible_ids = 2;
-  total_size += 1 * ::google::protobuf::internal::FromIntSize(_internal_eligible_ids().size());
-  for (int i = 0, n = _internal_eligible_ids().size(); i < n; ++i) {
-    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
-        _internal_eligible_ids().Get(i));
-  }
-  // uint32 pot_chips = 1;
-  if (this->_internal_pot_chips() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
-        this->_internal_pot_chips());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-
-void PotUpdateEvent_ProtoPot::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<PotUpdateEvent_ProtoPot*>(&to_msg);
-  auto& from = static_cast<const PotUpdateEvent_ProtoPot&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:PotUpdateEvent.ProtoPot)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  _this->_internal_mutable_eligible_ids()->MergeFrom(from._internal_eligible_ids());
-  if (from._internal_pot_chips() != 0) {
-    _this->_impl_.pot_chips_ = from._impl_.pot_chips_;
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void PotUpdateEvent_ProtoPot::CopyFrom(const PotUpdateEvent_ProtoPot& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:PotUpdateEvent.ProtoPot)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void PotUpdateEvent_ProtoPot::InternalSwap(PotUpdateEvent_ProtoPot* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.eligible_ids_.InternalSwap(&other->_impl_.eligible_ids_);
-        swap(_impl_.pot_chips_, other->_impl_.pot_chips_);
-}
-
-::google::protobuf::Metadata PotUpdateEvent_ProtoPot::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // ===================================================================
@@ -4902,17 +4049,17 @@ const ::_pbi::TcParseTable<0, 1, 1, 0, 2> PotUpdateEvent::_table_ = {
     ::_pbi::TcParser::GetTable<::PotUpdateEvent>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // repeated .PotUpdateEvent.ProtoPot updated_pots = 1;
+    // repeated .ProtoPot updated_pots = 1;
     {::_pbi::TcParser::FastMtR1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(PotUpdateEvent, _impl_.updated_pots_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // repeated .PotUpdateEvent.ProtoPot updated_pots = 1;
+    // repeated .ProtoPot updated_pots = 1;
     {PROTOBUF_FIELD_OFFSET(PotUpdateEvent, _impl_.updated_pots_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
-    {::_pbi::TcParser::GetTable<::PotUpdateEvent_ProtoPot>()},
+    {::_pbi::TcParser::GetTable<::ProtoPot>()},
   }}, {{
   }},
 };
@@ -4935,7 +4082,7 @@ PROTOBUF_NOINLINE void PotUpdateEvent::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // repeated .PotUpdateEvent.ProtoPot updated_pots = 1;
+  // repeated .ProtoPot updated_pots = 1;
   for (unsigned i = 0, n = static_cast<unsigned>(
                            this->_internal_updated_pots_size());
        i < n; i++) {
@@ -4964,7 +4111,7 @@ PROTOBUF_NOINLINE void PotUpdateEvent::Clear() {
   (void) cached_has_bits;
 
   ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // repeated .PotUpdateEvent.ProtoPot updated_pots = 1;
+  // repeated .ProtoPot updated_pots = 1;
   total_size += 1UL * this->_internal_updated_pots_size();
   for (const auto& msg : this->_internal_updated_pots()) {
     total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
@@ -5193,225 +4340,6 @@ void ShowdownEvent::InternalSwap(ShowdownEvent* PROTOBUF_RESTRICT other) {
 }
 // ===================================================================
 
-class PotWinnerEvent_PotWinner::_Internal {
- public:
-};
-
-PotWinnerEvent_PotWinner::PotWinnerEvent_PotWinner(::google::protobuf::Arena* arena)
-    : ::google::protobuf::Message(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:PotWinnerEvent.PotWinner)
-}
-inline PROTOBUF_NDEBUG_INLINE PotWinnerEvent_PotWinner::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::PotWinnerEvent_PotWinner& from_msg)
-      : winner_(arena, from.winner_),
-        _cached_size_{0} {}
-
-PotWinnerEvent_PotWinner::PotWinnerEvent_PotWinner(
-    ::google::protobuf::Arena* arena,
-    const PotWinnerEvent_PotWinner& from)
-    : ::google::protobuf::Message(arena) {
-  PotWinnerEvent_PotWinner* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-  _impl_.pot_chips_ = from._impl_.pot_chips_;
-
-  // @@protoc_insertion_point(copy_constructor:PotWinnerEvent.PotWinner)
-}
-inline PROTOBUF_NDEBUG_INLINE PotWinnerEvent_PotWinner::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : winner_(arena),
-        _cached_size_{0} {}
-
-inline void PotWinnerEvent_PotWinner::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.pot_chips_ = {};
-}
-PotWinnerEvent_PotWinner::~PotWinnerEvent_PotWinner() {
-  // @@protoc_insertion_point(destructor:PotWinnerEvent.PotWinner)
-  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  SharedDtor();
-}
-inline void PotWinnerEvent_PotWinner::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.winner_.Destroy();
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-PotWinnerEvent_PotWinner::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
-      ClassDataFull _data_ = {
-          {
-              &_table_.header,
-              nullptr,  // OnDemandRegisterArenaDtor
-              nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(PotWinnerEvent_PotWinner, _impl_._cached_size_),
-              false,
-          },
-          &PotWinnerEvent_PotWinner::MergeImpl,
-          &PotWinnerEvent_PotWinner::kDescriptorMethods,
-          &descriptor_table_texas_5fholdem_2eproto,
-          nullptr,  // tracker
-      };
-  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
-  return _data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 0, 39, 2> PotWinnerEvent_PotWinner::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    2, 8,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967292,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    2,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_PotWinnerEvent_PotWinner_default_instance_._instance,
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::PotWinnerEvent_PotWinner>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // string winner = 2;
-    {::_pbi::TcParser::FastUS1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(PotWinnerEvent_PotWinner, _impl_.winner_)}},
-    // uint32 pot_chips = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(PotWinnerEvent_PotWinner, _impl_.pot_chips_), 63>(),
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(PotWinnerEvent_PotWinner, _impl_.pot_chips_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // uint32 pot_chips = 1;
-    {PROTOBUF_FIELD_OFFSET(PotWinnerEvent_PotWinner, _impl_.pot_chips_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
-    // string winner = 2;
-    {PROTOBUF_FIELD_OFFSET(PotWinnerEvent_PotWinner, _impl_.winner_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-  }},
-  // no aux_entries
-  {{
-    "\30\0\6\0\0\0\0\0"
-    "PotWinnerEvent.PotWinner"
-    "winner"
-  }},
-};
-
-PROTOBUF_NOINLINE void PotWinnerEvent_PotWinner::Clear() {
-// @@protoc_insertion_point(message_clear_start:PotWinnerEvent.PotWinner)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.winner_.ClearToEmpty();
-  _impl_.pot_chips_ = 0u;
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-::uint8_t* PotWinnerEvent_PotWinner::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:PotWinnerEvent.PotWinner)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  // uint32 pot_chips = 1;
-  if (this->_internal_pot_chips() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
-        1, this->_internal_pot_chips(), target);
-  }
-
-  // string winner = 2;
-  if (!this->_internal_winner().empty()) {
-    const std::string& _s = this->_internal_winner();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "PotWinnerEvent.PotWinner.winner");
-    target = stream->WriteStringMaybeAliased(2, _s, target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target =
-        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:PotWinnerEvent.PotWinner)
-  return target;
-}
-
-::size_t PotWinnerEvent_PotWinner::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:PotWinnerEvent.PotWinner)
-  ::size_t total_size = 0;
-
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // string winner = 2;
-  if (!this->_internal_winner().empty()) {
-    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_winner());
-  }
-
-  // uint32 pot_chips = 1;
-  if (this->_internal_pot_chips() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
-        this->_internal_pot_chips());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-
-void PotWinnerEvent_PotWinner::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<PotWinnerEvent_PotWinner*>(&to_msg);
-  auto& from = static_cast<const PotWinnerEvent_PotWinner&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:PotWinnerEvent.PotWinner)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (!from._internal_winner().empty()) {
-    _this->_internal_set_winner(from._internal_winner());
-  }
-  if (from._internal_pot_chips() != 0) {
-    _this->_impl_.pot_chips_ = from._impl_.pot_chips_;
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void PotWinnerEvent_PotWinner::CopyFrom(const PotWinnerEvent_PotWinner& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:PotWinnerEvent.PotWinner)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void PotWinnerEvent_PotWinner::InternalSwap(PotWinnerEvent_PotWinner* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  auto* arena = GetArena();
-  ABSL_DCHECK_EQ(arena, other->GetArena());
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.winner_, &other->_impl_.winner_, arena);
-        swap(_impl_.pot_chips_, other->_impl_.pot_chips_);
-}
-
-::google::protobuf::Metadata PotWinnerEvent_PotWinner::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
 class PotWinnerEvent::_Internal {
  public:
 };
@@ -5497,17 +4425,17 @@ const ::_pbi::TcParseTable<0, 1, 1, 0, 2> PotWinnerEvent::_table_ = {
     ::_pbi::TcParser::GetTable<::PotWinnerEvent>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // repeated .PotWinnerEvent.PotWinner pot_winners = 1;
+    // repeated .PotWinner pot_winners = 1;
     {::_pbi::TcParser::FastMtR1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(PotWinnerEvent, _impl_.pot_winners_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // repeated .PotWinnerEvent.PotWinner pot_winners = 1;
+    // repeated .PotWinner pot_winners = 1;
     {PROTOBUF_FIELD_OFFSET(PotWinnerEvent, _impl_.pot_winners_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
-    {::_pbi::TcParser::GetTable<::PotWinnerEvent_PotWinner>()},
+    {::_pbi::TcParser::GetTable<::PotWinner>()},
   }}, {{
   }},
 };
@@ -5530,7 +4458,7 @@ PROTOBUF_NOINLINE void PotWinnerEvent::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // repeated .PotWinnerEvent.PotWinner pot_winners = 1;
+  // repeated .PotWinner pot_winners = 1;
   for (unsigned i = 0, n = static_cast<unsigned>(
                            this->_internal_pot_winners_size());
        i < n; i++) {
@@ -5559,7 +4487,7 @@ PROTOBUF_NOINLINE void PotWinnerEvent::Clear() {
   (void) cached_has_bits;
 
   ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // repeated .PotWinnerEvent.PotWinner pot_winners = 1;
+  // repeated .PotWinner pot_winners = 1;
   total_size += 1UL * this->_internal_pot_winners_size();
   for (const auto& msg : this->_internal_pot_winners()) {
     total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
@@ -6137,6 +5065,1562 @@ void ProtoPlayer::InternalSwap(ProtoPlayer* PROTOBUF_RESTRICT other) {
 }
 
 ::google::protobuf::Metadata ProtoPlayer::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class PlayerCard::_Internal {
+ public:
+};
+
+PlayerCard::PlayerCard(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:PlayerCard)
+}
+inline PROTOBUF_NDEBUG_INLINE PlayerCard::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::PlayerCard& from_msg)
+      : hole_cards_{visibility, arena, from.hole_cards_},
+        player_id_(arena, from.player_id_),
+        _cached_size_{0} {}
+
+PlayerCard::PlayerCard(
+    ::google::protobuf::Arena* arena,
+    const PlayerCard& from)
+    : ::google::protobuf::Message(arena) {
+  PlayerCard* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:PlayerCard)
+}
+inline PROTOBUF_NDEBUG_INLINE PlayerCard::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : hole_cards_{visibility, arena},
+        player_id_(arena),
+        _cached_size_{0} {}
+
+inline void PlayerCard::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+PlayerCard::~PlayerCard() {
+  // @@protoc_insertion_point(destructor:PlayerCard)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void PlayerCard::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.player_id_.Destroy();
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+PlayerCard::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(PlayerCard, _impl_._cached_size_),
+              false,
+          },
+          &PlayerCard::MergeImpl,
+          &PlayerCard::kDescriptorMethods,
+          &descriptor_table_texas_5fholdem_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 1, 28, 2> PlayerCard::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_PlayerCard_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::PlayerCard>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // repeated .ProtoCard hole_cards = 2;
+    {::_pbi::TcParser::FastMtR1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerCard, _impl_.hole_cards_)}},
+    // string player_id = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerCard, _impl_.player_id_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // string player_id = 1;
+    {PROTOBUF_FIELD_OFFSET(PlayerCard, _impl_.player_id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // repeated .ProtoCard hole_cards = 2;
+    {PROTOBUF_FIELD_OFFSET(PlayerCard, _impl_.hole_cards_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::ProtoCard>()},
+  }}, {{
+    "\12\11\0\0\0\0\0\0"
+    "PlayerCard"
+    "player_id"
+  }},
+};
+
+PROTOBUF_NOINLINE void PlayerCard::Clear() {
+// @@protoc_insertion_point(message_clear_start:PlayerCard)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.hole_cards_.Clear();
+  _impl_.player_id_.ClearToEmpty();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* PlayerCard::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PlayerCard)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // string player_id = 1;
+  if (!this->_internal_player_id().empty()) {
+    const std::string& _s = this->_internal_player_id();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "PlayerCard.player_id");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  // repeated .ProtoCard hole_cards = 2;
+  for (unsigned i = 0, n = static_cast<unsigned>(
+                           this->_internal_hole_cards_size());
+       i < n; i++) {
+    const auto& repfield = this->_internal_hole_cards().Get(i);
+    target =
+        ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+            2, repfield, repfield.GetCachedSize(),
+            target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PlayerCard)
+  return target;
+}
+
+::size_t PlayerCard::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:PlayerCard)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // repeated .ProtoCard hole_cards = 2;
+  total_size += 1UL * this->_internal_hole_cards_size();
+  for (const auto& msg : this->_internal_hole_cards()) {
+    total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
+  }
+  // string player_id = 1;
+  if (!this->_internal_player_id().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_player_id());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void PlayerCard::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<PlayerCard*>(&to_msg);
+  auto& from = static_cast<const PlayerCard&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:PlayerCard)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_hole_cards()->MergeFrom(
+      from._internal_hole_cards());
+  if (!from._internal_player_id().empty()) {
+    _this->_internal_set_player_id(from._internal_player_id());
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PlayerCard::CopyFrom(const PlayerCard& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PlayerCard)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void PlayerCard::InternalSwap(PlayerCard* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.hole_cards_.InternalSwap(&other->_impl_.hole_cards_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.player_id_, &other->_impl_.player_id_, arena);
+}
+
+::google::protobuf::Metadata PlayerCard::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class PlayerToActInfo_ProtoPossibleAction::_Internal {
+ public:
+};
+
+PlayerToActInfo_ProtoPossibleAction::PlayerToActInfo_ProtoPossibleAction(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:PlayerToActInfo.ProtoPossibleAction)
+}
+PlayerToActInfo_ProtoPossibleAction::PlayerToActInfo_ProtoPossibleAction(
+    ::google::protobuf::Arena* arena, const PlayerToActInfo_ProtoPossibleAction& from)
+    : PlayerToActInfo_ProtoPossibleAction(arena) {
+  MergeFrom(from);
+}
+inline PROTOBUF_NDEBUG_INLINE PlayerToActInfo_ProtoPossibleAction::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void PlayerToActInfo_ProtoPossibleAction::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, action_type_),
+           0,
+           offsetof(Impl_, secondary_amount_) -
+               offsetof(Impl_, action_type_) +
+               sizeof(Impl_::secondary_amount_));
+}
+PlayerToActInfo_ProtoPossibleAction::~PlayerToActInfo_ProtoPossibleAction() {
+  // @@protoc_insertion_point(destructor:PlayerToActInfo.ProtoPossibleAction)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void PlayerToActInfo_ProtoPossibleAction::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+PlayerToActInfo_ProtoPossibleAction::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(PlayerToActInfo_ProtoPossibleAction, _impl_._cached_size_),
+              false,
+          },
+          &PlayerToActInfo_ProtoPossibleAction::MergeImpl,
+          &PlayerToActInfo_ProtoPossibleAction::kDescriptorMethods,
+          &descriptor_table_texas_5fholdem_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 3, 0, 0, 2> PlayerToActInfo_ProtoPossibleAction::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    3, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967288,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    3,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_PlayerToActInfo_ProtoPossibleAction_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::PlayerToActInfo_ProtoPossibleAction>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // .ProtoActionType action_type = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(PlayerToActInfo_ProtoPossibleAction, _impl_.action_type_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerToActInfo_ProtoPossibleAction, _impl_.action_type_)}},
+    // uint32 primary_amount = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(PlayerToActInfo_ProtoPossibleAction, _impl_.primary_amount_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerToActInfo_ProtoPossibleAction, _impl_.primary_amount_)}},
+    // uint32 secondary_amount = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(PlayerToActInfo_ProtoPossibleAction, _impl_.secondary_amount_), 63>(),
+     {24, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerToActInfo_ProtoPossibleAction, _impl_.secondary_amount_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .ProtoActionType action_type = 1;
+    {PROTOBUF_FIELD_OFFSET(PlayerToActInfo_ProtoPossibleAction, _impl_.action_type_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
+    // uint32 primary_amount = 2;
+    {PROTOBUF_FIELD_OFFSET(PlayerToActInfo_ProtoPossibleAction, _impl_.primary_amount_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+    // uint32 secondary_amount = 3;
+    {PROTOBUF_FIELD_OFFSET(PlayerToActInfo_ProtoPossibleAction, _impl_.secondary_amount_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void PlayerToActInfo_ProtoPossibleAction::Clear() {
+// @@protoc_insertion_point(message_clear_start:PlayerToActInfo.ProtoPossibleAction)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.action_type_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.secondary_amount_) -
+      reinterpret_cast<char*>(&_impl_.action_type_)) + sizeof(_impl_.secondary_amount_));
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* PlayerToActInfo_ProtoPossibleAction::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PlayerToActInfo.ProtoPossibleAction)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // .ProtoActionType action_type = 1;
+  if (this->_internal_action_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_action_type(), target);
+  }
+
+  // uint32 primary_amount = 2;
+  if (this->_internal_primary_amount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_primary_amount(), target);
+  }
+
+  // uint32 secondary_amount = 3;
+  if (this->_internal_secondary_amount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_secondary_amount(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PlayerToActInfo.ProtoPossibleAction)
+  return target;
+}
+
+::size_t PlayerToActInfo_ProtoPossibleAction::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:PlayerToActInfo.ProtoPossibleAction)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // .ProtoActionType action_type = 1;
+  if (this->_internal_action_type() != 0) {
+    total_size += 1 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_action_type());
+  }
+
+  // uint32 primary_amount = 2;
+  if (this->_internal_primary_amount() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_primary_amount());
+  }
+
+  // uint32 secondary_amount = 3;
+  if (this->_internal_secondary_amount() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_secondary_amount());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void PlayerToActInfo_ProtoPossibleAction::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<PlayerToActInfo_ProtoPossibleAction*>(&to_msg);
+  auto& from = static_cast<const PlayerToActInfo_ProtoPossibleAction&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:PlayerToActInfo.ProtoPossibleAction)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_action_type() != 0) {
+    _this->_impl_.action_type_ = from._impl_.action_type_;
+  }
+  if (from._internal_primary_amount() != 0) {
+    _this->_impl_.primary_amount_ = from._impl_.primary_amount_;
+  }
+  if (from._internal_secondary_amount() != 0) {
+    _this->_impl_.secondary_amount_ = from._impl_.secondary_amount_;
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PlayerToActInfo_ProtoPossibleAction::CopyFrom(const PlayerToActInfo_ProtoPossibleAction& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PlayerToActInfo.ProtoPossibleAction)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void PlayerToActInfo_ProtoPossibleAction::InternalSwap(PlayerToActInfo_ProtoPossibleAction* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(PlayerToActInfo_ProtoPossibleAction, _impl_.secondary_amount_)
+      + sizeof(PlayerToActInfo_ProtoPossibleAction::_impl_.secondary_amount_)
+      - PROTOBUF_FIELD_OFFSET(PlayerToActInfo_ProtoPossibleAction, _impl_.action_type_)>(
+          reinterpret_cast<char*>(&_impl_.action_type_),
+          reinterpret_cast<char*>(&other->_impl_.action_type_));
+}
+
+::google::protobuf::Metadata PlayerToActInfo_ProtoPossibleAction::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class PlayerToActInfo::_Internal {
+ public:
+};
+
+PlayerToActInfo::PlayerToActInfo(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:PlayerToActInfo)
+}
+inline PROTOBUF_NDEBUG_INLINE PlayerToActInfo::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::PlayerToActInfo& from_msg)
+      : possible_actions_{visibility, arena, from.possible_actions_},
+        player_to_act_(arena, from.player_to_act_),
+        _cached_size_{0} {}
+
+PlayerToActInfo::PlayerToActInfo(
+    ::google::protobuf::Arena* arena,
+    const PlayerToActInfo& from)
+    : ::google::protobuf::Message(arena) {
+  PlayerToActInfo* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:PlayerToActInfo)
+}
+inline PROTOBUF_NDEBUG_INLINE PlayerToActInfo::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : possible_actions_{visibility, arena},
+        player_to_act_(arena),
+        _cached_size_{0} {}
+
+inline void PlayerToActInfo::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+PlayerToActInfo::~PlayerToActInfo() {
+  // @@protoc_insertion_point(destructor:PlayerToActInfo)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void PlayerToActInfo::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.player_to_act_.Destroy();
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+PlayerToActInfo::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(PlayerToActInfo, _impl_._cached_size_),
+              false,
+          },
+          &PlayerToActInfo::MergeImpl,
+          &PlayerToActInfo::kDescriptorMethods,
+          &descriptor_table_texas_5fholdem_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 1, 37, 2> PlayerToActInfo::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_PlayerToActInfo_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::PlayerToActInfo>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // repeated .PlayerToActInfo.ProtoPossibleAction possible_actions = 2;
+    {::_pbi::TcParser::FastMtR1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerToActInfo, _impl_.possible_actions_)}},
+    // string player_to_act = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerToActInfo, _impl_.player_to_act_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // string player_to_act = 1;
+    {PROTOBUF_FIELD_OFFSET(PlayerToActInfo, _impl_.player_to_act_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // repeated .PlayerToActInfo.ProtoPossibleAction possible_actions = 2;
+    {PROTOBUF_FIELD_OFFSET(PlayerToActInfo, _impl_.possible_actions_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::PlayerToActInfo_ProtoPossibleAction>()},
+  }}, {{
+    "\17\15\0\0\0\0\0\0"
+    "PlayerToActInfo"
+    "player_to_act"
+  }},
+};
+
+PROTOBUF_NOINLINE void PlayerToActInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:PlayerToActInfo)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.possible_actions_.Clear();
+  _impl_.player_to_act_.ClearToEmpty();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* PlayerToActInfo::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PlayerToActInfo)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // string player_to_act = 1;
+  if (!this->_internal_player_to_act().empty()) {
+    const std::string& _s = this->_internal_player_to_act();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "PlayerToActInfo.player_to_act");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  // repeated .PlayerToActInfo.ProtoPossibleAction possible_actions = 2;
+  for (unsigned i = 0, n = static_cast<unsigned>(
+                           this->_internal_possible_actions_size());
+       i < n; i++) {
+    const auto& repfield = this->_internal_possible_actions().Get(i);
+    target =
+        ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+            2, repfield, repfield.GetCachedSize(),
+            target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PlayerToActInfo)
+  return target;
+}
+
+::size_t PlayerToActInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:PlayerToActInfo)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // repeated .PlayerToActInfo.ProtoPossibleAction possible_actions = 2;
+  total_size += 1UL * this->_internal_possible_actions_size();
+  for (const auto& msg : this->_internal_possible_actions()) {
+    total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
+  }
+  // string player_to_act = 1;
+  if (!this->_internal_player_to_act().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_player_to_act());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void PlayerToActInfo::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<PlayerToActInfo*>(&to_msg);
+  auto& from = static_cast<const PlayerToActInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:PlayerToActInfo)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_possible_actions()->MergeFrom(
+      from._internal_possible_actions());
+  if (!from._internal_player_to_act().empty()) {
+    _this->_internal_set_player_to_act(from._internal_player_to_act());
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PlayerToActInfo::CopyFrom(const PlayerToActInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PlayerToActInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void PlayerToActInfo::InternalSwap(PlayerToActInfo* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.possible_actions_.InternalSwap(&other->_impl_.possible_actions_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.player_to_act_, &other->_impl_.player_to_act_, arena);
+}
+
+::google::protobuf::Metadata PlayerToActInfo::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class PlayerActionInfo_ProtoAction::_Internal {
+ public:
+};
+
+PlayerActionInfo_ProtoAction::PlayerActionInfo_ProtoAction(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:PlayerActionInfo.ProtoAction)
+}
+PlayerActionInfo_ProtoAction::PlayerActionInfo_ProtoAction(
+    ::google::protobuf::Arena* arena, const PlayerActionInfo_ProtoAction& from)
+    : PlayerActionInfo_ProtoAction(arena) {
+  MergeFrom(from);
+}
+inline PROTOBUF_NDEBUG_INLINE PlayerActionInfo_ProtoAction::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void PlayerActionInfo_ProtoAction::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, action_type_),
+           0,
+           offsetof(Impl_, action_amount_) -
+               offsetof(Impl_, action_type_) +
+               sizeof(Impl_::action_amount_));
+}
+PlayerActionInfo_ProtoAction::~PlayerActionInfo_ProtoAction() {
+  // @@protoc_insertion_point(destructor:PlayerActionInfo.ProtoAction)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void PlayerActionInfo_ProtoAction::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+PlayerActionInfo_ProtoAction::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(PlayerActionInfo_ProtoAction, _impl_._cached_size_),
+              false,
+          },
+          &PlayerActionInfo_ProtoAction::MergeImpl,
+          &PlayerActionInfo_ProtoAction::kDescriptorMethods,
+          &descriptor_table_texas_5fholdem_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> PlayerActionInfo_ProtoAction::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_PlayerActionInfo_ProtoAction_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::PlayerActionInfo_ProtoAction>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // uint32 action_amount = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(PlayerActionInfo_ProtoAction, _impl_.action_amount_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerActionInfo_ProtoAction, _impl_.action_amount_)}},
+    // .ProtoActionType action_type = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(PlayerActionInfo_ProtoAction, _impl_.action_type_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerActionInfo_ProtoAction, _impl_.action_type_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .ProtoActionType action_type = 1;
+    {PROTOBUF_FIELD_OFFSET(PlayerActionInfo_ProtoAction, _impl_.action_type_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
+    // uint32 action_amount = 2;
+    {PROTOBUF_FIELD_OFFSET(PlayerActionInfo_ProtoAction, _impl_.action_amount_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void PlayerActionInfo_ProtoAction::Clear() {
+// @@protoc_insertion_point(message_clear_start:PlayerActionInfo.ProtoAction)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.action_type_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.action_amount_) -
+      reinterpret_cast<char*>(&_impl_.action_type_)) + sizeof(_impl_.action_amount_));
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* PlayerActionInfo_ProtoAction::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PlayerActionInfo.ProtoAction)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // .ProtoActionType action_type = 1;
+  if (this->_internal_action_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_action_type(), target);
+  }
+
+  // uint32 action_amount = 2;
+  if (this->_internal_action_amount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_action_amount(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PlayerActionInfo.ProtoAction)
+  return target;
+}
+
+::size_t PlayerActionInfo_ProtoAction::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:PlayerActionInfo.ProtoAction)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // .ProtoActionType action_type = 1;
+  if (this->_internal_action_type() != 0) {
+    total_size += 1 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_action_type());
+  }
+
+  // uint32 action_amount = 2;
+  if (this->_internal_action_amount() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_action_amount());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void PlayerActionInfo_ProtoAction::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<PlayerActionInfo_ProtoAction*>(&to_msg);
+  auto& from = static_cast<const PlayerActionInfo_ProtoAction&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:PlayerActionInfo.ProtoAction)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_action_type() != 0) {
+    _this->_impl_.action_type_ = from._impl_.action_type_;
+  }
+  if (from._internal_action_amount() != 0) {
+    _this->_impl_.action_amount_ = from._impl_.action_amount_;
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PlayerActionInfo_ProtoAction::CopyFrom(const PlayerActionInfo_ProtoAction& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PlayerActionInfo.ProtoAction)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void PlayerActionInfo_ProtoAction::InternalSwap(PlayerActionInfo_ProtoAction* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(PlayerActionInfo_ProtoAction, _impl_.action_amount_)
+      + sizeof(PlayerActionInfo_ProtoAction::_impl_.action_amount_)
+      - PROTOBUF_FIELD_OFFSET(PlayerActionInfo_ProtoAction, _impl_.action_type_)>(
+          reinterpret_cast<char*>(&_impl_.action_type_),
+          reinterpret_cast<char*>(&other->_impl_.action_type_));
+}
+
+::google::protobuf::Metadata PlayerActionInfo_ProtoAction::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class PlayerActionInfo::_Internal {
+ public:
+  using HasBits =
+      decltype(std::declval<PlayerActionInfo>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(PlayerActionInfo, _impl_._has_bits_);
+};
+
+PlayerActionInfo::PlayerActionInfo(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:PlayerActionInfo)
+}
+inline PROTOBUF_NDEBUG_INLINE PlayerActionInfo::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::PlayerActionInfo& from_msg)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        player_id_(arena, from.player_id_) {}
+
+PlayerActionInfo::PlayerActionInfo(
+    ::google::protobuf::Arena* arena,
+    const PlayerActionInfo& from)
+    : ::google::protobuf::Message(arena) {
+  PlayerActionInfo* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.action_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::PlayerActionInfo_ProtoAction>(
+                              arena, *from._impl_.action_)
+                        : nullptr;
+
+  // @@protoc_insertion_point(copy_constructor:PlayerActionInfo)
+}
+inline PROTOBUF_NDEBUG_INLINE PlayerActionInfo::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        player_id_(arena) {}
+
+inline void PlayerActionInfo::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.action_ = {};
+}
+PlayerActionInfo::~PlayerActionInfo() {
+  // @@protoc_insertion_point(destructor:PlayerActionInfo)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void PlayerActionInfo::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.player_id_.Destroy();
+  delete _impl_.action_;
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+PlayerActionInfo::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(PlayerActionInfo, _impl_._cached_size_),
+              false,
+          },
+          &PlayerActionInfo::MergeImpl,
+          &PlayerActionInfo::kDescriptorMethods,
+          &descriptor_table_texas_5fholdem_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 1, 34, 2> PlayerActionInfo::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(PlayerActionInfo, _impl_._has_bits_),
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_PlayerActionInfo_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::PlayerActionInfo>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // .PlayerActionInfo.ProtoAction action = 2;
+    {::_pbi::TcParser::FastMtS1,
+     {18, 0, 0, PROTOBUF_FIELD_OFFSET(PlayerActionInfo, _impl_.action_)}},
+    // string player_id = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerActionInfo, _impl_.player_id_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // string player_id = 1;
+    {PROTOBUF_FIELD_OFFSET(PlayerActionInfo, _impl_.player_id_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // .PlayerActionInfo.ProtoAction action = 2;
+    {PROTOBUF_FIELD_OFFSET(PlayerActionInfo, _impl_.action_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::PlayerActionInfo_ProtoAction>()},
+  }}, {{
+    "\20\11\0\0\0\0\0\0"
+    "PlayerActionInfo"
+    "player_id"
+  }},
+};
+
+PROTOBUF_NOINLINE void PlayerActionInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:PlayerActionInfo)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.player_id_.ClearToEmpty();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.action_ != nullptr);
+    _impl_.action_->Clear();
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* PlayerActionInfo::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PlayerActionInfo)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // string player_id = 1;
+  if (!this->_internal_player_id().empty()) {
+    const std::string& _s = this->_internal_player_id();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "PlayerActionInfo.player_id");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // .PlayerActionInfo.ProtoAction action = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        2, *_impl_.action_, _impl_.action_->GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PlayerActionInfo)
+  return target;
+}
+
+::size_t PlayerActionInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:PlayerActionInfo)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // string player_id = 1;
+  if (!this->_internal_player_id().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_player_id());
+  }
+
+  // .PlayerActionInfo.ProtoAction action = 2;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size +=
+        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.action_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void PlayerActionInfo::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<PlayerActionInfo*>(&to_msg);
+  auto& from = static_cast<const PlayerActionInfo&>(from_msg);
+  ::google::protobuf::Arena* arena = _this->GetArena();
+  // @@protoc_insertion_point(class_specific_merge_from_start:PlayerActionInfo)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_player_id().empty()) {
+    _this->_internal_set_player_id(from._internal_player_id());
+  }
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(from._impl_.action_ != nullptr);
+    if (_this->_impl_.action_ == nullptr) {
+      _this->_impl_.action_ =
+          ::google::protobuf::Message::CopyConstruct<::PlayerActionInfo_ProtoAction>(arena, *from._impl_.action_);
+    } else {
+      _this->_impl_.action_->MergeFrom(*from._impl_.action_);
+    }
+  }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PlayerActionInfo::CopyFrom(const PlayerActionInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PlayerActionInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void PlayerActionInfo::InternalSwap(PlayerActionInfo* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.player_id_, &other->_impl_.player_id_, arena);
+  swap(_impl_.action_, other->_impl_.action_);
+}
+
+::google::protobuf::Metadata PlayerActionInfo::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class ProtoPot::_Internal {
+ public:
+};
+
+ProtoPot::ProtoPot(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:ProtoPot)
+}
+inline PROTOBUF_NDEBUG_INLINE ProtoPot::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::ProtoPot& from_msg)
+      : eligible_ids_{visibility, arena, from.eligible_ids_},
+        _cached_size_{0} {}
+
+ProtoPot::ProtoPot(
+    ::google::protobuf::Arena* arena,
+    const ProtoPot& from)
+    : ::google::protobuf::Message(arena) {
+  ProtoPot* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  _impl_.pot_chips_ = from._impl_.pot_chips_;
+
+  // @@protoc_insertion_point(copy_constructor:ProtoPot)
+}
+inline PROTOBUF_NDEBUG_INLINE ProtoPot::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : eligible_ids_{visibility, arena},
+        _cached_size_{0} {}
+
+inline void ProtoPot::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.pot_chips_ = {};
+}
+ProtoPot::~ProtoPot() {
+  // @@protoc_insertion_point(destructor:ProtoPot)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void ProtoPot::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+ProtoPot::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(ProtoPot, _impl_._cached_size_),
+              false,
+          },
+          &ProtoPot::MergeImpl,
+          &ProtoPot::kDescriptorMethods,
+          &descriptor_table_texas_5fholdem_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 29, 2> ProtoPot::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_ProtoPot_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::ProtoPot>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // repeated string eligible_ids = 2;
+    {::_pbi::TcParser::FastUR1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPot, _impl_.eligible_ids_)}},
+    // uint32 pot_chips = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ProtoPot, _impl_.pot_chips_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(ProtoPot, _impl_.pot_chips_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // uint32 pot_chips = 1;
+    {PROTOBUF_FIELD_OFFSET(ProtoPot, _impl_.pot_chips_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+    // repeated string eligible_ids = 2;
+    {PROTOBUF_FIELD_OFFSET(ProtoPot, _impl_.eligible_ids_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kUtf8String | ::_fl::kRepSString)},
+  }},
+  // no aux_entries
+  {{
+    "\10\0\14\0\0\0\0\0"
+    "ProtoPot"
+    "eligible_ids"
+  }},
+};
+
+PROTOBUF_NOINLINE void ProtoPot::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProtoPot)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.eligible_ids_.Clear();
+  _impl_.pot_chips_ = 0u;
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* ProtoPot::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoPot)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // uint32 pot_chips = 1;
+  if (this->_internal_pot_chips() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_pot_chips(), target);
+  }
+
+  // repeated string eligible_ids = 2;
+  for (int i = 0, n = this->_internal_eligible_ids_size(); i < n; ++i) {
+    const auto& s = this->_internal_eligible_ids().Get(i);
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        s.data(), static_cast<int>(s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "ProtoPot.eligible_ids");
+    target = stream->WriteString(2, s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoPot)
+  return target;
+}
+
+::size_t ProtoPot::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProtoPot)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // repeated string eligible_ids = 2;
+  total_size += 1 * ::google::protobuf::internal::FromIntSize(_internal_eligible_ids().size());
+  for (int i = 0, n = _internal_eligible_ids().size(); i < n; ++i) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+        _internal_eligible_ids().Get(i));
+  }
+  // uint32 pot_chips = 1;
+  if (this->_internal_pot_chips() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_pot_chips());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void ProtoPot::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<ProtoPot*>(&to_msg);
+  auto& from = static_cast<const ProtoPot&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProtoPot)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_eligible_ids()->MergeFrom(from._internal_eligible_ids());
+  if (from._internal_pot_chips() != 0) {
+    _this->_impl_.pot_chips_ = from._impl_.pot_chips_;
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void ProtoPot::CopyFrom(const ProtoPot& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProtoPot)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void ProtoPot::InternalSwap(ProtoPot* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.eligible_ids_.InternalSwap(&other->_impl_.eligible_ids_);
+        swap(_impl_.pot_chips_, other->_impl_.pot_chips_);
+}
+
+::google::protobuf::Metadata ProtoPot::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class PotWinner::_Internal {
+ public:
+};
+
+PotWinner::PotWinner(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:PotWinner)
+}
+inline PROTOBUF_NDEBUG_INLINE PotWinner::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::PotWinner& from_msg)
+      : winner_(arena, from.winner_),
+        _cached_size_{0} {}
+
+PotWinner::PotWinner(
+    ::google::protobuf::Arena* arena,
+    const PotWinner& from)
+    : ::google::protobuf::Message(arena) {
+  PotWinner* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  _impl_.pot_chips_ = from._impl_.pot_chips_;
+
+  // @@protoc_insertion_point(copy_constructor:PotWinner)
+}
+inline PROTOBUF_NDEBUG_INLINE PotWinner::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : winner_(arena),
+        _cached_size_{0} {}
+
+inline void PotWinner::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.pot_chips_ = {};
+}
+PotWinner::~PotWinner() {
+  // @@protoc_insertion_point(destructor:PotWinner)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void PotWinner::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.winner_.Destroy();
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+PotWinner::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(PotWinner, _impl_._cached_size_),
+              false,
+          },
+          &PotWinner::MergeImpl,
+          &PotWinner::kDescriptorMethods,
+          &descriptor_table_texas_5fholdem_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 24, 2> PotWinner::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_PotWinner_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::PotWinner>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // string winner = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(PotWinner, _impl_.winner_)}},
+    // uint32 pot_chips = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(PotWinner, _impl_.pot_chips_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(PotWinner, _impl_.pot_chips_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // uint32 pot_chips = 1;
+    {PROTOBUF_FIELD_OFFSET(PotWinner, _impl_.pot_chips_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+    // string winner = 2;
+    {PROTOBUF_FIELD_OFFSET(PotWinner, _impl_.winner_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\11\0\6\0\0\0\0\0"
+    "PotWinner"
+    "winner"
+  }},
+};
+
+PROTOBUF_NOINLINE void PotWinner::Clear() {
+// @@protoc_insertion_point(message_clear_start:PotWinner)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.winner_.ClearToEmpty();
+  _impl_.pot_chips_ = 0u;
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* PotWinner::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PotWinner)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // uint32 pot_chips = 1;
+  if (this->_internal_pot_chips() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_pot_chips(), target);
+  }
+
+  // string winner = 2;
+  if (!this->_internal_winner().empty()) {
+    const std::string& _s = this->_internal_winner();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "PotWinner.winner");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PotWinner)
+  return target;
+}
+
+::size_t PotWinner::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:PotWinner)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // string winner = 2;
+  if (!this->_internal_winner().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_winner());
+  }
+
+  // uint32 pot_chips = 1;
+  if (this->_internal_pot_chips() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+        this->_internal_pot_chips());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void PotWinner::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<PotWinner*>(&to_msg);
+  auto& from = static_cast<const PotWinner&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:PotWinner)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_winner().empty()) {
+    _this->_internal_set_winner(from._internal_winner());
+  }
+  if (from._internal_pot_chips() != 0) {
+    _this->_impl_.pot_chips_ = from._impl_.pot_chips_;
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PotWinner::CopyFrom(const PotWinner& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PotWinner)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void PotWinner::InternalSwap(PotWinner* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.winner_, &other->_impl_.winner_, arena);
+        swap(_impl_.pot_chips_, other->_impl_.pot_chips_);
+}
+
+::google::protobuf::Metadata PotWinner::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)

@@ -61,11 +61,6 @@ message NewStreetEvent {
 
 // Event: Players are dealt their hole cards.
 message DealPlayersEvent {
-    message PlayerCard {
-        string player_id = 1;
-        repeated ProtoCard hole_cards = 2;
-    }
-
     repeated PlayerCard player_cards = 1;
 }
 
@@ -76,37 +71,16 @@ message DealBoardEvent {
 
 // Event: Awaiting input for the next player to act.
 message NewPlayerToActEvent {
-    string player_to_act = 1;
-
-    message ProtoPossibleAction {
-        ProtoActionType action_type = 1;
-        uint32 primary_amount = 2;
-        uint32 secondary_amount = 3;
-    }
-
-    repeated ProtoPossibleAction possible_actions = 2;
+    PlayerToActInfo player_to_act_info = 1;
 }
 
 // Event: Game controller processes a new player action.
 message NewPlayerActionEvent {
-    string player_id = 1;
-
-    message ProtoAction {
-        ProtoActionType action_type = 1;
-        uint32 action_amount = 2;
-    }
-
-    // Update player recent bet and status in the frontend.
-    ProtoAction action = 2;
+    PlayerActionInfo player_action_info = 1;
 }
 
 // Event: Pots are calculated at the end of each street.
 message PotUpdateEvent {
-    message ProtoPot {
-        uint32 pot_chips = 1;
-        repeated string eligible_ids = 2;
-    }
-
     repeated ProtoPot updated_pots = 1;
 }
 
@@ -117,11 +91,6 @@ message ShowdownEvent {
 
 // Event: Awards pots and updates player chips.
 message PotWinnerEvent {
-    message PotWinner {
-        uint32 pot_chips = 1;
-        string winner = 2;
-    }
-
     repeated PotWinner pot_winners = 1;
 }
 
@@ -185,6 +154,45 @@ message ProtoPlayer {
     }
 
     ProtoPlayerStatus status = 6;
+}
+
+message PlayerCard {
+    string player_id = 1;
+    repeated ProtoCard hole_cards = 2;
+}
+
+message PlayerToActInfo {
+    string player_to_act = 1;
+    
+    message ProtoPossibleAction {
+        ProtoActionType action_type = 1;
+        uint32 primary_amount = 2;
+        uint32 secondary_amount = 3;
+    }
+
+    repeated ProtoPossibleAction possible_actions = 2;
+}
+
+message PlayerActionInfo {
+    string player_id = 1;
+
+    message ProtoAction {
+        ProtoActionType action_type = 1;
+        uint32 action_amount = 2;
+    }
+
+    // Update player recent bet and status in the frontend.
+    ProtoAction action = 2;
+}
+
+message ProtoPot {
+    uint32 pot_chips = 1;
+    repeated string eligible_ids = 2;
+}
+
+message PotWinner {
+    uint32 pot_chips = 1;
+    string winner = 2;
 }
 
 enum ProtoStreet {

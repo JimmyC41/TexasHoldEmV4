@@ -16,7 +16,7 @@ const playerActionReducer = (state = initialState, gameEvent) => {
             console.log('PLAYER ACTION REDUCER receieved', gameEvent.payload);
             return {
                 ...state,
-                ...gameEvent.payload
+                ...gameEvent.payload.playerActionInfo
             };
         default:
             return state;
