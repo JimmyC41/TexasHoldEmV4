@@ -8,22 +8,18 @@ const JoinGameComponent = () => {
   const [playerName, setPlayerName] = useState('');
   const [chips, setChips] = useState(0);
   const [stream, setStream] = useState(null);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const handleJoinGame = async () => {
     try {
       const response = await joinGame(playerName, chips);
+      console.log('Server response: ', response.serverMessage);
+
       if (response.success) {
-        console.log(response.message);
         const newStream = gameStream(playerName, dispatch);
         setStream(newStream);
       }
-      else {
-        setErrorMessage(response.message);
-      }
-    } catch (error) {
-      console.error(error);
-      setErrorMessage('An unexpected error occured. Try again.');
+    } catch {
+      console.error('Request rejected by the server. Try again.');
     }
   };
 
@@ -43,7 +39,6 @@ const JoinGameComponent = () => {
         placeholder="Enter chips"
       />
       <button onClick={handleJoinGame}>Join Game</button>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
   );
 };

@@ -5,15 +5,13 @@ const PlayerActionComponent = () => {
   const [playerId, setPlayerId] = useState('');
   const [actionType, setActionType] = useState('');
   const [amount, setAmount] = useState(0);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const handlePlayerAction = async () => {
     try {
       const response = await playerAction(playerId, actionType, amount);
-      console.log('Action response:', response);
+	  console.log('Server response: ', response.serverMessage);
     } catch (error) {
-      console.error('Error performing player action:', error);
-      setErrorMessage('Failed to perform action: ' + error);
+		console.error('Request rejected by the server. Try again.');
     }
   };
 

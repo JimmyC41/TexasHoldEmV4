@@ -3,19 +3,13 @@ import { leaveGame } from '../grpc/unaryCalls';
 
 const LeaveGameComponent = () => {
   const [playerName, setPlayerName] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
 
   const handleLeaveGame = async () => {
     try {
       const response = await leaveGame(playerName);
-      if (response.success) {
-        console.log('Player left the game successfully:', response.message);
-      } else {
-        setErrorMessage(response.message);  // Show error message if leaving fails
-      }
-    } catch (error) {
-      console.error('Error leaving game:', error);
-      setErrorMessage('Failed to leave the game');
+      console.log('Server response: ', response.serverMessage);
+    } catch {
+      console.error('Request rejected by the server. Try again.');
     }
   };
 
@@ -29,7 +23,6 @@ const LeaveGameComponent = () => {
         placeholder="Enter your name"
       />
       <button onClick={handleLeaveGame}>Leave Game</button>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
   );
 };

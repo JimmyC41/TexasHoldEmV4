@@ -1025,7 +1025,8 @@ proto.PlayerReqRes.prototype.toObject = function(opt_includeInstance) {
 proto.PlayerReqRes.toObject = function(includeInstance, msg) {
   var f, obj = {
 success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-playerId: jspb.Message.getFieldWithDefault(msg, 2, "")
+playerId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+serverMessage: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -1070,6 +1071,10 @@ proto.PlayerReqRes.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setPlayerId(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setServerMessage(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1113,6 +1118,13 @@ proto.PlayerReqRes.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getServerMessage();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -1149,6 +1161,24 @@ proto.PlayerReqRes.prototype.getPlayerId = function() {
  */
 proto.PlayerReqRes.prototype.setPlayerId = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string server_message = 3;
+ * @return {string}
+ */
+proto.PlayerReqRes.prototype.getServerMessage = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.PlayerReqRes} returns this
+ */
+proto.PlayerReqRes.prototype.setServerMessage = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 

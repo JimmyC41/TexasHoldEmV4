@@ -34,7 +34,7 @@ export const gameStream = (id, dispatch) => {
         dealBoard: dealBoardEvent,
         nextPlayerToAct: nextPlayerToActEvent,
         newPlayerAction: newPlayerActionEvent,
-        potUpdateEvent: potUpdateEvent,
+        potUpdate: potUpdateEvent,
         showdownEvent: showdownEvent,
         potWinnerEvent: potWinnerEvent
     };
