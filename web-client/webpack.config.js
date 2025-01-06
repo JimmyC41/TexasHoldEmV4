@@ -29,6 +29,7 @@ module.exports = {
     static: './dist',
     hot: true,
     open: true,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

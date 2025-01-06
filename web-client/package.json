@@ -12,12 +12,15 @@
   "type": "commonjs",
   "description": "",
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.0",
     "google-protobuf": "^3.21.4",
     "grpc-web": "^1.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
-    "redux": "^4.0.0",
+    "react-router-dom": "^7.1.1",
+    "redux": "^5.0.1",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^3.1.0",
     "webpac": "^0.0.1-security"
   },

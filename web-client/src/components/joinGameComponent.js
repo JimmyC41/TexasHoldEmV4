@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { joinGame } from '../grpc/unaryCalls';
 import { gameStream } from '../grpc/streamingCalls';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { saveSessionTokenToLocalStore } from '../utils/localStorage';
 
 const JoinGameComponent = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [playerName, setPlayerName] = useState('');
   const [chips, setChips] = useState(0);
   const [stream, setStream] = useState(null);
@@ -15,8 +18,10 @@ const JoinGameComponent = () => {
       console.log('Server response: ', response.serverMessage);
 
       if (response.success) {
-        const newStream = gameStream(playerName, dispatch);
+        saveSessionTokenToLocalStore(response.playerId);
+        const newStream = gameStream(response.playerId, dispatch);
         setStream(newStream);
+        navigate('/game');
       }
     } catch {
       console.error('Request rejected by the server. Try again.');

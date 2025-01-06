@@ -1,29 +1,18 @@
 // App.js: Entry for the application, handles routing
 
-import React, { useState } from 'react';
+import React from 'react';
 import JoinGameComponent from './components/joinGameComponent';
-import LeaveGameComponent from './components/leaveGameComponent';
-import PlayerActionComponent from './components/playerActionComponent';
-import GameStateDisplay from './components/gameStateDisplay';
+import GamePage from './components/gamePage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-const App = () => {
-	const [sessionToken, setSessionToken] = useState(localStorage.getItem('sessionToken') || '');
-	
+const App = () => {	
   return (
-    <div>
-      <h1>Texas Hold'em Poker Game</h1>
-
-      <GameStateDisplay />
-
-      {/* Join game component */}
-      <JoinGameComponent />
-
-      {/* Leave game component */}
-      <LeaveGameComponent />
-
-      {/* Player action component */}
-      <PlayerActionComponent />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<JoinGameComponent />} />
+        <Route path="/game" element={<GamePage />} />
+      </Routes>
+    </Router>
   );
 };
 
