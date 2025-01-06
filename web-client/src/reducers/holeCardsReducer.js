@@ -19,7 +19,7 @@ const holeCardsReducer = (state = initialState, gameEvent) => {
             console.log('HOLE CARDS REDUCER receieved', gameEvent.payload);
             return {
                 ...state,
-                ...gameEvent.payload
+                ...gameEvent.payload.playerCardsList
             };
         default:
             return state;

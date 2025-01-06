@@ -16,7 +16,7 @@ message JoinGameReq {
 }
 
 message LeaveGameReq {
-    string player_name = 1;
+    string player_id = 1;
 }
 
 message PlayerActionReq {
@@ -27,7 +27,8 @@ message PlayerActionReq {
 
 message PlayerReqRes {
     bool success = 1;
-    string message = 2;
+    string player_id = 2;
+    string server_message = 3;
 }
 
 message GameStreamReq {

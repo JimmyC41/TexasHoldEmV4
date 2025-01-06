@@ -20,22 +20,28 @@ void GameController::startGame() {
     stateManager.setState(make_unique<GameSetup>(gameData, *this));
 }
 
-bool GameController::handleJoinGameRequest(const string& name, const uint32_t& chips) {
-    if (!rpcValidator.canJoin(name, chips)) return false;
-    requestManager.addToPlayerJoinQueue(name, chips);
-    return true;
+pair<bool, string> GameController::handleJoinGameRequest(const string& name, const uint32_t& chips) {
+    if (!rpcValidator.canJoin(name, chips)) {
+        return pair<bool, string>(false, "JoinGameRequestRejected");
+    }
+    string id = requestManager.addToPlayerJoinQueue(name, chips);
+    return pair<bool, string>(true, id);
 }
 
-bool GameController::handleLeaveGameRequest(const string& name) {
-    if (!rpcValidator.canLeave(name)) return false;
-    requestManager.addToPlayerLeaveQueue(name);
-    return true;
+pair<bool, string> GameController::handleLeaveGameRequest(const string& id) {
+    if (!rpcValidator.canLeave(id)) {
+        return pair<bool, string>(false, "LeaveGameRequestRejected");
+    }
+    requestManager.addToPlayerLeaveQueue(id);
+    return pair<bool, string>(true, id);
 }
 
-bool GameController::handlePlayerActionRequest(const string& id, ActionType type, const uint32_t& amount) {
-    if (!rpcValidator.isPossibleAction(id, type, amount)) return false;
+pair<bool, string> GameController::handlePlayerActionRequest(const string& id, ActionType type, const uint32_t& amount) {
+    if (!rpcValidator.isPossibleAction(id, type, amount)) {
+        return pair<bool, string>(false, "PlayerActionRequestRejected");
+    }
     requestManager.addToActionQueue(type, amount);
-    return true;
+    return pair<bool, string>(true, id);
 }
 
 bool GameController::handleSubscribe(const string& id, grpc::ServerWriter<GameStreamRes>* writer) {

@@ -24,7 +24,7 @@ void GameSetup::execute() {
             controller.getGameData().getNumPlayers() < MAX_NUM_PLAYERS) {
             
             auto request = controller.getRequestManager().getJoinRequest();
-            controller.getPlayerManager().addNewPlayers({request});
+            controller.getPlayerManager().addNewPlayer({request});
             controller.getPositionManager().allocatePositions();
         }
 

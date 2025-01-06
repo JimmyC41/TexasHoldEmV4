@@ -1,4 +1,5 @@
 #include "../../include/Services/RequestManager.h"
+#include "../../include/Utils/PlayerUtil.h"
 
 RequestManager::RequestManager() :
     playerJoinQueue(),
@@ -14,13 +15,17 @@ RequestManager::RequestManager() :
 
 // PLAYER JOIN METHODS
 
-void RequestManager::addToPlayerJoinQueue(const string& name, const uint32_t& chips) {
+string RequestManager::addToPlayerJoinQueue(const string& name, const uint32_t& chips) {
     lock_guard<mutex> lock(joinMtx);
-    playerJoinQueue.emplace(name, chips);
+
+    string playerId = PlayerUtil::generateUUID();
+    playerJoinQueue.emplace(name, chips, playerId);
     joinCV.notify_one(); // Notify waiting thread
+
+    return playerId; // Return to playerId (used as a session token)
 }
 
-pair<string, uint32_t> RequestManager::getJoinRequest() {
+tuple<string, uint32_t, string> RequestManager::getJoinRequest() {
     unique_lock<mutex> lock(joinMtx);
 
     // Wait until we are notified of a new join request

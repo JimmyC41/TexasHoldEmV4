@@ -1594,23 +1594,40 @@ class PlayerReqRes final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kMessageFieldNumber = 2,
+    kPlayerIdFieldNumber = 2,
+    kServerMessageFieldNumber = 3,
     kSuccessFieldNumber = 1,
   };
-  // string message = 2;
-  void clear_message() ;
-  const std::string& message() const;
+  // string player_id = 2;
+  void clear_player_id() ;
+  const std::string& player_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
-  void set_message(Arg_&& arg, Args_... args);
-  std::string* mutable_message();
-  PROTOBUF_NODISCARD std::string* release_message();
-  void set_allocated_message(std::string* value);
+  void set_player_id(Arg_&& arg, Args_... args);
+  std::string* mutable_player_id();
+  PROTOBUF_NODISCARD std::string* release_player_id();
+  void set_allocated_player_id(std::string* value);
 
   private:
-  const std::string& _internal_message() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(
+  const std::string& _internal_player_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_player_id(
       const std::string& value);
-  std::string* _internal_mutable_message();
+  std::string* _internal_mutable_player_id();
+
+  public:
+  // string server_message = 3;
+  void clear_server_message() ;
+  const std::string& server_message() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_server_message(Arg_&& arg, Args_... args);
+  std::string* mutable_server_message();
+  PROTOBUF_NODISCARD std::string* release_server_message();
+  void set_allocated_server_message(std::string* value);
+
+  private:
+  const std::string& _internal_server_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_server_message(
+      const std::string& value);
+  std::string* _internal_mutable_server_message();
 
   public:
   // bool success = 1;
@@ -1628,8 +1645,8 @@ class PlayerReqRes final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      1, 2, 0,
-      28, 2>
+      2, 3, 0,
+      44, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -1649,7 +1666,8 @@ class PlayerReqRes final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const PlayerReqRes& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr message_;
+    ::google::protobuf::internal::ArenaStringPtr player_id_;
+    ::google::protobuf::internal::ArenaStringPtr server_message_;
     bool success_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -2533,22 +2551,22 @@ class LeaveGameReq final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kPlayerNameFieldNumber = 1,
+    kPlayerIdFieldNumber = 1,
   };
-  // string player_name = 1;
-  void clear_player_name() ;
-  const std::string& player_name() const;
+  // string player_id = 1;
+  void clear_player_id() ;
+  const std::string& player_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
-  void set_player_name(Arg_&& arg, Args_... args);
-  std::string* mutable_player_name();
-  PROTOBUF_NODISCARD std::string* release_player_name();
-  void set_allocated_player_name(std::string* value);
+  void set_player_id(Arg_&& arg, Args_... args);
+  std::string* mutable_player_id();
+  PROTOBUF_NODISCARD std::string* release_player_id();
+  void set_allocated_player_id(std::string* value);
 
   private:
-  const std::string& _internal_player_name() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_player_name(
+  const std::string& _internal_player_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_player_id(
       const std::string& value);
-  std::string* _internal_mutable_player_name();
+  std::string* _internal_mutable_player_id();
 
   public:
   // @@protoc_insertion_point(class_scope:LeaveGameReq)
@@ -2557,7 +2575,7 @@ class LeaveGameReq final : public ::google::protobuf::Message
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
       0, 1, 0,
-      32, 2>
+      30, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -2577,7 +2595,7 @@ class LeaveGameReq final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const LeaveGameReq& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr player_name_;
+    ::google::protobuf::internal::ArenaStringPtr player_id_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -4903,54 +4921,54 @@ inline void JoinGameReq::_internal_set_chips(::uint32_t value) {
 
 // LeaveGameReq
 
-// string player_name = 1;
-inline void LeaveGameReq::clear_player_name() {
+// string player_id = 1;
+inline void LeaveGameReq::clear_player_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.player_name_.ClearToEmpty();
+  _impl_.player_id_.ClearToEmpty();
 }
-inline const std::string& LeaveGameReq::player_name() const
+inline const std::string& LeaveGameReq::player_id() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:LeaveGameReq.player_name)
-  return _internal_player_name();
+  // @@protoc_insertion_point(field_get:LeaveGameReq.player_id)
+  return _internal_player_id();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void LeaveGameReq::set_player_name(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void LeaveGameReq::set_player_id(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.player_name_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:LeaveGameReq.player_name)
+  _impl_.player_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:LeaveGameReq.player_id)
 }
-inline std::string* LeaveGameReq::mutable_player_name() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_player_name();
-  // @@protoc_insertion_point(field_mutable:LeaveGameReq.player_name)
+inline std::string* LeaveGameReq::mutable_player_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_player_id();
+  // @@protoc_insertion_point(field_mutable:LeaveGameReq.player_id)
   return _s;
 }
-inline const std::string& LeaveGameReq::_internal_player_name() const {
+inline const std::string& LeaveGameReq::_internal_player_id() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.player_name_.Get();
+  return _impl_.player_id_.Get();
 }
-inline void LeaveGameReq::_internal_set_player_name(const std::string& value) {
+inline void LeaveGameReq::_internal_set_player_id(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.player_name_.Set(value, GetArena());
+  _impl_.player_id_.Set(value, GetArena());
 }
-inline std::string* LeaveGameReq::_internal_mutable_player_name() {
+inline std::string* LeaveGameReq::_internal_mutable_player_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.player_name_.Mutable( GetArena());
+  return _impl_.player_id_.Mutable( GetArena());
 }
-inline std::string* LeaveGameReq::release_player_name() {
+inline std::string* LeaveGameReq::release_player_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:LeaveGameReq.player_name)
-  return _impl_.player_name_.Release();
+  // @@protoc_insertion_point(field_release:LeaveGameReq.player_id)
+  return _impl_.player_id_.Release();
 }
-inline void LeaveGameReq::set_allocated_player_name(std::string* value) {
+inline void LeaveGameReq::set_allocated_player_id(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.player_name_.SetAllocated(value, GetArena());
+  _impl_.player_id_.SetAllocated(value, GetArena());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-        if (_impl_.player_name_.IsDefault()) {
-          _impl_.player_name_.Set("", GetArena());
+        if (_impl_.player_id_.IsDefault()) {
+          _impl_.player_id_.Set("", GetArena());
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:LeaveGameReq.player_name)
+  // @@protoc_insertion_point(field_set_allocated:LeaveGameReq.player_id)
 }
 
 // -------------------------------------------------------------------
@@ -5077,54 +5095,104 @@ inline void PlayerReqRes::_internal_set_success(bool value) {
   _impl_.success_ = value;
 }
 
-// string message = 2;
-inline void PlayerReqRes::clear_message() {
+// string player_id = 2;
+inline void PlayerReqRes::clear_player_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.message_.ClearToEmpty();
+  _impl_.player_id_.ClearToEmpty();
 }
-inline const std::string& PlayerReqRes::message() const
+inline const std::string& PlayerReqRes::player_id() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:PlayerReqRes.message)
-  return _internal_message();
+  // @@protoc_insertion_point(field_get:PlayerReqRes.player_id)
+  return _internal_player_id();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void PlayerReqRes::set_message(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void PlayerReqRes::set_player_id(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.message_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:PlayerReqRes.message)
+  _impl_.player_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:PlayerReqRes.player_id)
 }
-inline std::string* PlayerReqRes::mutable_message() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_message();
-  // @@protoc_insertion_point(field_mutable:PlayerReqRes.message)
+inline std::string* PlayerReqRes::mutable_player_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_player_id();
+  // @@protoc_insertion_point(field_mutable:PlayerReqRes.player_id)
   return _s;
 }
-inline const std::string& PlayerReqRes::_internal_message() const {
+inline const std::string& PlayerReqRes::_internal_player_id() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.message_.Get();
+  return _impl_.player_id_.Get();
 }
-inline void PlayerReqRes::_internal_set_message(const std::string& value) {
+inline void PlayerReqRes::_internal_set_player_id(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.message_.Set(value, GetArena());
+  _impl_.player_id_.Set(value, GetArena());
 }
-inline std::string* PlayerReqRes::_internal_mutable_message() {
+inline std::string* PlayerReqRes::_internal_mutable_player_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.message_.Mutable( GetArena());
+  return _impl_.player_id_.Mutable( GetArena());
 }
-inline std::string* PlayerReqRes::release_message() {
+inline std::string* PlayerReqRes::release_player_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:PlayerReqRes.message)
-  return _impl_.message_.Release();
+  // @@protoc_insertion_point(field_release:PlayerReqRes.player_id)
+  return _impl_.player_id_.Release();
 }
-inline void PlayerReqRes::set_allocated_message(std::string* value) {
+inline void PlayerReqRes::set_allocated_player_id(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.message_.SetAllocated(value, GetArena());
+  _impl_.player_id_.SetAllocated(value, GetArena());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-        if (_impl_.message_.IsDefault()) {
-          _impl_.message_.Set("", GetArena());
+        if (_impl_.player_id_.IsDefault()) {
+          _impl_.player_id_.Set("", GetArena());
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:PlayerReqRes.message)
+  // @@protoc_insertion_point(field_set_allocated:PlayerReqRes.player_id)
+}
+
+// string server_message = 3;
+inline void PlayerReqRes::clear_server_message() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.server_message_.ClearToEmpty();
+}
+inline const std::string& PlayerReqRes::server_message() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:PlayerReqRes.server_message)
+  return _internal_server_message();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void PlayerReqRes::set_server_message(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.server_message_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:PlayerReqRes.server_message)
+}
+inline std::string* PlayerReqRes::mutable_server_message() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_server_message();
+  // @@protoc_insertion_point(field_mutable:PlayerReqRes.server_message)
+  return _s;
+}
+inline const std::string& PlayerReqRes::_internal_server_message() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.server_message_.Get();
+}
+inline void PlayerReqRes::_internal_set_server_message(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.server_message_.Set(value, GetArena());
+}
+inline std::string* PlayerReqRes::_internal_mutable_server_message() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.server_message_.Mutable( GetArena());
+}
+inline std::string* PlayerReqRes::release_server_message() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:PlayerReqRes.server_message)
+  return _impl_.server_message_.Release();
+}
+inline void PlayerReqRes::set_allocated_server_message(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.server_message_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.server_message_.IsDefault()) {
+          _impl_.server_message_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:PlayerReqRes.server_message)
 }
 
 // -------------------------------------------------------------------

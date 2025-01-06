@@ -53,15 +53,18 @@ public:
     GameData& getGameData() { return gameData; }
     RequestManager& getRequestManager() { return requestManager; }
 
+    // Get playerId from name
+    string getSessionTokenId(const string& name);
+
     // State Transition Methods
     bool isAtLeastTwoPlayers() { return GameUtil::getNumPlayers(gameData) > 1; }
     bool isShortPlayersInHand() { return GameUtil::isShortPlayersInHand(gameData); }
     bool isBettingStreetComplete() { return actionManager.isActionsFinished(); }
 
     // gRPC Handling Methods
-    bool handleJoinGameRequest(const string& name, const uint32_t& chips);
-    bool handleLeaveGameRequest(const string& name);
-    bool handlePlayerActionRequest(const string& id, ActionType type, const uint32_t& amount = 0);
+    pair<bool, string> handleJoinGameRequest(const string& name, const uint32_t& chips);
+    pair<bool, string> handleLeaveGameRequest(const string& name);
+    pair<bool, string> handlePlayerActionRequest(const string& id, ActionType type, const uint32_t& amount = 0);
     bool handleSubscribe(const string& id, grpc::ServerWriter<GameStreamRes>* writer);
     void handleUnsubscribe(grpc::ServerWriter<GameStreamRes>* writer);
 };

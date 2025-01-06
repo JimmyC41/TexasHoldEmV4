@@ -40,10 +40,10 @@ bool RPCValidator::canJoin(const string& name, const uint32_t& chips) const {
     return true;
 }
 
-bool RPCValidator::canLeave(const string& name) const {
+bool RPCValidator::canLeave(const string& playerId) const {
     lock_guard<mutex> lock(gameDataMtx);
 
-    if (!GameUtil::isPlayerExists(gameData, name)) {
+    if (!GameUtil::isPlayerExists(gameData, playerId)) {
         cout << "(+) RPC Validator: Non existent player. "
              << "Leave Request denied.\n" << endl;
         return false;

@@ -13,8 +13,12 @@ using namespace std;
 
 class RequestManager {
 private:
-    queue<pair<string, uint32_t>> playerJoinQueue;
+    // Join Queue holds (name, chips, uuid)
+    queue<tuple<string, uint32_t, string>> playerJoinQueue;
+
+    // Leave Queue holds uuid
     queue<string> playerLeaveQueue;
+
     queue<pair<ActionType, uint32_t>> actionQueue;
     mutex joinMtx, leaveMtx, actionMtx;
     condition_variable joinCV, leaveCV, actionCV;
@@ -22,8 +26,8 @@ private:
 public:
     RequestManager();
 
-    // Adds a new join request 
-    void addToPlayerJoinQueue(const string& name, const uint32_t& chips);
+    // Adds a new join request and returns the playerId
+    string addToPlayerJoinQueue(const string& name, const uint32_t& chips);
 
     // Adds a leave request
     void addToPlayerLeaveQueue(const string& name);
@@ -32,7 +36,7 @@ public:
     void addToActionQueue(const ActionType& type, const uint32_t& amount = 0);
 
     // Gets the next join request from queue (blocks if empty)
-    pair<string, uint32_t> getJoinRequest();
+    tuple<string, uint32_t, string> getJoinRequest();
 
     // Gets the next leave request from queue (blocks if empty)
     string getLeaveRequest();

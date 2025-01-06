@@ -58,12 +58,14 @@ grpc::Status PokerServiceImpl::JoinGame
     string name = request->player_name();
     uint32_t chips = request->chips();
 
-    bool success = controller.handleJoinGameRequest(name, chips);
-    return sendPlayerReqRes(
+    auto [success, playerId] = controller.handleJoinGameRequest(name, chips);
+    return sendPlayerReqRes
+    (
         success,
+        playerId,
         response,
-        "Player join success!",
-        "Player join failed."
+        "Player request to join the game suceeded.",
+        "Player request to join the game failed."
     );
 }
 
@@ -76,14 +78,16 @@ grpc::Status PokerServiceImpl::LeaveGame
 {
     cout << "=== GRPC SERVER: Leave Game RPC!  ===" << endl;
 
-    string name = request->player_name();
+    string id = request->player_id();
 
-    bool success = controller.handleLeaveGameRequest(name);
-    return sendPlayerReqRes(
+    auto [success, playerId] = controller.handleLeaveGameRequest(id);
+    return sendPlayerReqRes
+    (
         success,
+        playerId,
         response,
-        "Player removal success!",
-        "Player removal failed."
+        "Player request to leave the game succeeded.",
+        "Player request to leave the game failed."
     );
 }
 
@@ -100,18 +104,21 @@ grpc::Status PokerServiceImpl::PlayerAction
     ActionType type = ProtoUtil::toActionType(request->action_type());
     uint32_t amount = request->action_amount();
 
-    bool success = controller.handlePlayerActionRequest(id, type, amount);
-    return sendPlayerReqRes(
+    auto [success, playerId] = controller.handlePlayerActionRequest(id, type, amount);
+    return sendPlayerReqRes
+    (
         success,
+        playerId,
         response,
-        "Player action succcess!",
-        "Player action failed."
+        "Player request to enter a new action succeeded.",
+        "Player request to enter a new action failed."
     );
 }
 
 grpc::Status PokerServiceImpl::sendPlayerReqRes
 (
     bool success,
+    const string& id,
     PlayerReqRes* response,
     const string& successMsg,
     const string& failMsg
@@ -120,16 +127,15 @@ grpc::Status PokerServiceImpl::sendPlayerReqRes
     if (success)
     {
         response->set_success(true);
-        response->set_message(successMsg);
+        response->set_player_id(id);
+        response->set_server_message(successMsg);
         return grpc::Status::OK;
     }
     else
     {
         response->set_success(false);
-        response->set_message(failMsg);
-        return grpc::Status(
-            grpc::StatusCode::INVALID_ARGUMENT,
-            failMsg
-        );
+        response->set_player_id(id);
+        response->set_server_message(failMsg);
+        return grpc::Status(grpc::StatusCode::INVALID_ARGUMENT, failMsg);
     }
 }

@@ -20,7 +20,7 @@ public:
     bool canJoin(const string& name, const uint32_t& chips) const;
 
     // Returns FALSE if player does not exist in the game
-    bool canLeave(const string& name) const;
+    bool canLeave(const string& playerId) const;
 
     // Returns FALSE if:
     // Client is not the player to act (acting out of turn)

@@ -17,12 +17,12 @@ export const joinGame = (playerName, chips) => {
 
 /**
  * gRPC method to remove an existing player from the game.
- * @param {string} playerName
+ * @param {string} playerId
  * @returns {Promise<Object>}
  */
-export const leaveGame = (playerName) => {
+export const leaveGame = (playerId) => {
     const leaveGameReq = new pb.LeaveGameReq();
-    leaveGameReq.setPlayerName(playerName);
+    leaveGameReq.setPlayerId(playerId);
     return grpcRequest(client.leaveGame.bind(client), leaveGameReq);
 }
 
@@ -33,9 +33,9 @@ export const leaveGame = (playerName) => {
  * @param {number} amount 
  * @returns 
  */
-export const playerAction = (id, type, amount) => {
+export const playerAction = (playerId, type, amount) => {
     const playerActionReq = new pb.PlayerActionReq();
-    playerActionReq.setPlayerId(id);
+    playerActionReq.setPlayerId(playerId);
     playerActionReq.setActionType(type);
     playerActionReq.setActionAmount(amount);
     return grpcRequest(client.playerAction.bind(client), playerActionReq);

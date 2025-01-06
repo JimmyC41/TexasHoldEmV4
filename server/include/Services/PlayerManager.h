@@ -15,10 +15,12 @@ private:
     GameData& gameData;
 
     // Validation Helper Methods
-
     bool isValidName(const string& name);
 public:
     PlayerManager(GameData& gameData);
+
+    // Adds a new player given the name, chip_count and an session id
+    bool addNewPlayer(tuple<string, uint32_t, string> newPlayerInfo);
 
     // Event: Triggered when a new client requests to enter the game during the Game Setup state
     // ToGameData: Adds a shared Player ptr to the gamePlayers vector

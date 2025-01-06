@@ -4,14 +4,24 @@
 
 PlayerManager::PlayerManager(GameData& gameData) : gameData(gameData) {}
 
+bool PlayerManager::addNewPlayer(tuple<string, uint32_t, string> newPlayerInfo) {
+    auto [name, chips, playerId] = newPlayerInfo;
+    shared_ptr<Player> player = make_shared<Player>(name, chips, playerId);
+    gameData.addPlayer(player);
+    player->setPosition(Position::LOBBY);
+    player->setPlayerStatus(PlayerStatus::WAITING);
+    return true;
+}
+
 bool PlayerManager::addNewPlayers(vector<pair<string, uint32_t>> newPlayersInfo) {
     // cout << "(+) PlayerManager: addNewPlayers called.\n" << endl;
     for (auto& info : newPlayersInfo) {
         string name = info.first;
         uint32_t chips = info.second;
+        string id = PlayerUtil::generateUUID();
         
         // Add the player to Game Data and set their position and status
-        shared_ptr<Player> player = make_shared<Player>(name, chips);
+        shared_ptr<Player> player = make_shared<Player>(name, chips, id);
         gameData.addPlayer(player);
         player->setPosition(Position::LOBBY);
         player->setPlayerStatus(PlayerStatus::WAITING);

@@ -15,8 +15,9 @@ private:
     grpc::Status sendPlayerReqRes
     (
         bool success,
+        const string& id,
         PlayerReqRes* response,
-        const string& successMsg,
+        const string& succcessMsg,
         const string& failMsg
     );
 

@@ -135,7 +135,10 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 
 inline constexpr PlayerReqRes::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : message_(
+      : player_id_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        server_message_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
         success_{false},
@@ -240,7 +243,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 
 inline constexpr LeaveGameReq::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : player_name_(
+      : player_id_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
         _cached_size_{0} {}
@@ -506,7 +509,7 @@ const ::uint32_t
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::LeaveGameReq, _impl_.player_name_),
+        PROTOBUF_FIELD_OFFSET(::LeaveGameReq, _impl_.player_id_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::PlayerActionReq, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -527,7 +530,8 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::PlayerReqRes, _impl_.success_),
-        PROTOBUF_FIELD_OFFSET(::PlayerReqRes, _impl_.message_),
+        PROTOBUF_FIELD_OFFSET(::PlayerReqRes, _impl_.player_id_),
+        PROTOBUF_FIELD_OFFSET(::PlayerReqRes, _impl_.server_message_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::GameStreamReq, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -723,24 +727,24 @@ static const ::_pbi::MigrationSchema
         {10, -1, -1, sizeof(::LeaveGameReq)},
         {19, -1, -1, sizeof(::PlayerActionReq)},
         {30, -1, -1, sizeof(::PlayerReqRes)},
-        {40, -1, -1, sizeof(::GameStreamReq)},
-        {49, -1, -1, sizeof(::GameStreamRes)},
-        {67, -1, -1, sizeof(::PlayersUpdateEvent)},
-        {76, -1, -1, sizeof(::NewStreetEvent)},
-        {85, -1, -1, sizeof(::DealPlayersEvent_PlayerCard)},
-        {95, -1, -1, sizeof(::DealPlayersEvent)},
-        {104, -1, -1, sizeof(::DealBoardEvent)},
-        {113, -1, -1, sizeof(::NewPlayerToActEvent_ProtoPossibleAction)},
-        {124, -1, -1, sizeof(::NewPlayerToActEvent)},
-        {134, -1, -1, sizeof(::NewPlayerActionEvent_ProtoAction)},
-        {144, 154, -1, sizeof(::NewPlayerActionEvent)},
-        {156, -1, -1, sizeof(::PotUpdateEvent_ProtoPot)},
-        {166, -1, -1, sizeof(::PotUpdateEvent)},
-        {175, -1, -1, sizeof(::ShowdownEvent)},
-        {184, -1, -1, sizeof(::PotWinnerEvent_PotWinner)},
-        {194, -1, -1, sizeof(::PotWinnerEvent)},
-        {203, -1, -1, sizeof(::ProtoCard)},
-        {213, -1, -1, sizeof(::ProtoPlayer)},
+        {41, -1, -1, sizeof(::GameStreamReq)},
+        {50, -1, -1, sizeof(::GameStreamRes)},
+        {68, -1, -1, sizeof(::PlayersUpdateEvent)},
+        {77, -1, -1, sizeof(::NewStreetEvent)},
+        {86, -1, -1, sizeof(::DealPlayersEvent_PlayerCard)},
+        {96, -1, -1, sizeof(::DealPlayersEvent)},
+        {105, -1, -1, sizeof(::DealBoardEvent)},
+        {114, -1, -1, sizeof(::NewPlayerToActEvent_ProtoPossibleAction)},
+        {125, -1, -1, sizeof(::NewPlayerToActEvent)},
+        {135, -1, -1, sizeof(::NewPlayerActionEvent_ProtoAction)},
+        {145, 155, -1, sizeof(::NewPlayerActionEvent)},
+        {157, -1, -1, sizeof(::PotUpdateEvent_ProtoPot)},
+        {167, -1, -1, sizeof(::PotUpdateEvent)},
+        {176, -1, -1, sizeof(::ShowdownEvent)},
+        {185, -1, -1, sizeof(::PotWinnerEvent_PotWinner)},
+        {195, -1, -1, sizeof(::PotWinnerEvent)},
+        {204, -1, -1, sizeof(::ProtoCard)},
+        {214, -1, -1, sizeof(::ProtoPlayer)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::_JoinGameReq_default_instance_._instance,
@@ -769,84 +773,84 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_texas_5fholdem_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
     "\n\022texas_holdem.proto\"1\n\013JoinGameReq\022\023\n\013p"
-    "layer_name\030\001 \001(\t\022\r\n\005chips\030\002 \001(\r\"#\n\014Leave"
-    "GameReq\022\023\n\013player_name\030\001 \001(\t\"b\n\017PlayerAc"
-    "tionReq\022\021\n\tplayer_id\030\001 \001(\t\022%\n\013action_typ"
-    "e\030\002 \001(\0162\020.ProtoActionType\022\025\n\raction_amou"
-    "nt\030\003 \001(\r\"0\n\014PlayerReqRes\022\017\n\007success\030\001 \001("
-    "\010\022\017\n\007message\030\002 \001(\t\"\"\n\rGameStreamReq\022\021\n\tp"
-    "layer_id\030\001 \001(\t\"\232\003\n\rGameStreamRes\022-\n\016play"
-    "ers_update\030\001 \001(\0132\023.PlayersUpdateEventH\000\022"
-    "%\n\nnew_street\030\002 \001(\0132\017.NewStreetEventH\000\022)"
-    "\n\014deal_players\030\003 \001(\0132\021.DealPlayersEventH"
-    "\000\022%\n\ndeal_board\030\004 \001(\0132\017.DealBoardEventH\000"
-    "\0222\n\022next_player_to_act\030\005 \001(\0132\024.NewPlayer"
-    "ToActEventH\000\0222\n\021new_player_action\030\006 \001(\0132"
-    "\025.NewPlayerActionEventH\000\022%\n\npot_update\030\007"
-    " \001(\0132\017.PotUpdateEventH\000\022\"\n\010showdown\030\010 \001("
-    "\0132\016.ShowdownEventH\000\022%\n\npot_winner\030\t \001(\0132"
-    "\017.PotWinnerEventH\000B\007\n\005event\"7\n\022PlayersUp"
-    "dateEvent\022!\n\013new_players\030\001 \003(\0132\014.ProtoPl"
-    "ayer\"2\n\016NewStreetEvent\022 \n\nnew_street\030\001 \001"
-    "(\0162\014.ProtoStreet\"\207\001\n\020DealPlayersEvent\0222\n"
-    "\014player_cards\030\001 \003(\0132\034.DealPlayersEvent.P"
-    "layerCard\032\?\n\nPlayerCard\022\021\n\tplayer_id\030\001 \001"
-    "(\t\022\036\n\nhole_cards\030\002 \003(\0132\n.ProtoCard\"5\n\016De"
-    "alBoardEvent\022#\n\017community_cards\030\001 \003(\0132\n."
-    "ProtoCard\"\340\001\n\023NewPlayerToActEvent\022\025\n\rpla"
-    "yer_to_act\030\001 \001(\t\022B\n\020possible_actions\030\002 \003"
-    "(\0132(.NewPlayerToActEvent.ProtoPossibleAc"
-    "tion\032n\n\023ProtoPossibleAction\022%\n\013action_ty"
-    "pe\030\001 \001(\0162\020.ProtoActionType\022\026\n\016primary_am"
-    "ount\030\002 \001(\r\022\030\n\020secondary_amount\030\003 \001(\r\"\251\001\n"
-    "\024NewPlayerActionEvent\022\021\n\tplayer_id\030\001 \001(\t"
-    "\0221\n\006action\030\002 \001(\0132!.NewPlayerActionEvent."
-    "ProtoAction\032K\n\013ProtoAction\022%\n\013action_typ"
-    "e\030\001 \001(\0162\020.ProtoActionType\022\025\n\raction_amou"
-    "nt\030\002 \001(\r\"u\n\016PotUpdateEvent\022.\n\014updated_po"
-    "ts\030\001 \003(\0132\030.PotUpdateEvent.ProtoPot\0323\n\010Pr"
-    "otoPot\022\021\n\tpot_chips\030\001 \001(\r\022\024\n\014eligible_id"
-    "s\030\002 \003(\t\"(\n\rShowdownEvent\022\027\n\017players_in_h"
-    "and\030\001 \003(\t\"p\n\016PotWinnerEvent\022.\n\013pot_winne"
-    "rs\030\001 \003(\0132\031.PotWinnerEvent.PotWinner\032.\n\tP"
-    "otWinner\022\021\n\tpot_chips\030\001 \001(\r\022\016\n\006winner\030\002 "
-    "\001(\t\"\321\002\n\tProtoCard\022\"\n\004suit\030\001 \001(\0162\024.ProtoC"
-    "ard.ProtoSuit\022$\n\005value\030\002 \001(\0162\025.ProtoCard"
-    ".ProtoValue\"R\n\tProtoSuit\022\024\n\020SUIT_UNSPECI"
-    "FIED\020\000\022\n\n\006HEARTS\020\001\022\014\n\010DIAMONDS\020\002\022\t\n\005CLUB"
-    "S\020\003\022\n\n\006SPADES\020\004\"\245\001\n\nProtoValue\022\025\n\021VALUE_"
-    "UNSPECIFIED\020\000\022\007\n\003TWO\020\002\022\t\n\005THREE\020\003\022\010\n\004FOU"
-    "R\020\004\022\010\n\004FIVE\020\005\022\007\n\003SIX\020\006\022\t\n\005SEVEN\020\007\022\t\n\005EIG"
-    "HT\020\010\022\010\n\004NINE\020\t\022\007\n\003TEN\020\n\022\010\n\004JACK\020\013\022\t\n\005QUE"
-    "EN\020\014\022\010\n\004KING\020\r\022\007\n\003ACE\020\016\"\223\003\n\013ProtoPlayer\022"
-    "\014\n\004name\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\022\r\n\005chips\030\003 \001(\r"
-    "\022\023\n\013recent_bets\030\004 \001(\r\022,\n\010position\030\005 \001(\0162"
-    "\032.ProtoPlayer.ProtoPosition\022.\n\006status\030\006 "
-    "\001(\0162\036.ProtoPlayer.ProtoPlayerStatus\"\213\001\n\r"
-    "ProtoPosition\022\t\n\005LOBBY\020\000\022\017\n\013SMALL_BLIND\020"
-    "\001\022\r\n\tBIG_BLIND\020\002\022\007\n\003UTG\020\003\022\t\n\005UTG_1\020\004\022\n\n\006"
-    "MIDDLE\020\005\022\n\n\006LOJACK\020\006\022\n\n\006HIJACK\020\007\022\013\n\007CUT_"
-    "OFF\020\010\022\n\n\006DEALER\020\t\"Z\n\021ProtoPlayerStatus\022\013"
-    "\n\007WAITING\020\000\022\013\n\007IN_HAND\020\001\022\n\n\006FOLDED\020\002\022\016\n\n"
-    "ALL_IN_BET\020\003\022\017\n\013ALL_IN_CALL\020\004*R\n\013ProtoSt"
-    "reet\022\026\n\022STREET_UNSPECIFIED\020\000\022\014\n\010PRE_FLOP"
-    "\020\001\022\010\n\004FLOP\020\002\022\010\n\004TURN\020\003\022\t\n\005RIVER\020\004*\255\001\n\017Pr"
-    "otoActionType\022\026\n\022ACTION_UNSPECIFIED\020\000\022\016\n"
-    "\nPOST_SMALL\020\001\022\014\n\010POST_BIG\020\002\022\t\n\005CHECK\020\003\022\007"
-    "\n\003BET\020\004\022\010\n\004CALL\020\005\022\t\n\005RAISE\020\006\022\010\n\004FOLD\020\007\022\016"
-    "\n\nALL_IN_BET\020\010\022\017\n\013ALL_IN_CALL\020\t\022\020\n\014ALL_I"
-    "N_RAISE\020\n2\303\001\n\014PokerService\022.\n\nGameStream"
-    "\022\016.GameStreamReq\032\016.GameStreamRes0\001\022\'\n\010Jo"
-    "inGame\022\014.JoinGameReq\032\r.PlayerReqRes\022)\n\tL"
-    "eaveGame\022\r.LeaveGameReq\032\r.PlayerReqRes\022/"
-    "\n\014PlayerAction\022\020.PlayerActionReq\032\r.Playe"
-    "rReqResb\006proto3"
+    "layer_name\030\001 \001(\t\022\r\n\005chips\030\002 \001(\r\"!\n\014Leave"
+    "GameReq\022\021\n\tplayer_id\030\001 \001(\t\"b\n\017PlayerActi"
+    "onReq\022\021\n\tplayer_id\030\001 \001(\t\022%\n\013action_type\030"
+    "\002 \001(\0162\020.ProtoActionType\022\025\n\raction_amount"
+    "\030\003 \001(\r\"J\n\014PlayerReqRes\022\017\n\007success\030\001 \001(\010\022"
+    "\021\n\tplayer_id\030\002 \001(\t\022\026\n\016server_message\030\003 \001"
+    "(\t\"\"\n\rGameStreamReq\022\021\n\tplayer_id\030\001 \001(\t\"\232"
+    "\003\n\rGameStreamRes\022-\n\016players_update\030\001 \001(\013"
+    "2\023.PlayersUpdateEventH\000\022%\n\nnew_street\030\002 "
+    "\001(\0132\017.NewStreetEventH\000\022)\n\014deal_players\030\003"
+    " \001(\0132\021.DealPlayersEventH\000\022%\n\ndeal_board\030"
+    "\004 \001(\0132\017.DealBoardEventH\000\0222\n\022next_player_"
+    "to_act\030\005 \001(\0132\024.NewPlayerToActEventH\000\0222\n\021"
+    "new_player_action\030\006 \001(\0132\025.NewPlayerActio"
+    "nEventH\000\022%\n\npot_update\030\007 \001(\0132\017.PotUpdate"
+    "EventH\000\022\"\n\010showdown\030\010 \001(\0132\016.ShowdownEven"
+    "tH\000\022%\n\npot_winner\030\t \001(\0132\017.PotWinnerEvent"
+    "H\000B\007\n\005event\"7\n\022PlayersUpdateEvent\022!\n\013new"
+    "_players\030\001 \003(\0132\014.ProtoPlayer\"2\n\016NewStree"
+    "tEvent\022 \n\nnew_street\030\001 \001(\0162\014.ProtoStreet"
+    "\"\207\001\n\020DealPlayersEvent\0222\n\014player_cards\030\001 "
+    "\003(\0132\034.DealPlayersEvent.PlayerCard\032\?\n\nPla"
+    "yerCard\022\021\n\tplayer_id\030\001 \001(\t\022\036\n\nhole_cards"
+    "\030\002 \003(\0132\n.ProtoCard\"5\n\016DealBoardEvent\022#\n\017"
+    "community_cards\030\001 \003(\0132\n.ProtoCard\"\340\001\n\023Ne"
+    "wPlayerToActEvent\022\025\n\rplayer_to_act\030\001 \001(\t"
+    "\022B\n\020possible_actions\030\002 \003(\0132(.NewPlayerTo"
+    "ActEvent.ProtoPossibleAction\032n\n\023ProtoPos"
+    "sibleAction\022%\n\013action_type\030\001 \001(\0162\020.Proto"
+    "ActionType\022\026\n\016primary_amount\030\002 \001(\r\022\030\n\020se"
+    "condary_amount\030\003 \001(\r\"\251\001\n\024NewPlayerAction"
+    "Event\022\021\n\tplayer_id\030\001 \001(\t\0221\n\006action\030\002 \001(\013"
+    "2!.NewPlayerActionEvent.ProtoAction\032K\n\013P"
+    "rotoAction\022%\n\013action_type\030\001 \001(\0162\020.ProtoA"
+    "ctionType\022\025\n\raction_amount\030\002 \001(\r\"u\n\016PotU"
+    "pdateEvent\022.\n\014updated_pots\030\001 \003(\0132\030.PotUp"
+    "dateEvent.ProtoPot\0323\n\010ProtoPot\022\021\n\tpot_ch"
+    "ips\030\001 \001(\r\022\024\n\014eligible_ids\030\002 \003(\t\"(\n\rShowd"
+    "ownEvent\022\027\n\017players_in_hand\030\001 \003(\t\"p\n\016Pot"
+    "WinnerEvent\022.\n\013pot_winners\030\001 \003(\0132\031.PotWi"
+    "nnerEvent.PotWinner\032.\n\tPotWinner\022\021\n\tpot_"
+    "chips\030\001 \001(\r\022\016\n\006winner\030\002 \001(\t\"\321\002\n\tProtoCar"
+    "d\022\"\n\004suit\030\001 \001(\0162\024.ProtoCard.ProtoSuit\022$\n"
+    "\005value\030\002 \001(\0162\025.ProtoCard.ProtoValue\"R\n\tP"
+    "rotoSuit\022\024\n\020SUIT_UNSPECIFIED\020\000\022\n\n\006HEARTS"
+    "\020\001\022\014\n\010DIAMONDS\020\002\022\t\n\005CLUBS\020\003\022\n\n\006SPADES\020\004\""
+    "\245\001\n\nProtoValue\022\025\n\021VALUE_UNSPECIFIED\020\000\022\007\n"
+    "\003TWO\020\002\022\t\n\005THREE\020\003\022\010\n\004FOUR\020\004\022\010\n\004FIVE\020\005\022\007\n"
+    "\003SIX\020\006\022\t\n\005SEVEN\020\007\022\t\n\005EIGHT\020\010\022\010\n\004NINE\020\t\022\007"
+    "\n\003TEN\020\n\022\010\n\004JACK\020\013\022\t\n\005QUEEN\020\014\022\010\n\004KING\020\r\022\007"
+    "\n\003ACE\020\016\"\223\003\n\013ProtoPlayer\022\014\n\004name\030\001 \001(\t\022\n\n"
+    "\002id\030\002 \001(\t\022\r\n\005chips\030\003 \001(\r\022\023\n\013recent_bets\030"
+    "\004 \001(\r\022,\n\010position\030\005 \001(\0162\032.ProtoPlayer.Pr"
+    "otoPosition\022.\n\006status\030\006 \001(\0162\036.ProtoPlaye"
+    "r.ProtoPlayerStatus\"\213\001\n\rProtoPosition\022\t\n"
+    "\005LOBBY\020\000\022\017\n\013SMALL_BLIND\020\001\022\r\n\tBIG_BLIND\020\002"
+    "\022\007\n\003UTG\020\003\022\t\n\005UTG_1\020\004\022\n\n\006MIDDLE\020\005\022\n\n\006LOJA"
+    "CK\020\006\022\n\n\006HIJACK\020\007\022\013\n\007CUT_OFF\020\010\022\n\n\006DEALER\020"
+    "\t\"Z\n\021ProtoPlayerStatus\022\013\n\007WAITING\020\000\022\013\n\007I"
+    "N_HAND\020\001\022\n\n\006FOLDED\020\002\022\016\n\nALL_IN_BET\020\003\022\017\n\013"
+    "ALL_IN_CALL\020\004*R\n\013ProtoStreet\022\026\n\022STREET_U"
+    "NSPECIFIED\020\000\022\014\n\010PRE_FLOP\020\001\022\010\n\004FLOP\020\002\022\010\n\004"
+    "TURN\020\003\022\t\n\005RIVER\020\004*\255\001\n\017ProtoActionType\022\026\n"
+    "\022ACTION_UNSPECIFIED\020\000\022\016\n\nPOST_SMALL\020\001\022\014\n"
+    "\010POST_BIG\020\002\022\t\n\005CHECK\020\003\022\007\n\003BET\020\004\022\010\n\004CALL\020"
+    "\005\022\t\n\005RAISE\020\006\022\010\n\004FOLD\020\007\022\016\n\nALL_IN_BET\020\010\022\017"
+    "\n\013ALL_IN_CALL\020\t\022\020\n\014ALL_IN_RAISE\020\n2\303\001\n\014Po"
+    "kerService\022.\n\nGameStream\022\016.GameStreamReq"
+    "\032\016.GameStreamRes0\001\022\'\n\010JoinGame\022\014.JoinGam"
+    "eReq\032\r.PlayerReqRes\022)\n\tLeaveGame\022\r.Leave"
+    "GameReq\032\r.PlayerReqRes\022/\n\014PlayerAction\022\020"
+    ".PlayerActionReq\032\r.PlayerReqResb\006proto3"
 };
 static ::absl::once_flag descriptor_table_texas_5fholdem_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_texas_5fholdem_2eproto = {
     false,
     false,
-    2895,
+    2919,
     descriptor_table_protodef_texas_5fholdem_2eproto,
     "texas_holdem.proto",
     &descriptor_table_texas_5fholdem_2eproto_once,
@@ -1216,7 +1220,7 @@ LeaveGameReq::LeaveGameReq(::google::protobuf::Arena* arena)
 inline PROTOBUF_NDEBUG_INLINE LeaveGameReq::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
     const Impl_& from, const ::LeaveGameReq& from_msg)
-      : player_name_(arena, from.player_name_),
+      : player_id_(arena, from.player_id_),
         _cached_size_{0} {}
 
 LeaveGameReq::LeaveGameReq(
@@ -1234,7 +1238,7 @@ LeaveGameReq::LeaveGameReq(
 inline PROTOBUF_NDEBUG_INLINE LeaveGameReq::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : player_name_(arena),
+      : player_id_(arena),
         _cached_size_{0} {}
 
 inline void LeaveGameReq::SharedCtor(::_pb::Arena* arena) {
@@ -1247,7 +1251,7 @@ LeaveGameReq::~LeaveGameReq() {
 }
 inline void LeaveGameReq::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.player_name_.Destroy();
+  _impl_.player_id_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -1272,7 +1276,7 @@ LeaveGameReq::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 32, 2> LeaveGameReq::_table_ = {
+const ::_pbi::TcParseTable<0, 1, 0, 30, 2> LeaveGameReq::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -1290,21 +1294,21 @@ const ::_pbi::TcParseTable<0, 1, 0, 32, 2> LeaveGameReq::_table_ = {
     ::_pbi::TcParser::GetTable<::LeaveGameReq>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // string player_name = 1;
+    // string player_id = 1;
     {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(LeaveGameReq, _impl_.player_name_)}},
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(LeaveGameReq, _impl_.player_id_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // string player_name = 1;
-    {PROTOBUF_FIELD_OFFSET(LeaveGameReq, _impl_.player_name_), 0, 0,
+    // string player_id = 1;
+    {PROTOBUF_FIELD_OFFSET(LeaveGameReq, _impl_.player_id_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\14\13\0\0\0\0\0\0"
+    "\14\11\0\0\0\0\0\0"
     "LeaveGameReq"
-    "player_name"
+    "player_id"
   }},
 };
 
@@ -1315,7 +1319,7 @@ PROTOBUF_NOINLINE void LeaveGameReq::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.player_name_.ClearToEmpty();
+  _impl_.player_id_.ClearToEmpty();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -1326,11 +1330,11 @@ PROTOBUF_NOINLINE void LeaveGameReq::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // string player_name = 1;
-  if (!this->_internal_player_name().empty()) {
-    const std::string& _s = this->_internal_player_name();
+  // string player_id = 1;
+  if (!this->_internal_player_id().empty()) {
+    const std::string& _s = this->_internal_player_id();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "LeaveGameReq.player_name");
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "LeaveGameReq.player_id");
     target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
@@ -1351,10 +1355,10 @@ PROTOBUF_NOINLINE void LeaveGameReq::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string player_name = 1;
-  if (!this->_internal_player_name().empty()) {
+  // string player_id = 1;
+  if (!this->_internal_player_id().empty()) {
     total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_player_name());
+                                    this->_internal_player_id());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1369,8 +1373,8 @@ void LeaveGameReq::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::go
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_player_name().empty()) {
-    _this->_internal_set_player_name(from._internal_player_name());
+  if (!from._internal_player_id().empty()) {
+    _this->_internal_set_player_id(from._internal_player_id());
   }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1388,7 +1392,7 @@ void LeaveGameReq::InternalSwap(LeaveGameReq* PROTOBUF_RESTRICT other) {
   auto* arena = GetArena();
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.player_name_, &other->_impl_.player_name_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.player_id_, &other->_impl_.player_id_, arena);
 }
 
 ::google::protobuf::Metadata LeaveGameReq::GetMetadata() const {
@@ -1668,7 +1672,8 @@ PlayerReqRes::PlayerReqRes(::google::protobuf::Arena* arena)
 inline PROTOBUF_NDEBUG_INLINE PlayerReqRes::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
     const Impl_& from, const ::PlayerReqRes& from_msg)
-      : message_(arena, from.message_),
+      : player_id_(arena, from.player_id_),
+        server_message_(arena, from.server_message_),
         _cached_size_{0} {}
 
 PlayerReqRes::PlayerReqRes(
@@ -1687,7 +1692,8 @@ PlayerReqRes::PlayerReqRes(
 inline PROTOBUF_NDEBUG_INLINE PlayerReqRes::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : message_(arena),
+      : player_id_(arena),
+        server_message_(arena),
         _cached_size_{0} {}
 
 inline void PlayerReqRes::SharedCtor(::_pb::Arena* arena) {
@@ -1701,7 +1707,8 @@ PlayerReqRes::~PlayerReqRes() {
 }
 inline void PlayerReqRes::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.message_.Destroy();
+  _impl_.player_id_.Destroy();
+  _impl_.server_message_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -1726,15 +1733,15 @@ PlayerReqRes::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 0, 28, 2> PlayerReqRes::_table_ = {
+const ::_pbi::TcParseTable<2, 3, 0, 44, 2> PlayerReqRes::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    2, 8,  // max_field_number, fast_idx_mask
+    3, 24,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967292,  // skipmap
+    4294967288,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    2,  // num_field_entries
+    3,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
     &_PlayerReqRes_default_instance_._instance,
@@ -1744,27 +1751,35 @@ const ::_pbi::TcParseTable<1, 2, 0, 28, 2> PlayerReqRes::_table_ = {
     ::_pbi::TcParser::GetTable<::PlayerReqRes>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // string message = 2;
-    {::_pbi::TcParser::FastUS1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerReqRes, _impl_.message_)}},
+    {::_pbi::TcParser::MiniParse, {}},
     // bool success = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(PlayerReqRes, _impl_.success_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerReqRes, _impl_.success_)}},
+    // string player_id = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerReqRes, _impl_.player_id_)}},
+    // string server_message = 3;
+    {::_pbi::TcParser::FastUS1,
+     {26, 63, 0, PROTOBUF_FIELD_OFFSET(PlayerReqRes, _impl_.server_message_)}},
   }}, {{
     65535, 65535
   }}, {{
     // bool success = 1;
     {PROTOBUF_FIELD_OFFSET(PlayerReqRes, _impl_.success_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kBool)},
-    // string message = 2;
-    {PROTOBUF_FIELD_OFFSET(PlayerReqRes, _impl_.message_), 0, 0,
+    // string player_id = 2;
+    {PROTOBUF_FIELD_OFFSET(PlayerReqRes, _impl_.player_id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // string server_message = 3;
+    {PROTOBUF_FIELD_OFFSET(PlayerReqRes, _impl_.server_message_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\14\0\7\0\0\0\0\0"
+    "\14\0\11\16\0\0\0\0"
     "PlayerReqRes"
-    "message"
+    "player_id"
+    "server_message"
   }},
 };
 
@@ -1775,7 +1790,8 @@ PROTOBUF_NOINLINE void PlayerReqRes::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.message_.ClearToEmpty();
+  _impl_.player_id_.ClearToEmpty();
+  _impl_.server_message_.ClearToEmpty();
   _impl_.success_ = false;
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
@@ -1794,12 +1810,20 @@ PROTOBUF_NOINLINE void PlayerReqRes::Clear() {
         1, this->_internal_success(), target);
   }
 
-  // string message = 2;
-  if (!this->_internal_message().empty()) {
-    const std::string& _s = this->_internal_message();
+  // string player_id = 2;
+  if (!this->_internal_player_id().empty()) {
+    const std::string& _s = this->_internal_player_id();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "PlayerReqRes.message");
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "PlayerReqRes.player_id");
     target = stream->WriteStringMaybeAliased(2, _s, target);
+  }
+
+  // string server_message = 3;
+  if (!this->_internal_server_message().empty()) {
+    const std::string& _s = this->_internal_server_message();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "PlayerReqRes.server_message");
+    target = stream->WriteStringMaybeAliased(3, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1820,10 +1844,16 @@ PROTOBUF_NOINLINE void PlayerReqRes::Clear() {
   (void) cached_has_bits;
 
   ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // string message = 2;
-  if (!this->_internal_message().empty()) {
+  // string player_id = 2;
+  if (!this->_internal_player_id().empty()) {
     total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_message());
+                                    this->_internal_player_id());
+  }
+
+  // string server_message = 3;
+  if (!this->_internal_server_message().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_server_message());
   }
 
   // bool success = 1;
@@ -1843,8 +1873,11 @@ void PlayerReqRes::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::go
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_message().empty()) {
-    _this->_internal_set_message(from._internal_message());
+  if (!from._internal_player_id().empty()) {
+    _this->_internal_set_player_id(from._internal_player_id());
+  }
+  if (!from._internal_server_message().empty()) {
+    _this->_internal_set_server_message(from._internal_server_message());
   }
   if (from._internal_success() != 0) {
     _this->_impl_.success_ = from._impl_.success_;
@@ -1865,7 +1898,8 @@ void PlayerReqRes::InternalSwap(PlayerReqRes* PROTOBUF_RESTRICT other) {
   auto* arena = GetArena();
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.message_, &other->_impl_.message_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.player_id_, &other->_impl_.player_id_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.server_message_, &other->_impl_.server_message_, arena);
         swap(_impl_.success_, other->_impl_.success_);
 }
 
