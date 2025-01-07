@@ -1,20 +1,12 @@
 import { POT_UPDATE_EVENT } from "../grpc/GameEvents";
 
-const initialState = [
-    {
-        potChips: 0,
-        eligibleIdsList: []
-    }
-];
+const initialState = [];
 
 const potsReducer = (state = initialState, gameEvent) => {
     switch (gameEvent.type) {
         case POT_UPDATE_EVENT:
             console.log('POTS REDUCER', gameEvent.payload);
-            return {
-                ...state,
-                ...gameEvent.payload.updatedPotsList
-            };
+            return gameEvent.payload.updatedPotsList;
         default:
             return state;
     }

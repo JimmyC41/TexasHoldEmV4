@@ -11,10 +11,15 @@ void Winner::execute() {
     controller.getPotManager().awardPots();
 
     // Event Manager: Publish PotWinner Event
+    controller.getEventManager().publishPotUpdateEvent();
     controller.getEventManager().publishPotWinnerEvent();
 
     // Rotate positions
     controller.getPositionManager().rotatePositions();
+
+    // Clear the board and publish the clean board state
+    controller.getDealerManager().clearBoard();
+    controller.getEventManager().publishDealBoardEvent();
 
     // Go to Game Setup state
     transition();

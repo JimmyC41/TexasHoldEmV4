@@ -52,9 +52,6 @@ private:
     // Resets numPlayersInStreet for the next street
     void resetInitialPlayers();
 
-    // Creates a NoneAction and sets the active action in Game Data to NoneAction
-    void setActiveActionAsNone();
-
     // Updates player-specific attributes in GameData after an action
     // Updates chips, player status and recent bet
     void updateAttributesAfterAction(const string& idOrName, const shared_ptr<Action>& newAction);
@@ -109,6 +106,9 @@ public:
     // Event: Triggered immediately after a betting street
     // Checks if there are less than two players in the hand, in which case we skip to the winner state
     bool isShortPlayersInHand();
+
+    // Creates a NoneAction and sets the active action in Game Data to NoneAction
+    void setActiveActionAsNone();
 };
 
 #endif
