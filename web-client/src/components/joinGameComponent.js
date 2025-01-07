@@ -19,7 +19,7 @@ const JoinGameComponent = () => {
       		if (response.success) {
         		saveSessionTokenToLocalStore(response.playerId);
         		gameStream(response.playerId, dispatch);
-				console.log('Navigating to /game');
+				  console.log('Navigating to /game');
         		navigate('/game');
       		}
     	} catch {

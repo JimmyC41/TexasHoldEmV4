@@ -3,7 +3,7 @@ import { playerAction } from '../grpc/UnaryCalls';
 
 const PlayerActionComponent = () => {
 	const [playerId, setPlayerId] = useState('');
-	const [actionType, setActionType] = useState('');
+	const [actionType, setActionType] = useState(0);
 	const [amount, setAmount] = useState(0);
 	
 	const handlePlayerAction = async () => {
@@ -27,7 +27,7 @@ const PlayerActionComponent = () => {
 			<input
 				type="number"
 				value={actionType}
-				onChange={(e) => setActionType(e.target.value)}
+				onChange={(e) => setActionType(parseInt(e.target.value, 10))}
 				placeholder="Enter Action Enum"
 			/>
 			<input

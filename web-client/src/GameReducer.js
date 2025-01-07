@@ -10,7 +10,7 @@ import {
     POT_WINNER_EVENT
 } from './GameEvents';
 
-const initialState = {
+export const initialState = {
     street: {},
     players: [],
     holeCards: [],
@@ -42,6 +42,8 @@ export function gameReducer(state, event) {
             return {...state, showdownPlayers: event.payload.playersInHandList};
         case POT_WINNER_EVENT:
             return {...state, winners: event.payload.potWinnersList};
+        case 'RESET_GAME':
+            return initialState;
         default:
             return state;
     }

@@ -7,6 +7,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        console.log(JoinGameComponent);
+        console.log(GamePageComponent);
         <Route path="/" element={<JoinGameComponent />} />
         <Route path="/game" element={<GamePageComponent />} />
       </Routes>
