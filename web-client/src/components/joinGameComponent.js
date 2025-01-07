@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { joinGame } from '../grpc/unaryCalls';
-import { gameStream } from '../grpc/streamingCalls';
+import { joinGame } from '../grpc/UnaryCalls';
+import { gameStream } from '../grpc/StreamingCalls';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { saveSessionTokenToLocalStore } from '../utils/localStorage';
+import { saveSessionTokenToLocalStore } from '../utils/LocalStorage';
 
 const JoinGameComponent = () => {
   const dispatch = useDispatch();

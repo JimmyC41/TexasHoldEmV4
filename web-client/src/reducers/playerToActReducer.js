@@ -1,4 +1,4 @@
-import { NEXT_PLAYER_TO_ACT_EVENT } from "../grpc/gameEvents";
+import { NEXT_PLAYER_TO_ACT_EVENT } from "../grpc/GameEvents";
 import { ACTION_TYPE } from "../enum";
 
 const initialState = {

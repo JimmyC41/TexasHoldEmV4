@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loadSessionTokenFromLocalStorage } from '../utils/localStorage';
-import PlayerActionComponent from './playerActionComponent';
-import { gameStream } from '../grpc/streamingCalls';
+import { loadSessionTokenFromLocalStorage } from '../utils/LocalStorage';
+import PlayerActionComponent from './PlayerActionComponent';
+import { resetGameState } from '../grpc/GameEvents';
+import { leaveGame } from '../grpc/UnaryCalls';
 
 const GamePage = () => {
     const dispatch = useDispatch();
@@ -11,23 +12,34 @@ const GamePage = () => {
     const gameState = useSelector((state) => state);
     const sessionToken = loadSessionTokenFromLocalStorage();
 
-    console.log(gameState);
+    // Handle leave game functionality
+    const handleLeaveGame = async () => {
+        try {
+            const response = await leaveGame(sessionToken);
+            console.log('Server response: ', response.serverMessage);
+
+            dispatch(resetGameState());
+            navigate('/');
+        } catch {
+            console.error('Request rejected by the server. Try again.');
+        }
+    };
+
+    // Effect to handle browser unload (for refresh/close detection)
+    const handleBeforeUnload = (event) => {
+        event.preventDefault();
+        event.returnValue = 'Are you sure you want to leave the game?';
+        handleLeaveGame();
+    }
+
 
     useEffect(() => {
-        // For first time login, redirect to the Join Game page
-        if (!sessionToken) {
-            navigate('/');
-            return;
-        }
-
-        // If session token exists, load previous game state and re-subscribe
-        const stream = gameStream(sessionToken, dispatch);
-
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        
         return () => {
-            if (stream) stream.cancel();
+            window.removeEventListener('beforeunload', handleBeforeUnload);
         };
-    
-    },  [sessionToken, dispatch, navigate]);
+    },  []);
 
     return (
         <div>

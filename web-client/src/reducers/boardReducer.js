@@ -1,4 +1,4 @@
-import { DEAL_BOARD_EVENT } from "../grpc/gameEvents";
+import { DEAL_BOARD_EVENT } from "../grpc/GameEvents";
 import { SUIT, VALUE } from "../enum";
 
 const initialState = [

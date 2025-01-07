@@ -1,7 +1,7 @@
 // App.js: Entry for the application, handles routing
 
 import React from 'react';
-import JoinGameComponent from './components/joinGameComponent';
+import JoinGameComponent from './components/JoinGameComponent';
 import GamePage from './components/gamePage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 

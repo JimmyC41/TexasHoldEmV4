@@ -1,4 +1,4 @@
-import { PLAYERS_UPDATE_EVENT } from "../grpc/gameEvents";
+import { PLAYERS_UPDATE_EVENT } from "../grpc/GameEvents";
 import { SUIT, VALUE, POSITION, PLAYER_STATUS } from "../enum";
 
 const initialState = [

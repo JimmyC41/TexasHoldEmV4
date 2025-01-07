@@ -12,7 +12,7 @@ import {
     potUpdateEvent,
     showdownEvent,
     potWinnerEvent
-} from './gameEvents'
+} from './GameEvents.js'
 
 /**
  * gRPC method to listen to events from the server and

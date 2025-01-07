@@ -10,8 +10,8 @@ export const SHOWDOWN_EVENT = 'SHOWDOWN_EVENT';
 export const POT_WINNER_EVENT = 'POT_WINNER_EVENT';
 
 export const createEventAction = (eventType) => (payload) => ({
-  type: eventType,
-  payload,
+  	type: eventType,
+  	payload,
 });
 
 // Event Creators
