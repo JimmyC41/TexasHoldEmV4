@@ -1,5 +1,5 @@
 import { NEW_STREET_EVENT } from "../grpc/GameEvents";
-import { STREET } from "../enum";
+import { STREET } from "../../enum";
 
 const initialState = STREET.NONE
 

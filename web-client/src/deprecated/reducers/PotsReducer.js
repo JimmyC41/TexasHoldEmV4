@@ -1,4 +1,4 @@
-import { POT_UPDATE_EVENT } from "../grpc/GameEvents";
+import { POT_UPDATE_EVENT } from "../../GameEvents";
 
 const initialState = [];
 

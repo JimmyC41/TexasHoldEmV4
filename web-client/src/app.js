@@ -1,8 +1,6 @@
-// App.js: Entry for the application, handles routing
-
 import React from 'react';
 import JoinGameComponent from './components/JoinGameComponent';
-import GamePage from './components/gamePage';
+import GamePageComponent from './components/GamePageComponent';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const App = () => {	
@@ -10,7 +8,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<JoinGameComponent />} />
-        <Route path="/game" element={<GamePage />} />
+        <Route path="/game" element={<GamePageComponent />} />
       </Routes>
     </Router>
   );

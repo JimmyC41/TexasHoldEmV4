@@ -9,9 +9,9 @@ const PlayerActionComponent = () => {
 	const handlePlayerAction = async () => {
 		try {
 			const response = await playerAction(playerId, actionType, amount);
-		console.log('Server response: ', response.serverMessage);
+			console.log('Server response: ', response.serverMessage);
 		} catch (error) {
-		console.error('Request rejected by the server. Try again.');
+		console.error('Action request rejected. Try again.');
 		}
 	};
 
@@ -22,19 +22,19 @@ const PlayerActionComponent = () => {
 				type="text"
 				value={playerId}
 				onChange={(e) => setPlayerId(e.target.value)}
-				placeholder="Enter player ID"
+				placeholder="PlayerId or Name?"
 			/>
 			<input
 				type="number"
 				value={actionType}
 				onChange={(e) => setActionType(e.target.value)}
-				placeholder="Enter action (RAISE, CALL, CHECK)"
+				placeholder="Enter Action Enum"
 			/>
 			<input
 				type="number"
 				value={amount}
 				onChange={(e) => setAmount(parseInt(e.target.value, 10))}
-				placeholder="Enter amount"
+				placeholder="Enter Amount"
 			/>
 			<button onClick={handlePlayerAction}>Perform Action</button>
 		</div>

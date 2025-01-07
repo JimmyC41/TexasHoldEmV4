@@ -12,7 +12,19 @@ import {
     potUpdateEvent,
     showdownEvent,
     potWinnerEvent
-} from './GameEvents.js'
+} from '../GameEvents.js'
+
+const eventMap = {
+    playersUpdate: playersUpdateEvent,
+    newStreet: newStreetEvent,
+    dealPlayers: dealPlayersEvent,
+    dealBoard: dealBoardEvent,
+    nextPlayerToAct: nextPlayerToActEvent,
+    newPlayerAction: newPlayerActionEvent,
+    potUpdate: potUpdateEvent,
+    showdownEvent: showdownEvent,
+    potWinnerEvent: potWinnerEvent
+};
 
 /**
  * gRPC method to listen to events from the server and
@@ -25,37 +37,20 @@ export const gameStream = (id, dispatch) => {
     gameStreamReq.setPlayerId(id);
     const stream = client.gameStream(gameStreamReq);
 
-    // Key: gRPC stream payload property
-    // Value: Redux action creator
-    const eventMap = {
-        playersUpdate: playersUpdateEvent,
-        newStreet: newStreetEvent,
-        dealPlayers: dealPlayersEvent,
-        dealBoard: dealBoardEvent,
-        nextPlayerToAct: nextPlayerToActEvent,
-        newPlayerAction: newPlayerActionEvent,
-        potUpdate: potUpdateEvent,
-        showdownEvent: showdownEvent,
-        potWinnerEvent: potWinnerEvent
-    };
-
     stream.on('data', (response) => {
         const event = response.toObject();
         console.log('Raw Event Data:', event);
-
-        for (let streamType in eventMap) {
-            // Identify which property the server is streaming
-            if (event[streamType]) {
-
-                // Then, dispatch the event to the redux store
-                dispatch(eventMap[streamType](event[streamType]));
+        
+        for (let eventType in eventMap) {
+            if (event[eventType]) {
+                dispatch(eventMap[eventType](event[eventType]));
                 break;
             }
         }
     });
 
     stream.on('error', (error) => {
-        console.error('Error in the game stream', error);
+        console.error('Game Stream Error', error);
     });
 
     return stream;

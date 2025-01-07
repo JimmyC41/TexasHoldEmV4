@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { joinGame } from '../grpc/UnaryCalls';
 import { gameStream } from '../grpc/StreamingCalls';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loadSessionTokenFromLocalStorage, saveSessionTokenToLocalStore } from '../utils/LocalStorage';
+import { saveSessionTokenToLocalStore } from '../utils/LocalStorage';
+import { GameContext } from '../GameContext';
 
 const JoinGameComponent = () => {
-  	const dispatch = useDispatch();
+    const { dispatch } = useContext(GameContext);
   	const navigate = useNavigate();
-    const sessionToken = loadSessionTokenFromLocalStorage();
   	const [playerName, setPlayerName] = useState('');
   	const [chips, setChips] = useState(0);
 
@@ -19,12 +18,13 @@ const JoinGameComponent = () => {
 
       		if (response.success) {
         		saveSessionTokenToLocalStore(response.playerId);
-        		const newStream = gameStream(response.playerId, dispatch);
+        		gameStream(response.playerId, dispatch);
+				console.log('Navigating to /game');
         		navigate('/game');
       		}
-    } catch {
-      console.error('Request rejected by the server. Try again.');
-    }
+    	} catch {
+      		console.error('Join request rejected. Try again.');
+   		}
   };
 
   return (
@@ -34,13 +34,13 @@ const JoinGameComponent = () => {
         type="text"
         value={playerName}
         onChange={(e) => setPlayerName(e.target.value)}
-        placeholder="Enter your name"
+        placeholder="Enter Name"
       />
       <input
         type="number"
         value={chips}
         onChange={(e) => setChips(parseInt(e.target.value, 10))}
-        placeholder="Enter chips"
+        placeholder="Enter Chips"
       />
       <button onClick={handleJoinGame}>Join Game</button>
     </div>
