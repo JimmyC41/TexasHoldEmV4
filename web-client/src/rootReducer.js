@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
-import boardReducer from './reducers/boardReducer';
-import holeCardsReducer from './reducers/holeCardsReducer';
-import playerActionReducer from './reducers/playerActionReducer';
-import playersReducer from './reducers/playersReducer';
-import playerToActReducer from './reducers/playerToActReducer';
-import potsReducer from './reducers/potsReducer';
-import showdownReducer from './reducers/showdownReducer';
-import streetReducer from './reducers/streetReducer'
-import winnerReducer from './reducers/winnerReducer'
+import boardReducer from './reducers/BoardReducer';
+import holeCardsReducer from './reducers/HoleCardsReducer';
+import playerActionReducer from './reducers/PlayerActionReducer';
+import playersReducer from './reducers/PlayersReducer';
+import playerToActReducer from './reducers/PlayerToActReducer';
+import potsReducer from './reducers/PotsReducer';
+import showdownReducer from './reducers/ShowdownReducer';
+import streetReducer from './reducers/StreetReducer'
+import winnerReducer from './reducers/WinnerReducer'
 
 const rootReducer = combineReducers({
     street: streetReducer,

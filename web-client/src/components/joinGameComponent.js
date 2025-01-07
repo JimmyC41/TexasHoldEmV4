@@ -3,26 +3,25 @@ import { joinGame } from '../grpc/UnaryCalls';
 import { gameStream } from '../grpc/StreamingCalls';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { saveSessionTokenToLocalStore } from '../utils/LocalStorage';
+import { loadSessionTokenFromLocalStorage, saveSessionTokenToLocalStore } from '../utils/LocalStorage';
 
 const JoinGameComponent = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [playerName, setPlayerName] = useState('');
-  const [chips, setChips] = useState(0);
-  const [stream, setStream] = useState(null);
+  	const dispatch = useDispatch();
+  	const navigate = useNavigate();
+    const sessionToken = loadSessionTokenFromLocalStorage();
+  	const [playerName, setPlayerName] = useState('');
+  	const [chips, setChips] = useState(0);
 
-  const handleJoinGame = async () => {
-    try {
-      const response = await joinGame(playerName, chips);
-      console.log('Server response: ', response.serverMessage);
+  	const handleJoinGame = async () => {
+    	try {
+      		const response = await joinGame(playerName, chips);
+      		console.log('Server response: ', response.serverMessage);
 
-      if (response.success) {
-        saveSessionTokenToLocalStore(response.playerId);
-        const newStream = gameStream(response.playerId, dispatch);
-        setStream(newStream);
-        navigate('/game');
-      }
+      		if (response.success) {
+        		saveSessionTokenToLocalStore(response.playerId);
+        		const newStream = gameStream(response.playerId, dispatch);
+        		navigate('/game');
+      		}
     } catch {
       console.error('Request rejected by the server. Try again.');
     }

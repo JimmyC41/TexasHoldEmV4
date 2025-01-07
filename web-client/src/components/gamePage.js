@@ -17,29 +17,11 @@ const GamePage = () => {
         try {
             const response = await leaveGame(sessionToken);
             console.log('Server response: ', response.serverMessage);
-
-            dispatch(resetGameState());
             navigate('/');
         } catch {
             console.error('Request rejected by the server. Try again.');
         }
     };
-
-    // Effect to handle browser unload (for refresh/close detection)
-    const handleBeforeUnload = (event) => {
-        event.preventDefault();
-        event.returnValue = 'Are you sure you want to leave the game?';
-        handleLeaveGame();
-    }
-
-
-    useEffect(() => {
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    },  []);
 
     return (
         <div>
