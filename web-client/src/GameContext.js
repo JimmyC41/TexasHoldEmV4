@@ -1,31 +1,12 @@
 import React, { createContext, useReducer, useEffect } from 'react';
 import { gameReducer, initialState } from './GameReducer';
+import { 
+    loadStateFromLocalStorage,
+    saveStateToLocalStorage 
+} from './utils/LocalStorage';
 
 // Context
 export const GameContext = createContext();
-
-// Save state to local storage
-const saveStateToLocalStorage = (state) => {
-    try {
-        localStorage.setItem('gameState', JSON.stringify(state));
-    } catch (err) {
-        console.error('Failed to save state to local storage', err);
-    }
-};
-
-// Load state from local storage
-const loadStateFromLocalStorage = () => {
-    try {
-        const storedState = localStorage.getItem('gameState');
-        if (!storedState) {
-            return initialState;
-        }
-        return JSON.parse(storedState);
-    } catch (err) {
-        console.error('Failed to load state from local storage', err);
-        return initialState
-    }
-};
 
 // Provider Component
 const GameProvider = ({ children }) => {
