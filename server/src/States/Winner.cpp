@@ -6,22 +6,29 @@ void Winner::execute() {
     // cout << "--------------------------------------------------------------\n";
     // cout << "(+) State Manger: Winner State\n" << endl;
 
-    // Evaluate hand strengths and award pots
+    // Evaluate hand rankings and award pots to the winner
+    // Then, publish the pot winner and clear pots
     controller.getHandRankManager().evaluateRankedIds();
     controller.getPotManager().awardPots();
-
-    // Event Manager: Publish PotWinner Event
     controller.getEventManager().publishPotUpdateEvent();
     controller.getEventManager().publishPotWinnerEvent();
 
-    // Rotate positions
-    controller.getPositionManager().rotatePositions();
+    // CLEAR GAME STATE FOR THE NEXT RD
 
-    // Clear the board and publish the clean board state
+    // Clear player hands
+    controller.getDealerManager().clearPlayerHands();
+    controller.getEventManager().publishDealPlayersEvent();
+
+    // Clear the board
     controller.getDealerManager().clearBoard();
     controller.getEventManager().publishDealBoardEvent();
 
-    // Go to Game Setup state
+    // Clear the last action
+    controller.getActionManager().clearActiveAction();
+    controller.getEventManager().publishNewPlayerActionEvent();
+
+    // Rotate positions and go to the game setup state
+    controller.getPositionManager().rotatePositions();
     transition();
 }
 

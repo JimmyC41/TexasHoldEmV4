@@ -135,14 +135,19 @@ void EventManager::publishNewPlayerActionEvent() {
     NewPlayerActionEvent* newPlayerAction = event.mutable_new_player_action();
     PlayerActionInfo* playerActionInfo = newPlayerAction->mutable_player_action_info();
 
+    // lastAction is nullptr at the end of the winner state
+    shared_ptr<Action> lastAction = GameUtil::getLastAction(gameData);
+    if (lastAction == nullptr) {
+        // Publish an 'emtpy' lastAction
+        publishEvent(event);
+        return;
+    }
+
     string id = GameUtil::getCurPlayerId(gameData);
     playerActionInfo->set_player_id(id);
-
-    shared_ptr<Action> lastAction = GameUtil::getLastAction(gameData);
     ProtoAction* action = playerActionInfo->mutable_action();
     action->set_action_type(ProtoUtil::toProtoType(lastAction->getActionType()));
     action->set_action_amount(lastAction->getAmount());
-
     publishEvent(event);
     cout << "[+] NewPlayerActionEvent published to " << subscribers.size() << " subscribers.\n" << endl;
 }

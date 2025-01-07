@@ -75,6 +75,8 @@ private:
     
     void addPossibleFolds(vector<shared_ptr<PossibleAction>>& possibleActions);
 
+    // Creates a NoneAction and sets the active action in Game Data to NoneAction
+    void setActiveActionAsNone();
 
 public:
     ActionManager(GameData& gameData);
@@ -107,8 +109,7 @@ public:
     // Checks if there are less than two players in the hand, in which case we skip to the winner state
     bool isShortPlayersInHand();
 
-    // Creates a NoneAction and sets the active action in Game Data to NoneAction
-    void setActiveActionAsNone();
+    void clearActiveAction();
 };
 
 #endif

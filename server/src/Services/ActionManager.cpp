@@ -326,3 +326,7 @@ void ActionManager::addPossibleFolds(vector<shared_ptr<PossibleAction>>& possibl
     // Players should always have the option to fold regardless of the action
     possibleActions.push_back(make_shared<PossibleFold>());
 }
+
+void ActionManager::clearActiveAction() {
+    gameData.setActiveAction(nullptr);
+}
