@@ -1,23 +1,24 @@
 import React, { useContext } from 'react';
 import { GameContext } from '../GameContext';
-import useJoinGame from '../hooks/useJoinGame'
+import useRedirectUser from '../hooks/UseRedirectUser'
 import PlayerActionComponent from './PlayerActionComponent';
 import LeaveGameComponent from './LeaveGameComponent';
+import ManualResetGameComponent from './ManualResetGameComponent'
 
-const GamePageComponent = () => {
+const GamePage = () => {
     const { state } = useContext(GameContext);
-    useJoinGame();
+
+    // Redirects new players to the game page
+    useRedirectUser();
 
     return (
         <div>
-            <h2>Game In Progress</h2>
             <pre>{JSON.stringify(state, null, 2)}</pre>
-
-            <h2>Enter Your Action Here</h2>
             <PlayerActionComponent />
             <LeaveGameComponent />
+            <ManualResetGameComponent />
         </div>
     );
 };
 
-export default GamePageComponent;
+export default GamePage;

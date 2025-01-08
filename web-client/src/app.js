@@ -1,16 +1,14 @@
 import React from 'react';
-import JoinGameComponent from './components/JoinGameComponent';
-import GamePageComponent from './components/GamePageComponent';
+import HomePage from './components/HomePage';
+import GamePage from './components/GamePage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const App = () => {	
   return (
     <Router>
       <Routes>
-        console.log(JoinGameComponent);
-        console.log(GamePageComponent);
-        <Route path="/" element={<JoinGameComponent />} />
-        <Route path="/game" element={<GamePageComponent />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/game" element={<GamePage />} />
       </Routes>
     </Router>
   );

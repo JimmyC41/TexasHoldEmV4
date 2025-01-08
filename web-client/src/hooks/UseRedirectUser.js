@@ -4,7 +4,7 @@ import { GameContext } from '../GameContext';
 import { loadSessionTokenFromLocalStorage } from '../utils/LocalStorage';
 import { gameStream } from '../grpc/StreamingCalls';
 
-const useJoinGame = () => {
+const useRedirectUser = () => {
     const { dispatch } = useContext(GameContext);
     const navigate = useNavigate();
     const sessionToken = loadSessionTokenFromLocalStorage();
@@ -20,4 +20,4 @@ const useJoinGame = () => {
     }, [sessionToken, dispatch, navigate]);
 };
 
-export default useJoinGame;
+export default useRedirectUser;
