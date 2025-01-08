@@ -24,6 +24,7 @@ public:
     EventManager(GameData& gameData);
     void addSubscriber(grpc::ServerWriter<GameStreamRes>* subscriber);
     void removeSubscriber(grpc::ServerWriter<GameStreamRes>* subscriber);
+    bool allPlayersSubscribed();
 
     void publishPlayersUpdateEvent();
     void publishNewStreetEvent();

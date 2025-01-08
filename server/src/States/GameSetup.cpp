@@ -2,6 +2,9 @@
 #include "../../include/States/BettingStreet.h"
 #include "../../include/GameController.h"
 
+#include <chrono>
+#include <thread>
+
 constexpr int MIN_NUM_PLAYERS = 2;
 constexpr int MAX_NUM_PLAYERS = 9;
 
@@ -30,6 +33,11 @@ void GameSetup::execute() {
 
         // Early exit if there are at least 2 players to start the game!
         if (controller.getGameData().getNumPlayers() >= MIN_NUM_PLAYERS) break;
+    }
+
+    // Wait for players to be subscribed before publishing evenst
+    while (!controller.getEventManager().allPlayersSubscribed()) {
+        this_thread::sleep_for(chrono::milliseconds(100));
     }
 
     // Shuffle the deck

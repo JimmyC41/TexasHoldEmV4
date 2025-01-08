@@ -25,6 +25,10 @@ void EventManager::removeSubscriber(grpc::ServerWriter<GameStreamRes>* writer) {
     subscribers.erase(writer);
 }
 
+bool EventManager::allPlayersSubscribed() {
+    return (subscribers.size() == gameData.getNumPlayers());
+}
+
 void EventManager::publishEvent(const GameStreamRes& event) {
     lock_guard<mutex> lock(subscriberMutex);
 
