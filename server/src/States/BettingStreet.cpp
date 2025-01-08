@@ -39,6 +39,9 @@ void BettingStreet::executeStreet() {
 
             // Event Manager: Publish DealPlayersEvent
             controller.getEventManager().publishDealPlayersEvent();
+
+            // Event Manager: Publish PlayersUpdateEvent (recent bets)
+            controller.getEventManager().publishPlayersUpdateEvent();
             break;
         case Street::FLOP:
             controller.getDealerManager().dealBoard(3);
@@ -72,6 +75,9 @@ void BettingStreet::executeStreet() {
 
         // Event Manager: Publish NewPlayerActionEvent
         controller.getEventManager().publishNewPlayerActionEvent();
+
+        // Event Manager: Publish PlayersUpdateEvent (for recent bets)
+        controller.getEventManager().publishPlayersUpdateEvent();
         
         // Update the next player to act
         if (controller.isBettingStreetComplete()) break;
@@ -86,6 +92,9 @@ void BettingStreet::executeStreet() {
 
     // Event Manager: Showdown (if end of RIVER reached)
     controller.getEventManager().publishShowdownEvent();
+
+    // Event Manager: Publish PlayersUpdateEvent (for recent bets)
+    controller.getEventManager().publishPlayersUpdateEvent();
 }
 
 void BettingStreet::transition() {

@@ -35,6 +35,8 @@ public:
     void publishPotUpdateEvent();
     void publishShowdownEvent();
     void publishPotWinnerEvent();
+
+    int getNumSubs();
 };
 
 

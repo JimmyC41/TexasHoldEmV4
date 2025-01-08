@@ -15,7 +15,6 @@ void GameSetup::execute() {
 
     // Process oustanding requests to leave the game
     while (!controller.getRequestManager().isLeaveQueueEmpty()) {
-
         auto request = controller.getRequestManager().getLeaveRequest();
         controller.getPlayerManager().removeExistingPlayers({request});
         controller.getPositionManager().allocatePositions();
@@ -33,11 +32,6 @@ void GameSetup::execute() {
 
         // Early exit if there are at least 2 players to start the game!
         if (controller.getGameData().getNumPlayers() >= MIN_NUM_PLAYERS) break;
-    }
-
-    // Wait for players to be subscribed before publishing evenst
-    while (!controller.getEventManager().allPlayersSubscribed()) {
-        this_thread::sleep_for(chrono::milliseconds(100));
     }
 
     // Shuffle the deck

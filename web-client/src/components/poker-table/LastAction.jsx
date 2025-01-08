@@ -14,7 +14,7 @@ const actionTypeMap = {
   	10: 'All-in (Raise)'
 };
 
-const LastActionBox = ({ newPlayerAction, players }) => {
+const LastAction = ({ newPlayerAction, players }) => {
   	if (!newPlayerAction || !newPlayerAction.action) {
     	return null;
   	}
@@ -44,4 +44,4 @@ const LastActionBox = ({ newPlayerAction, players }) => {
   	);
 };
 
-export default LastActionBox;
+export default LastAction;

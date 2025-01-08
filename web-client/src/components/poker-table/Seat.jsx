@@ -5,12 +5,12 @@ import { GameContext } from '../../GameContext';
 import Card from './Card';
 
 const Seat = ({ player, style }) => {
-  const { state } = useContext(GameContext);
-  const sessionToken = localStorage.getItem('sessionToken');
+    const { state } = useContext(GameContext);
+    const sessionToken = localStorage.getItem('sessionToken');
   
-  const isLocalPlayer = (player.id === sessionToken);
-  const isFolded = (player.status === 2);
-  const isNextToAct = (state.nextPlayerToAct?.playerToAct === player.id);
+    const isLocalPlayer = (player.id === sessionToken);
+    const isFolded = (player.status === 2);
+    const isNextToAct = (state.nextPlayerToAct?.playerToAct === player.id);
 
     const seatClassName = [
         'seat-container',
@@ -23,20 +23,16 @@ const Seat = ({ player, style }) => {
 
     return (
         <div className={seatClassName} style={style}>
-        <div className="player-info">
-            <div className="player-name">{player.name}</div>
-            <div className="player-chips">{player.chips} chips</div>
-        </div>
+            <div className="player-info">
+                <div className="player-name">{player.name}</div>
+                <div className="player-chips">{player.chips} BB</div>
+            </div>
 
-        <div className="hole-cards">
-            {holeCards.map((card, i) => (
-            <Card
-                key={i}
-                card={card}
-                faceUp={isLocalPlayer} 
-            />
-            ))}
-        </div>
+            <div className="hole-cards">
+                {holeCards.map((card, i) => (
+                <Card key={i} card={card} faceUp={isLocalPlayer} /> 
+                ))}
+            </div>
         </div>
     );
 };

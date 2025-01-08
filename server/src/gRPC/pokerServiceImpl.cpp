@@ -13,7 +13,6 @@ using namespace std;
 
 PokerServiceImpl::PokerServiceImpl(GameController& ctrl) : controller(ctrl) {}
 
-
 grpc::Status PokerServiceImpl::GameStream
 (
     grpc::ServerContext* context,

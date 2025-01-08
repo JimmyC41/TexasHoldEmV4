@@ -12,6 +12,7 @@ void Winner::execute() {
     controller.getPotManager().awardPots();
     controller.getEventManager().publishPotUpdateEvent();
     controller.getEventManager().publishPotWinnerEvent();
+    controller.getEventManager().publishPlayersUpdateEvent();
 
     // CLEAR GAME STATE FOR THE NEXT RD
 
@@ -29,6 +30,8 @@ void Winner::execute() {
 
     // Rotate positions and go to the game setup state
     controller.getPositionManager().rotatePositions();
+
+    cout << "TRANSITIONING TO GAME SETUP!" << endl;
     transition();
 }
 

@@ -14,7 +14,6 @@ const JoinGameComponent = ({ dispatch, navigate }) => {
 
             if (response.success) {
                 saveSessionTokenToLocalStore(response.playerId);
-                gameStream(response.playerId, dispatch);
                 console.log('New user registered. Navigating to the /game');
                 navigate('/game');
             }

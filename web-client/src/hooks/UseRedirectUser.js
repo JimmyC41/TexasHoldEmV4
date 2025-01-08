@@ -13,6 +13,8 @@ const useRedirectUser = () => {
         if (!sessionToken) {
             navigate('/');
         } else {
+            // If the session token exists, then exisitng user
+            // Subscribe the user to the game stream
             const stream = gameStream(sessionToken, dispatch);
             navigate('/game')
             return () => stream.cancel();

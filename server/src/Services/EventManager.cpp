@@ -29,6 +29,10 @@ bool EventManager::allPlayersSubscribed() {
     return (subscribers.size() == gameData.getNumPlayers());
 }
 
+int EventManager::getNumSubs() {
+    return subscribers.size();
+}
+
 void EventManager::publishEvent(const GameStreamRes& event) {
     lock_guard<mutex> lock(subscriberMutex);
 

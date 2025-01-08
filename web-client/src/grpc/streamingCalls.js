@@ -37,6 +37,8 @@ export const gameStream = (id, dispatch) => {
     gameStreamReq.setPlayerId(id);
     const stream = client.gameStream(gameStreamReq);
 
+    console.log('Game stream for: ', id);
+
     stream.on('data', (response) => {
         const event = response.toObject();
         console.log('Raw Event Data:', event);
