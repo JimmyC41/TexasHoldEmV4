@@ -1,25 +1,12 @@
-import React, { useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react';
 import { GameContext } from '../GameContext';
-import { loadSessionTokenFromLocalStorage } from '../utils/LocalStorage';
-import { gameStream } from '../grpc/StreamingCalls';
+import useJoinGame from '../hooks/useJoinGame'
 import PlayerActionComponent from './PlayerActionComponent';
 import LeaveGameComponent from './LeaveGameComponent';
 
 const GamePageComponent = () => {
-    const { state, dispatch } = useContext(GameContext);
-    const navigate = useNavigate();
-    const sessionToken = loadSessionTokenFromLocalStorage();
-    
-    useEffect(() => {
-        if (!sessionToken) {
-            navigate('/');
-        }
-        else {
-            const stream = gameStream(sessionToken, dispatch);
-            return () => stream.cancel();
-        }
-    }, [sessionToken, dispatch, navigate]);
+    const { state } = useContext(GameContext);
+    useJoinGame();
 
     return (
         <div>

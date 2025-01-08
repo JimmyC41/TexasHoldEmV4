@@ -4,12 +4,15 @@ import { gameStream } from '../grpc/StreamingCalls';
 import { useNavigate } from 'react-router-dom';
 import { saveSessionTokenToLocalStore } from '../utils/LocalStorage';
 import { GameContext } from '../GameContext';
+import useJoinGame from '../hooks/useJoinGame';
 
 const JoinGameComponent = () => {
     const { dispatch } = useContext(GameContext);
   	const navigate = useNavigate();
   	const [playerName, setPlayerName] = useState('');
   	const [chips, setChips] = useState(0);
+
+    useJoinGame();
 
   	const handleJoinGame = async () => {
     	try {

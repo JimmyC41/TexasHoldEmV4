@@ -1,3 +1,5 @@
+import { initialState } from '../GameReducer';
+
 export const saveSessionTokenToLocalStore = (sessionToken) => {
     try {
         localStorage.setItem('sessionToken', sessionToken);
