@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GameContext } from '../GameContext';
 import useRedirectUser from '../hooks/UseRedirectUser';
-import JoinGameComponent from './JoinGameComponent';
+import JoinGameComponent from '../components/JoinGameComponent';
 
 const HomePage = () => {
     const { dispatch } = useContext(GameContext);

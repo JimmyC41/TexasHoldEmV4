@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import { GameContext } from '../GameContext';
 import useRedirectUser from '../hooks/UseRedirectUser'
-import TableComponent from '../deprecated/TableComponent';
-import PlayerActionComponent from './PlayerActionComponent';
-import LeaveGameComponent from './LeaveGameComponent';
-import ManualResetGameComponent from './ManualResetGameComponent'
+import PlayerActionComponent from '../components/PlayerActionComponent';
+import LeaveGameComponent from '../components/LeaveGameComponent';
+import ManualResetGameComponent from '../components/ManualResetGameComponent'
 
 const GamePage = () => {
     const { state } = useContext(GameContext);
