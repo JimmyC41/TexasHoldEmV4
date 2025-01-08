@@ -30,7 +30,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   devServer: {
-    static: './dist',
+    static: ['./dist', './public'],
     hot: true,
     open: true,
     historyApiFallback: true,

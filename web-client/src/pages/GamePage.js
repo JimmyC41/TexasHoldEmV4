@@ -4,11 +4,15 @@ import useRedirectUser from '../hooks/UseRedirectUser'
 import PlayerActionComponent from '../components/PlayerActionComponent';
 import LeaveGameComponent from '../components/LeaveGameComponent';
 import ManualResetGameComponent from '../components/ManualResetGameComponent'
+import Card from '../components/poker-table/Card';
+import Board from '../components/poker-table/Board';
+import Pot from '../components/poker-table/Pot';
+import LastActionBox from '../components/poker-table/LastAction';
+import Seat from '../components/poker-table/Seat';
 
 const GamePage = () => {
     const { state } = useContext(GameContext);
 
-    // Redirects new players to the game page
     useRedirectUser();
 
     return (
