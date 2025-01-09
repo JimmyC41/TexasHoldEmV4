@@ -1,5 +1,6 @@
 import React from 'react';
 import { getCardImagePath } from '../../utils/CardHelpers';
+import '../../PokerUI.css';
 
 const Card = ({ card, faceUp }) => {
   	if (!card) return null;
@@ -15,7 +16,6 @@ const Card = ({ card, faceUp }) => {
   	}
 
   	const imagePath = getCardImagePath(card.suit, card.value);
-
   	return (
     	<img
 			className="card-img"

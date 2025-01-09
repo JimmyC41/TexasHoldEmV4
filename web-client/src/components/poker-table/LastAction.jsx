@@ -39,7 +39,7 @@ const LastAction = ({ newPlayerAction, players }) => {
 
   	return (
     	<div className="last-action-box">
-      	{displayString}
+      		Last Action: {displayString}
     	</div>
   	);
 };

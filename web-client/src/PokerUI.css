@@ -1,128 +1,252 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #2b2b2b;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Game Page Container */
+.game-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    padding: 2%;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+/* Leave and Reset Game */
+.top-right-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Poker Table Container */
 .poker-table-container {
-	position: relative;
-	width: 75%;
-	max-width: 1200px;
-	margin: 0 auto;
-	overflow: visible;
-	text-align: center;
+    position: relative;
+    width: 90vw;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: visible;
+    text-align: center;
 }
-	
+
 .table-background {
-	display: block;
-	width: 75%;
-	margin: 0 auto;
-	aspect-ratio: 16 / 9;
-	text-align: center;
+    width: 90%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: url("/assets/poker-table.svg") center/contain no-repeat;
+    position: relative;
+    overflow: visible;
 }
-	
+
+/* Waiting Text */
 .waiting-text {
-	text-align: center;
-	font-size: 1.4rem;
-	margin-top: 2rem;
+    text-align: center;
+    font-size: 1.4rem;
+    margin-top: 2rem;
 }
 
+/* Seat Container */
 .seat-container {
-	position: absolute;
-	width: 150px;
-	height: 150px;
-	text-align: center;
-	transform: translate(-50%, -50%);
-}
-	
-.player-info {
-	background-color: rgba(0, 0, 0, 0.6);
-	color: #fff;
-	padding: 4px;
-	border-radius: 4px;
-}
-	
-.player-name {
-	font-weight: light;
-}
-	
-.player-chips {
-	font-size: 1rem;
-}
-	
-.hole-cards {
-	margin-top: 4px;
-	display: flex;
-	justify-content: center;
-	gap: 4px;
-}
-
-.folded {
-	opacity: 0.4;
-}
-	
-.highlight {
-	outline: 4px solid yellow;
-	outline-offset: 2px;
-}
-
-.bet-display{
-	color: white;
-	font-size: 1.25rem;
-}
-
-.board-container {
-	position: absolute;
-	top: 45%;
-	left: 32%;
-	transform: translate(-50%, -50%);
-	display: flex;
-	gap: 10px;
-	width: 20%;
-}
-	
-.pot-display {
-	position: absolute;
-	top: 63%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	color: #fff;
-	font-weight: 500;
-	font-size: 1.2rem;
-}
-
-.pot-box {
-	background-color: rgba(128, 128, 128, 0.6);
-	padding: 10px;
-	border-radius: 8px;
-	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  }
-
-.pot-display .pot-line {
-	margin: 4px 0;
-}
-
-.last-action-box {
-	position: absolute;
-	top: 5%;
-	right: 5%;
-	background-color: rgba(0,0,0,0.7);
-	color: #fff;
-	padding: 8px 12px;
-	border-radius: 4px;
-	font-size: 0.9rem;
-	max-width: 200px;
-	text-align: center;
-}
-	
-.card-img {
-	width: 50%;
-	height: auto;
+    position: absolute;
+    width: 8%;
+    height: auto;
+    text-align: center;
+    transform: translate(-50%, -50%);
 }
 
 .empty-seat {
-	opacity: 0.5;
-	color: white;
-	background-color: rgba(128,128,128, 0.3);
-	padding: 4px;
-	border-radius: 4px;
-	font-size: 0.85rem;
+    opacity: 0.5;
+    color: white;
+    background-color: rgba(128, 128, 128, 0.3);
+    padding: 0.5%;
+    border-radius: 4px;
+    font-size: 0.85em;
 }
-	
+
+/* Player Info */
+.player-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 1%;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.player-name {
+    font-weight: normal;
+    font-size: 1.1em;
+}
+
+.player-chips {
+    font-size: 0.9em;
+}
+
+/* Hole Cards */
+.hole-cards {
+    margin-top: 1%;
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+}
+
+.card-img {
+    width: 100%;
+    height: auto;
+}
+
+/* Folded and Highlight */
+.folded {
+    opacity: 0.4;
+}
+
+.highlight {
+    outline: 4px solid yellow;
+    outline-offset: 2px;
+}
+
+/* Recent Bet */
+.bet-display {
+    position: absolute;
+    color: white;
+    font-size: 0.9em;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 0.5%;
+    border-radius: 4px;
+    transform: translate(-50%, -50%);
+    top: 0; /* Set via inline style */
+    left: 0; /* Set via inline style */
+}
+
+/* Board */
+.board-container {
+    position: absolute;
+    top: 48%;
+    left: 28%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 5%;
+    width: 10%;
+}
+
+/* Pots */
+.pot-display {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1em;
+    width: 40%;
+    justify-content: center;
+}
+
+.pot-box {
+    background-color: rgba(128, 128, 128, 0.6);
+    padding: 1%;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.pot-display .pot-line {
+    margin: 0.5% 0;
+}
+
+/* Last Action */
+.last-action-box {
+    position: absolute;
+    top: 5%;
+    right: -5%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 0.8% 1.2%;
+    border-radius: 4px;
+    font-size: 0.9em;
+    max-width: 20%;
+    text-align: center;
+}
+
+/* Controls Container */
+.controls-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2%;
+    padding: 1%;
+    margin-top: 1.5rem;
+}
+
+/* Action Box */
+
+.player-action-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    max-width: 300px;
+}
+
+.player-action-container button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.player-action-container .action-input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.player-action-container .action-input-box input {
+    padding: 5px;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.player-action-container .action-input-box button {
+    padding: 10px;
+    background-color: #2196f3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.bottom-right-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}

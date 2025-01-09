@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './Card';
+import '../../PokerUI.css';
 
 const Board = ({ cards = [] }) => {
 	return (

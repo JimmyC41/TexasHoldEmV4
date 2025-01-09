@@ -3,6 +3,7 @@
 import React, { useContext } from 'react';
 import { GameContext } from '../../GameContext';
 import Card from './Card';
+import '../../PokerUI.css';
 
 const Seat = ({ player, style }) => {
     const { state } = useContext(GameContext);
@@ -12,26 +13,21 @@ const Seat = ({ player, style }) => {
     const isFolded = (player.status === 2);
     const isNextToAct = (state.nextPlayerToAct?.playerToAct === player.id);
 
-    const seatClassName = [
-        'seat-container',
-        isFolded ? 'folded' : '',
-        isNextToAct ? 'highlight' : '',
-    ].join(' ');
+    const seatClassName = [ 'seat-container', isFolded ? 'folded' : ''].join(' ');
 
     const holeCardsEntry = state.holeCards.find(hc => hc.playerId === player.id);
     const holeCards = holeCardsEntry ? holeCardsEntry.holeCardsList : [];
 
     return (
         <div className={seatClassName} style={style}>
-            <div className="player-info">
+            <div className={`player-info ${isNextToAct ? 'highlight' : ''}`}>
                 <div className="player-name">{player.name}</div>
                 <div className="player-chips">{player.chips} BB</div>
             </div>
 
             <div className="hole-cards">
                 {holeCards.map((card, i) => (
-                <Card key={i} card={card} faceUp={isLocalPlayer} /> 
-                ))}
+                <Card key={i} card={card} faceUp={isLocalPlayer} /> ))}
             </div>
         </div>
     );

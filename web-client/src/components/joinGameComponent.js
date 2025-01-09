@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { joinGame } from '../grpc/UnaryCalls';
-import { gameStream } from '../grpc/StreamingCalls';
 import { saveSessionTokenToLocalStore } from '../utils/LocalStorage';
 
 const JoinGameComponent = ({ dispatch, navigate }) => {
@@ -17,8 +16,8 @@ const JoinGameComponent = ({ dispatch, navigate }) => {
                 console.log('New user registered. Navigating to the /game');
                 navigate('/game');
             }
-        } catch {
-            console.error('Join request rejected. Try again.');
+        } catch (error) {
+            console.error('Join request rejected. Try again.', error);
         }
     };
 

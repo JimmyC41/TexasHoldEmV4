@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../PokerUI.css';
 
 const Pots = ({ pots = [] }) => {
   	if (!pots.length) return null;
@@ -7,16 +8,16 @@ const Pots = ({ pots = [] }) => {
 		<div className="pot-display">
 	  		<div className="pot-box">
 				{pots.map((pot, index) => {
-		  			const potSize = pot.potChips || 0; 
+		  			const potSize = pot.potChips || 0;
 		  			return (
 						<div key={index} className="pot-line">
-			  				{potSize} BB
+			  				Pot: {potSize} BB
 						</div>
 		  			);
 				})}
-	 		 </div>
+	 		</div>
 		</div>
-  );
+  	);
 };
 
 export default Pots;
