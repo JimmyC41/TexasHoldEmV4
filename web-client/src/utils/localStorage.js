@@ -37,3 +37,12 @@ export const loadStateFromLocalStorage = () => {
         return initialState
     }
 };
+
+export const clearLocalStorage = () => {
+    try {
+        localStorage.removeItem('gameState');
+        localStorage.removeItem('sessionToken');
+    } catch (err) {
+        console.error('Error clearing local storage', err);
+    }
+}

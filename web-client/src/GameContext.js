@@ -2,31 +2,25 @@ import React, { createContext, useReducer, useEffect } from 'react';
 import { gameReducer, initialState } from './GameReducer';
 import { 
     loadStateFromLocalStorage,
-    saveStateToLocalStorage 
+    saveStateToLocalStorage,
+    clearLocalStorage
 } from './utils/LocalStorage';
 
 // Context
 export const GameContext = createContext();
 
-// Provider Component
+// Provider encloses the App component to share states with individual components
 const GameProvider = ({ children }) => {
     const [state, dispatch] = useReducer(gameReducer, loadStateFromLocalStorage());
 
-    // Clear the game state and session data from local storage
+    // Helper method to manual reset local storage in case of server disconnection
     const clearGameStateAndSession = () => {
-        try {
-            localStorage.removeItem('gameState');
-            localStorage.removeItem('sessionToken');
-            dispatch({ type: 'RESET_GAME' });
-        } catch (err) {
-            console.error('Error clearing local storage', err);
-        }
+        clearLocalStorage();
+        dispatch({ type: 'RESET_GAME' }); 
     };
 
     // Save state to local storage whenever it changes
-    useEffect(() => {
-        saveStateToLocalStorage(state);
-    }, [state]);
+    useEffect(() => { saveStateToLocalStorage(state); }, [state]);
 
     return (
         <GameContext.Provider value={{ state, dispatch, clearGameStateAndSession }}>
