@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { GameContext } from '../GameContext';
 import { playerAction } from '../grpc/UnaryCalls';
 import { loadSessionTokenFromLocalStorage } from '../utils/LocalStorage'
-import { ACTION_TYPE } from '..//Enum';
 
 const PlayerActionComponent = () => {
     const { state } = useContext(GameContext);
@@ -10,6 +9,8 @@ const PlayerActionComponent = () => {
     const nextPlayerToAct = state?.nextPlayerToAct;
 
     const [betAmount, setBetAmount] = useState(0);
+    const [selectedAction, setSelectedAction] = useState(null);
+    const [rangeLimits, setRangeLimits] = useState({ min: 0, max: 0 }); // Store min and max for slider
 
     if (!nextPlayerToAct || sessionToken !== nextPlayerToAct.playerToAct) {
         return null;
@@ -24,63 +25,79 @@ const PlayerActionComponent = () => {
         }
     };
 
+    const getActionLabel = (actionType) => {
+        switch (actionType) {
+            case 3: return 'Check';
+            case 4: return 'Bet';
+            case 5: return 'Call';
+            case 6: return 'Raise';
+            case 7: return 'Fold';
+            case 8: return 'Bet All In';
+            case 9: return 'Call All In';
+            case 10: return 'Raise All In';
+            default: return '[?]';
+        }
+    };
+
     const renderActionButton = (action) => {
-        const actionLabel = Object.keys(ACTION_TYPE).find(
-            (key) => ACTION_TYPE[key] === action.actionType
-        );
+        const actionLabel = getActionLabel(action.actionType);
         const { primaryAmount, secondaryAmount } = action;
 
-        if (primaryAmount === 0 && secondaryAmount === 0) {
-            return (
-                <button
-                    key={action.actionType}
-                    onClick={() => handlePlayerAction(action.actionType, 0)}>
-                    {actionLabel}
-                </button>
-            );
-        }
-
-        if (primaryAmount > 0 && secondaryAmount === 0) {
-            return (
-                <button
-                    key={action.actionType}
-                    onClick={() => handlePlayerAction(action.actionType, primaryAmount)}>
-                    {`${actionLabel} ${primaryAmount}`}
-                </button>
-            );
-        }
-
-        if (primaryAmount > 0 && secondaryAmount > 0) {
-            return (
-                <div key={action.actionType} className="action-input-box">
-                    <label>{actionLabel}</label>
-                    <input
-                        type="number"
-                        value={betAmount}
-                        onChange={(e) => {
-                            const value = Math.min(
-                                Math.max(parseInt(e.target.value, 10), primaryAmount),
-                                secondaryAmount
-                            );
-                            setBetAmount(value);
-                        }}
-                        placeholder={`Min: ${primaryAmount}, Max: ${secondaryAmount}`}
-                        min={primaryAmount}
-                        max={secondaryAmount}
-                    />
-                    <button onClick={() => handlePlayerAction(action.actionType, betAmount)}>
-                        Submit
-                    </button>
-                </div>
-            );
-        }
+        return (
+            <button
+                key={action.actionType}
+                onClick={() => {
+                    if (secondaryAmount > 0) {
+                        // If the action has a slider, set its range and show the slider
+                        setSelectedAction(action.actionType);
+                        setRangeLimits({ min: primaryAmount, max: secondaryAmount });
+                        setBetAmount(primaryAmount); // Default bet amount to min
+                    } else {
+                        // If it's a fixed action, perform the action immediately
+                        handlePlayerAction(action.actionType, primaryAmount || 0);
+                    }
+                }}
+            >
+                {primaryAmount > 0 ? `${actionLabel} ${primaryAmount}` : actionLabel}
+            </button>
+        );
     };
 
     return (
         <div className="player-action-container">
-            <h3>Your Turn</h3>
-            {nextPlayerToAct.possibleActionsList.map((action) =>
-                renderActionButton(action)
+            {/* Row for action buttons */}
+            <div className="action-buttons">
+                {nextPlayerToAct.possibleActionsList.map((action) =>
+                    renderActionButton(action)
+                )}
+            </div>
+
+            {/* Row for slider, dynamically inserted */}
+            {selectedAction && (
+                <div className="slider-row">
+                    <input
+                        type="range"
+                        min={rangeLimits.min}
+                        max={rangeLimits.max}
+                        value={betAmount}
+                        onChange={(e) => setBetAmount(parseInt(e.target.value, 10))}
+                    />
+                    <input
+                        type="number"
+                        min={rangeLimits.min}
+                        max={rangeLimits.max}
+                        value={betAmount}
+                        onChange={(e) => setBetAmount(parseInt(e.target.value, 10))}
+                    />
+                    <button
+                        onClick={() => {
+                            handlePlayerAction(selectedAction, betAmount);
+                            setSelectedAction(null); // Reset slider after action
+                        }}
+                    >
+                        Submit
+                    </button>
+                </div>
             )}
         </div>
     );
