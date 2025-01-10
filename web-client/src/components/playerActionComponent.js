@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { GameContext } from '../GameContext';
 import { playerAction } from '../grpc/UnaryCalls';
-import { loadSessionTokenFromLocalStorage } from '../utils/LocalStorage'
+import { loadSessionTokenFromLocalStorage } from '../utils/LocalStorage';
 
 const PlayerActionComponent = () => {
     const { state } = useContext(GameContext);
@@ -10,11 +10,25 @@ const PlayerActionComponent = () => {
 
     const [betAmount, setBetAmount] = useState(0);
     const [selectedAction, setSelectedAction] = useState(null);
-    const [rangeLimits, setRangeLimits] = useState({ min: 0, max: 0 }); // Store min and max for slider
+    const [rangeLimits, setRangeLimits] = useState({ min: 0, max: 0 });
+    const [timer, setTimer] = useState(30);
 
-    if (!nextPlayerToAct || sessionToken !== nextPlayerToAct.playerToAct) {
-        return null;
-    }
+    useEffect(() => {
+        if (!nextPlayerToAct || sessionToken !== nextPlayerToAct.playerToAct) return;
+
+        const countdown = setInterval(() => {
+            setTimer((prev) => {
+                if (prev <= 1) {
+                    clearInterval(countdown);
+                    handleAutoFold();
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(countdown);
+    }, [nextPlayerToAct, sessionToken]);
 
     const handlePlayerAction = async (actionType, amount) => {
         try {
@@ -23,6 +37,12 @@ const PlayerActionComponent = () => {
         } catch (error) {
             console.error('Action request rejected. Try again.');
         }
+    };
+
+    // Fold players if they time out
+    const handleAutoFold = () => {
+        console.log('Auto-folding player due to timeout.');
+        handlePlayerAction(7, 0);
     };
 
     const getActionLabel = (actionType) => {
@@ -48,12 +68,10 @@ const PlayerActionComponent = () => {
                 key={action.actionType}
                 onClick={() => {
                     if (secondaryAmount > 0) {
-                        // If the action has a slider, set its range and show the slider
                         setSelectedAction(action.actionType);
                         setRangeLimits({ min: primaryAmount, max: secondaryAmount });
-                        setBetAmount(primaryAmount); // Default bet amount to min
+                        setBetAmount(primaryAmount);
                     } else {
-                        // If it's a fixed action, perform the action immediately
                         handlePlayerAction(action.actionType, primaryAmount || 0);
                     }
                 }}
@@ -63,16 +81,20 @@ const PlayerActionComponent = () => {
         );
     };
 
+    if (!nextPlayerToAct || sessionToken !== nextPlayerToAct.playerToAct) {
+        return null;
+    }
+
     return (
         <div className="player-action-container">
-            {/* Row for action buttons */}
+            <div className="timer">Time remaining: {timer} seconds</div>
+
             <div className="action-buttons">
                 {nextPlayerToAct.possibleActionsList.map((action) =>
                     renderActionButton(action)
                 )}
             </div>
 
-            {/* Row for slider, dynamically inserted */}
             {selectedAction && (
                 <div className="slider-row">
                     <input
@@ -92,7 +114,7 @@ const PlayerActionComponent = () => {
                     <button
                         onClick={() => {
                             handlePlayerAction(selectedAction, betAmount);
-                            setSelectedAction(null); // Reset slider after action
+                            setSelectedAction(null);
                         }}
                     >
                         Submit
