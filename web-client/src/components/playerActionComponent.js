@@ -76,7 +76,7 @@ const PlayerActionComponent = () => {
                     }
                 }}
             >
-                {primaryAmount > 0 ? `${actionLabel} ${primaryAmount}` : actionLabel}
+                {secondaryAmount > 0 ? actionLabel : `${actionLabel} ${primaryAmount > 0 ? primaryAmount : ''}`}
             </button>
         );
     };
