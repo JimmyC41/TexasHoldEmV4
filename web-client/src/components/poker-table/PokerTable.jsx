@@ -14,7 +14,7 @@ const PokerTable = () => {
   	if (!players || players.length < 2) {
 		return (
 	  		<div className="poker-table-container">
-				<p className="waiting-text">Waiting for another player to join the game...</p>
+				<p className="waiting-text">Waiting for players to join...</p>
 	  		</div>
 		);
   	}
