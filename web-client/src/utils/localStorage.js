@@ -1,5 +1,10 @@
 import { initialState } from '../GameReducer';
 
+/**
+ * Helper Methods for the storing, loading and clearing
+ * of session tokens and the game state to local storage.
+ */
+
 export const saveSessionTokenToLocalStore = (sessionToken) => {
     try {
         localStorage.setItem('sessionToken', sessionToken);

@@ -195,7 +195,6 @@ html, body {
     gap: 10px;
 }
 
-/* Player Action Input Box */
 .player-action-container {
     display: flex;
     flex-direction: column;
