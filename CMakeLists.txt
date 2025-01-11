@@ -4,7 +4,7 @@ project(TexasHoldEm VERSION 1.0 LANGUAGES CXX)
 # Project Setup
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-include(${CMAKE_SOURCE_DIR}/build/Release/generators/conan_toolchain.cmake)
+include(${CMAKE_SOURCE_DIR}/build/Debug/generators/conan_toolchain.cmake)
 
 # Common Directories
 set(SERVER_DIR ${PROJECT_SOURCE_DIR}/server)
