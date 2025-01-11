@@ -4,7 +4,7 @@ DealerManager::DealerManager(GameData& gameData) : gameData(gameData), deck() {}
 
 void DealerManager::dealGamePlayers() {
     // cout << "(+) Dealer Manager: Dealing hole cards to players!\n";
-    auto players = gameData.getPlayers();
+    auto& players = gameData.getPlayers();
 
     for (int i = 0; i < 2; i++) {
         for (auto& player : players) {

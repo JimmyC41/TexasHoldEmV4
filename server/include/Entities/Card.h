@@ -1,20 +1,20 @@
 #ifndef CARD_H
 #define CARD_H
 
-#include "../Shared/Enums.h"
 #include "../Utils/BitwiseUtil.h"
-#include <stdexcept>
+#include "../Shared/Enums.h"
 #include <string>
 
-using namespace std;
 using Suit = Enums::Suit;
 using Value = Enums::Value;
+using namespace std;
 
 class Card {
 private:
     Suit suit;
     Value value;
     uint64_t bitwise;
+
 public:
     Card();
     explicit Card(Suit suit, Value value);
@@ -28,4 +28,4 @@ public:
     string toString() const;
 };
 
-#endif // CARD_H
+#endif

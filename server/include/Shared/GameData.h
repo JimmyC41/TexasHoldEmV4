@@ -13,6 +13,7 @@
 #include <iostream>
 #include <condition_variable>
 #include <queue>
+#include <unordered_map>
 
 class Player;
 class Board;
@@ -29,12 +30,12 @@ using PlayerStatus = Enums::PlayerStatus;
 class GameData {
 private:
     // Persists for the Entire Round
-    shared_ptr<Player> curPlayer;
-    shared_ptr<Player> smallBlindPlayer;
-    shared_ptr<Player> bigBlindPlayer;
-    shared_ptr<Player> buttonPlayer;
+    Player* curPlayer;
+    Player* smallBlindPlayer;
+    Player* bigBlindPlayer;
+    Player* buttonPlayer;
 
-    vector<shared_ptr<Player>> gamePlayers;     // Ordered list of players by position
+    vector<unique_ptr<Player>> gamePlayers;     // Ordered list of players by position
     vector<string> rankedPlayerIds;             // Vector of IDs ranked on hand strengths (calculated in the Winner game state)
     vector<shared_ptr<Pot>> pots;               // Calculated at the end of each betting street
     uint32_t deadChips;
@@ -70,17 +71,19 @@ public:
 
     void reset();
 
-    // SET Methods
-    void addPlayer(const shared_ptr<Player>& player);
-    void removePlayer(const shared_ptr<Player>& player);
+    // SETTER Methods for Players
+    void addPlayer(unique_ptr<Player> player);  // Ownership is transferred from Player Manager
+    void removePlayer(Player* player);
     void sortPlayersByPosition();
     void setLastPlayerAsButton();
-    void removeAllPlayers() { gamePlayers.clear(); }
+    void setCurPlayer(Player* player);
+    void setSmallBlindPlayer(Player* player);
+    void setBigBlindPlayer(Player* player);
+    void setButtonPlayer(Player* player);
+    void removeAllPlayers();
+
+
     void setRankedPlayerIds(const vector<string>& ids) { rankedPlayerIds = ids; }
-    void setCurPlayer(const shared_ptr<Player>& player) { curPlayer = player; }
-    void setSmallBlindPlayer(const shared_ptr<Player>& player) { smallBlindPlayer = player; }
-    void setBigBlindPlayer(const shared_ptr<Player>& player) { bigBlindPlayer = player; }
-    void setButtonPlayer(const shared_ptr<Player>& player) { buttonPlayer = player; }
     void setCurStreet(const Street& street) { curStreet = street; }
     void dealCommunityCard(const Card& card) { board.addCommunityCard(card); }
     void clearBoard() { board.resetBoard(); }
@@ -101,12 +104,15 @@ public:
     void clearPotWinners() { winners.clear(); }
     void addPotWinner(const uint32_t& chips, const string& id) { winners.emplace_back(chips, id); }
 
-    // GET Methods
-    const shared_ptr<Player>& getCurPlayer() const { return curPlayer; }
-    const shared_ptr<Player>& getSmallBlindPlayer() const { return smallBlindPlayer; }
-    const shared_ptr<Player>& getBigBlindPlayer() const { return bigBlindPlayer; }
-    const shared_ptr<Player>& getButtonPlayer() const { return buttonPlayer; }
-    const vector<shared_ptr<Player>>& getPlayers() { return gamePlayers; }
+    // GETTER Methods for Players
+    Player* getCurPlayer();
+    Player* getSmallBlindPlayer();
+    Player* getBigBlindPlayer();
+    Player* getButtonPlayer();
+    const vector<unique_ptr<Player>>& getPlayers() const;
+    vector<Player*> getRawPlayers() const;
+    int getNumPlayers() const;
+
     const Street getStreet() const { return curStreet; }
     const Board& getBoard() const { return board; }
     const vector<Card>& getBoardCards() const { return board.getCommunityCards(); }
@@ -119,7 +125,6 @@ public:
     const uint32_t& getDeadChips() const { return deadChips; }
     const uint32_t& getBigBlind() const { return bigBlind; }
     const uint32_t& getSmallBlind() const { return smallBlind; }
-    const int getNumPlayers() const { return gamePlayers.size(); }
     const vector<pair<uint32_t, string>> getPotWinners() { return winners; }
 };
 

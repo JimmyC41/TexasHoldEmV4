@@ -1,8 +1,6 @@
 #ifndef PROTO_UTIL_H
 #define PROTO_UTIL_H
 
-#include <memory>
-
 #include "../Shared/Enums.h"
 #include "../Entities/Player.h"
 #include "texas_holdem.pb.h"
@@ -13,9 +11,9 @@ using ProtoStatus = ProtoPlayer_ProtoPlayerStatus;
 using ProtoPosition = ProtoPlayer_ProtoPosition;
 using ProtoValue = ProtoCard_ProtoValue;
 using ProtoSuit = ProtoCard_ProtoSuit;
-
 using namespace std;
 
+/* Helper methods to convert Proto Enums to C++ Enums */
 class ProtoUtil {
 public:
     static ProtoActionType toProtoType(const ActionType& type);

@@ -6,6 +6,7 @@
 #include "../Entities/PossibleAction.h"
 #include "GameUtil.h"
 #include "PotUtil.h"
+#include <vector>
 
 using PlayerBetInfo = vector<tuple<string, uint32_t, PlayerStatus>>;
 

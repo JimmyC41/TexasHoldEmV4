@@ -3,10 +3,15 @@
 
 #include "Card.h"
 #include "../Shared/Enums.h"
-
 #include <vector>
 
 using HandCategory = Enums::HandCategory;
+using namespace std;
+
+/**
+ * Stores information about a player's hand.
+ * Manipulated by the HandEvaluator class.
+ */
 
 class HandInfo {
 private:
@@ -15,6 +20,7 @@ private:
     uint64_t bitwise;           // 64 bit representation of hand
     HandCategory category;      // Category of hand (e.g. flush)
     vector<Card> bestFiveCards; // Best 5 card combination
+
 public:
     HandInfo() : bitwise(), category(HandCategory::NONE), hand(), bestFiveCards(), handSize(0) {}
 

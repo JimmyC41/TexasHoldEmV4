@@ -2,7 +2,8 @@
 
 void HandRankManager::populateHandsInfo(GameData& gameData) {
     // For each player in the game
-    auto players = gameData.getPlayers();
+    auto players = gameData.getRawPlayers();
+
     for (auto& player : players) {
         // Fetch the hand and get the relevant handInfo object
         const auto& hand = player->getHand();
@@ -42,19 +43,22 @@ bool HandRankManager::compareHands(const HandInfo& handA, const HandInfo& handB)
 }
 
 void HandRankManager::evaluateRankedIds() {
-    // cout << "(+) Hand Rank Manager: Evaluating hand rankings!\n" << endl;
-
     // Evaluate Hand Info for players:
     populateHandsInfo(gameData);
 
     // Rank players by the strength of their Hands Info
-    vector<shared_ptr<Player>> rankedPlayers = gameData.getPlayers();
-    sort(rankedPlayers.begin(), rankedPlayers.end(),
-        [this](const shared_ptr<Player>& a, const shared_ptr<Player>& b) {
+    auto sortedPlayers = gameData.getRawPlayers();
+    sort
+    (
+        sortedPlayers.begin(),
+        sortedPlayers.end(),
+        [this] (const Player* a, const Player* b)
+        {
             return compareHands(handsInfo.at(a->getId()), handsInfo.at(b->getId()));
-        });
+        }
+    );
     
     // Update rankedPlayerIds in GameData
-    vector<string> rankedIds = PlayerUtil::playerPointersToIds(rankedPlayers);
+    vector<string> rankedIds = PlayerUtil::playerPointersToIds(sortedPlayers);
     gameData.setRankedPlayerIds(rankedIds);
 }
