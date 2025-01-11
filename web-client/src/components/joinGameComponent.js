@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { joinGame } from '../grpc/UnaryCalls';
 import { saveSessionTokenToLocalStore } from '../utils/LocalStorage';
+import "../HomePageUI.css";
 
 const JoinGameComponent = ({ dispatch, navigate }) => {
     const [playerName, setPlayerName] = useState('');
@@ -22,8 +23,7 @@ const JoinGameComponent = ({ dispatch, navigate }) => {
     };
 
     return (
-        <div>
-            <h3>Join Game</h3>
+        <div className="join-game-container">
             <input
                 type="text"
                 value={playerName}
@@ -34,7 +34,7 @@ const JoinGameComponent = ({ dispatch, navigate }) => {
                 type="number"
                 value={chips}
                 onChange={(e) => setChips(parseInt(e.target.value, 10))}
-                placeholder="Enter Chips"
+                placeholder="Enter Chips (in BB)"
             />
             <button onClick={handleJoinGame}>Join Game</button>
         </div>
