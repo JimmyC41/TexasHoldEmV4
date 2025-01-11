@@ -25,29 +25,24 @@ private:
     HandCategory handCategory;
     vector<Card> bestFiveCards;
     PlayerStatus playerStatus;
+    uint32_t initialChips; // Chips the player started the street with
     uint32_t recentBet;
-
-    // The number of chips the player started the street witth
-    uint32_t initialChips;
-
 public:
     Player(string name, uint32_t chips, string id);
 
-    // Setter Methods for Player
-    void addChips(uint32_t newChips);
-    void setInitialChips(uint32_t chips);
-    void setRecentBet(uint32_t newBet);
-    void reduceChips(uint32_t lostChips);
     void setPosition(Position newPosition);
-    void setPlayerStatus(PlayerStatus status);
+    void addChips(uint32_t newChips);
+    void reduceChips(uint32_t lostChips);
     void addHoleCard(const Card& card);
     void clearHand();
+    void setPlayerStatus(PlayerStatus status);
+    void setInitialChips(uint32_t chips);
+    void setRecentBet(uint32_t newBet);
     void setHandCategory(HandCategory category);
     void setBestFiveCards(const vector<Card>& cards);
 
-    // Getter Methods for Player
-    const string& getName() const;
     const string& getId() const;
+    const string& getName() const;
     Position getPosition() const;
     uint32_t getCurChips() const;
     const vector<Card>& getHand() const;

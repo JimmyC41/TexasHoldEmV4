@@ -6,7 +6,8 @@ constexpr int MAX_NUM_PLAYERS = 9;
 
 RPCValidator::RPCValidator(GameData& gd) : 
     gameData(gd),
-    gameDataMtx() {}
+    gameDataMtx()
+    {}
 
 bool RPCValidator::canJoin(const string& name, const uint32_t& chips) const {
     lock_guard<mutex> lock(gameDataMtx);

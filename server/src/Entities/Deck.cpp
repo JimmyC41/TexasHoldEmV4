@@ -1,10 +1,7 @@
 #include "../../include/Entities/Deck.h"
-
 #include <algorithm>
-#include <iostream>
 #include <random>
 #include <assert.h>
-
 using namespace std;
 
 Deck::Deck() : deckIndex(0), isShuffled(false) {

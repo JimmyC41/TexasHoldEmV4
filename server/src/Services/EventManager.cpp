@@ -50,7 +50,7 @@ void EventManager::publishPlayersUpdateEvent() {
     GameStreamRes event;
     PlayersUpdateEvent* playersUpdate = event.mutable_players_update();
 
-    const auto& players = gameData.getPlayers();
+    vector<shared_ptr<Player>> players = gameData.getPlayers();
     for (const auto& player : players) {
         ProtoPlayer* cur = playersUpdate->add_new_players();
         cur->set_name(player->getName());
@@ -80,7 +80,7 @@ void EventManager::publishDealPlayersEvent() {
     GameStreamRes event;
     DealPlayersEvent* dealPlayers = event.mutable_deal_players();
 
-    const auto& players = gameData.getPlayers();
+    vector<shared_ptr<Player>> players = gameData.getPlayers();
 
     // For each player, set their id and hand
     for (const auto& player : players) {
@@ -183,7 +183,7 @@ void EventManager::publishShowdownEvent() {
     GameStreamRes event;
     ShowdownEvent* showdown = event.mutable_showdown();
 
-    vector<Player*> playersNotFolded = GameUtil::getPlayersNotFolded(gameData);
+    vector<shared_ptr<Player>> playersNotFolded = GameUtil::getPlayersNotFolded(gameData);
     for (const auto& player : playersNotFolded) {
         showdown->add_players_in_hand(player->getId());
     }
@@ -209,6 +209,6 @@ void EventManager::publishPotWinnerEvent() {
 
 void EventManager::logJsonOutput(const GameStreamRes& event) {
     string jsonString;
-    (void)google::protobuf::util::MessageToJsonString(event, &jsonString);
+    google::protobuf::util::MessageToJsonString(event, &jsonString);
     cout << "JSON Output: " << jsonString << endl;
 }

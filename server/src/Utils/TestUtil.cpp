@@ -22,7 +22,7 @@ vector<Card> TestUtil::aggregateDealtCards(GameData& gameData, DealerManager& de
     vector<Card> cards;
     Board board = dealer.getBoard();
 
-    for (const auto& player : gameData.getPlayers()) {
+    for (auto& player : gameData.getPlayers()) {
         cards.insert(cards.end(), player->getHand().begin(), player->getHand().end());
     }
     cards.insert(cards.end(), board.getCommunityCards().begin(), board.getCommunityCards().end());

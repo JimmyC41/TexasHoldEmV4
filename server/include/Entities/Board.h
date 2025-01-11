@@ -14,6 +14,8 @@ public:
     void addCommunityCard(const Card& card);
     void resetBoard();
     const vector<Card>& getCommunityCards() const;
+
+    // Helper Functions
     int getBoardSize() const;
 };
 

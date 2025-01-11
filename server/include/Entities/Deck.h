@@ -2,8 +2,8 @@
 #define DECK_H
 
 #include "Card.h"
+#include <iostream>
 #include <array>
-
 using namespace std;
 
 const int DECK_SIZE = 52;
@@ -14,7 +14,6 @@ private:
     uint32_t deckIndex;
     bool isShuffled;
     void shuffleDeck();
-
 public:
     Deck();
 
@@ -28,4 +27,4 @@ public:
     uint32_t getDeckSize() const;
 };
 
-#endif
+#endif // DECK_H

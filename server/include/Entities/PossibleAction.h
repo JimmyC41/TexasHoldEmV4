@@ -7,14 +7,11 @@
 using namespace std;
 using ActionType = Enums::ActionType;
 
+// Note: By default, a possible action has a 'default' amount
+// All-In Bet, All-In Call, Call, Check and Fold all have a single 'default value'
 
-/**
- * By default, a possible action has a primary amount.
- * All-In Bet, All-In Call, Call, Check and Fold all have a 'default' primary amount.
- * That is, such actions can only take on one possile values.
- * Bet and Raise actions are instantiated with an secondary amount because they can take on a range of values.
- * In this case, the primaryAmount acts as the minimum, and the secondaryAmount acts as the maximum.
- */
+// Bet and Raise actions are instantiated with an additional amount:
+// The default acts as the minimum, and the second amount is the maximum
 
 class PossibleAction {
 private:
@@ -22,6 +19,7 @@ private:
 
 public:
     PossibleAction(uint32_t amount = 0) : primaryAmount(amount) {}
+
     const uint32_t& getPrimaryAmount() const { return primaryAmount; }
     
     virtual ~PossibleAction() {}

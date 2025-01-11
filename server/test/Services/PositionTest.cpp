@@ -60,7 +60,7 @@ protected:
         positionManager->allocatePositions();
         positionManager->setEarlyPositionToAct();
 
-        // PrintUtil::printPlayers(*gameData);
+        PrintUtil::printPlayers(*gameData);
     }
 
     void verifyPositionsAfterPlayerAddition(
@@ -70,7 +70,7 @@ protected:
         playerManager->addNewPlayers(newPlayers);
         positionManager->allocatePositions();
 
-        // PrintUtil::printPlayers(*gameData);
+        PrintUtil::printPlayers(*gameData);
 
         EXPECT_EQ(GameUtil::getListOfPositions(*gameData), expectedPositions);
     }
@@ -82,7 +82,7 @@ protected:
         playerManager->removeExistingPlayers(playersToRemove);
         positionManager->allocatePositions();
 
-        // PrintUtil::printPlayers(*gameData);
+        PrintUtil::printPlayers(*gameData);
 
         EXPECT_EQ(GameUtil::getListOfPositions(*gameData), expectedPositions);
     }
@@ -94,7 +94,7 @@ protected:
         
         for (int i = 0; i < numRotations; ++i) positionManager->rotatePositions();
 
-        // PrintUtil::printPlayers(*gameData);
+        PrintUtil::printPlayers(*gameData);
 
         EXPECT_EQ(GameUtil::getListOfPositions(*gameData), expectedPositions);
         EXPECT_EQ(GameUtil::getListofNames(*gameData), expectedOrderOfNames);

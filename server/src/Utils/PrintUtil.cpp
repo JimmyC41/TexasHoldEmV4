@@ -20,7 +20,7 @@ void PrintUtil::printAllCards(GameData& gameData) {
     }
 
     cout << "(*) Displaying player's hole cards\n";
-    const auto& players = gameData.getPlayers();
+    auto players = gameData.getPlayers();
     for (const auto& player : players) {
         cout    << "    "
                 << player->getName() << ": "
@@ -32,9 +32,9 @@ void PrintUtil::printAllCards(GameData& gameData) {
 
 void PrintUtil::printPlayers(GameData& gameData) {
     cout << "(*) Displaying Players:" << '\n';
-    const auto& players = gameData.getPlayers();
+
+    auto players = gameData.getPlayers();
     for (const auto& player : players) {
-        if (player == nullptr) break;
         cout    << "    "
                 << "name: " << player->getName() << " | "
                 << "chips: " << player->getCurChips() << " | "

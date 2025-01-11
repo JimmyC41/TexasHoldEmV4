@@ -8,46 +8,42 @@ PositionManager::PositionManager(GameData& gameData) :
     gameData(gameData),
     occupiedPositions() {}
 
-void PositionManager::populateOccupiedPositions()
-{
+void PositionManager::populateOccupiedPositions() {
     occupiedPositions.clear();
-    occupiedPositions = PositionUtil::getSetOfPositions
-    (
-        GameUtil::getOccupiedPlayers(gameData)
+
+    occupiedPositions = PositionUtil::getSetOfPositions(
+            GameUtil::getOccupiedPlayers(gameData)
     );
 }
 
-void PositionManager::updatePlayerPositionInGameData(const string& idOrName, const Position& newPosition)
-{
+void PositionManager::updatePlayerPositionInGameData(const string& idOrName, const Position& newPosition) {
     auto player = GameUtil::getPlayer(gameData, idOrName);
-    player->setPosition(newPosition);
 
-    if (newPosition == Position::SMALL_BLIND)
-    {
+    player->setPosition(newPosition);
+    if (newPosition == Position::SMALL_BLIND) {
         gameData.setSmallBlindPlayer(player);
     }
-    else if (newPosition == Position::BIG_BLIND)
-    {
+    if (newPosition == Position::BIG_BLIND) {
         gameData.setBigBlindPlayer(player);
     }
 }
 
-void PositionManager::allocatePositions()
-{
+void PositionManager::allocatePositions() {
+    // cout << "(+) Position Manager: Allocating Positions to Players!\n" << endl;
+
     // Populate the set of occupied positions from the player vector
-     // Occupied positions before allocating position to a new player
-     // informs us here we can NOT place new players!
+    // Occupied positions before allocating position to a new player informs us
+    // where we can NOT place new players
     populateOccupiedPositions();
 
     // Allocate position for each player
-    const auto& players = gameData.getPlayers();
-
+    auto& players = gameData.getPlayers();
     for (auto& player : players) {
-        // Ignore existing players, only allocate positions for new players
+        // Ignore existing players, we are only trying to allocate positions for new players
         if (player->getPosition() != Position::LOBBY) continue;
 
         // Fetch the next unoccupied position and add this to the occupied set
-        // because we can't allocate this position to another player
+        // We can't allocate this position to another player
         Position nextPos = PositionUtil::getNextUnoccupiedPosition(occupiedPositions);
         occupiedPositions.insert(nextPos);
 
@@ -59,16 +55,17 @@ void PositionManager::allocatePositions()
     gameData.sortPlayersByPosition();
     gameData.setLastPlayerAsButton();
 
-    // Set the player status to IN_HAND now
+    // Set players' status to IN_HAND
     GameUtil::setInHandStatusForPlayers(gameData);
 
     // Assign small and big blinds if players have left the game
     assignBlindsIfMissing();
 }
 
-void PositionManager::rotatePositions()
-{
-    // Fetch the previous button and small blind Id
+void PositionManager::rotatePositions() {
+    // cout << "(+) Position Manager: Rotating Positions for the next round!\n" << endl;
+
+    // Fetch the previous button and small blind
     string newSmallId = gameData.getButtonPlayer()->getId();
     string newBigId = gameData.getSmallBlindPlayer()->getId();
 
@@ -77,14 +74,11 @@ void PositionManager::rotatePositions()
     updatePlayerPositionInGameData(newBigId, Position::BIG_BLIND);
 
     // From the BB onwards, update their position!
-    const auto& players = gameData.getPlayers();
-
+    auto& players = gameData.getPlayers();
     for (auto& player : players) {
-        
         // Ignore the new small and big blinds - their positions have already been updated!
         if (player->getId() == newSmallId || player->getId() == newBigId) continue;
 
-        // Move players to the immediate next position
         Position newPosition = PositionUtil::getNextPosition(player->getPosition());
         updatePlayerPositionInGameData(player->getId(), newPosition);
     }
@@ -97,37 +91,31 @@ void PositionManager::rotatePositions()
     GameUtil::setInHandStatusForPlayers(gameData);
 }
 
-void PositionManager::updatePlayerToAct()
-{
+void PositionManager::updatePlayerToAct() {
+    // cout << "(+) Position Manager: Finding the next player to act!\n" << endl;
+    
     // Find the player the next player to act
-    Player* nextPlayer = GameUtil::getNextPlayerInHand
-    (
-        gameData,
-        gameData.getCurPlayer()->getId()
-    );
+    const string& curId = gameData.getCurPlayer()->getId();
+    shared_ptr<Player> nextPlayer = GameUtil::getNextPlayerInHand(gameData, curId);
 
     // Set the next player as the next to act
-    if (nextPlayer != nullptr)
-    {
+    if (nextPlayer != nullptr) {
         gameData.setCurPlayer(nextPlayer);
     }
 }
 
-void PositionManager::setEarlyPositionToAct()
-{
+void PositionManager::setEarlyPositionToAct() {
+    // cout << "(+) PositionManager: Determining the first player to act!\n" << endl;
+
     Street curStreet = gameData.getStreet();
-    Player* earlyPosition;
+    shared_ptr<Player> earlyPosition;
 
     // If Preflop, then early position is the player after the BB
     // For all other streets, early position is the SB
-    switch(curStreet) 
-    {
+    switch(curStreet) {
         case Street::PRE_FLOP:
-            earlyPosition = GameUtil::getNextPlayerInHand
-            (
-                gameData,
-                gameData.getBigBlindPlayer()->getId()
-            );
+            earlyPosition = GameUtil::getNextPlayerInHand(gameData,
+                    gameData.getBigBlindPlayer()->getId());
             break;
         default:
             earlyPosition = GameUtil::getEarlyPosition(gameData); 
@@ -138,17 +126,15 @@ void PositionManager::setEarlyPositionToAct()
     gameData.setCurPlayer(earlyPosition);
 }
 
-void PositionManager::assignBlindsIfMissing()
-{
+void PositionManager::assignBlindsIfMissing() {
     if (GameUtil::getNumPlayers(gameData) < 2) return;
 
     bool smallExists = GameUtil::isSmallBlindExists(gameData);
     bool bigExists = GameUtil::isBigBlindExists(gameData);
 
-    // If statement triggered if small or big blinds have left the game
-    if (!smallExists || !bigExists)
-    {
-        const auto& players = gameData.getPlayers();
+    // Either previous small and big blinds have left the game
+    if (!smallExists || !bigExists) {
+        auto players = gameData.getPlayers();
         updatePlayerPositionInGameData(players[0]->getId(), Position::SMALL_BLIND);
         updatePlayerPositionInGameData(players[1]->getId(), Position::BIG_BLIND);
     }

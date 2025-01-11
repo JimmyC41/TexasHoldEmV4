@@ -1,18 +1,30 @@
 {
     "configurations": [
         {
-            "name": "Mac",
+            "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/server/include",
+                "${workspaceFolder}/server/include/**",
+                "${workspaceFolder}/build/build",
+                "/opt/homebrew/Cellar/googletest/1.15.2/include",
+                "C:/Users/Jimmy/.conan2/p/proto1bc625ad405e0/p/include",
+                "C:/Users/Jimmy/.conan2/p/absei584666daebe9f/p/include",
+                "C:/Users/Jimmy/.conan2/p/grpcc1fa87c503b46/p/include",
+                "C:/Users/Jimmy/.conan2/p/grpcc1fa87c503b46/p/include/grpc",
+                "C:/Users/Jimmy/.conan2/p/grpcc1fa87c503b46/p/include/grpcpp",
+                "C:/Users/Jimmy/.conan2/p/grpcc1fa87c503b46/p/include/grpc++",
+                "${workspaceFolder}/build/build",
+                "${workspaceFolder}/build/build"
             ],
             "defines": [],
             "macFrameworkPath": [
                 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
             ],
             "compilerPath": "/usr/bin/clang",
-            "cStandard": "c17",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "macos-clang-arm64",
+            "cStandard": "c23",
+            "cppStandard": "c++23",
+            "intelliSenseMode": "${default}",
             "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],

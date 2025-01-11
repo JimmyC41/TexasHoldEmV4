@@ -4,38 +4,35 @@
 
 PlayerManager::PlayerManager(GameData& gameData) : gameData(gameData) {}
 
-bool PlayerManager::addNewPlayer(tuple<string, uint32_t, string> newPlayerInfo)
-{
+bool PlayerManager::addNewPlayer(tuple<string, uint32_t, string> newPlayerInfo) {
     auto [name, chips, playerId] = newPlayerInfo;
-    unique_ptr<Player> player = make_unique<Player>(name, chips, playerId);
+    shared_ptr<Player> player = make_shared<Player>(name, chips, playerId);
+    gameData.addPlayer(player);
     player->setPosition(Position::LOBBY);
     player->setPlayerStatus(PlayerStatus::WAITING);
-
-    // Transfer ownership to Game Data shared state
-    gameData.addPlayer(std::move(player));
     return true;
 }
 
-bool PlayerManager::addNewPlayers(vector<pair<string, uint32_t>> newPlayersInfo)
-{
-    for (auto& info : newPlayersInfo)
-    {
+bool PlayerManager::addNewPlayers(vector<pair<string, uint32_t>> newPlayersInfo) {
+    // cout << "(+) PlayerManager: addNewPlayers called.\n" << endl;
+    for (auto& info : newPlayersInfo) {
         string name = info.first;
         uint32_t chips = info.second;
         string id = PlayerUtil::generateUUID();
-        unique_ptr<Player> player = make_unique<Player>(name, chips, id);
+        
+        // Add the player to Game Data and set their position and status
+        shared_ptr<Player> player = make_shared<Player>(name, chips, id);
+        gameData.addPlayer(player);
         player->setPosition(Position::LOBBY);
         player->setPlayerStatus(PlayerStatus::WAITING);
-
-        // Transfer ownership to Game Data shared state
-        gameData.addPlayer(std::move(player));
     }
     return true;
 }
 
-bool PlayerManager::removeExistingPlayers(vector<string> playersIdOrName)
-{
+bool PlayerManager::removeExistingPlayers(vector<string> playersIdOrName) {
+    // cout << "(+) PlayerManager: removeExistingPlayer called.\n" << endl;
     for (auto& idOrName : playersIdOrName) {
+        // Validate player existence
         auto player = GameUtil::getPlayer(gameData, idOrName);
         if (player == nullptr) return false;
 
@@ -46,49 +43,24 @@ bool PlayerManager::removeExistingPlayers(vector<string> playersIdOrName)
 }
 
 void PlayerManager::removeBrokePlayers() {
-    auto players = gameData.getRawPlayers();
-
-    // Filter players with no chips
-    vector<Player*> playersWithNoChips;
-    std::copy_if
-    (
-        players.begin(),
-        players.end(),
-        std::back_inserter(playersWithNoChips),
-        [] (const Player* player)
-        {
-            return player && player->getCurChips() == 0;
+    auto players = gameData.getPlayers();
+    for (const auto& player : players) {
+        if (player->getCurChips() == 0) {
+            // cout    << "(+) Player Manager: Removing the following player from the game due to insufficient chips: "
+            //        << player->getName() << '\n' << endl;
+            removeExistingPlayers({player->getId()});
         }
-    );
-
-    // Fetch the ids of filtered players
-    vector<string> idsOfNoChips;
-    std::transform
-    (
-        playersWithNoChips.begin(),
-        playersWithNoChips.end(),
-        std::back_inserter(idsOfNoChips),
-        [] (const Player* player)
-        {
-            return player->getId();
-        }
-    );
-
-    // Remove players with no chips
-    removeExistingPlayers(idsOfNoChips);
+    }
 }
 
-void PlayerManager::removeAllPlayers()
-{
+void PlayerManager::removeAllPlayers() {
     gameData.removeAllPlayers();
 }
 
-vector<string> PlayerManager::getPlayerIds()
-{
+vector<string> PlayerManager::getPlayerIds() {
     return GameUtil::getPlayerIds(gameData);
 }
 
-int PlayerManager::getNumPlayers() const
-{
-    return gameData.getNumPlayers();
+int PlayerManager::getNumPlayers() const {
+    return gameData.getPlayers().size();
 }
