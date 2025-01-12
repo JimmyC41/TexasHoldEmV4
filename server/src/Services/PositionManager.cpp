@@ -29,8 +29,6 @@ void PositionManager::updatePlayerPositionInGameData(const string& idOrName, con
 }
 
 void PositionManager::allocatePositions() {
-    // cout << "(+) Position Manager: Allocating Positions to Players!\n" << endl;
-
     // Populate the set of occupied positions from the player vector
     // Occupied positions before allocating position to a new player informs us
     // where we can NOT place new players
@@ -63,8 +61,6 @@ void PositionManager::allocatePositions() {
 }
 
 void PositionManager::rotatePositions() {
-    // cout << "(+) Position Manager: Rotating Positions for the next round!\n" << endl;
-
     // Fetch the previous button and small blind
     string newSmallId = gameData.getButtonPlayer()->getId();
     string newBigId = gameData.getSmallBlindPlayer()->getId();
@@ -92,8 +88,6 @@ void PositionManager::rotatePositions() {
 }
 
 void PositionManager::updatePlayerToAct() {
-    // cout << "(+) Position Manager: Finding the next player to act!\n" << endl;
-    
     // Find the player the next player to act
     const string& curId = gameData.getCurPlayer()->getId();
     shared_ptr<Player> nextPlayer = GameUtil::getNextPlayerInHand(gameData, curId);
@@ -105,8 +99,6 @@ void PositionManager::updatePlayerToAct() {
 }
 
 void PositionManager::setEarlyPositionToAct() {
-    // cout << "(+) PositionManager: Determining the first player to act!\n" << endl;
-
     Street curStreet = gameData.getStreet();
     shared_ptr<Player> earlyPosition;
 

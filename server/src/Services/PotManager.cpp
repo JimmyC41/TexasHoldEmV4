@@ -7,7 +7,6 @@ PotManager::PotManager(GameData& gameData) :
 
 void PotManager::populatePlayerBets() { 
     playerBets = PotUtil::getPlayerRecentBets(gameData);
-    // PrintUtil::printPlayerBetsInPotManager(playerBets);
 }
 
 uint32_t PotManager::getMinBetInPlayerBets() {
@@ -30,8 +29,6 @@ bool PotManager::allBetsAllocatedToPots() {
 }
 
 void PotManager::calculatePots() {
-    // cout << "(+) Pot Manager: Calculating pots based on bets made for the current street.\n" << endl;
-    
     // Clear winners (to be evaluated when betting actions are concluded)
     gameData.clearPotWinners();
 
