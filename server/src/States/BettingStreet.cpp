@@ -8,7 +8,7 @@ void BettingStreet::execute() {
         
         gameData.setCurStreet(static_cast<Street>(street));
 
-        // Event Manager: Publish NewStreetEvent
+        // Publish NewStreetEvent
         controller.getEventManager().publishNewStreetEvent();
 
         // Go to the betting street loop game logic
@@ -28,31 +28,28 @@ void BettingStreet::execute() {
 void BettingStreet::executeStreet() {
     Street street = gameData.getStreet();
 
-    //cout << "--------------------------------------------------------------\n";
-    //cout << "(+) State Manager: Entering the " << PrintUtil::streetToString(street) << "\n" << endl;
-
     // Deal the board and players
     switch(street) {
         case Street::PRE_FLOP: 
             controller.getDealerManager().dealGamePlayers();
             controller.getActionManager().handleBlinds();
 
-            // Event Manager: Publish DealPlayersEvent
+            // Publish DealPlayersEvent
             controller.getEventManager().publishDealPlayersEvent();
 
-            // Event Manager: Publish PlayersUpdateEvent (recent bets)
+            // Publish PlayersUpdateEvent (recent bets)
             controller.getEventManager().publishPlayersUpdateEvent();
             break;
         case Street::FLOP:
             controller.getDealerManager().dealBoard(3);
 
-            // Event Manager: Publish DealBoardEvent
+            // Publish DealBoardEvent
             controller.getEventManager().publishDealBoardEvent();
             break;
         default:
             controller.getDealerManager().dealBoard(1);
 
-            // Event Manager: Publish DealBoardEvent
+            // Publish DealBoardEvent
             controller.getEventManager().publishDealBoardEvent();
             break;         
     }
@@ -66,17 +63,17 @@ void BettingStreet::executeStreet() {
         auto id = gameData.getCurPlayer()->getId();
         controller.getActionManager().generatePossibleActionsForCurPlayer();
 
-        // Event Manager: Publish NewPlayerToActEvent
+        // Publish NewPlayerToActEvent
         controller.getEventManager().publishNewPlayerToActEvent();
 
         // Request Manager: Fetch and process action from the client
         auto [type, amount] = controller.getRequestManager().getActionRequest();
         controller.getActionManager().addNewAction(id, type, amount);
 
-        // Event Manager: Publish NewPlayerActionEvent
+        // Publish NewPlayerActionEvent
         controller.getEventManager().publishNewPlayerActionEvent();
 
-        // Event Manager: Publish PlayersUpdateEvent (for recent bets)
+        // Publish PlayersUpdateEvent (for recent bets)
         controller.getEventManager().publishPlayersUpdateEvent();
         
         // Update the next player to act
@@ -87,13 +84,13 @@ void BettingStreet::executeStreet() {
     // Calculate pots from the betting street
     controller.getPotManager().calculatePots();
 
-    // Event Manager: Publish PotUpdateEvent
+    // Publish PotUpdateEvent
     controller.getEventManager().publishPotUpdateEvent();
 
-    // Event Manager: Showdown (if end of RIVER reached)
+    // Showdown (if end of RIVER reached)
     controller.getEventManager().publishShowdownEvent();
 
-    // Event Manager: Publish PlayersUpdateEvent (for recent bets)
+    // Publish PlayersUpdateEvent (for recent bets)
     controller.getEventManager().publishPlayersUpdateEvent();
 }
 

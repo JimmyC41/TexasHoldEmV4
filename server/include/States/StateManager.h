@@ -16,7 +16,6 @@ private:
 
 public:
     StateManager(GameData& gd, GameController& ctrl);
-
     void setState(unique_ptr<State> newState);
     void transitionState();
 };

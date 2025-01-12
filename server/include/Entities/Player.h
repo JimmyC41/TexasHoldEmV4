@@ -27,6 +27,7 @@ private:
     PlayerStatus playerStatus;
     uint32_t initialChips; // Chips the player started the street with
     uint32_t recentBet;
+
 public:
     Player(string name, uint32_t chips, string id);
 

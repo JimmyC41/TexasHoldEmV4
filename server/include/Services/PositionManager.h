@@ -14,37 +14,44 @@ private:
     GameData& gameData;
     set<Position> occupiedPositions; 
 
-    // Called in allocatePositions to determine occupied positions
+    /* Called in allocatePositions to determine occupied positions */
     void populateOccupiedPositions();
 
-    // Updates GameData when a player's position is changed
+    /* Updates GameData when a player's position is changed */
     void updatePlayerPositionInGameData(const string& idOrName, const Position& newPosition);
 
-    // Assigns a small and big blind if previous players left the game and there are at least 2 players
+    /**
+     * Assigns a small and big blind if previous players
+     * left the game and there are at least 2 players
+     */
     void assignBlindsIfMissing();
 
 public:
     PositionManager(GameData& gameData);
 
-    // Event: Triggered when a client request to add a player is received in the Game Setup state
-    // To GameData:
-    // For players, sets their position and their status to IN_HAND
-    // For GameData, sorts players by position and sets the buttonId
+    /**
+     * Called when a client request to add a player is received
+     * For players, sets their position and their status to IN_HAND
+     * For GameData, sorts players by position and sets the buttonId
+     */
     void allocatePositions();
 
-    // Event: Triggered at the start of the Round End state.
-    // To GameData:
-    // For players, rotates their positions and resets their status to IN_HAND
+    /**
+     * Called at the beginning of the Round End state
+     * For players, rotates their positions and resets their status to IN_HAND
+     */
     void rotatePositions();
 
-    // Event: Triggered at the start of the Street Setup state.
-    // To GameData:
-    // Updates the curPlayerId to the first position to act
+    /**
+     * Called at the beginning of the Street Setup state
+     * Sets the early position to be the first to act
+     */
     void setEarlyPositionToAct();
 
-    // Event: Triggered after a client betting action is receieved in the Street In Progress state
-    // To GameData:
-    // Updates the curPlayerId to the next player to act in the game
+    /**
+     * Called after a client action is receieved
+     * Updates the current player to act
+     */
     void updatePlayerToAct();
 };
 

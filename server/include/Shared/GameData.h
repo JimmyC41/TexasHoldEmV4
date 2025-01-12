@@ -28,26 +28,39 @@ using PlayerStatus = Enums::PlayerStatus;
 
 class GameData {
 private:
-    // Persists for the Entire Round
+    // Shared pointers to player roles
     shared_ptr<Player> curPlayer;
     shared_ptr<Player> smallBlindPlayer;
     shared_ptr<Player> bigBlindPlayer;
     shared_ptr<Player> buttonPlayer;
 
-    vector<shared_ptr<Player>> gamePlayers;     // Ordered list of players by position
-    vector<string> rankedPlayerIds;             // Vector of IDs ranked on hand strengths (calculated in the Winner game state)
-    vector<shared_ptr<Pot>> pots;               // Calculated at the end of each betting street
-    uint32_t deadChips;
-    Board board;
-    uint32_t smallBlind;
-    uint32_t bigBlind;
+    // Vector of players, sorted by position when new players are added
+    vector<shared_ptr<Player>> gamePlayers;
+
+    // Vector of IDs, ranked by hand strengths
+    vector<string> rankedPlayerIds;       
+
+    // Vector of pots, calculated at the END of each betting street
+    vector<shared_ptr<Pot>> pots;
+
+    // Vector of action objects in a given betting street
+    vector<shared_ptr<Action>> actionTimeline;
+
+    // Vector IDs to their pot amount won
     vector<pair<uint32_t, string>> winners;
 
-    // Only Persists in Each Street:
+    // Ptr to the last 'aggressive' action that is not CALL or FOLD
+    shared_ptr<Action> activeAction;
+
+    // Vector of Posisble Action objects for the player to act
+    vector<shared_ptr<PossibleAction>> possibleActions;
+
+    // Other game state information
     Street curStreet;
-    vector<shared_ptr<Action>> actionTimeline;              // An ordered list of actions in the current betting street
-    shared_ptr<Action> activeAction;                        // Ptr to the last action that is not of type CALL or FOLD
-    vector<shared_ptr<PossibleAction>> possibleActions;     // List of possible actions for the current player to act
+    Board board;
+    uint32_t deadChips;
+    uint32_t smallBlind;
+    uint32_t bigBlind;
 
 public:
     GameData() :
@@ -70,7 +83,7 @@ public:
 
     void reset();
 
-    // SET Methods
+    // Setter Methods
     void addPlayer(const shared_ptr<Player>& player);
     void removePlayer(const shared_ptr<Player>& player);
     void sortPlayersByPosition();
@@ -87,10 +100,7 @@ public:
     void addActionToTimeline(const shared_ptr<Action>& action) { actionTimeline.push_back(action); }
     void clearActionTimeline() { actionTimeline.clear(); }
     void setActiveAction(const shared_ptr<Action>& action ) { activeAction = action; }
-    void setPossibleActions(const vector<shared_ptr<PossibleAction>>& actions) {
-        possibleActions.clear();
-        for (const auto& action : actions) possibleActions.push_back(action);
-    }
+    void setPossibleActions(const vector<shared_ptr<PossibleAction>>& actions);
     void addNewPot(const shared_ptr<Pot>& newPot) { pots.emplace_back(newPot); }
     void addChipsToCurPot(const uint32_t& chips) { pots.back()->addChips(chips); }
     void addIdToCurPot(const string& id) { pots.back()->addPlayerId(id); }
@@ -101,7 +111,7 @@ public:
     void clearPotWinners() { winners.clear(); }
     void addPotWinner(const uint32_t& chips, const string& id) { winners.emplace_back(chips, id); }
 
-    // GET Methods
+    // Getter Methods
     const shared_ptr<Player>& getCurPlayer() const { return curPlayer; }
     const shared_ptr<Player>& getSmallBlindPlayer() const { return smallBlindPlayer; }
     const shared_ptr<Player>& getBigBlindPlayer() const { return bigBlindPlayer; }

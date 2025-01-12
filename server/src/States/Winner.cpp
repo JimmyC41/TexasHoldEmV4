@@ -3,9 +3,6 @@
 #include "../../include/GameController.h"
 
 void Winner::execute() {
-    // cout << "--------------------------------------------------------------\n";
-    // cout << "(+) State Manger: Winner State\n" << endl;
-
     // Evaluate hand rankings and award pots to the winner
     // Then, publish the pot winner and clear pots
     controller.getHandRankManager().evaluateRankedIds();
@@ -14,7 +11,7 @@ void Winner::execute() {
     controller.getEventManager().publishPotWinnerEvent();
     controller.getEventManager().publishPlayersUpdateEvent();
 
-    // CLEAR GAME STATE FOR THE NEXT RD
+    // Prepare the game state for the next event:
 
     // Clear player hands
     controller.getDealerManager().clearPlayerHands();
@@ -30,8 +27,6 @@ void Winner::execute() {
 
     // Rotate positions and go to the game setup state
     controller.getPositionManager().rotatePositions();
-
-    cout << "TRANSITIONING TO GAME SETUP!" << endl;
     transition();
 }
 

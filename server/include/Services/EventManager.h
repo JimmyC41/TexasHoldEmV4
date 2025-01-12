@@ -18,14 +18,20 @@ private:
     unordered_set<grpc::ServerWriter<GameStreamRes>*> subscribers;
     mutex subscriberMutex;
 
+    // Helper Methods
     void publishEvent(const GameStreamRes& event);
     void logJsonOutput(const GameStreamRes& event);
+
 public:
     EventManager(GameData& gameData);
+
+    // Subscriber-Related Methods
     void addSubscriber(grpc::ServerWriter<GameStreamRes>* subscriber);
     void removeSubscriber(grpc::ServerWriter<GameStreamRes>* subscriber);
     bool allPlayersSubscribed();
+    int getNumSubs();
 
+    // Publish Methods
     void publishPlayersUpdateEvent();
     void publishNewStreetEvent();
     void publishDealPlayersEvent();
@@ -35,8 +41,6 @@ public:
     void publishPotUpdateEvent();
     void publishShowdownEvent();
     void publishPotWinnerEvent();
-
-    int getNumSubs();
 };
 
 

@@ -18,14 +18,17 @@ private:
 public:
     DealerManager(GameData& gameData);
 
-    void dealGamePlayers();     // Deals 2 hole cards for each player in  Game Data, starting from the next to act after the BB
-    void dealBoard(int num);    // Burns 1 card, then deals 'num' number of community cards to the board
+    /* Deals 2 hole cards to each player, starting from after the BB */
+    void dealGamePlayers();
+
+    /* Burns 1 card, then deals 'num' number of community cards to the board */
+    void dealBoard(int num);
 
     void resetDeck();
     void clearPlayerHands();
     void clearBoard();
 
-    // Getter Methods
+    // Getter Methods for the Board
     const vector<Card>& getBoardCards() const;
     const Board& getBoard() const;
     const Deck& getDeck() const;

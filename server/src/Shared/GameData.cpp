@@ -9,6 +9,11 @@ void GameData::removePlayer(const shared_ptr<Player>& player) {
     if (it != gamePlayers.end()) gamePlayers.erase(it);
 }
 
+ void GameData::setPossibleActions(const vector<shared_ptr<PossibleAction>>& actions) {
+    possibleActions.clear();
+    for (const auto& action : actions) possibleActions.push_back(action);
+}
+
 void GameData::setLastPlayerAsButton() { 
     if (!gamePlayers.empty()) setButtonPlayer(gamePlayers.back());
 }

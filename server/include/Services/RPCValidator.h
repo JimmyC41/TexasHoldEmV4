@@ -11,20 +11,17 @@ class RPCValidator {
 public:
     RPCValidator(GameData& gd);
 
-    // Returns FALSE if
-    // Player does not exist in the game
+    // Checks if a player exists in the game
     bool isInGame(const string& idOrName);
 
-    // Returns FALSE if:
-    // Game is full, name is invalid, chips is below min buyin
+    // Checks if a player can join the game
+    // Conditions: Game is not full, name is valid, chips is above min buyin
     bool canJoin(const string& name, const uint32_t& chips) const;
 
-    // Returns FALSE if player does not exist in the game
+    // Checks if a player can leave the game
     bool canLeave(const string& playerId) const;
 
-    // Returns FALSE if:
-    // Client is not the player to act (acting out of turn)
-    // Type and amount are not among valid possible actions!
+    // Checks if the client is the player to act and their action is valid
     bool isPossibleAction(const string& id, ActionType type, const uint32_t& amount) const;
 };
 

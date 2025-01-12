@@ -81,35 +81,43 @@ private:
 public:
     ActionManager(GameData& gameData);
 
-    // Event: Triggered when the GameController receives a valid client action in the Street in Progress state.
-    // To GameData: 
-    // Updates player attributes (current chips, player status, recent bet)
-    // Appends the new action to the action timeline and sets the active action (if aggressive actions)
+    void clearActiveAction();
+
+    /**
+     * Called when the GameController receives a valid client action
+     * Appends the new action to the timeline and sets the active action and
+     * Updates player attributes (current chips, player status, recent bet)
+     */
     void addNewAction(string idOrName, ActionType actionType, uint32_t amount = 0);
 
-    // Event: Triggered after players are dealt cards in the preflop
-    // Adds a new action for the posting of small and big blind
+    /**
+     * Called after players are dealt cards in the preflop street
+     * Adds a new action for the posting of small and big blind
+     */
     void handleBlinds();
 
-    // Event: Triggered when a player is instructed to act in the Street In Progress state.
-    // To GameData: Updates possibleActions vector for the current player to act.
-    // E.g. If last aggressive action was bet, the player can call, raise (if possible) or fold
-    // If no aggressive action, then the player can check, bet or fold
+    /**
+     * Called when a player is instructed to act in a betting street
+     * Generates possible actions for the current player and pushes updates to GAme Data
+     * E.g. If last aggressive action was bet, the player can call, raise (if possible) or fold
+     *  If no aggressive action, then the player can check, bet or fold
+     */
     void generatePossibleActionsForCurPlayer();
 
-    // Event: Triggered when the GameController processes the client action in the Street in Progress state.
-    // To Game Data:
-    // Resets player attributes (initialChips, recent bet)
-    // Clears the action timeline and sets the active action to NoneAction
-    // Returns True is all betting action is complete and the GameController can move to the next Street.
-    // Note: initialPlayers is the initial number of players that began a betting street.
+    /**
+     * Called when the GameController processes a client action
+     * Resets player attributes (initialChips, recent bet)
+     * Clears the action timeline and sets the active action to NoneAction
+     * Returns true if  betting action is complete and we are rady to move to the next street
+     */
     bool isActionsFinished();
 
-    // Event: Triggered immediately after a betting street
-    // Checks if there are less than two players in the hand, in which case we skip to the winner state
+    /**
+     * Called immediately after a betting street
+     * Checks if there are less than two players in the hand,
+     * in which case we skip to the winner state
+     */
     bool isShortPlayersInHand();
-
-    void clearActiveAction();
 };
 
 #endif

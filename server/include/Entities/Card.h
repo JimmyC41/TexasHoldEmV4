@@ -15,17 +15,18 @@ private:
     Suit suit;
     Value value;
     uint64_t bitwise;
+
 public:
     Card();
     explicit Card(Suit suit, Value value);
-
+    
     Suit getSuit() const;
     Value getValue() const;
     uint64_t getBitwise() const;
-
+    
     bool operator==(const Card& other) const;
     bool operator<(const Card& other) const;
     string toString() const;
 };
 
-#endif // CARD_H
+#endif

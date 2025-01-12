@@ -7,11 +7,13 @@
 using namespace std;
 using ActionType = Enums::ActionType;
 
-// Note: By default, a possible action has a 'default' amount
-// All-In Bet, All-In Call, Call, Check and Fold all have a single 'default value'
 
-// Bet and Raise actions are instantiated with an additional amount:
-// The default acts as the minimum, and the second amount is the maximum
+/**
+ * Note: By default, a possible action has a 'default' amount
+ * All-In Bet, All-In Call, Call, Check and Fold all have a single 'default value'
+ * Bet and Raise actions are instantiated with an additional amount:
+ * The default acts as the minimum, and the second amount is the maximum
+ */
 
 class PossibleAction {
 private:

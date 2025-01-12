@@ -10,9 +10,6 @@ constexpr int MAX_NUM_PLAYERS = 9;
 
 
 void GameSetup::execute() {
-    // cout << "--------------------------------------------------------------\n";
-    // cout << "(+) StateManager: Entering the Game\n" << endl;
-
     // Process oustanding requests to leave the game
     while (!controller.getRequestManager().isLeaveQueueEmpty()) {
         auto request = controller.getRequestManager().getLeaveRequest();

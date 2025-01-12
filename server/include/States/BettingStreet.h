@@ -13,9 +13,9 @@ private:
     Street street;
     void executeStreet();
     void handleBlindActions();
+
 public:
     BettingStreet(GameData& gd, GameController& ctrl) : State(gd, ctrl), street(Street::PRE_FLOP) {}
-
     void execute() override;
     void transition() override;
 };

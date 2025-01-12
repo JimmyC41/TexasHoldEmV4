@@ -10,11 +10,9 @@ Player::Player(string name, uint32_t chips, string id) :
     playerStatus(PlayerStatus::WAITING),
     initialChips(chips),
     recentBet(0),
-    handCategory(HandCategory::NONE)
-{}
+    handCategory(HandCategory::NONE) {}
 
-// SETTER METHODS
-
+// Setter Methods
 void Player::setPosition(Position newPosition) { position = newPosition; }
 void Player::addChips(uint32_t newChips) { curChips += newChips; }
 void Player::reduceChips(uint32_t lostChips) { curChips -= lostChips; }
@@ -26,8 +24,7 @@ void Player::setRecentBet(uint32_t newBet) { recentBet = newBet; }
 void Player::setHandCategory(HandCategory category) { handCategory = category; }
 void Player::setBestFiveCards(const vector<Card>& cards) { bestFiveCards = cards; }
 
-// GETTER METHODS
-
+// Getter Methods
 const string& Player::getName() const { return name; }
 const string& Player::getId() const { return id; }
 Position Player:: getPosition() const { return position; }

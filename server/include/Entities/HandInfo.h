@@ -16,7 +16,12 @@ private:
     HandCategory category;      // Category of hand (e.g. flush)
     vector<Card> bestFiveCards; // Best 5 card combination
 public:
-    HandInfo() : bitwise(), category(HandCategory::NONE), hand(), bestFiveCards(), handSize(0) {}
+    HandInfo() : 
+        bitwise(),
+        category(HandCategory::NONE),
+        hand(),
+        bestFiveCards(),
+        handSize(0) {}
 
     const vector<Card>& getHand() const { return hand; }
     const vector<Card>& getBestFiveCards() const { return bestFiveCards; }
