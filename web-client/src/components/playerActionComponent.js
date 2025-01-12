@@ -15,7 +15,6 @@ const PlayerActionComponent = () => {
 
     useEffect(() => {
         if (!nextPlayerToAct || sessionToken !== nextPlayerToAct.playerToAct) return;
-
         const countdown = setInterval(() => {
             setTimer((prev) => {
                 if (prev <= 1) {
@@ -27,7 +26,10 @@ const PlayerActionComponent = () => {
             });
         }, 1000);
 
-        return () => clearInterval(countdown);
+        return () => {
+            clearInterval(countdown);
+            setTimer(30);
+        }
     }, [nextPlayerToAct, sessionToken]);
 
     const handlePlayerAction = async (actionType, amount) => {

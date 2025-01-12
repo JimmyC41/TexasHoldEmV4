@@ -1,5 +1,4 @@
 #!/bin/bash
-
 rm -rf ./web-client/generated
 mkdir -p ./web-client/generated
 
