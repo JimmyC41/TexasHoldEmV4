@@ -27,6 +27,7 @@ void Winner::execute() {
 
     // Rotate positions and go to the game setup state
     controller.getPositionManager().rotatePositions();
+
     transition();
 }
 

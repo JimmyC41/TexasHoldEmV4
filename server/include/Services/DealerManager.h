@@ -28,7 +28,7 @@ public:
     void clearPlayerHands();
     void clearBoard();
 
-    // Getter Methods for the Board
+    /* Getter methods for the board */
     const vector<Card>& getBoardCards() const;
     const Board& getBoard() const;
     const Deck& getDeck() const;

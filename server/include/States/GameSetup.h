@@ -11,7 +11,6 @@ private:
 
 public:
     GameSetup(GameData& gd, GameController& ctrl) : State(gd, ctrl) {}
-
     void execute() override;
     void transition() override;
 };

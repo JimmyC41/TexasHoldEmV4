@@ -22,6 +22,12 @@
 #include <memory>
 #include <mutex>
 
+/**
+ * Coordinator for the Backend. Delegates state transitions to
+ * the State Manager and poker logic to other managers.
+ * Parses gRPC requests to the Request Manager, which other
+ * managers fetch when required.
+ */
 class GameController {
 private:
     GameData gameData;

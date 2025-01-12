@@ -36,7 +36,6 @@ int EventManager::getNumSubs() {
 void EventManager::publishEvent(const GameStreamRes& event) {
     lock_guard<mutex> lock(subscriberMutex);
 
-    // cout << "(+) Event Manager: Publishing an event to " << subscribers.size() << "subscribers.\n" << endl;
     for (auto it = subscribers.begin(); it != subscribers.end(); ) {
         if (!(*it)->Write(event)) it = subscribers.erase(it);
         else ++it;

@@ -26,6 +26,11 @@ using Street = Enums::Street;
 using Position = Enums::Position;
 using PlayerStatus = Enums::PlayerStatus;
 
+/**
+ * The Game Data acts as the single source of truth for an instance of 
+ * the game. Service managers push and pull to a shared Game Data that
+ * is initalised by the Game Controller.
+ */
 class GameData {
 private:
     // Shared pointers to player roles
