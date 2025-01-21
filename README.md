@@ -16,7 +16,7 @@ A high-level overview of the explanation is provided below.
   * **Action Manager** processes actions and determines valid actions (e.g. if player A bets, what can player B do?).
   * **PotManager** manages the pot sizes and distributes winnings. PositionManager manages player's positions and movements between rounds.
   * **HandRankManager** evaluates relative hand strengths and provides a player ranking.
-  * StateManager manages transitions between states (see below), which houses the game flow for a specific state (e.g. a betting street).
+  * **StateManager** manages transitions between states (see below), which houses the game flow for a specific state (e.g. a betting street).
   * **DealerManager** manages the deck and dealing of both player and community cards.
   * **PositionManager** manages the addition and removal of players in the game.
   * **RequestManager** (see below) keeps track of outstanding unary gRPC methods.
@@ -59,13 +59,6 @@ npx webpack serve
 ```
 http://localhost:8080
 ```
-
-### Reflection and Learnings
-Hindsight is 20/20.
-* On the backend, I wished I had more experience with the C++ STL before diving into this project. I made suboptimal low-level design decisions, such as using a std::vector to store players despite needing frequent lookups by position. In addition, many instances of repetitive logic across methods could've been solved by making use of templates. The list of 'things I would've done differently' is too long to list here.
-* I spent much of the development fiddling around with CMake and dependency management. Setting up the Protobuf compiler was a painful (but memorable) experience. Exploring such tools in smaller projects before tackling a larger system would've eased the learning curve.
-* I underestimated the importance of debugging tools and implementing robust error handling. I failed to add proper checks for edge cases and dealing with compilation errors unexpected behaviour turned out to be a lot more challenging than expected.
-
 
 
 
